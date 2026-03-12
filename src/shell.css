@@ -237,6 +237,7 @@ a {
   grid-template-rows: auto 1fr;
   position: relative;
   z-index: 1;
+  padding-bottom: 96px;
 }
 
 #wire-grid-canvas {
@@ -599,7 +600,7 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 18px;
-  padding: 18px;
+  padding: 18px 18px 120px;
 }
 
 .panel {
@@ -612,7 +613,7 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   padding: 14px;
   position: sticky;
   top: 76px;
-  height: calc(100vh - 94px);
+  height: calc(100dvh - 110px);
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--domain-accent) 72%, transparent) rgba(7, 14, 26, 0.82);
@@ -732,6 +733,7 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   min-width: 0;
   position: relative;
   overflow: hidden;
+  padding-bottom: 24px;
   background:
     linear-gradient(160deg, rgba(14, 24, 40, 0.9), rgba(9, 15, 27, 0.82)),
     radial-gradient(circle at 14% 8%, var(--domain-panel-tint), transparent 30%);
