@@ -10,6 +10,12 @@ Vite multipage integration for Stitch-exported AegisAlign UI pages.
 - `npm run dev`: sync and start local Vite dev server.
 - `npm run build`: sync, validate, and produce static build in `dist/`.
 - `npm run preview`: preview the production build.
+- `npm run preview:cf`: preview `dist/` with Cloudflare Pages routing (`_redirects` + `_headers`) applied.
+
+## Local 404 Note
+
+If you use a generic static server or `vite preview`, paths like `/nexus` (without trailing slash) can 404 locally.
+Use canonical paths with trailing slash (for example, `/nexus/`) or run `npm run preview:cf` after `npm run build`.
 
 ## Custodian Split
 

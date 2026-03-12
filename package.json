@@ -11,7 +11,8 @@
     "export:sitemap": "node scripts/export-sitemap.mjs",
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:cf": "npx wrangler pages dev ./dist --compatibility-date=2026-03-12"
   },
   "devDependencies": {
     "three": "^0.180.0",
