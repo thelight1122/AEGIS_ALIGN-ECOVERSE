@@ -455,7 +455,9 @@ function routeTemplate({ page, domain, domainPages }) {
     title,
     stitchPath,
     current,
-  }) => `<article class="thread-card ${frameRole === "primary" ? "thread-card-primary" : frameRole === "entrance" ? "thread-card-entrance" : "thread-card-active"} ${current ? "thread-card-current" : ""}" ${current ? 'data-thread-entry="incoming"' : ""}>
+    returnMarkup = "",
+  }) => `<article class="thread-card ${frameRole === "primary" ? "thread-card-primary" : frameRole === "entrance" ? "thread-card-entrance" : "thread-card-active"} ${current ? "thread-card-current" : ""} ${returnMarkup ? "thread-card-with-return" : ""}" ${current ? 'data-thread-entry="incoming"' : ""}>
+              ${returnMarkup}
               <div class="thread-meta">
                 <div>
                   <p class="thread-kicker">${escapeHtml(kicker)}</p>
@@ -507,15 +509,6 @@ function routeTemplate({ page, domain, domainPages }) {
 
       if (isWorkshopConsolePage) {
         sections.push(
-          renderThreadReturn({
-            kicker: "Workshop Access",
-            heading: "Workshop Entrance",
-            badge: "Login Surface",
-            href: workshopEntrance.routePath,
-            icon: "↩",
-          }),
-        );
-        sections.push(
           renderThreadCard({
             kicker: "Pinned Thread",
             heading: "Workshop Main Console",
@@ -524,16 +517,13 @@ function routeTemplate({ page, domain, domainPages }) {
             title: workshopConsole.title,
             stitchPath: workshopConsole.stitchPath,
             current: true,
-          }),
-        );
-      } else if (!isEntrancePage) {
-        sections.push(
-          renderThreadReturn({
-            kicker: "Pinned Thread",
-            heading: "Workshop Main Console",
-            badge: "Console Layer",
-            href: workshopConsole.routePath,
-            icon: "↩",
+            returnMarkup: renderThreadReturn({
+              kicker: "Workshop Access",
+              heading: "Workshop Entrance",
+              badge: "Login Surface",
+              href: workshopEntrance.routePath,
+              icon: "↩",
+            }),
           }),
         );
       }
@@ -548,6 +538,13 @@ function routeTemplate({ page, domain, domainPages }) {
             title: page.title,
             stitchPath: page.stitchPath,
             current: true,
+            returnMarkup: renderThreadReturn({
+              kicker: "Pinned Thread",
+              heading: "Workshop Main Console",
+              badge: "Console Layer",
+              href: workshopConsole.routePath,
+              icon: "↩",
+            }),
           }),
         );
       }
