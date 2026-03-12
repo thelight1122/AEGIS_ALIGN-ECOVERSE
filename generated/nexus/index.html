@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="nexus-surface with-ambient-signals">
+    <video
+    id="ether-video"
+    class="ether-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+  >
+    <source src="/media/nexus-ether-soft-light.mp4" type="video/mp4" />
+  </video>
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -60,6 +72,8 @@
     <script type="module" src="/src/reminder-signals.js"></script>
     <script type="module" src="/src/ambient-signals.js"></script>
     <script type="module" src="/src/peer-signs.js"></script>
+    <script type="module" src="/src/hub-billboards.js"></script>
+    <script type="module" src="/src/wire-grid-prism.js"></script>
     <script type="module" src="/src/portal-transit.js"></script>
   </body>
 </html>

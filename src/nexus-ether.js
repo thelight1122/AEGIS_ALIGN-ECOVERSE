@@ -86,6 +86,73 @@ if (!canvas) {
     shards.push(shard);
   }
 
+  const isCompact = window.matchMedia("(max-width: 900px)").matches;
+  const billboardSources = [
+    "/media/billboard-soft-light-721.mp4",
+    "/media/billboard-soft-light-582.mp4",
+    "/media/billboard-soft-light-578.mp4",
+    "/media/billboard-soft-light-529.mp4",
+    "/media/billboard-soft-light-562.mp4",
+  ];
+  const activeBillboardSources = isCompact ? billboardSources.slice(0, 3) : billboardSources;
+  const billboardGeometry = new THREE.PlaneGeometry(1.9, 1.1);
+  const billboardMeshes = [];
+  const billboardMaterials = [];
+  const billboardTextures = [];
+  const billboardVideos = [];
+
+  for (let i = 0; i < activeBillboardSources.length; i += 1) {
+    const source = activeBillboardSources[i];
+    const video = document.createElement("video");
+    video.src = source;
+    video.loop = true;
+    video.muted = true;
+    video.autoplay = true;
+    video.preload = "metadata";
+    video.playsInline = true;
+    video.crossOrigin = "anonymous";
+    video.setAttribute("playsinline", "");
+    video.setAttribute("muted", "");
+
+    const texture = new THREE.VideoTexture(video);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.generateMipmaps = false;
+
+    const material = new THREE.MeshBasicMaterial({
+      map: texture,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.78,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+
+    const mesh = new THREE.Mesh(billboardGeometry, material);
+    const arc = (i / activeBillboardSources.length) * Math.PI * 2;
+    mesh.position.set(Math.cos(arc) * 3.4, Math.sin(arc * 1.2) * 1.2, -4.2 - i * 1.2);
+    scene.add(mesh);
+
+    const start = video.play();
+    if (start && typeof start.catch === "function") {
+      start.catch(() => {
+        // Autoplay can be blocked until user interaction on some clients.
+      });
+    }
+
+    billboardMeshes.push({
+      mesh,
+      baseX: mesh.position.x,
+      baseY: mesh.position.y,
+      baseZ: mesh.position.z,
+      phase: Math.random() * Math.PI * 2,
+    });
+    billboardVideos.push(video);
+    billboardTextures.push(texture);
+    billboardMaterials.push(material);
+  }
+
   function resize() {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -115,6 +182,14 @@ if (!canvas) {
       shard.position.y += Math.sin(t * 0.4 + drift) * 0.0009;
       shard.position.x += Math.cos(t * 0.34 + drift) * 0.0007;
     }
+    for (let i = 0; i < billboardMeshes.length; i += 1) {
+      const board = billboardMeshes[i];
+      const wobble = board.phase;
+      board.mesh.position.x = board.baseX + Math.cos(t * 0.22 + wobble) * 0.22;
+      board.mesh.position.y = board.baseY + Math.sin(t * 0.36 + wobble) * 0.17;
+      board.mesh.position.z = board.baseZ + Math.sin(t * 0.18 + wobble) * 0.25;
+      board.mesh.lookAt(camera.position);
+    }
 
     if (!reducedMotion) {
       camera.position.x = Math.sin(t * 0.18) * 0.22;
@@ -139,5 +214,13 @@ if (!canvas) {
     glowMaterial.dispose();
     shardGeometry.dispose();
     shardMaterial.dispose();
+    billboardGeometry.dispose();
+    for (let i = 0; i < billboardTextures.length; i += 1) {
+      billboardTextures[i].dispose();
+      billboardMaterials[i].dispose();
+      billboardVideos[i].pause();
+      billboardVideos[i].src = "";
+      billboardVideos[i].load();
+    }
   });
 }

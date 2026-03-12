@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glass Photo 3D</title>
+
+  <style>
+    body{margin:0;overflow:hidden;background:#050505;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+    canvas{display:block;cursor:grab;touch-action:none;}
+    canvas:active{cursor:grabbing;}
+    .ui{position:fixed;top:20px;left:20px;display:flex;gap:12px;z-index:10;align-items:center}
+    .btn{appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,18,.65);color:#fff;padding:10px 14px;border-radius:14px;font-weight:600;font-size:13px;backdrop-filter:blur(10px);cursor:pointer;transition:.2s;display:flex;gap:8px;align-items:center}
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.22);background:rgba(22,22,22,.72)}
+    .btn:active{transform:translateY(0px);opacity:.9}
+    .select{border:1px solid rgba(255,255,255,.14);background:rgba(18,18,18,.65);color:#fff;padding:10px 14px;border-radius:14px;font-weight:600;font-size:13px;backdrop-filter:blur(10px);cursor:pointer;outline:none}
+    .select option{background:#0b0b0b;color:#fff}
+    #hint{position:fixed;left:20px;bottom:18px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);padding:10px 12px;border-radius:14px;color:#fff;font-size:13px;backdrop-filter:blur(8px);user-select:none;z-index:10}
+    #hint b{font-weight:800}
+  </style>
+
+  <input type="file" id="fileInput" accept="image/*" style="display:none;">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <div class="ui">
+    <button class="btn" id="uploadBtn">📂 Upload Photo</button>
+    <select class="select" id="shapeSelect">
+      <option value="Circle" selected>Circle</option>
+      <option value="Heart">Heart</option>
+      <option value="Square">Square</option>
+      <option value="Hexagon">Hexagon</option>
+      <option value="Octagon">Octagon</option>
+      <option value="Rounded Rectangle">Rounded Rectangle</option>
+    </select>
+  </div>
+
+  <div id="hint"><b>Use:</b> Drag rotate • Scroll zoom • Pinch zoom</div>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+    import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+
+    const fileInput = document.getElementById("fileInput");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const shapeSelect = document.getElementById("shapeSelect");
+
+    const state = { shape: "Circle", segments: 160 };
+
+    // ✅ tiny inset to avoid edge bleed from AA
+    const PHOTO_INSET = 0.97;
+
+    // ✅ make photo sit in the CENTER of the glass thickness (not at the front edge)
+    // glass depth is 1.0 and centered, so front face ≈ +0.5
+    // placing photo near z=0 keeps it centered inside.
+    const PHOTO_Z = 0.00;
+
+    // --- SCENE ---
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#050505");
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.02, 200);
+    camera.position.set(0, 0, 7);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    document.body.appendChild(renderer.domElement);
+
+    // --- LIGHTS ---
+    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    keyLight.position.set(6, 10, 8);
+    scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0xffffff, 2.6);
+    rimLight.position.set(-6, 3, -10);
+    scene.add(rimLight);
+
+    // --- ENV ---
+    const envUrl = "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/royal_esplanade_2k.hdr";
+    const rgbeLoader = new RGBELoader();
+
+    // --- GROUP ---
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // --- GLASS ---
+    const glassMat = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#ffffff"),
+      transmission: 1.0,
+      opacity: 1.0,
+      metalness: 0.0,
+      roughness: 0.02,
+      ior: 1.5,
+      thickness: 1.2,
+      specularIntensity: 1.0,
+      envMapIntensity: 1.2,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.0,
+      transparent: true,
+      side: THREE.DoubleSide,
+      depthWrite: false
+    });
+
+    const glassMesh = new THREE.Mesh(new THREE.BufferGeometry(), glassMat);
+    glassMesh.renderOrder = 2;
+    group.add(glassMesh);
+
+    // ✅ PHOTO: exact silhouette geometry
+    const photoMat = new THREE.MeshStandardMaterial({
+      side: THREE.DoubleSide,
+      color: 0xffffff,
+      roughness: 0.35,
+      metalness: 0.05,
+      transparent: true,
+      opacity: 1.0
+    });
+
+    const photoMesh = new THREE.Mesh(new THREE.BufferGeometry(), photoMat);
+    photoMesh.renderOrder = 1;
+    group.add(photoMesh);
+
+    let sourceImg = null;
+
+    // ---------- SHAPES ----------
+    function createSmoothShape(radiusX, radiusY, points = 180) {
+      const shape = new THREE.Shape();
+      const step = (Math.PI * 2) / points;
+      for (let i = 0; i < points; i++) {
+        const a = i * step;
+        const x = Math.cos(a) * radiusX;
+        const y = Math.sin(a) * radiusY;
+        if (i === 0) shape.moveTo(x, y);
+        else shape.lineTo(x, y);
+      }
+      shape.closePath();
+      return shape;
+    }
+
+    function createHeartShape() {
+      const x = 0, y = 0;
+      const s = new THREE.Shape();
+      s.moveTo(x + 0.5, y + 0.5);
+      s.bezierCurveTo(x + 0.5, y + 0.5, x + 0.4, y, x, y);
+      s.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
+      s.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.5, y + 1.9);
+      s.bezierCurveTo(x + 1.2, y + 1.54, x + 1.6, y + 1.1, x + 1.6, y + 0.7);
+      s.bezierCurveTo(x + 1.6, y + 0.7, x + 1.6, y, x + 1.0, y);
+      s.bezierCurveTo(x + 0.7, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5);
+      s.closePath();
+      return s;
+    }
+
+    function createPolygonShape(sides, radius) {
+      const shape = new THREE.Shape();
+      const step = (Math.PI * 2) / sides;
+      const offset = sides === 6 ? Math.PI / 2 : Math.PI / 8;
+      for (let i = 0; i < sides; i++) {
+        const x = Math.cos(i * step + offset) * radius;
+        const y = Math.sin(i * step + offset) * radius;
+        if (i === 0) shape.moveTo(x, y);
+        else shape.lineTo(x, y);
+      }
+      shape.closePath();
+      return shape;
+    }
+
+    function createRoundedRectShape(w, h, r) {
+      const s = new THREE.Shape();
+      const x = -w/2, y = -h/2;
+      s.moveTo(x + r, y);
+      s.lineTo(x + w - r, y);
+      s.quadraticCurveTo(x + w, y, x + w, y + r);
+      s.lineTo(x + w, y + h - r);
+      s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      s.lineTo(x + r, y + h);
+      s.quadraticCurveTo(x, y + h, x, y + h - r);
+      s.lineTo(x, y + r);
+      s.quadraticCurveTo(x, y, x + r, y);
+      s.closePath();
+      return s;
+    }
+
+    function getShape2D(type, detail) {
+      if (type === "Circle") return createSmoothShape(1.12, 1.12, Math.max(detail, 160));
+      if (type === "Heart") return createHeartShape();
+      if (type === "Hexagon") return createPolygonShape(6, 1.2);
+      if (type === "Octagon") return createPolygonShape(8, 1.2);
+      if (type === "Rounded Rectangle") return createRoundedRectShape(2.25, 1.65, 0.35);
+      return createRoundedRectShape(2.1, 2.1, 0.22);
+    }
+
+    function buildExtrude(type, detail) {
+      const extrudeSettings = {
+        depth: 1.0,
+        bevelEnabled: true,
+        bevelSegments: 10,
+        steps: 2,
+        bevelSize: 0.08,
+        bevelThickness: 0.1,
+        curveSegments: Math.max(detail, 96)
+      };
+
+      if (type === "Square") return new RoundedBoxGeometry(2.1, 2.1, 1.0, 32, 0.26);
+
+      if (type === "Circle") { const geo = new THREE.ExtrudeGeometry(getShape2D("Circle", detail), extrudeSettings); geo.center(); return geo; }
+      if (type === "Heart") { const geo = new THREE.ExtrudeGeometry(getShape2D("Heart", detail), extrudeSettings); geo.center(); geo.rotateZ(Math.PI); geo.scale(1.2, 1.2, 1); return geo; }
+      if (type === "Hexagon") { const geo = new THREE.ExtrudeGeometry(getShape2D("Hexagon", detail), extrudeSettings); geo.center(); return geo; }
+      if (type === "Octagon") { const geo = new THREE.ExtrudeGeometry(getShape2D("Octagon", detail), extrudeSettings); geo.center(); return geo; }
+      if (type === "Rounded Rectangle") { const geo = new THREE.ExtrudeGeometry(getShape2D("Rounded Rectangle", detail), extrudeSettings); geo.center(); return geo; }
+
+      return new RoundedBoxGeometry(2.1, 2.1, 1.0, 32, 0.26);
+    }
+
+    // ✅ UV fix so image fills the entire shape correctly (no stretch)
+    function applyPlanarUV(geo){
+      geo.computeBoundingBox();
+      const bb = geo.boundingBox;
+      const sizeX = bb.max.x - bb.min.x || 1;
+      const sizeY = bb.max.y - bb.min.y || 1;
+
+      const pos = geo.attributes.position;
+      const uv = new Float32Array(pos.count * 2);
+
+      for(let i=0;i<pos.count;i++){
+        const x = pos.getX(i);
+        const y = pos.getY(i);
+        uv[i*2+0] = (x - bb.min.x) / sizeX;
+        uv[i*2+1] = (y - bb.min.y) / sizeY;
+      }
+
+      geo.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+      geo.attributes.uv.needsUpdate = true;
+    }
+
+    // ✅ photo geometry matches silhouette + inset + corrected UVs
+    function buildPhotoShapeGeometry(type, detail) {
+      const shape = getShape2D(type, detail);
+
+      let geo = new THREE.ShapeGeometry(shape, Math.max(48, Math.floor(detail/2)));
+      geo.center();
+
+      if(type==="Heart"){
+        geo.rotateZ(Math.PI);
+        geo.scale(1.2, 1.2, 1);
+      }
+
+      geo.scale(PHOTO_INSET, PHOTO_INSET, 1);
+      applyPlanarUV(geo);
+      geo.computeVertexNormals();
+      return geo;
+    }
+
+    // ✅ cover-crop to square (like object-fit: cover)
+function makeCoverSquareTexture(img, size=1024) {
+  const canvas = document.createElement("canvas");
+  canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  const iw = img.naturalWidth || img.width;
+  const ih = img.naturalHeight || img.height;
+
+  const scale = Math.max(size / iw, size / ih);
+  const sw = iw * scale;
+  const sh = ih * scale;
+  const dx = (size - sw) / 2;
+  const dy = (size - sh) / 2;
+
+  ctx.clearRect(0,0,size,size);
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, dx, dy, sw, sh);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+  tex.wrapS = THREE.ClampToEdgeWrapping;
+  tex.wrapT = THREE.ClampToEdgeWrapping;
+
+  // ✅ FIX: do NOT force flipY=false
+  tex.flipY = true;
+
+  tex.needsUpdate = true;
+  return tex;
+}
+
+
+
+    
+
+    function applyPhotoFromImage(imgEl) {
+      if (photoMat.map) photoMat.map.dispose?.();
+      photoMat.map = makeCoverSquareTexture(imgEl, 1024);
+      photoMat.needsUpdate = true;
+    }
+
+    // ✅ CENTER the photo inside the 3D glass:
+    // - center it in Z (PHOTO_Z = 0)
+    // - also center the whole object group to its true bounding box center
+    function centerGroupToGeometry() {
+      const box = new THREE.Box3().setFromObject(group);
+      const center = box.getCenter(new THREE.Vector3());
+      group.position.sub(center); // move group so its center is at world origin
+    }
+
+    function updateGeometry() {
+      if (glassMesh.geometry) glassMesh.geometry.dispose();
+      glassMesh.geometry = buildExtrude(state.shape, state.segments);
+
+      if (photoMesh.geometry) photoMesh.geometry.dispose();
+      photoMesh.geometry = buildPhotoShapeGeometry(state.shape, state.segments);
+
+      // ✅ put photo at the center of the glass thickness (NOT at the front edge)
+      photoMesh.position.set(0, 0, PHOTO_Z);
+
+      if (sourceImg) applyPhotoFromImage(sourceImg);
+
+      // ✅ ensure object is perfectly centered in world space
+      centerGroupToGeometry();
+    }
+
+    // --- DEFAULT PHOTO ---
+    function setPhotoFromUrl(url) {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => { sourceImg = img; applyPhotoFromImage(img); };
+      img.src = url;
+    }
+    setPhotoFromUrl("https://ik.imagekit.io/gopichakradhar101/super.jpg");
+
+    // --- UPLOAD ---
+    function handleFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target.result;
+        const img = new Image();
+        img.onload = () => { sourceImg = img; applyPhotoFromImage(img); };
+        img.src = base64;
+      };
+      reader.readAsDataURL(file);
+      fileInput.value = "";
+    }
+
+    uploadBtn.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", (e) => handleFile(e.target.files[0]));
+
+    shapeSelect.addEventListener("change", (e) => {
+      state.shape = e.target.value;
+      updateGeometry();
+    });
+
+    // --- LOAD ENV + INIT ---
+    rgbeLoader.load(envUrl, (texture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      scene.environment = texture;
+      updateGeometry();
+    });
+
+    // --- INTERACTION ---
+    let isDown = false;
+    let lastX = 0, lastY = 0;
+    let userRotX = 0, userRotY = 0;
+
+    const ROT_SPEED = 0.006;
+    const MIN_Z = 2.2;
+    const MAX_Z = 14;
+
+    renderer.domElement.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      renderer.domElement.setPointerCapture(e.pointerId);
+    });
+
+    renderer.domElement.addEventListener("pointermove", (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      userRotY += dx * ROT_SPEED;
+      userRotX += dy * ROT_SPEED;
+      userRotX = Math.max(-1.25, Math.min(1.25, userRotX));
+    });
+
+    renderer.domElement.addEventListener("pointerup", (e) => {
+      isDown = false;
+      renderer.domElement.releasePointerCapture(e.pointerId);
+    });
+
+    renderer.domElement.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const zoomFactor = Math.pow(1.0018, e.deltaY);
+      camera.position.z = THREE.MathUtils.clamp(camera.position.z * zoomFactor, MIN_Z, MAX_Z);
+    }, { passive:false });
+
+    let pinchDist = 0;
+    function dist(t1, t2){const dx=t1.clientX-t2.clientX,dy=t1.clientY-t2.clientY;return Math.hypot(dx,dy);}
+    renderer.domElement.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 2) pinchDist = dist(e.touches[0], e.touches[1]);
+    }, { passive:false });
+
+    renderer.domElement.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const d = dist(e.touches[0], e.touches[1]);
+        const ratio = pinchDist / d;
+        pinchDist = d;
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z * ratio, MIN_Z, MAX_Z);
+      }
+    }, { passive:false });
+
+    // --- ANIMATION ---
+    const clock = new THREE.Clock();
+    let t = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = clock.getDelta();
+      t += dt;
+
+      group.rotation.y += dt * 0.45;
+      group.rotation.x = Math.cos(t * 0.6) * 0.14;
+      group.rotation.z = Math.sin(t * 0.45) * 0.08;
+
+      group.rotation.y += userRotY * 0.08;
+      group.rotation.x += userRotX * 0.08;
+
+      userRotY *= 0.90;
+      userRotX *= 0.90;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // --- RESIZE ---
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

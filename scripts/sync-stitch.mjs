@@ -282,7 +282,22 @@ function domainBodyClass(domainSlug) {
 }
 
 function shellScriptsTemplate() {
-  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>';
+  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>';
+}
+
+function nexusVideoTemplate() {
+  return `<video
+    id="ether-video"
+    class="ether-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+  >
+    <source src="/media/nexus-ether-soft-light.mp4" type="video/mp4" />
+  </video>`;
 }
 
 function ethosStripTemplate(canonicalContract) {
@@ -723,6 +738,7 @@ function nexusTemplate(hubs, pages) {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="nexus-surface with-ambient-signals">
+    ${nexusVideoTemplate()}
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -796,6 +812,7 @@ function rootIndexTemplate(hubs, pages) {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="immersive-root nexus-surface with-ambient-signals">
+    ${nexusVideoTemplate()}
     <canvas id="ether-canvas" aria-hidden="true"></canvas>
     <div class="layout immersive-layer">
       <header class="topbar">
