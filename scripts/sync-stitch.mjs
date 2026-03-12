@@ -282,7 +282,7 @@ function domainBodyClass(domainSlug) {
 }
 
 function shellScriptsTemplate() {
-  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/entrance-float.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>';
+  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/entrance-float.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>\n    <script type="module" src="/src/glass-frame.js"></script>';
 }
 
 function nexusVideoTemplate() {
