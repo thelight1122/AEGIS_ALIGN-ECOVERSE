@@ -564,36 +564,100 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   top: 76px;
   height: calc(100vh - 94px);
   overflow: auto;
+  background:
+    linear-gradient(180deg, rgba(12, 20, 34, 0.98), rgba(8, 13, 24, 0.94)),
+    radial-gradient(circle at 0% 0%, rgba(117, 234, 255, 0.08), transparent 30%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 34px rgba(0, 0, 0, 0.26);
 }
 
 .sidebar h2 {
   font-size: 12px;
   margin: 2px 4px 10px;
-  color: var(--muted);
+  color: #b9d6f8;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 }
 
 .page-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .page-list a {
+  position: relative;
   display: block;
-  border: 1px solid transparent;
-  color: var(--muted);
-  border-radius: 10px;
-  padding: 9px 10px;
-  font-size: 13px;
+  overflow: hidden;
+  border: 1px solid rgba(95, 160, 230, 0.18);
+  color: #9bb8d9;
+  border-radius: 14px;
+  padding: 11px 14px 11px 16px;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0.015em;
+  background:
+    linear-gradient(135deg, rgba(19, 34, 56, 0.94), rgba(10, 18, 31, 0.88)),
+    radial-gradient(circle at 0% 50%, rgba(86, 216, 167, 0.09), transparent 24%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 8px 18px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.page-list a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(94, 241, 209, 0.18), rgba(79, 163, 255, 0.18));
+  opacity: 0.7;
+}
+
+.page-list a::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 12px;
+  border: 1px solid rgba(190, 232, 255, 0.04);
+  pointer-events: none;
 }
 
 .page-list a:hover,
 .page-list a.active {
-  color: var(--text);
-  border-color: var(--border);
-  background: #11203a;
+  color: #eff7ff;
+  border-color: rgba(129, 205, 255, 0.44);
+  background:
+    linear-gradient(135deg, rgba(22, 43, 72, 0.98), rgba(10, 20, 35, 0.94)),
+    radial-gradient(circle at 0% 50%, rgba(94, 241, 209, 0.18), transparent 28%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 24px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(99, 186, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.page-list a.active {
+  border-color: rgba(101, 224, 198, 0.52);
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(22, 54, 74, 0.98), rgba(11, 24, 38, 0.94)),
+    radial-gradient(circle at 0% 50%, rgba(94, 241, 209, 0.24), transparent 30%);
+}
+
+.page-list a.active::before {
+  background: linear-gradient(180deg, #7ef5d7, #63baff);
+  box-shadow: 0 0 12px rgba(94, 241, 209, 0.45);
+  opacity: 1;
 }
 
 .content-wrap {
@@ -787,17 +851,17 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   --glass-glow-y: 16%;
   position: relative;
   margin: 0 18px 18px;
-  padding: 18px;
-  border: 1px solid rgba(151, 214, 255, 0.28);
+  padding: 20px;
+  border: 1px solid rgba(184, 231, 255, 0.24);
   border-radius: 28px;
   background:
-    linear-gradient(180deg, rgba(227, 247, 255, 0.14), rgba(227, 247, 255, 0.03) 18%, rgba(8, 12, 20, 0.28) 100%),
-    radial-gradient(circle at var(--glass-glow-x) var(--glass-glow-y), rgba(185, 245, 255, 0.22), transparent 28%),
-    linear-gradient(155deg, rgba(9, 19, 33, 0.78), rgba(6, 11, 20, 0.94));
+    linear-gradient(180deg, rgba(245, 252, 255, 0.12), rgba(245, 252, 255, 0.02) 20%, rgba(8, 12, 20, 0.2) 100%),
+    radial-gradient(circle at var(--glass-glow-x) var(--glass-glow-y), rgba(216, 247, 255, 0.16), transparent 26%),
+    linear-gradient(155deg, rgba(10, 20, 34, 0.72), rgba(5, 10, 19, 0.9));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -18px 30px rgba(5, 10, 20, 0.44),
-    0 26px 44px rgba(0, 0, 0, 0.42);
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -14px 24px rgba(5, 10, 20, 0.3),
+    0 24px 40px rgba(0, 0, 0, 0.34);
   transform:
     perspective(2200px)
     rotateX(var(--glass-rotate-x))
@@ -814,26 +878,26 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
 .iframe-wrap::after {
   content: "";
   position: absolute;
-  inset: 10px;
+  inset: 11px;
   border-radius: 22px;
   pointer-events: none;
 }
 
 .iframe-wrap::before {
-  border: 1px solid rgba(224, 248, 255, 0.18);
+  border: 1px solid rgba(232, 249, 255, 0.16);
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.2), transparent 18%, transparent 72%, rgba(146, 235, 255, 0.16)),
-    radial-gradient(circle at var(--glass-glow-x) var(--glass-glow-y), rgba(255, 255, 255, 0.18), transparent 24%);
-  opacity: 0.9;
+    linear-gradient(115deg, rgba(255, 255, 255, 0.18), transparent 16%, transparent 70%, rgba(170, 235, 255, 0.12)),
+    radial-gradient(circle at var(--glass-glow-x) var(--glass-glow-y), rgba(255, 255, 255, 0.12), transparent 22%);
+  opacity: 0.82;
 }
 
 .iframe-wrap::after {
-  inset: auto 18px 12px 18px;
-  height: 28px;
+  inset: auto 24px 14px 24px;
+  height: 22px;
   border-radius: 999px;
-  background: radial-gradient(circle at center, rgba(93, 188, 255, 0.22), transparent 68%);
-  filter: blur(16px);
-  opacity: 0.65;
+  background: radial-gradient(circle at center, rgba(120, 206, 255, 0.16), transparent 68%);
+  filter: blur(14px);
+  opacity: 0.42;
 }
 
 .iframe-wrap.glass-engaged {
@@ -847,16 +911,16 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
 .stitch-frame {
   width: 100%;
   position: relative;
-  border: 1px solid rgba(174, 227, 255, 0.18);
-  border-radius: 18px;
+  border: 1px solid rgba(194, 235, 255, 0.14);
+  border-radius: 20px;
   display: block;
   min-height: 80vh;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
     var(--glass-core);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 14px 28px rgba(3, 8, 16, 0.34);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 24px rgba(3, 8, 16, 0.22);
   transform: translateZ(34px);
 }
 
