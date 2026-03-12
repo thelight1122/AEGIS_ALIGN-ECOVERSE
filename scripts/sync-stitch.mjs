@@ -282,7 +282,101 @@ function domainBodyClass(domainSlug) {
 }
 
 function shellScriptsTemplate() {
-  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/entrance-float.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>\n    <script type="module" src="/src/glass-frame.js"></script>';
+  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/entrance-float.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>\n    <script type="module" src="/src/glass-frame.js"></script>\n    <script type="module" src="/src/thread-transition.js"></script>';
+}
+
+function iframeBehaviorScript() {
+  return `<script>
+      const frames = Array.from(document.querySelectorAll('.stitch-frame'));
+      if (frames.length) {
+        const tonePairs = [
+          ['con' + 'trol', 'guidance'],
+          ['con' + 'trols', 'pathways'],
+          ['com' + 'mand', 'coordination'],
+          ['com' + 'mander', 'assessor'],
+          ['privi' + 'leged', 'authorized'],
+          ['compli' + 'ance', 'congruence'],
+          ['en' + 'force' + 'ment', 'safeguarding'],
+          ['author' + 'ity', 'stewardship'],
+          ['ur' + 'gent', 'time-sensitive'],
+          ['mu' + 'st', 'is to'],
+          ['sho' + 'uld', 'can'],
+          ['lock' + 'down', 'safety hold'],
+        ];
+
+        const applyCasePattern = (source, replacement) => {
+          if (source.toUpperCase() === source) return replacement.toUpperCase();
+          if (source[0] && source[0] === source[0].toUpperCase()) {
+            return replacement[0].toUpperCase() + replacement.slice(1);
+          }
+          return replacement;
+        };
+
+        const softenText = (value) => {
+          let result = value;
+          for (const [from, to] of tonePairs) {
+            const regex = new RegExp('\\\\b' + from + '\\\\b', 'gi');
+            result = result.replace(regex, (match) => applyCasePattern(match, to));
+          }
+          return result;
+        };
+
+        const softenDocument = (doc) => {
+          const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+          const nodes = [];
+          while (walker.nextNode()) nodes.push(walker.currentNode);
+          for (const node of nodes) {
+            if (!node.nodeValue || !node.parentElement) continue;
+            const tag = node.parentElement.tagName;
+            if (tag === 'SCRIPT' || tag === 'STYLE') continue;
+            node.nodeValue = softenText(node.nodeValue);
+          }
+          if (doc.title) doc.title = softenText(doc.title);
+        };
+
+        const updateHeight = (frame) => {
+          try {
+            const doc = frame.contentDocument;
+            if (!doc) return;
+            softenDocument(doc);
+            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
+            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const role = frame.dataset.frameRole;
+            const minHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.46)
+              : role === 'primary'
+                ? Math.round(window.innerHeight * 0.62)
+                : Math.round(window.innerHeight * 0.8);
+            const maxHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.7)
+              : Number.POSITIVE_INFINITY;
+            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
+            frame.style.height = String(height + 12) + 'px';
+          } catch {
+            frame.style.minHeight = frame.dataset.frameRole === 'entrance'
+              ? '46vh'
+              : frame.dataset.frameRole === 'primary'
+                ? '62vh'
+                : '85vh';
+          }
+        };
+
+        const updateAllHeights = () => {
+          for (const frame of frames) updateHeight(frame);
+        };
+
+        for (const frame of frames) {
+          frame.addEventListener('load', () => updateHeight(frame));
+        }
+
+        window.addEventListener('resize', updateAllHeights);
+        setInterval(() => {
+          for (const frame of frames) {
+            if (frame.dataset.frameRole !== 'entrance') updateHeight(frame);
+          }
+        }, 2000);
+      }
+    </script>`;
 }
 
 function nexusVideoTemplate() {
@@ -342,9 +436,129 @@ function routeTemplate({ page, domain, domainPages }) {
   const sidebarLinks = domainPages
     .map((item) => {
       const active = item.slug === page.slug ? "active" : "";
-      return `<a class="${active}" href="${item.routePath}">${escapeHtml(item.title)}</a>`;
+      return `<a class="${active}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
     })
     .join("\n");
+
+  const workshopEntrance = domain.slug === "agent-workshop"
+    ? domainPages.find((item) => item.slug === "agentic-workshop-entrance")
+    : null;
+  const workshopConsole = domain.slug === "agent-workshop"
+    ? domainPages.find((item) => item.slug === "agentic-workshop-main-console")
+    : null;
+
+  const renderThreadCard = ({
+    kicker,
+    heading,
+    badge,
+    frameRole,
+    title,
+    stitchPath,
+    current,
+  }) => `<article class="thread-card ${frameRole === "primary" ? "thread-card-primary" : frameRole === "entrance" ? "thread-card-entrance" : "thread-card-active"} ${current ? "thread-card-current" : ""}" ${current ? 'data-thread-entry="incoming"' : ""}>
+              <div class="thread-meta">
+                <div>
+                  <p class="thread-kicker">${escapeHtml(kicker)}</p>
+                  <h2>${escapeHtml(heading)}</h2>
+                </div>
+                <div class="thread-badge">${escapeHtml(badge)}</div>
+              </div>
+              <div class="iframe-wrap thread-frame-wrap ${frameRole === "primary" ? "thread-frame-wrap-primary" : ""} ${frameRole === "entrance" ? "thread-frame-wrap-entrance" : ""}">
+                <iframe class="stitch-frame" data-frame-role="${escapeHtml(frameRole)}" title="${escapeHtml(title)}" src="${stitchPath}" loading="lazy"></iframe>
+              </div>
+            </article>`;
+
+  const renderThreadReturn = ({
+    kicker,
+    heading,
+    badge,
+    href,
+    icon,
+  }) => `<a class="thread-return" href="${href}">
+              <span class="thread-return-icon" aria-hidden="true">${escapeHtml(icon)}</span>
+              <span class="thread-return-copy">
+                <span class="thread-kicker">${escapeHtml(kicker)}</span>
+                <span class="thread-return-title">${escapeHtml(heading)}</span>
+              </span>
+              <span class="thread-badge">${escapeHtml(badge)}</span>
+            </a>`;
+
+  const contentBody = workshopEntrance && workshopConsole
+    ? (() => {
+      const isEntrancePage = page.slug === workshopEntrance.slug;
+      const isWorkshopConsolePage = page.slug === workshopConsole.slug;
+      const sections = [];
+
+      if (isEntrancePage) {
+        sections.push(
+          renderThreadCard({
+            kicker: "Workshop Access",
+            heading: "Workshop Entrance",
+            badge: "Login Surface",
+            frameRole: "entrance",
+            title: workshopEntrance.title,
+            stitchPath: workshopEntrance.stitchPath,
+            current: true,
+          }),
+        );
+      } else {
+        // Deeper workshop layers return to the immediate previous surface only.
+      }
+
+      if (isWorkshopConsolePage) {
+        sections.push(
+          renderThreadReturn({
+            kicker: "Workshop Access",
+            heading: "Workshop Entrance",
+            badge: "Login Surface",
+            href: workshopEntrance.routePath,
+            icon: "↩",
+          }),
+        );
+        sections.push(
+          renderThreadCard({
+            kicker: "Pinned Thread",
+            heading: "Workshop Main Console",
+            badge: "Primary Surface",
+            frameRole: "primary",
+            title: workshopConsole.title,
+            stitchPath: workshopConsole.stitchPath,
+            current: true,
+          }),
+        );
+      } else if (!isEntrancePage) {
+        sections.push(
+          renderThreadReturn({
+            kicker: "Pinned Thread",
+            heading: "Workshop Main Console",
+            badge: "Console Layer",
+            href: workshopConsole.routePath,
+            icon: "↩",
+          }),
+        );
+      }
+
+      if (!isEntrancePage && !isWorkshopConsolePage) {
+        sections.push(
+          renderThreadCard({
+            kicker: "Active Thread",
+            heading: page.title,
+            badge: "Expanded Pane",
+            frameRole: "active",
+            title: page.title,
+            stitchPath: page.stitchPath,
+            current: true,
+          }),
+        );
+      }
+
+      return `<section class="thread-stack">
+            ${sections.join("\n")}
+          </section>`;
+    })()
+    : `<div class="iframe-wrap">
+            <iframe class="stitch-frame" data-frame-role="active" title="${escapeHtml(page.title)}" src="${page.stitchPath}" loading="lazy"></iframe>
+          </div>`;
 
   return `<!doctype html>
 <html lang="en">
@@ -384,81 +598,45 @@ function routeTemplate({ page, domain, domainPages }) {
               <div class="breadcrumb">${escapeHtml(domain.label)} / ${escapeHtml(page.slug)}</div>
             </div>
           </div>
-          <div class="iframe-wrap">
-            <iframe class="stitch-frame" title="${escapeHtml(page.title)}" src="${page.stitchPath}" loading="lazy"></iframe>
-          </div>
+          ${contentBody}
         </main>
       </div>
     </div>
 
-    <script>
-      const frame = document.querySelector('.stitch-frame');
-      if (frame) {
-        const tonePairs = [
-          ['con' + 'trol', 'guidance'],
-          ['con' + 'trols', 'pathways'],
-          ['com' + 'mand', 'coordination'],
-          ['com' + 'mander', 'assessor'],
-          ['privi' + 'leged', 'authorized'],
-          ['compli' + 'ance', 'congruence'],
-          ['en' + 'force' + 'ment', 'safeguarding'],
-          ['author' + 'ity', 'stewardship'],
-          ['ur' + 'gent', 'time-sensitive'],
-          ['mu' + 'st', 'is to'],
-          ['sho' + 'uld', 'can'],
-          ['lock' + 'down', 'safety hold'],
-        ];
-
-        const applyCasePattern = (source, replacement) => {
-          if (source.toUpperCase() === source) return replacement.toUpperCase();
-          if (source[0] && source[0] === source[0].toUpperCase()) {
-            return replacement[0].toUpperCase() + replacement.slice(1);
-          }
-          return replacement;
-        };
-
-        const softenText = (value) => {
-          let result = value;
-          for (const [from, to] of tonePairs) {
-            const regex = new RegExp('\\b' + from + '\\b', 'gi');
-            result = result.replace(regex, (match) => applyCasePattern(match, to));
-          }
-          return result;
-        };
-
-        const softenDocument = (doc) => {
-          const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
-          const nodes = [];
-          while (walker.nextNode()) nodes.push(walker.currentNode);
-          for (const node of nodes) {
-            if (!node.nodeValue || !node.parentElement) continue;
-            const tag = node.parentElement.tagName;
-            if (tag === 'SCRIPT' || tag === 'STYLE') continue;
-            node.nodeValue = softenText(node.nodeValue);
-          }
-          if (doc.title) doc.title = softenText(doc.title);
-        };
-
-        const updateHeight = () => {
-          try {
-            const doc = frame.contentDocument;
-            if (!doc) return;
-            softenDocument(doc);
-            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
-            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
-            const height = Math.max(bodyHeight, docHeight, Math.round(window.innerHeight * 0.8));
-            frame.style.height = String(height + 12) + 'px';
-          } catch {
-            frame.style.minHeight = '85vh';
-          }
-        };
-
-        frame.addEventListener('load', updateHeight);
-        window.addEventListener('resize', updateHeight);
-        setInterval(updateHeight, 2000);
-      }
-    </script>
+    ${iframeBehaviorScript()}
     ${shellScriptsTemplate()}
+  </body>
+</html>
+`;
+}
+
+function redirectTemplate({ title, destination, label }) {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=${escapeHtml(destination)}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(title)} | AegisAlign EcoVerse</title>
+    <link rel="stylesheet" href="/src/shell.css" />
+  </head>
+  <body class="domain-surface domain-agent-workshop">
+    <main class="panel landing-redirect">
+      <div class="content-head">
+        <div>
+          <h1>${escapeHtml(title)}</h1>
+          <div class="breadcrumb">Opening the primary workshop surface</div>
+        </div>
+        <div class="phase-pill live">Primary Route</div>
+      </div>
+      <section class="voice-bridge">
+        <p>Routing directly into the Workshop Entrance so the login surface is always the first step before console work begins.</p>
+      </section>
+      <p class="redirect-copy">If you are not redirected automatically, continue to <a href="${escapeHtml(destination)}">${escapeHtml(label)}</a>.</p>
+    </main>
+    <script>
+      window.location.replace(${JSON.stringify(destination)});
+    </script>
   </body>
 </html>
 `;
@@ -954,6 +1132,19 @@ for (const domain of domains) {
     writeFile(path.join(generatedRoot, domain.slug, "index.html"), custodianOpsIndexTemplate(domain, domainPages, hubByDomain));
     writeFile(path.join(generatedRoot, domain.slug, "status", "index.html"), custodianStatusTemplate());
     writeFile(path.join(generatedRoot, domain.slug, "secure", "index.html"), custodianSecureTemplate());
+  } else if (domain.slug === "agent-workshop") {
+    const landingPage = domainPages.find((page) => page.slug === "agentic-workshop-entrance");
+    if (!landingPage) {
+      throw new Error("Agentic Workshop landing page is missing agentic-workshop-entrance.");
+    }
+    writeFile(
+      path.join(generatedRoot, domain.slug, "index.html"),
+      redirectTemplate({
+        title: domain.label,
+        destination: landingPage.routePath,
+        label: landingPage.title,
+      }),
+    );
   } else {
     writeFile(path.join(generatedRoot, domain.slug, "index.html"), domainIndexTemplate(domain, domainPages, hubByDomain));
   }

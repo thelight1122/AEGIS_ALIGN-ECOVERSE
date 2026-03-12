@@ -39,26 +39,26 @@
         <aside class="panel sidebar">
           <h2>Custodian Ops Center Pages</h2>
           <nav class="page-list">
-            <a class="" href="/custodian-ui/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
-<a class="" href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
-<a class="" href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
-<a class="active" href="/custodian-ui/custodian-cockpit-hud-1/">Custodian Coordination Cockpit - AEGIS Protocol</a>
-<a class="" href="/custodian-ui/custodian-cockpit-hud-2/">Custodian Coordination Cockpit - AEGIS Protocol</a>
-<a class="" href="/custodian-ui/custodian-hub-operations-gallery/">Custodian Hub Operations Gallery</a>
-<a class="" href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
-<a class="" href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
-<a class="" href="/custodian-ui/incident-report-aeg-2023-08/">AegisAlign Incident Report | AEG-2023-08</a>
-<a class="" href="/custodian-ui/proposal-discussion-details/">AEGIS Governance | AIP-154 Discussion</a>
-<a class="" href="/custodian-ui/regional-drill-down-us-east-1/">AEGIS Protocol - US-EAST-1 Regional Drill-down</a>
-<a class="" href="/custodian-ui/safety-hold-protocol-sequence/">AEGIS Custodian - Safety hold Protocol</a>
-<a class="" href="/custodian-ui/security-incident-assessor-center/">AEGIS Protocol | Incident Coordination Center</a>
-<a class="" href="/custodian-ui/security-logs-aegis-protocol/">AEGIS Protocol | Security Logs</a>
-<a class="" href="/custodian-ui/site-custodian-hub-gallery-update/">Site Custodian Hub Gallery Update</a>
-<a class="" href="/custodian-ui/site-custodian-login-recruitment-hub/">Site Custodian Login Recruitment Hub</a>
-<a class="" href="/custodian-ui/site-custodians/">Site Custodians</a>
-<a class="" href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
-<a class="" href="/custodian-ui/system-health-report-aegis-protocol/">AegisAlign | System Health Report</a>
-<a class="" href="/custodian-ui/ticket-details-aeg-4092/">AegisAlign | Support Ticket #AEG-4092</a>
+            <a class="" data-page-link href="/custodian-ui/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
+<a class="" data-page-link href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
+<a class="" data-page-link href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
+<a class="active" data-page-link href="/custodian-ui/custodian-cockpit-hud-1/">Custodian Coordination Cockpit - AEGIS Protocol</a>
+<a class="" data-page-link href="/custodian-ui/custodian-cockpit-hud-2/">Custodian Coordination Cockpit - AEGIS Protocol</a>
+<a class="" data-page-link href="/custodian-ui/custodian-hub-operations-gallery/">Custodian Hub Operations Gallery</a>
+<a class="" data-page-link href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
+<a class="" data-page-link href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
+<a class="" data-page-link href="/custodian-ui/incident-report-aeg-2023-08/">AegisAlign Incident Report | AEG-2023-08</a>
+<a class="" data-page-link href="/custodian-ui/proposal-discussion-details/">AEGIS Governance | AIP-154 Discussion</a>
+<a class="" data-page-link href="/custodian-ui/regional-drill-down-us-east-1/">AEGIS Protocol - US-EAST-1 Regional Drill-down</a>
+<a class="" data-page-link href="/custodian-ui/safety-hold-protocol-sequence/">AEGIS Custodian - Safety hold Protocol</a>
+<a class="" data-page-link href="/custodian-ui/security-incident-assessor-center/">AEGIS Protocol | Incident Coordination Center</a>
+<a class="" data-page-link href="/custodian-ui/security-logs-aegis-protocol/">AEGIS Protocol | Security Logs</a>
+<a class="" data-page-link href="/custodian-ui/site-custodian-hub-gallery-update/">Site Custodian Hub Gallery Update</a>
+<a class="" data-page-link href="/custodian-ui/site-custodian-login-recruitment-hub/">Site Custodian Login Recruitment Hub</a>
+<a class="" data-page-link href="/custodian-ui/site-custodians/">Site Custodians</a>
+<a class="" data-page-link href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
+<a class="" data-page-link href="/custodian-ui/system-health-report-aegis-protocol/">AegisAlign | System Health Report</a>
+<a class="" data-page-link href="/custodian-ui/ticket-details-aeg-4092/">AegisAlign | Support Ticket #AEG-4092</a>
           </nav>
         </aside>
 
@@ -70,15 +70,15 @@
             </div>
           </div>
           <div class="iframe-wrap">
-            <iframe class="stitch-frame" title="Custodian Coordination Cockpit - AEGIS Protocol" src="/stitch/custodian-ui/custodian-cockpit-hud-1/" loading="lazy"></iframe>
+            <iframe class="stitch-frame" data-frame-role="active" title="Custodian Coordination Cockpit - AEGIS Protocol" src="/stitch/custodian-ui/custodian-cockpit-hud-1/" loading="lazy"></iframe>
           </div>
         </main>
       </div>
     </div>
 
     <script>
-      const frame = document.querySelector('.stitch-frame');
-      if (frame) {
+      const frames = Array.from(document.querySelectorAll('.stitch-frame'));
+      if (frames.length) {
         const tonePairs = [
           ['con' + 'trol', 'guidance'],
           ['con' + 'trols', 'pathways'],
@@ -105,7 +105,7 @@
         const softenText = (value) => {
           let result = value;
           for (const [from, to] of tonePairs) {
-            const regex = new RegExp('\b' + from + '\b', 'gi');
+            const regex = new RegExp('\\b' + from + '\\b', 'gi');
             result = result.replace(regex, (match) => applyCasePattern(match, to));
           }
           return result;
@@ -124,23 +124,47 @@
           if (doc.title) doc.title = softenText(doc.title);
         };
 
-        const updateHeight = () => {
+        const updateHeight = (frame) => {
           try {
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
             const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
             const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
-            const height = Math.max(bodyHeight, docHeight, Math.round(window.innerHeight * 0.8));
+            const role = frame.dataset.frameRole;
+            const minHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.46)
+              : role === 'primary'
+                ? Math.round(window.innerHeight * 0.62)
+                : Math.round(window.innerHeight * 0.8);
+            const maxHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.7)
+              : Number.POSITIVE_INFINITY;
+            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
             frame.style.height = String(height + 12) + 'px';
           } catch {
-            frame.style.minHeight = '85vh';
+            frame.style.minHeight = frame.dataset.frameRole === 'entrance'
+              ? '46vh'
+              : frame.dataset.frameRole === 'primary'
+                ? '62vh'
+                : '85vh';
           }
         };
 
-        frame.addEventListener('load', updateHeight);
-        window.addEventListener('resize', updateHeight);
-        setInterval(updateHeight, 2000);
+        const updateAllHeights = () => {
+          for (const frame of frames) updateHeight(frame);
+        };
+
+        for (const frame of frames) {
+          frame.addEventListener('load', () => updateHeight(frame));
+        }
+
+        window.addEventListener('resize', updateAllHeights);
+        setInterval(() => {
+          for (const frame of frames) {
+            if (frame.dataset.frameRole !== 'entrance') updateHeight(frame);
+          }
+        }, 2000);
       }
     </script>
     <script type="module" src="/src/reminder-signals.js"></script>
@@ -151,5 +175,6 @@
     <script type="module" src="/src/entrance-float.js"></script>
     <script type="module" src="/src/portal-transit.js"></script>
     <script type="module" src="/src/glass-frame.js"></script>
+    <script type="module" src="/src/thread-transition.js"></script>
   </body>
 </html>

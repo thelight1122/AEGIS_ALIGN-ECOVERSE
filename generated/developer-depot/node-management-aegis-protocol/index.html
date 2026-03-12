@@ -39,21 +39,21 @@
         <aside class="panel sidebar">
           <h2>Developer Depot Pages</h2>
           <nav class="page-list">
-            <a class="" href="/developer-depot/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
-<a class="" href="/developer-depot/api-usage-report-aegis-protocol/">AEGIS Protocol | API Usage Report</a>
-<a class="" href="/developer-depot/colab-creation-page-1/">AegisAlign - Collaboration Hub</a>
-<a class="" href="/developer-depot/colab-creation-page-2/">AegisAlign - Collaboration Hub</a>
-<a class="" href="/developer-depot/developer-console-aegis-protocol/">AEGIS Protocol | Developer Console</a>
-<a class="" href="/developer-depot/developer-hub-depot/">AegisAlign Developer Hub &amp; Depot</a>
-<a class="" href="/developer-depot/my-submissions-dashboard/">My Submissions - AegisAlign Depot</a>
-<a class="" href="/developer-depot/network-topology-visualizer/">AEGIS Protocol | Network Topology Visualizer</a>
-<a class="active" href="/developer-depot/node-management-aegis-protocol/">AEGIS Protocol - Node Management</a>
-<a class="" href="/developer-depot/plugin-developer-analytics/">AegisGuard Pro Analytics | AegisAlign Depot</a>
-<a class="" href="/developer-depot/protocol-configuration-aegis-protocol/">AegisAlign | Protocol Configuration</a>
-<a class="" href="/developer-depot/protocol-isolated-confirmation/">Security Cockpit - Protocol Isolated</a>
-<a class="" href="/developer-depot/submit-plugin-to-depot/">AEGIS Depot - Submit Plugin</a>
-<a class="" href="/developer-depot/web3-portal/">AegisAlign | Web3 Gateway</a>
-<a class="" href="/developer-depot/webhooks-configuration-aegis-protocol/">AEGIS Protocol - Webhooks Configuration</a>
+            <a class="" data-page-link href="/developer-depot/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
+<a class="" data-page-link href="/developer-depot/api-usage-report-aegis-protocol/">AEGIS Protocol | API Usage Report</a>
+<a class="" data-page-link href="/developer-depot/colab-creation-page-1/">AegisAlign - Collaboration Hub</a>
+<a class="" data-page-link href="/developer-depot/colab-creation-page-2/">AegisAlign - Collaboration Hub</a>
+<a class="" data-page-link href="/developer-depot/developer-console-aegis-protocol/">AEGIS Protocol | Developer Console</a>
+<a class="" data-page-link href="/developer-depot/developer-hub-depot/">AegisAlign Developer Hub &amp; Depot</a>
+<a class="" data-page-link href="/developer-depot/my-submissions-dashboard/">My Submissions - AegisAlign Depot</a>
+<a class="" data-page-link href="/developer-depot/network-topology-visualizer/">AEGIS Protocol | Network Topology Visualizer</a>
+<a class="active" data-page-link href="/developer-depot/node-management-aegis-protocol/">AEGIS Protocol - Node Management</a>
+<a class="" data-page-link href="/developer-depot/plugin-developer-analytics/">AegisGuard Pro Analytics | AegisAlign Depot</a>
+<a class="" data-page-link href="/developer-depot/protocol-configuration-aegis-protocol/">AegisAlign | Protocol Configuration</a>
+<a class="" data-page-link href="/developer-depot/protocol-isolated-confirmation/">Security Cockpit - Protocol Isolated</a>
+<a class="" data-page-link href="/developer-depot/submit-plugin-to-depot/">AEGIS Depot - Submit Plugin</a>
+<a class="" data-page-link href="/developer-depot/web3-portal/">AegisAlign | Web3 Gateway</a>
+<a class="" data-page-link href="/developer-depot/webhooks-configuration-aegis-protocol/">AEGIS Protocol - Webhooks Configuration</a>
           </nav>
         </aside>
 
@@ -65,15 +65,15 @@
             </div>
           </div>
           <div class="iframe-wrap">
-            <iframe class="stitch-frame" title="AEGIS Protocol - Node Management" src="/stitch/developer-depot/node-management-aegis-protocol/" loading="lazy"></iframe>
+            <iframe class="stitch-frame" data-frame-role="active" title="AEGIS Protocol - Node Management" src="/stitch/developer-depot/node-management-aegis-protocol/" loading="lazy"></iframe>
           </div>
         </main>
       </div>
     </div>
 
     <script>
-      const frame = document.querySelector('.stitch-frame');
-      if (frame) {
+      const frames = Array.from(document.querySelectorAll('.stitch-frame'));
+      if (frames.length) {
         const tonePairs = [
           ['con' + 'trol', 'guidance'],
           ['con' + 'trols', 'pathways'],
@@ -100,7 +100,7 @@
         const softenText = (value) => {
           let result = value;
           for (const [from, to] of tonePairs) {
-            const regex = new RegExp('\b' + from + '\b', 'gi');
+            const regex = new RegExp('\\b' + from + '\\b', 'gi');
             result = result.replace(regex, (match) => applyCasePattern(match, to));
           }
           return result;
@@ -119,23 +119,47 @@
           if (doc.title) doc.title = softenText(doc.title);
         };
 
-        const updateHeight = () => {
+        const updateHeight = (frame) => {
           try {
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
             const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
             const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
-            const height = Math.max(bodyHeight, docHeight, Math.round(window.innerHeight * 0.8));
+            const role = frame.dataset.frameRole;
+            const minHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.46)
+              : role === 'primary'
+                ? Math.round(window.innerHeight * 0.62)
+                : Math.round(window.innerHeight * 0.8);
+            const maxHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.7)
+              : Number.POSITIVE_INFINITY;
+            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
             frame.style.height = String(height + 12) + 'px';
           } catch {
-            frame.style.minHeight = '85vh';
+            frame.style.minHeight = frame.dataset.frameRole === 'entrance'
+              ? '46vh'
+              : frame.dataset.frameRole === 'primary'
+                ? '62vh'
+                : '85vh';
           }
         };
 
-        frame.addEventListener('load', updateHeight);
-        window.addEventListener('resize', updateHeight);
-        setInterval(updateHeight, 2000);
+        const updateAllHeights = () => {
+          for (const frame of frames) updateHeight(frame);
+        };
+
+        for (const frame of frames) {
+          frame.addEventListener('load', () => updateHeight(frame));
+        }
+
+        window.addEventListener('resize', updateAllHeights);
+        setInterval(() => {
+          for (const frame of frames) {
+            if (frame.dataset.frameRole !== 'entrance') updateHeight(frame);
+          }
+        }, 2000);
       }
     </script>
     <script type="module" src="/src/reminder-signals.js"></script>
@@ -146,5 +170,6 @@
     <script type="module" src="/src/entrance-float.js"></script>
     <script type="module" src="/src/portal-transit.js"></script>
     <script type="module" src="/src/glass-frame.js"></script>
+    <script type="module" src="/src/thread-transition.js"></script>
   </body>
 </html>

@@ -39,14 +39,14 @@
         <aside class="panel sidebar">
           <h2>AEGIS Application Lab Pages</h2>
           <nav class="page-list">
-            <a class="" href="/aegis-application-lab/aegis-arbitor-features-1/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
-<a class="" href="/aegis-application-lab/aegis-arbitor-features-2/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
-<a class="" href="/aegis-application-lab/aegis-core-shield-features/">AEGIS Core Shield | Infrastructure Hardening</a>
-<a class="" href="/aegis-application-lab/aegis-implementation-apps/">AEGIS Implementation Apps | AegisAlign</a>
-<a class="" href="/aegis-application-lab/aegis-interceptor-features-v2/">AEGIS Interceptor | Deep Packet Security</a>
-<a class="active" href="/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/">AegisAlign | LLM Colab &amp; Agentic Workshop</a>
-<a class="" href="/aegis-application-lab/aegis-reflective-prism-features/">Aegis Reflective Prism Features</a>
-<a class="" href="/aegis-application-lab/aegis-reflective-widget-features/">AEGIS Reflective Widget | AegisAlign Security</a>
+            <a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-1/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-2/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-core-shield-features/">AEGIS Core Shield | Infrastructure Hardening</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-implementation-apps/">AEGIS Implementation Apps | AegisAlign</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-interceptor-features-v2/">AEGIS Interceptor | Deep Packet Security</a>
+<a class="active" data-page-link href="/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/">AegisAlign | LLM Colab &amp; Agentic Workshop</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-reflective-prism-features/">Aegis Reflective Prism Features</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-reflective-widget-features/">AEGIS Reflective Widget | AegisAlign Security</a>
           </nav>
         </aside>
 
@@ -58,15 +58,15 @@
             </div>
           </div>
           <div class="iframe-wrap">
-            <iframe class="stitch-frame" title="AegisAlign | LLM Colab &amp; Agentic Workshop" src="/stitch/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/" loading="lazy"></iframe>
+            <iframe class="stitch-frame" data-frame-role="active" title="AegisAlign | LLM Colab &amp; Agentic Workshop" src="/stitch/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/" loading="lazy"></iframe>
           </div>
         </main>
       </div>
     </div>
 
     <script>
-      const frame = document.querySelector('.stitch-frame');
-      if (frame) {
+      const frames = Array.from(document.querySelectorAll('.stitch-frame'));
+      if (frames.length) {
         const tonePairs = [
           ['con' + 'trol', 'guidance'],
           ['con' + 'trols', 'pathways'],
@@ -93,7 +93,7 @@
         const softenText = (value) => {
           let result = value;
           for (const [from, to] of tonePairs) {
-            const regex = new RegExp('\b' + from + '\b', 'gi');
+            const regex = new RegExp('\\b' + from + '\\b', 'gi');
             result = result.replace(regex, (match) => applyCasePattern(match, to));
           }
           return result;
@@ -112,23 +112,47 @@
           if (doc.title) doc.title = softenText(doc.title);
         };
 
-        const updateHeight = () => {
+        const updateHeight = (frame) => {
           try {
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
             const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
             const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
-            const height = Math.max(bodyHeight, docHeight, Math.round(window.innerHeight * 0.8));
+            const role = frame.dataset.frameRole;
+            const minHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.46)
+              : role === 'primary'
+                ? Math.round(window.innerHeight * 0.62)
+                : Math.round(window.innerHeight * 0.8);
+            const maxHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.7)
+              : Number.POSITIVE_INFINITY;
+            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
             frame.style.height = String(height + 12) + 'px';
           } catch {
-            frame.style.minHeight = '85vh';
+            frame.style.minHeight = frame.dataset.frameRole === 'entrance'
+              ? '46vh'
+              : frame.dataset.frameRole === 'primary'
+                ? '62vh'
+                : '85vh';
           }
         };
 
-        frame.addEventListener('load', updateHeight);
-        window.addEventListener('resize', updateHeight);
-        setInterval(updateHeight, 2000);
+        const updateAllHeights = () => {
+          for (const frame of frames) updateHeight(frame);
+        };
+
+        for (const frame of frames) {
+          frame.addEventListener('load', () => updateHeight(frame));
+        }
+
+        window.addEventListener('resize', updateAllHeights);
+        setInterval(() => {
+          for (const frame of frames) {
+            if (frame.dataset.frameRole !== 'entrance') updateHeight(frame);
+          }
+        }, 2000);
       }
     </script>
     <script type="module" src="/src/reminder-signals.js"></script>
@@ -139,5 +163,6 @@
     <script type="module" src="/src/entrance-float.js"></script>
     <script type="module" src="/src/portal-transit.js"></script>
     <script type="module" src="/src/glass-frame.js"></script>
+    <script type="module" src="/src/thread-transition.js"></script>
   </body>
 </html>
