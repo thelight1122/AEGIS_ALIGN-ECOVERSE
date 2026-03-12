@@ -35,10 +35,13 @@ function isInternalRoute(link) {
 function engageTransit(targetHref) {
   ensureOverlay();
   document.body.classList.add(TRANSIT_CLASS);
+  window.dispatchEvent(new CustomEvent("aegis:entrance-focus", { detail: { type: "engage" } }));
   window.setTimeout(() => {
     window.location.assign(targetHref);
-  }, 320);
+  }, 520);
 }
+
+window.aegisTransit = engageTransit;
 
 document.addEventListener("click", (event) => {
   const link = event.target.closest("a");
