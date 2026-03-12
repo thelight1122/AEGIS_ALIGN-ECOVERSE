@@ -875,6 +875,15 @@ const redirects = [];
 const seenRedirects = new Set();
 const seenRoutes = new Set();
 
+function addRedirect(from, to) {
+  const key = `${from}=>${to}`;
+  if (seenRedirects.has(key)) {
+    return;
+  }
+  seenRedirects.add(key);
+  redirects.push({ from, to });
+}
+
 for (const domain of domains) {
   const sourceDomainDir = path.join(stitchRoot, domain.source);
   if (!fs.existsSync(sourceDomainDir)) {
@@ -909,12 +918,7 @@ for (const domain of domains) {
       }
 
       for (const from of redirectCandidates) {
-        const key = `${from}=>${routePath}`;
-        if (seenRedirects.has(key)) {
-          continue;
-        }
-        seenRedirects.add(key);
-        redirects.push({ from, to: routePath });
+        addRedirect(from, routePath);
       }
     }
 
@@ -970,6 +974,25 @@ const manifest = pages.map(({ domain, slug, title, sourcePath, routePath }) => (
   sourcePath,
   routePath,
 }));
+
+const canonicalRoutes = new Set(["/", "/nexus/"]);
+for (const domain of domains) {
+  canonicalRoutes.add(`/${domain.slug}/`);
+}
+canonicalRoutes.add("/custodian-ui/status/");
+canonicalRoutes.add("/custodian-ui/secure/");
+for (const item of manifest) {
+  canonicalRoutes.add(item.routePath);
+}
+
+for (const route of canonicalRoutes) {
+  if (route !== "/") {
+    addRedirect(route.replace(/\/$/, ""), route);
+    addRedirect(`${route}index.html`, route);
+  } else {
+    addRedirect("/index.html", "/");
+  }
+}
 
 writeFile(path.join(generatedRoot, "route-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 writeFile(path.join(publicRoot, "route-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
