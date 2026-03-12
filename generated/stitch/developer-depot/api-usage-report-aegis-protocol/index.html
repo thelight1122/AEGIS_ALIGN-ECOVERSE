@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Protocol | API Usage Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "neutral-dark": "#1c2333",
+                        "border-dark": "#2d364d"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .grid-pattern {
+            background-image: radial-gradient(circle, #2d364d 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-neutral-dark border-r border-border-dark flex flex-col">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+<div>
+<h1 class="text-base font-bold leading-tight">AEGIS Protocol</h1>
+<p class="text-slate-400 text-xs">aegisalign.com</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">vpn_key</span>
+<span class="text-sm font-medium">API Keys</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">webhook</span>
+<span class="text-sm font-medium">Webhooks</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white bg-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Usage Metrics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+<span class="text-sm font-medium">CLI Access</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-4">
+<p class="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Plan: Pro</p>
+<div class="w-full bg-slate-700 h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[75%]"></div>
+</div>
+<p class="text-[11px] text-slate-400 mt-2">7.5M / 10M Requests</p>
+</div>
+<div class="mt-4 flex items-center gap-3 px-2">
+<div class="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden">
+<img alt="User Profile" data-alt="Developer profile avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDx2mIOki37O8cvQ5nW3wp9z12tf4QxK97VtmBiH1CK6PXlaf19kKCd2znFLqfEzGerSWUK0IO7YnCoQ_Ljs6mF9ayGRmXearBCAiJvxZzen2pP_MJpQmEft-txGsyyI1zg8jtdMVf7O-GXKG_gq5OkSTchCN7bJP6tQrsyREX2yuAdRNCSqZswQOB0zVYDorMoQ9Fh6VbOh0QL73fd9cuR5uhHhc_tFx6EfCKKRVLFRLzefU94gCUYvm5DX3dPCGnJ2aZO43oImwP"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium truncate">Dev_Admin</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header -->
+<header class="h-16 border-b border-border-dark flex items-center justify-between px-8 bg-background-dark/80 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-bold tracking-tight">API Usage Report</h2>
+<div class="h-4 w-px bg-border-dark"></div>
+<div class="flex items-center gap-2 bg-neutral-dark border border-border-dark rounded-lg px-3 py-1.5 cursor-pointer">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">calendar_today</span>
+<span class="text-sm font-medium">Last 7 Days</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white transition-colors cursor-pointer">notifications</span>
+<span class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full border-2 border-background-dark"></span>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white text-sm font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export PDF
+                    </button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-8 space-y-8">
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-neutral-dark border border-border-dark p-6 rounded-xl flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">database</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Total Requests</p>
+<h3 class="text-3xl font-bold">12.4M</h3>
+<div class="flex items-center gap-1 mt-2 text-emerald-400 text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +12.3% from last week
+                        </div>
+</div>
+<div class="bg-neutral-dark border border-border-dark p-6 rounded-xl flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Success Rate</p>
+<h3 class="text-3xl font-bold">99.92%</h3>
+<div class="flex items-center gap-1 mt-2 text-emerald-400 text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                            High Performance
+                        </div>
+</div>
+<div class="bg-neutral-dark border border-border-dark p-6 rounded-xl flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">timer</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">P95 Latency</p>
+<h3 class="text-3xl font-bold">42ms</h3>
+<div class="flex items-center gap-1 mt-2 text-orange-400 text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +4% increase
+                        </div>
+</div>
+<div class="bg-neutral-dark border border-border-dark p-6 rounded-xl flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">cloud_download</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Data Transferred</p>
+<h3 class="text-3xl font-bold">856.2 GB</h3>
+<div class="flex items-center gap-1 mt-2 text-slate-400 text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]">remove</span>
+                            Stable
+                        </div>
+</div>
+</div>
+<!-- Main Chart Section -->
+<div class="bg-neutral-dark border border-border-dark rounded-xl p-6">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold">Traffic Over Time</h4>
+<p class="text-slate-400 text-sm">Successful vs. Failed API calls (Daily)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs text-slate-300">Success</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-red-500"></span>
+<span class="text-xs text-slate-300">Errors</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full flex items-end gap-2 px-2 relative grid-pattern rounded-lg border border-border-dark/30">
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[5%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[60%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Mon</span>
+</div>
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[3%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[75%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Tue</span>
+</div>
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[8%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[55%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Wed</span>
+</div>
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[4%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[85%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Thu</span>
+</div>
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[2%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[90%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Fri</span>
+</div>
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[1%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[45%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Sat</span>
+</div>
+<div class="flex-1 flex flex-col justify-end group">
+<div class="bg-red-500/80 w-full h-[2%] rounded-t-sm group-hover:bg-red-400 transition-colors"></div>
+<div class="bg-primary/80 w-full h-[35%] group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] text-slate-500 text-center mt-2">Sun</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Top Endpoints Table -->
+<div class="lg:col-span-2 bg-neutral-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="p-6 border-b border-border-dark">
+<h4 class="text-lg font-bold">Top Endpoints</h4>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-xs uppercase text-slate-500 border-b border-border-dark bg-background-dark/30">
+<th class="px-6 py-4 font-semibold">Endpoint</th>
+<th class="px-6 py-4 font-semibold">Requests</th>
+<th class="px-6 py-4 font-semibold">Avg. Response</th>
+<th class="px-6 py-4 font-semibold">Status</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-border-dark">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">GET /v1/assets/fetch</td>
+<td class="px-6 py-4">4,281,902</td>
+<td class="px-6 py-4">32ms</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded text-xs font-bold">Stable</span></td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">POST /v1/auth/verify</td>
+<td class="px-6 py-4">2,109,244</td>
+<td class="px-6 py-4">112ms</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded text-xs font-bold">Stable</span></td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">PATCH /v1/user/config</td>
+<td class="px-6 py-4">982,100</td>
+<td class="px-6 py-4">45ms</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-amber-500/10 text-amber-500 rounded text-xs font-bold">Degraded</span></td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">GET /v1/metrics/realtime</td>
+<td class="px-6 py-4">842,001</td>
+<td class="px-6 py-4">18ms</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded text-xs font-bold">Stable</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Error Distribution Donut -->
+<div class="bg-neutral-dark border border-border-dark rounded-xl p-6 flex flex-col">
+<h4 class="text-lg font-bold mb-6">Error Distribution</h4>
+<div class="flex-1 flex flex-col items-center justify-center relative">
+<!-- CSS Circular Graph Simulation -->
+<div class="relative h-40 w-40 rounded-full border-[12px] border-slate-700 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[12px] border-red-500 border-r-transparent border-b-transparent border-l-transparent -rotate-12"></div>
+<div class="absolute inset-0 rounded-full border-[12px] border-orange-500 border-r-transparent border-t-transparent border-l-transparent rotate-45"></div>
+<div class="text-center">
+<span class="text-2xl font-bold">0.08%</span>
+<p class="text-[10px] text-slate-500 uppercase tracking-tighter">Total Error Rate</p>
+</div>
+</div>
+<div class="w-full mt-8 space-y-3">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<span class="text-slate-300">404 Not Found</span>
+</div>
+<span class="font-bold">62%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+<span class="text-slate-300">401 Unauthorized</span>
+</div>
+<span class="font-bold">28%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-500"></span>
+<span class="text-slate-300">500 Server Error</span>
+</div>
+<span class="font-bold">10%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Geographic Distribution Section -->
+<div class="bg-neutral-dark border border-border-dark rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h4 class="text-lg font-bold">Geographic Distribution</h4>
+<p class="text-slate-400 text-sm">Traffic volume by regional access point</p>
+</div>
+<button class="text-primary text-sm font-semibold hover:underline">View Global Heatmap</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div class="relative h-64 rounded-lg bg-background-dark overflow-hidden group">
+<!-- Abstract Map Representation -->
+<div class="absolute inset-0 opacity-40 grid-pattern"></div>
+<div class="absolute top-[20%] left-[20%] h-3 w-3 bg-primary rounded-full animate-pulse shadow-[0_0_15px_rgba(17,82,212,0.8)]"></div>
+<div class="absolute top-[40%] left-[50%] h-2 w-2 bg-primary rounded-full shadow-[0_0_10px_rgba(17,82,212,0.6)]"></div>
+<div class="absolute top-[30%] left-[80%] h-4 w-4 bg-primary rounded-full shadow-[0_0_20px_rgba(17,82,212,0.7)]"></div>
+<div class="absolute top-[60%] left-[30%] h-2 w-2 bg-primary rounded-full shadow-[0_0_10px_rgba(17,82,212,0.6)]"></div>
+<div class="absolute bottom-4 left-4 bg-background-dark/90 border border-border-dark p-2 rounded text-[10px] text-slate-300">
+<p>Map Center: US East (N. Virginia)</p>
+<p class="text-emerald-400">Lat: 38.033 Lon: -78.507</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>North America</span>
+<span>54%</span>
+</div>
+<div class="w-full bg-slate-800 h-2 rounded-full">
+<div class="bg-primary h-full w-[54%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Europe</span>
+<span>28%</span>
+</div>
+<div class="w-full bg-slate-800 h-2 rounded-full">
+<div class="bg-primary h-full w-[28%] rounded-full opacity-80"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Asia-Pacific</span>
+<span>12%</span>
+</div>
+<div class="w-full bg-slate-800 h-2 rounded-full">
+<div class="bg-primary h-full w-[12%] rounded-full opacity-60"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Rest of World</span>
+<span>6%</span>
+</div>
+<div class="w-full bg-slate-800 h-2 rounded-full">
+<div class="bg-primary h-full w-[6%] rounded-full opacity-40"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto p-8 border-t border-border-dark flex justify-between items-center text-slate-500 text-xs">
+<p>© 2024 AEGIS Protocol. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">API Status</a>
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Security</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AegisAlign Developer Hub &amp; Depot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1a2234",
+                        "border-dark": "#2d3748"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2d3748;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header / Navigation -->
+<header class="flex items-center justify-between border-b border-border-dark px-6 md:px-12 py-4 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/20 flex items-center justify-center rounded-lg border border-primary/30">
+<span class="material-symbols-outlined text-primary">shield</span>
+</div>
+<h2 class="text-slate-100 text-xl font-bold tracking-tight">AegisAlign <span class="text-primary font-light">Depot</span></h2>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Hub</a>
+<a class="text-slate-100 border-b-2 border-primary pb-1 text-sm font-medium" href="#">The Depot</a>
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Announcements</a>
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Docs</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center bg-surface-dark rounded-lg px-3 py-1.5 border border-border-dark group focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm placeholder:text-slate-500 w-48 lg:w-64" placeholder="Search plugins &amp; scripts..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">person</span>
+                    Profile
+                </button>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Sidebar Navigation -->
+<aside class="lg:col-span-3 flex flex-col gap-6">
+<div class="bg-surface-dark/50 border border-border-dark p-4 rounded-xl">
+<div class="flex items-center gap-3 mb-6 p-2">
+<div class="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center overflow-hidden">
+<img alt="User avatar" class="object-cover w-full h-full" data-alt="Close up portrait of a smiling software developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzTaU7AyaYbVZ1Fn3lgG-NxmFz09F-mhpMMa7G-SIgWFfPDO14Msmid2w3a77dibsvxZQXMotWOiRKNTkeJ9YB08MXgTiHKtueTmqmqouJbEY4V9WQN3hwbbOYhxUj4sQW-HeDny2oJoqQZmBqu_ASgxsYkDttTJjnMFcsQIlzxPPHNvEdRPYH-eTFq_ORYapr8sLuY5TzeCJ-aFUnuGVAvl5wQ4sFRbLZ8QL80UyfyGyurqLKI4N5Ij_V7jQYBiSd8TYRNKZFFI3A"/>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-100">Dev_Cipher</p>
+<p class="text-xs text-slate-400">Core Contributor</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary group" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+<span class="text-sm font-medium">Social Hub</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+<span class="text-sm font-medium">The Depot</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+<span class="text-sm font-medium">Bulletin Board</span>
+</a>
+<hr class="my-4 border-border-dark"/>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Protocol Stats -->
+<div class="bg-surface-dark/30 border border-border-dark p-5 rounded-xl">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Protocol Status</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-400">Network Load</span>
+<span class="text-sm font-mono text-green-400">24%</span>
+</div>
+<div class="w-full bg-border-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-green-400 h-full w-[24%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-400">Nodes Online</span>
+<span class="text-sm font-mono text-primary">12,842</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="lg:col-span-9 flex flex-col gap-8">
+<!-- Hero Section -->
+<section class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-transparent border border-border-dark p-8">
+<div class="relative z-10 max-w-lg">
+<h1 class="text-4xl font-black text-slate-100 tracking-tight mb-3">Developer Hub <span class="text-primary">&amp;</span> Depot</h1>
+<p class="text-slate-400 text-lg leading-relaxed mb-6">
+                            The central nervous system for AegisAlign engineers. Connect with peers, discover high-performance node configurations, and deploy custom protocol scripts.
+                        </p>
+<div class="flex gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg shadow-primary/20">
+                                Share a Plugin
+                            </button>
+<button class="bg-surface-dark hover:bg-border-dark text-slate-200 border border-border-dark px-6 py-2.5 rounded-lg font-bold transition-all">
+                                View Docs
+                            </button>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[200px] text-primary rotate-12">developer_board</span>
+</div>
+</section>
+<!-- Three Pillar Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Social Hub Feed -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">forum</span>
+                                Social Hub
+                            </h2>
+<button class="text-xs text-primary font-bold hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Discussion Item 1 -->
+<div class="bg-surface-dark border border-border-dark p-4 rounded-xl hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex gap-3">
+<div class="size-10 shrink-0 rounded-full bg-slate-700 overflow-hidden border border-border-dark">
+<img alt="User" class="w-full h-full object-cover" data-alt="Headshot of a developer wearing glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtteg6q_8i3QLVPNNUcTJExGtRBokek5snkfKGeKr2S45JT7gQBDTkFHKGLOm_SIwqNX6ddanVa_imlFLaFNqLd5hoVKVX5wJHUxRlEyh-Il8t_6UILA9847ekyEO5R61uT37JNc6ZFR7LRKgh5Wex8WZw55_kVet2alTxA7ZIBu6U0WKeA7-GguvP3RaKnjEhU-_hZoORu_EhSEUYJ7fp21XNZY-lF34da72r8WYNrxWEL0QI3OTbDJLTQlhEANx0Cw2OzHE8KoPc"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<span class="text-sm font-bold text-slate-100">Neon_Flux</span>
+<span class="text-[10px] text-slate-500 font-mono uppercase tracking-widest">2h ago</span>
+</div>
+<p class="text-sm text-slate-300 mt-1 line-clamp-2">Just optimized the latency on the AEGIS-L2 bridge. Seeing a 15% improvement in packet delivery...</p>
+<div class="flex items-center gap-4 mt-3">
+<span class="flex items-center gap-1 text-[11px] text-slate-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span> 42
+                                            </span>
+<span class="flex items-center gap-1 text-[11px] text-slate-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]">chat_bubble</span> 18
+                                            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Discussion Item 2 -->
+<div class="bg-surface-dark border border-border-dark p-4 rounded-xl hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex gap-3">
+<div class="size-10 shrink-0 rounded-full bg-slate-700 overflow-hidden border border-border-dark">
+<img alt="User" class="w-full h-full object-cover" data-alt="Portrait of a female developer in a studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXChir66HSe3wlnURZMhQwyM7N6Nm1eIe01NF18cl2VMYpNRgrcn57_nlSFLq0fadKZn7Gj-l1ynJrR6NBO1lTmQOfVcc1Z_s0V9EMhgMO2D-dcugp7V-Z3c__vIwoIGSU6bk7UCg3JRxmrBzzMyUrnd-ApxAO8HtoGHIx_sb1BscXOksFWxWlIWuuN4Mxkicy7p45kk6j3Fbjy1Z0Gq4JwWYIoucT1VOemWJV6ETHs_CxM07VknigPEbXAUc_Ond7ykQ6_L8Q_DSo"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<span class="text-sm font-bold text-slate-100">Quantum_Dev</span>
+<span class="text-[10px] text-slate-500 font-mono uppercase tracking-widest">5h ago</span>
+</div>
+<p class="text-sm text-slate-300 mt-1 line-clamp-2">Any tips for securing the gRPC listener in a high-traffic environment?</p>
+<div class="flex items-center gap-4 mt-3">
+<span class="flex items-center gap-1 text-[11px] text-slate-500">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span> 12
+                                            </span>
+<span class="flex items-center gap-1 text-[11px] text-slate-500">
+<span class="material-symbols-outlined text-[14px]">chat_bubble</span> 34
+                                            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bulletin Board -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">campaign</span>
+                                Bulletin Board
+                            </h2>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden flex flex-col divide-y divide-border-dark">
+<!-- Bulletin Item 1 -->
+<div class="p-4 hover:bg-primary/5 transition-colors">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter rounded bg-primary/20 text-primary border border-primary/30">HACKATHON</span>
+<span class="text-[10px] text-slate-500">Starting Nov 15</span>
+</div>
+<h3 class="text-sm font-bold text-slate-100 mb-1">AegisX Global: Securing the Perimeter</h3>
+<p class="text-xs text-slate-400">Win up to $50k in AEGIS tokens for building innovative security plugins.</p>
+</div>
+<!-- Bulletin Item 2 -->
+<div class="p-4 hover:bg-primary/5 transition-colors">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter rounded bg-green-900/40 text-green-400 border border-green-800/50">UPDATE</span>
+<span class="text-[10px] text-slate-500">Yesterday</span>
+</div>
+<h3 class="text-sm font-bold text-slate-100 mb-1">Protocol Patch v2.4.1 Released</h3>
+<p class="text-xs text-slate-400">Critical security fix for node-to-node handshakes. Please update immediately.</p>
+</div>
+<!-- Bulletin Item 3 -->
+<div class="p-4 hover:bg-primary/5 transition-colors">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter rounded bg-amber-900/40 text-amber-400 border border-amber-800/50">COMMUNITY</span>
+<span class="text-[10px] text-slate-500">3 days ago</span>
+</div>
+<h3 class="text-sm font-bold text-slate-100 mb-1">Weekly Developer Q&amp;A</h3>
+<p class="text-xs text-slate-400">Join the lead engineers on Discord this Friday at 18:00 UTC.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Marketplace (The Depot) -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-black text-slate-100 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">storefront</span>
+                                The Depot
+                            </h2>
+<p class="text-slate-400 text-sm mt-1">Discover, download, and contribute to the AEGIS ecosystem.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-dark border border-border-dark p-1 rounded-lg">
+<button class="px-4 py-1.5 text-xs font-bold bg-primary text-white rounded-md">Trending</button>
+<button class="px-4 py-1.5 text-xs font-bold text-slate-400 hover:text-slate-200">Newest</button>
+<button class="px-4 py-1.5 text-xs font-bold text-slate-400 hover:text-slate-200">Top Rated</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Depot Item 1 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 hover:translate-y-[-4px] transition-all group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="size-12 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">terminal</span>
+</div>
+<span class="text-[10px] font-mono text-slate-500 bg-background-dark px-2 py-1 rounded">v1.2.0</span>
+</div>
+<h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-primary transition-colors">LogSentinel Pro</h3>
+<p class="text-sm text-slate-400 mb-6 line-clamp-2">Real-time threat detection script with AI-driven anomaly logging for high-load clusters.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-surface-dark bg-slate-600 overflow-hidden">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of a contributor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKMDxhHZ0IA2iEQXRya63lmc0_NEnHf-Yd11y21KwsSuo95Ak18y8rKalqA8HC9BMiE7fTTzKU4P18gCELEa3ZgOZEpRrUc4vbAQ_qdRHPkE4OCR9ItBX0Z2uiWrqwwZgIesLnMxgsbtgJu9AidhlGgiTOf2dChSoR_yoN_Uj0FRhM4Uj54FAU0W5EuxPbsGQVYujm7Ja1Ba6EmWlsX6E6jbaFt-3S_M8aR2BN23Tlba32ETMMCsmJ30ZDY-zP5jVCUh3kCiykaxg0"/>
+</div>
+<div class="size-6 rounded-full border-2 border-surface-dark bg-primary flex items-center justify-center text-[8px] font-bold">
+                                        +12
+                                    </div>
+</div>
+<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all border border-primary/20">
+                                    Get Plugin
+                                </button>
+</div>
+</div>
+<!-- Depot Item 2 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 hover:translate-y-[-4px] transition-all group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="size-12 bg-green-500/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-green-500">settings_input_component</span>
+</div>
+<span class="text-[10px] font-mono text-slate-500 bg-background-dark px-2 py-1 rounded">v3.0.4</span>
+</div>
+<h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-green-500 transition-colors">HyperNode Config</h3>
+<p class="text-sm text-slate-400 mb-6 line-clamp-2">Pre-built configuration for 64-core validator nodes. Optimized for 99.99% uptime.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-surface-dark bg-slate-600 overflow-hidden">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of a developer contributor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_W8en8l03_MyF3S99cfRFofqEMSfdcsk2icvUqMqSzEMjPJ_I46P41zMJ-sX8WnJ6Mm7K-5a8MMbotq9DPzWCqIOTYEWBCOOGzO76xdzF8zRNkAYBx5vWtN6tEqYactcjGQOFYKXETaEB_G8UEGrrxpwfX4W3Cy4sjgV-EoRzJ0R9hKg3YYWC_tXZ_AN1oxviWmy7fGQJs69zcfW0bi_kRK-Uxn240RSYclzewMKBf77htziDo0dvPdtPS9aH6HrbhM7yJUAnR4fh"/>
+</div>
+</div>
+<button class="bg-green-500/10 hover:bg-green-500 text-green-500 hover:text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all border border-green-500/20">
+                                    Download Config
+                                </button>
+</div>
+</div>
+<!-- Depot Item 3 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 hover:translate-y-[-4px] transition-all group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="size-12 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<span class="text-[10px] font-mono text-slate-500 bg-background-dark px-2 py-1 rounded">v0.8.5</span>
+</div>
+<h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-primary transition-colors">EncryptedTunnel v2</h3>
+<p class="text-sm text-slate-400 mb-6 line-clamp-2">A high-speed TLS tunneling layer for inter-node communication with zero latency penalty.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-surface-dark bg-slate-600 overflow-hidden">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Female developer profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4XLuyHBxLy0fXETAuDmawjZ61HiXjPUqFBzU6NVcCVoFTbNLUnrJQPRNAuUmfKoX87x8wATJveyavT1b0Us3ydR4p10oyWaFVzz1Jw6x6o8YbqpBq4AVZkzin_3UI9H1gpVT0Hd9RehLE7iNlg0sQyoNILzcCRwF0OGH-1a0d55gICISqsjHBzMyhQBPZlbeDqUccWCKskdgPDhONhgn5x1qt2SHgwXZ6fETBLoYoYtAt221FugnUUHc-3VczMO8xev6txSaDgreF"/>
+</div>
+</div>
+<button class="bg-primary/10 hover:bg-primary text-primary hover:text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all border border-primary/20">
+                                    Get Plugin
+                                </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-border-dark bg-background-dark/50 px-12 py-8">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 opacity-50">
+<span class="material-symbols-outlined text-sm">shield</span>
+<p class="text-xs font-mono">AEGISALIGN PROTOCOL HUB // EST 2024</p>
+</div>
+<div class="flex items-center gap-8">
+<a class="text-slate-500 hover:text-primary text-xs font-bold transition-colors" href="#">Protocol Docs</a>
+<a class="text-slate-500 hover:text-primary text-xs font-bold transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary text-xs font-bold transition-colors" href="#">Developer Portal</a>
+</div>
+<div class="flex items-center gap-4">
+<a class="size-8 rounded-lg bg-surface-dark flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all border border-border-dark" href="#">
+<span class="material-symbols-outlined text-lg">code</span>
+</a>
+<a class="size-8 rounded-lg bg-surface-dark flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all border border-border-dark" href="#">
+<span class="material-symbols-outlined text-lg">public</span>
+</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

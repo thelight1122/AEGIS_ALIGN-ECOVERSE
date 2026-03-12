@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AEGIS Protocol | Incident Coordination Center | AegisAlign EcoVerse</title>
+    <link rel="stylesheet" href="/src/shell.css" />
+  </head>
+  <body class="domain-surface domain-custodian-ui">
+    <div class="layout">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="/">
+            <span class="brand-pill"></span>
+            <span>AegisAlign EcoVerse</span>
+          </a>
+          <nav class="top-links">
+            <a href="/">Nexus</a>
+<a href="/developer-depot/">Developer Depot</a>
+<a href="/custodian-ui/">Custodian Ops Center</a>
+<a href="/aegis-application-lab/">AEGIS Application Lab</a>
+<a href="/agent-workshop/">Agentic Workshop</a>
+          </nav>
+        </div>
+      </header>
+      <div class="ethos-strip">
+    <span>Sovereignty is preserved at all times</span>
+    <span>Do no harm through force</span>
+    <span>Prism resonance: every Human/AI prompt is illuminated through coherence using IDS, IDR, and IDQRA.</span>
+    <span class="reminder-line">
+      <strong>Signal Words:</strong>
+      <span class="reminder-seed" data-reminder-seed>manners</span>,
+      <span class="reminder-seed" data-reminder-seed>consideration</span>,
+      <span class="reminder-seed" data-reminder-seed>respect</span>
+    </span>
+  </div>
+
+      <div class="shell">
+        <aside class="panel sidebar">
+          <h2>Custodian Ops Center Pages</h2>
+          <nav class="page-list">
+            <a class="" href="/custodian-ui/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
+<a class="" href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
+<a class="" href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
+<a class="" href="/custodian-ui/custodian-cockpit-hud-1/">Custodian Coordination Cockpit - AEGIS Protocol</a>
+<a class="" href="/custodian-ui/custodian-cockpit-hud-2/">Custodian Coordination Cockpit - AEGIS Protocol</a>
+<a class="" href="/custodian-ui/custodian-hub-operations-gallery/">Custodian Hub Operations Gallery</a>
+<a class="" href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
+<a class="" href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
+<a class="" href="/custodian-ui/incident-report-aeg-2023-08/">AegisAlign Incident Report | AEG-2023-08</a>
+<a class="" href="/custodian-ui/proposal-discussion-details/">AEGIS Governance | AIP-154 Discussion</a>
+<a class="" href="/custodian-ui/regional-drill-down-us-east-1/">AEGIS Protocol - US-EAST-1 Regional Drill-down</a>
+<a class="" href="/custodian-ui/safety-hold-protocol-sequence/">AEGIS Custodian - Safety hold Protocol</a>
+<a class="active" href="/custodian-ui/security-incident-assessor-center/">AEGIS Protocol | Incident Coordination Center</a>
+<a class="" href="/custodian-ui/security-logs-aegis-protocol/">AEGIS Protocol | Security Logs</a>
+<a class="" href="/custodian-ui/site-custodian-hub-gallery-update/">Site Custodian Hub Gallery Update</a>
+<a class="" href="/custodian-ui/site-custodian-login-recruitment-hub/">Site Custodian Login Recruitment Hub</a>
+<a class="" href="/custodian-ui/site-custodians/">Site Custodians</a>
+<a class="" href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
+<a class="" href="/custodian-ui/system-health-report-aegis-protocol/">AegisAlign | System Health Report</a>
+<a class="" href="/custodian-ui/ticket-details-aeg-4092/">AegisAlign | Support Ticket #AEG-4092</a>
+          </nav>
+        </aside>
+
+        <main class="panel content-wrap">
+          <div class="content-head">
+            <div>
+              <h1>AEGIS Protocol | Incident Coordination Center</h1>
+              <div class="breadcrumb">Custodian Ops Center / security-incident-assessor-center</div>
+            </div>
+          </div>
+          <div class="iframe-wrap">
+            <iframe class="stitch-frame" title="AEGIS Protocol | Incident Coordination Center" src="/stitch/custodian-ui/security-incident-assessor-center/" loading="lazy"></iframe>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const frame = document.querySelector('.stitch-frame');
+      if (frame) {
+        const tonePairs = [
+          ['con' + 'trol', 'guidance'],
+          ['con' + 'trols', 'pathways'],
+          ['com' + 'mand', 'coordination'],
+          ['com' + 'mander', 'assessor'],
+          ['privi' + 'leged', 'authorized'],
+          ['compli' + 'ance', 'congruence'],
+          ['en' + 'force' + 'ment', 'safeguarding'],
+          ['author' + 'ity', 'stewardship'],
+          ['ur' + 'gent', 'time-sensitive'],
+          ['mu' + 'st', 'is to'],
+          ['sho' + 'uld', 'can'],
+          ['lock' + 'down', 'safety hold'],
+        ];
+
+        const applyCasePattern = (source, replacement) => {
+          if (source.toUpperCase() === source) return replacement.toUpperCase();
+          if (source[0] && source[0] === source[0].toUpperCase()) {
+            return replacement[0].toUpperCase() + replacement.slice(1);
+          }
+          return replacement;
+        };
+
+        const softenText = (value) => {
+          let result = value;
+          for (const [from, to] of tonePairs) {
+            const regex = new RegExp('\b' + from + '\b', 'gi');
+            result = result.replace(regex, (match) => applyCasePattern(match, to));
+          }
+          return result;
+        };
+
+        const softenDocument = (doc) => {
+          const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+          const nodes = [];
+          while (walker.nextNode()) nodes.push(walker.currentNode);
+          for (const node of nodes) {
+            if (!node.nodeValue || !node.parentElement) continue;
+            const tag = node.parentElement.tagName;
+            if (tag === 'SCRIPT' || tag === 'STYLE') continue;
+            node.nodeValue = softenText(node.nodeValue);
+          }
+          if (doc.title) doc.title = softenText(doc.title);
+        };
+
+        const updateHeight = () => {
+          try {
+            const doc = frame.contentDocument;
+            if (!doc) return;
+            softenDocument(doc);
+            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
+            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const height = Math.max(bodyHeight, docHeight, Math.round(window.innerHeight * 0.8));
+            frame.style.height = String(height + 12) + 'px';
+          } catch {
+            frame.style.minHeight = '85vh';
+          }
+        };
+
+        frame.addEventListener('load', updateHeight);
+        window.addEventListener('resize', updateHeight);
+        setInterval(updateHeight, 2000);
+      }
+    </script>
+    <script type="module" src="/src/reminder-signals.js"></script>
+    <script type="module" src="/src/ambient-signals.js"></script>
+    <script type="module" src="/src/peer-signs.js"></script>
+    <script type="module" src="/src/portal-transit.js"></script>
+  </body>
+</html>

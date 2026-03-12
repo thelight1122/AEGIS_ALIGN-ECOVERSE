@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop - Create New Agent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .step-active {
+            @apply border-primary text-primary;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            @apply bg-slate-800/20;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            @apply bg-slate-700 rounded-full;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4 bg-background-light dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">shield_with_heart</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">AEGIS Agentic Workshop</h2>
+</div>
+<div class="flex flex-1 justify-center gap-8 hidden md:flex">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-medium border-b-2 border-primary pb-1" href="#">Agents</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Logs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Settings</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-900 dark:text-white leading-none">Admin User</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Operator Lvl 4</p>
+</div>
+<div class="size-9 rounded-full border-2 border-primary p-0.5">
+<img class="rounded-full w-full h-full object-cover" data-alt="User avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqyUgINLv4-9Q6eAGB_iR6nUU7A9-qY_cuizZv4URtsuZJRcwaFL-9c-Aa-hLJX7Tim_v3PxzSuqQDFJOFKLgw7soEfBYne8i1LwuLq6jSlb6Jb9mwditmlm3D8PqaoWTsI-jOnEdo9nmBMX4SuRm591lM-5Cu9mxeFztfekVIoJElKidv9vEjmcMKLwT8xbp1yMtFKEqr36ehQq1IlfnSfLfL2wWodW_U2gQBVxlqKASwpI2RoeSZ_4I1JpZQO8jwZwcEK6CdM02r"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col md:flex-row max-w-[1600px] mx-auto w-full p-6 gap-8">
+<aside class="w-full md:w-72 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Create New Agent</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Deploy an autonomous node to the AEGIS network.</p>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-4 p-3 rounded-xl bg-primary/10 border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary" fill="1">fingerprint</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">Core Identity</span>
+<span class="text-[10px] uppercase text-primary/70">Step 1 of 4</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+<div class="flex flex-col">
+<span class="text-sm font-medium">Logic &amp; Intelligence</span>
+<span class="text-[10px] uppercase">Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+<span class="material-symbols-outlined">database</span>
+<div class="flex flex-col">
+<span class="text-sm font-medium">Memory &amp; RAG</span>
+<span class="text-[10px] uppercase">Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
+<span class="material-symbols-outlined">rocket_launch</span>
+<div class="flex flex-col">
+<span class="text-sm font-medium">Deployment</span>
+<span class="text-[10px] uppercase">Pending</span>
+</div>
+</div>
+</nav>
+<div class="mt-auto p-4 rounded-xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-slate-500">SYSTEM HEALTH</span>
+<span class="text-xs font-bold text-green-500">OPTIMAL</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-green-500 h-full w-[88%]"></div>
+</div>
+<p class="text-[10px] text-slate-400 mt-3 leading-relaxed">Neural pathways clear. Nodes 1-42 ready for agent instantiation.</p>
+</div>
+</aside>
+<div class="flex-1 flex flex-col gap-6">
+<section class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 flex flex-col gap-8 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">Step 1: Core Identity</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Define the fundamental traits and model of your autonomous agent.</p>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-primary/20 rounded-full">
+<span class="size-2 bg-primary rounded-full animate-pulse"></span>
+<span class="text-[10px] font-bold text-primary tracking-wider uppercase">Configuration Active</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                                    Agent Name
+                                    <span class="material-symbols-outlined text-xs text-slate-400 cursor-help" title="A unique identifier for your agent">info</span>
+</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white" placeholder="e.g. Sentinel-Prime" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Operational Role</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white">
+<option>Security Auditor</option>
+<option>Network Optimizer</option>
+<option>Data Synthesizer</option>
+<option>Proactive Threat Hunter</option>
+<option>Protocol Enforcer</option>
+</select>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Base Intelligence Model</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<button class="flex flex-col p-4 rounded-xl border-2 border-primary bg-primary/5 text-left transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-white">AEGIS-LLM-4</span>
+<span class="text-xs text-slate-500 mt-1">High reasoning capacity for complex auditing.</span>
+</button>
+<button class="flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 bg-transparent text-left transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-slate-500">sync_alt</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-white">Core-Sync-v2</span>
+<span class="text-xs text-slate-500 mt-1">Optimized for rapid network signaling.</span>
+</button>
+<button class="flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 bg-transparent text-left transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-slate-500">hub</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-white">Nexus-Lite</span>
+<span class="text-xs text-slate-500 mt-1">Lightweight for edge node deployment.</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-6 rounded-xl bg-slate-100 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800">
+<h3 class="text-sm font-bold text-slate-700 dark:text-slate-300">Identity Bio &amp; Constraints</h3>
+<textarea class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white text-sm" placeholder="Describe the agent's personality and boundaries..." rows="4"></textarea>
+</div>
+</section>
+<div class="flex items-center justify-between pt-4">
+<button class="px-6 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            Cancel
+                        </button>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-400 font-bold text-sm cursor-not-allowed" disabled="">
+                                Back
+                            </button>
+<button class="px-8 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-white font-bold text-sm flex items-center gap-2 transition-all">
+                                Next Step
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<aside class="w-full lg:w-96 flex flex-col gap-6">
+<div class="flex flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl h-[600px]">
+<div class="bg-slate-800 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">code</span>
+<span class="text-xs font-bold text-slate-300 uppercase tracking-widest">Live Preview: config.yaml</span>
+</div>
+<div class="flex gap-1.5">
+<span class="size-2 rounded-full bg-slate-600"></span>
+<span class="size-2 rounded-full bg-slate-600"></span>
+<span class="size-2 rounded-full bg-slate-600"></span>
+</div>
+</div>
+<div class="p-6 font-mono text-xs leading-relaxed text-slate-400 overflow-y-auto custom-scrollbar flex-1">
+<pre><span class="text-primary">agent:</span>
+  <span class="text-green-500">name:</span> <span class="text-white">"Sentinel-Prime"</span>
+  <span class="text-green-500">role:</span> <span class="text-white">"Security Auditor"</span>
+  <span class="text-green-500">id:</span> <span class="text-white">"aegis-node-0492"</span>
+
+<span class="text-primary">intelligence:</span>
+  <span class="text-green-500">base_model:</span> <span class="text-white">"AEGIS-LLM-4"</span>
+  <span class="text-green-500">temp:</span> <span class="text-white">0.7</span>
+  <span class="text-green-500">max_tokens:</span> <span class="text-white">4096</span>
+
+<span class="text-primary">reasoning_loops:</span>
+  <span class="text-green-500">strategy:</span> <span class="text-slate-600">null</span>
+  <span class="text-green-500">recursive:</span> <span class="text-slate-600">null</span>
+
+<span class="text-primary">memory:</span>
+  <span class="text-green-500">vector_db:</span> <span class="text-slate-600">null</span>
+  <span class="text-green-500">long_term:</span> <span class="text-slate-600">null</span>
+
+<span class="text-primary">deployment:</span>
+  <span class="text-green-500">region:</span> <span class="text-white">"us-east-core-1"</span>
+  <span class="text-green-500">priority:</span> <span class="text-white">"high"</span>
+  <span class="text-green-500">auto_scale:</span> <span class="text-white">true</span>
+</pre>
+</div>
+<div class="p-4 bg-slate-800/50 border-t border-slate-700 mt-auto">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-sm">visibility</span>
+<span class="text-[10px] text-slate-400 uppercase font-bold tracking-tight">Active Preview Components</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 rounded bg-slate-700 text-[10px] text-slate-300">Identity Layer</span>
+<span class="px-2 py-1 rounded bg-slate-700/30 text-[10px] text-slate-500">Logic Layer</span>
+<span class="px-2 py-1 rounded bg-slate-700/30 text-[10px] text-slate-500">Memory Layer</span>
+</div>
+</div>
+</div>
+<div class="rounded-2xl p-6 bg-primary/10 border border-primary/20 flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white">Workshop Tip</h4>
+<p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Selecting 'Security Auditor' enables specialized reasoning tools for vulnerability scanning by default.</p>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</div>
+</body></html>

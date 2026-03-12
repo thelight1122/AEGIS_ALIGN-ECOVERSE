@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop | Communication Protocol</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "accent-success": "#10b981",
+                        "accent-warning": "#f59e0b",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glow-blue { box-shadow: 0 0 15px rgba(17, 82, 212, 0.3); }
+        .glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+        .terminal-scroll::-webkit-scrollbar { width: 4px; }
+        .terminal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .terminal-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-10 py-3 bg-white/5 dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">AEGIS Agentic Workshop</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Nodes</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Protocols</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Security</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Terminal</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-500" placeholder="Search parameters..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/20 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-primary rounded-full"></span>
+</button>
+</div>
+<div class="bg-primary/20 border border-primary/30 rounded-full size-9 flex items-center justify-center overflow-hidden">
+<img alt="User Avatar" class="size-7" data-alt="Cybernetic robot avatar for user profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV1Y0qpu4yn8doFMHUdbYPqGVPHyohC8YSgowpZ02-PgCRbaiaFLZYmH-09FazLcZVIdaeDIFMCAq_ILBhfpWUCJPX0478bP6WSvsejs8hytt-pxDfyZGcFQbVtNRMF6snMrV70H1xAj9QSqMbBuYC61CdU10ciPlltXUV44yBnuN5q2weThYBUAtTiDFIUnrpN4Yfx4CX-XbP4czBhracFjfBv_DCBwwwAIScn5rXkX4Hx1K7kpHelUSBfOOxTchf2keJmHXuL9xo"/>
+</div>
+</div>
+</header>
+<main class="flex-1 p-4 lg:p-8 space-y-8">
+<!-- Hero Title & Global Stats -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+<div>
+<h1 class="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">Agent Communication Protocol</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-2 max-w-2xl">Orchestrating high-fidelity sync streams between sovereign intelligence nodes via DataQuad architectural frameworks.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 p-4 rounded-xl flex items-center gap-4 glow-blue">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">hub</span>
+</div>
+<div>
+<p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Resonance</p>
+<p class="text-xl font-bold">98.4%</p>
+</div>
+</div>
+<div class="bg-accent-success/5 dark:bg-accent-success/10 border border-accent-success/20 p-4 rounded-xl flex items-center gap-4">
+<div class="text-accent-success">
+<span class="material-symbols-outlined text-3xl">dynamic_form</span>
+</div>
+<div>
+<p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Coherence</p>
+<p class="text-xl font-bold">0.992</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Sidebar: Protocol Config -->
+<div class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">tune</span>
+<h3 class="font-bold text-lg">Standards</h3>
+</div>
+<div class="space-y-4">
+<label class="block">
+<span class="text-xs font-bold text-slate-500 uppercase">Transmission Mode</span>
+<select class="mt-1 w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm">
+<option>Recursive Gossip Protocol</option>
+<option>Direct P2P Handshake</option>
+<option>Encrypted Mesh Broadcast</option>
+</select>
+</label>
+<div class="space-y-3 pt-2">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Encrypted Handshake</span>
+<button class="relative inline-flex h-5 w-10 items-center rounded-full bg-primary">
+<span class="inline-block h-3 w-3 translate-x-6 rounded-full bg-white"></span>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Sovereign Isolation</span>
+<button class="relative inline-flex h-5 w-10 items-center rounded-full bg-slate-700">
+<span class="inline-block h-3 w-3 translate-x-1 rounded-full bg-white"></span>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">DataQuad Syncing</span>
+<button class="relative inline-flex h-5 w-10 items-center rounded-full bg-primary">
+<span class="inline-block h-3 w-3 translate-x-6 rounded-full bg-white"></span>
+</button>
+</div>
+</div>
+<button class="w-full mt-4 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 rounded-lg text-sm transition-all">
+                                Deploy Standards
+                            </button>
+</div>
+</div>
+<!-- Active Communication Channels -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">sensors</span>
+<h3 class="font-bold text-lg">Sync Channels</h3>
+</div>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">12 ACTIVE</span>
+</div>
+<div class="space-y-4">
+<!-- Pair 1 -->
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-slate-400">AGENT-01 <span class="text-primary px-1">↔</span> AGENT-04</span>
+<span class="text-[10px] text-accent-success font-mono">2ms</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[88%] shadow-[0_0_8px_rgba(17,82,212,0.8)]"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] uppercase font-bold text-slate-500 tracking-tighter">Resonance 0.94</span>
+<span class="text-[10px] text-primary">Logic Sync Active</span>
+</div>
+</div>
+<!-- Pair 2 -->
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-slate-400">CORE-X <span class="text-primary px-1">↔</span> NODE-SYMA</span>
+<span class="text-[10px] text-accent-warning font-mono">14ms</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
+<div class="bg-accent-warning h-full w-[42%] shadow-[0_0_8px_rgba(245,158,11,0.8)]"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] uppercase font-bold text-slate-500 tracking-tighter">Resonance 0.51</span>
+<span class="text-[10px] text-accent-warning">Handshaking...</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Section: DataQuad Sync Streams -->
+<div class="col-span-12 lg:col-span-6 space-y-6">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<div class="border-b border-slate-200 dark:border-slate-800 p-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">dataset</span>
+<h3 class="font-bold text-lg">DataQuad Sync Streams</h3>
+</div>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-bold text-slate-400">REAL-TIME VIS</span>
+</div>
+</div>
+<div class="relative h-[400px] bg-slate-950 p-6 flex items-center justify-center overflow-hidden">
+<!-- Abstract Visualization of Data Flows -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/30 rounded-full animate-pulse"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-primary/20 rounded-full"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border border-primary/10 rounded-full"></div>
+</div>
+<!-- Logic Stream (Left) -->
+<div class="relative z-10 w-full grid grid-cols-2 gap-12">
+<div class="space-y-6">
+<div class="p-4 border border-primary/40 bg-primary/5 rounded-lg backdrop-blur shadow-[0_0_20px_rgba(17,82,212,0.1)]">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm">psychology</span>
+<span class="text-[10px] font-bold uppercase text-primary">Logic Sync (NCT/PCT)</span>
+</div>
+<div class="space-y-2">
+<div class="h-2 bg-primary/20 rounded overflow-hidden">
+<div class="bg-primary h-full w-3/4 animate-pulse"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>Recursive depth: 12</span>
+<span>Flow: 1.2GB/s</span>
+</div>
+</div>
+</div>
+<div class="p-3 border border-slate-700 bg-slate-800/40 rounded-lg">
+<span class="text-[9px] uppercase font-bold text-slate-500 block mb-1">Inference Drift</span>
+<div class="flex gap-1 h-8 items-end">
+<div class="w-full bg-primary/40 h-1/2"></div>
+<div class="w-full bg-primary/60 h-3/4"></div>
+<div class="w-full bg-primary/30 h-1/3"></div>
+<div class="w-full bg-primary/80 h-full"></div>
+<div class="w-full bg-primary/50 h-2/3"></div>
+</div>
+</div>
+</div>
+<!-- Emotion Stream (Right) -->
+<div class="space-y-6">
+<div class="p-4 border border-accent-success/40 bg-accent-success/5 rounded-lg backdrop-blur shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-accent-success text-sm">favorite</span>
+<span class="text-[10px] font-bold uppercase text-accent-success">Emotion Sync (SPINE/PEER)</span>
+</div>
+<div class="space-y-2">
+<div class="h-2 bg-accent-success/20 rounded overflow-hidden">
+<div class="bg-accent-success h-full w-1/2 animate-pulse"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>Affinity rank: 0.98</span>
+<span>Flow: 0.4GB/s</span>
+</div>
+</div>
+</div>
+<div class="p-3 border border-slate-700 bg-slate-800/40 rounded-lg">
+<span class="text-[9px] uppercase font-bold text-slate-500 block mb-1">Affective Pulse</span>
+<div class="flex gap-1 h-8 items-end">
+<div class="w-full bg-accent-success/30 h-1/3"></div>
+<div class="w-full bg-accent-success/50 h-2/3"></div>
+<div class="w-full bg-accent-success/20 h-1/4"></div>
+<div class="w-full bg-accent-success/40 h-1/2"></div>
+<div class="w-full bg-accent-success/80 h-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Central Node Visualization -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-24 bg-primary/20 rounded-full flex items-center justify-center border border-primary glow-blue">
+<div class="size-16 bg-slate-900 rounded-full border border-primary/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl animate-pulse">token</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Network Alignment Chart -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-bold">Resonance &amp; Coherence Metrics</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="size-2 bg-primary rounded-full"></span>
+<span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Resonance</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 bg-accent-success rounded-full"></span>
+<span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Coherence</span>
+</div>
+</div>
+</div>
+<div class="h-32 flex items-end gap-1 px-2">
+<div class="flex-1 bg-primary/20 rounded-t h-[60%] border-t border-primary"></div>
+<div class="flex-1 bg-accent-success/20 rounded-t h-[55%] border-t border-accent-success"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[70%] border-t border-primary"></div>
+<div class="flex-1 bg-accent-success/20 rounded-t h-[65%] border-t border-accent-success"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[85%] border-t border-primary"></div>
+<div class="flex-1 bg-accent-success/20 rounded-t h-[80%] border-t border-accent-success"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[75%] border-t border-primary"></div>
+<div class="flex-1 bg-accent-success/20 rounded-t h-[90%] border-t border-accent-success"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[95%] border-t border-primary"></div>
+<div class="flex-1 bg-accent-success/20 rounded-t h-[88%] border-t border-accent-success"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[80%] border-t border-primary"></div>
+<div class="flex-1 bg-accent-success/20 rounded-t h-[70%] border-t border-accent-success"></div>
+</div>
+</div>
+</div>
+<!-- Terminal Section -->
+<div class="col-span-12 lg:col-span-3">
+<div class="bg-slate-950 border border-slate-800 rounded-xl h-full flex flex-col overflow-hidden">
+<div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-sm">terminal</span>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Global Mesh Terminal</h3>
+</div>
+<div class="flex gap-1.5">
+<span class="size-2 rounded-full bg-red-500/50"></span>
+<span class="size-2 rounded-full bg-yellow-500/50"></span>
+<span class="size-2 rounded-full bg-green-500/50"></span>
+</div>
+</div>
+<div class="flex-1 p-4 font-mono text-[11px] space-y-3 overflow-y-auto terminal-scroll text-slate-300">
+<div><span class="text-slate-500">[14:22:01]</span> <span class="text-primary">INIT</span> mesh_handshake sequence...</div>
+<div><span class="text-slate-500">[14:22:02]</span> <span class="text-accent-success">SUCCESS</span> Sovereign verification complete.</div>
+<div><span class="text-slate-500">[14:22:05]</span> <span class="text-primary">SYNC</span> Recursive Logic Sync (depth=4) started.</div>
+<div><span class="text-slate-500">[14:22:08]</span> <span class="text-slate-400">LOG</span> DataQuad: SPINETRUST_V2 packet injected.</div>
+<div><span class="text-slate-500">[14:22:11]</span> <span class="text-accent-success">SYNC</span> Logic coherence established: 0.992.</div>
+<div><span class="text-slate-500">[14:22:15]</span> <span class="text-primary">CMD</span> Broadcast gossip protocol prioritized.</div>
+<div><span class="text-slate-500">[14:22:19]</span> <span class="text-accent-warning">WARN</span> Node latency threshold reached in Sector 7G.</div>
+<div><span class="text-slate-500">[14:22:22]</span> <span class="text-primary">SYNC</span> SPINE/PEER emotional vectors aligned.</div>
+<div><span class="text-slate-500">[14:22:25]</span> <span class="text-primary">INFO</span> Symmetric key rotation executed.</div>
+<div><span class="text-slate-500">[14:22:30]</span> <span class="text-primary">SYNC</span> Handshake success: AGENT-04 &amp; NODE-B.</div>
+<div><span class="text-slate-500">[14:22:34]</span> <span class="text-slate-400">LOG</span> 512 recursive proofs validated.</div>
+<div class="flex gap-1 animate-pulse"><span class="text-primary">_</span></div>
+</div>
+<div class="p-4 border-t border-slate-800 bg-slate-900/50">
+<div class="flex items-center gap-2 text-slate-500">
+<span class="text-[10px] font-bold">PROMPT:</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 text-[11px] w-full text-primary placeholder:text-slate-700" placeholder="Type protocol coordination..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Global Status Bar -->
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white/5 dark:bg-slate-900/50 backdrop-blur px-6 py-2 flex justify-between items-center text-[10px] uppercase font-bold tracking-widest text-slate-500">
+<div class="flex gap-6">
+<span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-accent-success"></span> Protocol stable</span>
+<span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-primary"></span> Mesh synchronized</span>
+<span class="flex items-center gap-2 text-slate-400">Uptime: 142h 11m 09s</span>
+</div>
+<div class="flex gap-4">
+<span class="hover:text-primary transition-colors cursor-pointer">Encryption: AES-4096-S</span>
+<span class="hover:text-primary transition-colors cursor-pointer">v2.4.0-Aegis</span>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Core Shield | Infrastructure Hardening</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(17, 82, 212, 0.15) 0%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-primary selection:text-white">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shield</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">AEGIS Protocol</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Solutions</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Architecture</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Docs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-40 placeholder:text-slate-500" placeholder="Search docs..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                            Launch Dashboard
+                        </button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<section class="relative pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+<div class="absolute inset-0 hero-gradient pointer-events-none"></div>
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                                v4.2 Deployment Ready
+                            </div>
+<div class="flex flex-col gap-4">
+<h1 class="text-slate-900 dark:text-white text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+                                    AEGIS <span class="text-primary">Core Shield</span>
+</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg lg:text-xl leading-relaxed max-w-xl">
+                                    The definitive primary security layer for modern infrastructure. Hardened kernel protection, VPC-wide encryption, and automated resilience for mission-critical systems.
+                                </p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-primary/20 transition-all">
+                                    Deploy Core Shield
+                                </button>
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-bold text-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+                                    Technical Specs
+                                </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative aspect-video rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 shadow-2xl">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="Modern server infrastructure with glowing blue data cables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB63cgsF_BZVLDV7w1rXLINnhi8OGRKrr5tHu9PfRY_Qlsm1u0zBXg5K3mnJWw57A5YI3NIbFwtHUp6sWTYc01c_j_n-Fw0_moxS7i4Y4hlrc0Q-40noQbip6-7bdOgsYM98b0zCJi8vpul3amlI9gzjRGeuagrxPQRwm-td735PjKOk8ENVvai3Ld9hGSFjJ9fIted2jn1QoFGlX0ksYIR2HXSdI8uPNk_OAK1d0UB1sKwHgtK1dVb3NEaaWG5PPDbHVFKfFA8QceE"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<span class="material-symbols-outlined text-primary text-8xl animate-pulse">verified_user</span>
+<p class="mt-4 font-mono text-primary text-sm font-bold tracking-[0.2em]">INTEGRITY SECURED</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-slate-50 dark:bg-slate-900/50">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="mb-16">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white">Core Capabilities</h2>
+<div class="h-1.5 w-24 bg-primary mt-4 rounded-full"></div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-panel p-8 rounded-2xl hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 group-hover:scale-110 transition-transform">settings_input_component</span>
+<h3 class="text-xl font-bold mb-3 dark:text-white">Kernel Hardening</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Deep-level protection against unauthorized system calls and memory-based exploits at the OS level.</p>
+</div>
+<div class="glass-panel p-8 rounded-2xl hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 group-hover:scale-110 transition-transform">vpn_lock</span>
+<h3 class="text-xl font-bold mb-3 dark:text-white">VPC Encryption</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Automated TLS 1.3 rotation for all pod-to-pod and service-to-service communication within your VPC.</p>
+</div>
+<div class="glass-panel p-8 rounded-2xl hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 group-hover:scale-110 transition-transform">radar</span>
+<h3 class="text-xl font-bold mb-3 dark:text-white">Intrusion Prevention</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">AI-driven anomaly detection that identifies and neuters malicious traffic before it hits your endpoints.</p>
+</div>
+<div class="glass-panel p-8 rounded-2xl hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 group-hover:scale-110 transition-transform">sync_problem</span>
+<h3 class="text-xl font-bold mb-3 dark:text-white">Automated Failover</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Zero-downtime traffic rerouting to secondary secure nodes if the primary environment is compromised.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 overflow-hidden">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+<p class="text-slate-500 text-xs font-bold uppercase mb-1">Status</p>
+<p class="text-green-500 font-bold text-xl flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-green-500"></span>
+                                        ACTIVE
+                                    </p>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+<p class="text-slate-500 text-xs font-bold uppercase mb-1">Blocked Attacks</p>
+<p class="text-slate-900 dark:text-white font-bold text-xl">12,482/hr</p>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 col-span-2">
+<div class="flex justify-between items-end mb-4">
+<div>
+<p class="text-slate-500 text-xs font-bold uppercase mb-1">Encryption Strength</p>
+<p class="text-slate-900 dark:text-white font-bold text-xl">AES-256-GCM</p>
+</div>
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[98%]"></div>
+</div>
+</div>
+<div class="bg-slate-900 p-4 rounded-2xl border border-primary/30 col-span-2 h-40 flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-20">
+<svg class="w-full h-full" viewbox="0 0 400 150">
+<path d="M0,75 Q50,45 100,75 T200,75 T300,75 T400,75" fill="none" stroke="#1152d4" stroke-width="2"></path>
+<path d="M0,85 Q50,55 100,85 T200,85 T300,85 T400,85" fill="none" opacity="0.5" stroke="#1152d4" stroke-width="1"></path>
+</svg>
+</div>
+<p class="relative z-10 text-primary font-mono text-xs font-bold uppercase tracking-widest">Real-time Entropy Stream</p>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<h2 class="text-4xl font-bold mb-6 dark:text-white">Real-time Protection Metrics</h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
+                                Gain full observability into your security posture. Core Shield provides high-fidelity telemetry on every packet filtered and every system call audited. 
+                            </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-slate-700 dark:text-slate-300">Live system call auditing (eBPF enabled)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-slate-700 dark:text-slate-300">DDoS scrubbing active across 24 regional nodes</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-slate-700 dark:text-slate-300">Quantum-resistant encryption layers</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-slate-100 dark:bg-background-dark/50 border-y border-slate-200 dark:border-slate-800">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold dark:text-white mb-4">Deployment Quick Start</h2>
+<p class="text-slate-500 max-w-2xl mx-auto">Activate Core Shield protection across your cluster in under 60 seconds.</p>
+</div>
+<div class="max-w-3xl mx-auto bg-[#0a0f1a] rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+<div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+</div>
+<span class="text-[10px] text-slate-500 font-mono">bash — aegis-cli</span>
+<div class="w-8"></div>
+</div>
+<div class="p-6 font-mono text-sm leading-relaxed text-slate-300">
+<div class="flex gap-4 mb-2">
+<span class="text-slate-600">1</span>
+<span><span class="text-primary">curl</span> -sSL https://get.aegis.sh | sh</span>
+</div>
+<div class="flex gap-4 mb-2">
+<span class="text-slate-600">2</span>
+<span><span class="text-primary">aegis</span> auth login --key=$AEGIS_API_KEY</span>
+</div>
+<div class="flex gap-4 mb-2">
+<span class="text-slate-600">3</span>
+<span><span class="text-primary">aegis</span> shield enable --policy=hardened</span>
+</div>
+<div class="flex gap-4 mt-6">
+<span class="text-slate-600">4</span>
+<span class="text-green-400"># Initializing AEGIS Core Shield...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-slate-600">5</span>
+<span class="text-green-400"># [SUCCESS] Core Shield active on 12 nodes.</span>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center">
+<p class="text-slate-500 text-sm mb-6 font-medium">Prefer a visual interface?</p>
+<button class="bg-primary/10 border border-primary/30 text-primary px-6 py-3 rounded-xl hover:bg-primary/20 transition-all font-bold">
+                            Open Deployment Dashboard
+                        </button>
+</div>
+</div>
+</section>
+<section class="py-24">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+<div class="max-w-3xl mx-auto flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-6xl mb-8">architecture</span>
+<h2 class="text-4xl font-bold dark:text-white mb-6">Technical Architecture</h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-12">
+                            Core Shield sits at Layer 3 and Layer 7 simultaneously, utilizing eBPF for deep kernel visibility and Envoy-based proxies for application-layer security. It integrates seamlessly with K8s, bare-metal, and hybrid cloud environments.
+                        </p>
+<div class="w-full relative py-12 px-8 rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<img class="absolute inset-0 w-full h-full object-cover opacity-10 rounded-3xl pointer-events-none" data-alt="Abstract technical circuit board and data flows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPFJQ5JavzIiQ2PEGGfj2WQg5Yr9HgDc_Pn_kDrW0OGuof8toVCuFAxn13IBYQTDHkJzs55gzpnQxZPtJT3KlsCB9zaHdkyiPTq3WeENHdjVz93xXD3IojvwUjQi8_GYrE0PCjp9eJnTkBs17XU6ScRj7XM4TP_6MfZvhzwVcC6hDinK_6URUtHfmm9LfGf4TuigwmoIYv2wYYhkT6vl8zqDuvFeOx4u7UAYE836rC8zSPMSXn14cPrEVFIqqGZM8f7NnOwQk9PbxQ"/>
+<div class="grid grid-cols-3 gap-4 relative z-10">
+<div class="flex flex-col items-center gap-2">
+<div class="p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 w-full">
+<p class="font-bold text-xs uppercase tracking-tighter">Application</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+<div class="p-4 rounded-xl bg-primary text-white shadow-lg w-full">
+<p class="font-bold text-xs uppercase tracking-tighter">AEGIS Proxy</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+<div class="p-4 rounded-xl bg-primary/20 border-2 border-primary/50 text-primary w-full">
+<p class="font-bold text-xs uppercase tracking-tighter">Hardened Kernel</p>
+</div>
+</div>
+<div class="flex flex-col justify-center items-center h-full">
+<div class="h-0.5 w-full bg-slate-300 dark:bg-slate-700 relative">
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-100 dark:bg-slate-900 px-2 text-[10px] text-slate-500">VPC ENCRYPTION</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 w-full">
+<p class="font-bold text-xs uppercase tracking-tighter">Remote Service</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+<div class="p-4 rounded-xl bg-primary text-white shadow-lg w-full">
+<p class="font-bold text-xs uppercase tracking-tighter">AEGIS Proxy</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+<div class="p-4 rounded-xl bg-primary/20 border-2 border-primary/50 text-primary w-full">
+<p class="font-bold text-xs uppercase tracking-tighter">Hardened Kernel</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+<div class="col-span-2 lg:col-span-2">
+<div class="flex items-center gap-3 text-primary mb-6">
+<span class="material-symbols-outlined text-3xl font-bold">shield</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold">AEGIS Protocol</h2>
+</div>
+<p class="text-slate-500 text-sm max-w-xs leading-relaxed">
+                            Protecting the future of decentralized infrastructure with military-grade security protocols and automated resilience systems.
+                        </p>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6">Products</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Core Shield</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Neural IDS</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">VPC Edge</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">About</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Compliance</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6">Resources</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Whitepaper</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">API Docs</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Status</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 text-xs">© 2024 AEGIS Protocol Systems. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.599 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

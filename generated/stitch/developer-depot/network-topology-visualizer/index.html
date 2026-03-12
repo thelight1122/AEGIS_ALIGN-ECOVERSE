@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Protocol | Network Topology Visualizer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "accent-success": "#0bda5e",
+                        "accent-warning": "#fa6238",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "panel-dark": "#161d2b",
+                        "border-muted": "#232b3e",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .mono-text {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .topology-grid {
+            background-image: radial-gradient(circle, rgba(17, 82, 212, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .node-glow {
+            box-shadow: 0 0 15px rgba(17, 82, 212, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-border-muted bg-background-light dark:bg-background-dark px-6 py-3 shrink-0">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-6 flex items-center justify-center bg-primary/20 rounded">
+<span class="material-symbols-outlined text-primary text-xl">shield_locked</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight font-display">AEGIS Protocol</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Explorer</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Topology</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Nodes</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Security</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-3 px-3 py-1.5 bg-slate-200/50 dark:bg-panel-dark rounded-lg border border-border-muted">
+<span class="material-symbols-outlined text-accent-success text-sm">circle</span>
+<span class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Network: Healthy</span>
+<span class="text-xs font-mono text-slate-900 dark:text-slate-100">4.2 GB/s</span>
+</div>
+<div class="flex gap-2 border-l border-border-muted pl-4">
+<button class="p-2 rounded-lg bg-slate-200/50 dark:bg-panel-dark text-slate-600 dark:text-slate-400 hover:bg-primary/20 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="p-2 rounded-lg bg-slate-200/50 dark:bg-panel-dark text-slate-600 dark:text-slate-400 hover:bg-primary/20 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+<div class="size-9 rounded-full bg-primary flex items-center justify-center text-white font-bold ml-2 overflow-hidden ring-2 ring-border-muted">
+<img alt="User avatar" data-alt="Avatar of a network engineer user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFPQ0CEIt27IiNGRlqCpRMAsLAL6FodGnAl9G3vvSBeN7H0eZ0VkXE5aP7gMAVcpVgIfajU9BOdfP2Y73UcOasf_H-lzwldYdZHUnk4OpYoPVdNWVkmlbm97ILJbELAqB9uFxEwhFyiXMQMK-JVvmLa-I01rWOvXUPy5rslLvPTbRaON8WkUxIrhfhh_GZsu3x8bvQyYrbvjeAIT1V9UPYGVhLg6w7RMapaPzDA4Lcf4VeQZzME8_jhCJ3KG3-EoYkXsPNcOP6A8vf"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Sidebar: Topology Settings -->
+<aside class="w-72 border-r border-border-muted bg-background-light dark:bg-background-dark flex flex-col shrink-0">
+<div class="p-4 border-b border-border-muted">
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4">Topology Settings</h3>
+<div class="space-y-4">
+<div>
+<label class="text-xs font-medium text-slate-400 block mb-2">View Mode</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="px-3 py-2 bg-primary text-white text-xs rounded-lg font-bold">Spatial</button>
+<button class="px-3 py-2 bg-slate-200/50 dark:bg-panel-dark text-slate-400 text-xs rounded-lg font-medium">Logical</button>
+</div>
+</div>
+<div>
+<label class="text-xs font-medium text-slate-400 block mb-2">Region Filter</label>
+<div class="space-y-1">
+<label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-panel-dark cursor-pointer group">
+<input checked="" class="rounded border-border-muted bg-transparent text-primary focus:ring-primary size-4" type="checkbox"/>
+<span class="text-sm text-slate-700 dark:text-slate-300">North America (US)</span>
+</label>
+<label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-panel-dark cursor-pointer group">
+<input checked="" class="rounded border-border-muted bg-transparent text-primary focus:ring-primary size-4" type="checkbox"/>
+<span class="text-sm text-slate-700 dark:text-slate-300">European Union (EU)</span>
+</label>
+<label class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-panel-dark cursor-pointer group">
+<input class="rounded border-border-muted bg-transparent text-primary focus:ring-primary size-4" type="checkbox"/>
+<span class="text-sm text-slate-700 dark:text-slate-300">Asia Pacific (AP)</span>
+</label>
+</div>
+</div>
+<div>
+<label class="text-xs font-medium text-slate-400 block mb-2">Protocol Layer</label>
+<select class="w-full bg-slate-200/50 dark:bg-panel-dark border-border-muted rounded-lg text-sm text-slate-700 dark:text-slate-300">
+<option>Encrypted (AEGIS-V2)</option>
+<option>Transport Layer</option>
+<option>Peer-to-Peer</option>
+</select>
+</div>
+<div class="pt-2">
+<label class="text-xs font-medium text-slate-400 block mb-2">Metrics Overlay</label>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-accent-success/10 text-accent-success text-[10px] font-mono border border-accent-success/30 rounded">LATENCY</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-mono border border-primary/30 rounded">THROUGHPUT</span>
+<span class="px-2 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-mono border border-slate-400/30 rounded">UPTIME</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto p-4 bg-primary/5 border-t border-border-muted">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-mono text-slate-500">Live Stream</span>
+<span class="size-2 bg-accent-success rounded-full animate-pulse"></span>
+</div>
+<div class="space-y-1 font-mono text-[10px] text-slate-500 uppercase overflow-hidden">
+<p class="truncate"><span class="text-accent-success">INFO</span> 10:42:01 Handshake node_742</p>
+<p class="truncate"><span class="text-primary">SYNC</span> 10:42:03 Shard migration complete</p>
+<p class="truncate text-accent-warning"><span class="">WARN</span> 10:42:05 High jitter EU-West</p>
+</div>
+</div>
+</aside>
+<!-- Interactive Canvas -->
+<section class="flex-1 relative bg-[#0d111a] topology-grid flex items-center justify-center">
+<!-- Floating Visualizer Elements (Nodes and Connections) -->
+<div class="absolute inset-0 overflow-hidden">
+<!-- SVG Connections Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<!-- Lines connecting nodes -->
+<line stroke="#1152d4" stroke-dasharray="4" stroke-width="1.5" x1="40%" x2="60%" y1="30%" y2="50%"></line>
+<line stroke="#0bda5e" stroke-width="2" x1="60%" x2="45%" y1="50%" y2="70%"></line>
+<line stroke="#1152d4" stroke-dasharray="4" stroke-width="1.5" x1="60%" x2="75%" y1="50%" y2="40%"></line>
+<line stroke="#1152d4" stroke-width="1" x1="30%" x2="40%" y1="45%" y2="30%"></line>
+<!-- Latency label on line -->
+<rect fill="#161d2b" height="18" rx="4" width="45" x="50%" y="38%"></rect>
+<text dx="22" dy="13" fill="#0bda5e" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="50%" y="38%">12ms</text>
+</svg>
+<!-- Central Cluster -->
+<div class="absolute top-[48%] left-[58%] -translate-x-1/2 -translate-y-1/2">
+<div class="relative group cursor-pointer">
+<div class="size-16 rounded-full border-2 border-primary bg-primary/20 flex items-center justify-center node-glow">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+</div>
+<div class="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap text-center">
+<p class="text-xs font-bold text-white uppercase tracking-tighter">NY-CORE-MASTER</p>
+<p class="text-[10px] font-mono text-primary">192.168.1.100</p>
+</div>
+</div>
+</div>
+<!-- US Node -->
+<div class="absolute top-[28%] left-[38%]">
+<div class="relative group cursor-pointer scale-90">
+<div class="size-12 rounded-lg border border-primary bg-panel-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">dns</span>
+</div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-center">
+<p class="text-[10px] font-mono text-slate-400">US-EAST-01</p>
+</div>
+</div>
+</div>
+<!-- EU Node -->
+<div class="absolute top-[68%] left-[43%]">
+<div class="relative group cursor-pointer scale-90">
+<div class="size-12 rounded-lg border border-accent-success bg-panel-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-success text-xl">dns</span>
+</div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-center">
+<p class="text-[10px] font-mono text-slate-400">EU-CENT-04</p>
+</div>
+</div>
+</div>
+<!-- AP Node (Distant/Warning) -->
+<div class="absolute top-[38%] left-[73%]">
+<div class="relative group cursor-pointer scale-75 opacity-80">
+<div class="size-12 rounded-lg border border-accent-warning bg-panel-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-warning text-xl">dns</span>
+</div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-center">
+<p class="text-[10px] font-mono text-accent-warning">AP-TOK-02 (LAG)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Zoom/Search Pathways -->
+<div class="absolute bottom-6 left-6 flex flex-col gap-2">
+<div class="flex flex-col bg-panel-dark border border-border-muted rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors border-b border-border-muted"><span class="material-symbols-outlined">add</span></button>
+<button class="p-2 hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors border-b border-border-muted"><span class="material-symbols-outlined">remove</span></button>
+<button class="p-2 hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">center_focus_strong</span></button>
+</div>
+<button class="p-2 bg-panel-dark border border-border-muted rounded-lg text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">near_me</span>
+</button>
+</div>
+<!-- Canvas Legend -->
+<div class="absolute top-6 right-6 bg-panel-dark/80 backdrop-blur border border-border-muted rounded-lg p-3 text-[10px] space-y-2">
+<div class="flex items-center gap-2">
+<span class="size-2 bg-primary rounded-full"></span>
+<span class="text-slate-300 font-mono uppercase">Master Node</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 bg-accent-success rounded-full"></span>
+<span class="text-slate-300 font-mono uppercase">Edge Relay</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 border border-slate-500 rounded-full"></span>
+<span class="text-slate-300 font-mono uppercase">Encrypted Tunnel</span>
+</div>
+</div>
+</section>
+<!-- Sidebar: Inspector -->
+<aside class="w-80 border-l border-border-muted bg-background-light dark:bg-background-dark flex flex-col shrink-0 overflow-y-auto">
+<div class="p-4 border-b border-border-muted bg-slate-200/30 dark:bg-panel-dark/50">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500">Node Inspector</h3>
+<span class="px-2 py-0.5 bg-primary/20 text-primary rounded text-[10px] font-mono">ACTIVE</span>
+</div>
+<h2 class="text-lg font-bold font-display text-slate-900 dark:text-slate-100">NY-CORE-MASTER</h2>
+<p class="text-xs font-mono text-slate-500">ID: aegis-004-99b-ff12</p>
+</div>
+<div class="p-4 space-y-6">
+<!-- Metadata Section -->
+<div>
+<h4 class="text-[10px] font-mono font-bold text-primary uppercase mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">info</span> General Metadata
+                    </h4>
+<div class="space-y-3">
+<div class="flex justify-between border-b border-border-muted pb-1.5">
+<span class="text-xs text-slate-500">IP Address</span>
+<span class="text-xs font-mono text-slate-900 dark:text-slate-300">192.168.1.100</span>
+</div>
+<div class="flex justify-between border-b border-border-muted pb-1.5">
+<span class="text-xs text-slate-500">Uptime</span>
+<span class="text-xs font-mono text-slate-900 dark:text-slate-300">14d 02h 44m</span>
+</div>
+<div class="flex justify-between border-b border-border-muted pb-1.5">
+<span class="text-xs text-slate-500">Location</span>
+<span class="text-xs font-mono text-slate-900 dark:text-slate-300" data-location="New York">New York, US</span>
+</div>
+<div class="flex justify-between border-b border-border-muted pb-1.5">
+<span class="text-xs text-slate-500">Version</span>
+<span class="text-xs font-mono text-slate-900 dark:text-slate-300">v2.4.0-stable</span>
+</div>
+</div>
+</div>
+<!-- Performance Metrics -->
+<div>
+<h4 class="text-[10px] font-mono font-bold text-primary uppercase mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">query_stats</span> Performance
+                    </h4>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-mono mb-1">
+<span class="text-slate-500">CPU Usage</span>
+<span class="text-slate-900 dark:text-slate-100">42%</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-panel-dark rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-mono mb-1">
+<span class="text-slate-500">Memory</span>
+<span class="text-slate-900 dark:text-slate-100">7.2 / 16 GB</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-panel-dark rounded-full h-1.5">
+<div class="bg-accent-success h-1.5 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Connections -->
+<div>
+<h4 class="text-[10px] font-mono font-bold text-primary uppercase mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">share</span> Peer Connections (3)
+                    </h4>
+<div class="space-y-2">
+<div class="p-2 bg-slate-200/50 dark:bg-panel-dark border border-border-muted rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-success text-sm">link</span>
+<span class="text-[10px] font-mono text-slate-300">US-EAST-01</span>
+</div>
+<span class="text-[10px] font-mono text-accent-success">12ms</span>
+</div>
+<div class="p-2 bg-slate-200/50 dark:bg-panel-dark border border-border-muted rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-success text-sm">link</span>
+<span class="text-[10px] font-mono text-slate-300">EU-CENT-04</span>
+</div>
+<span class="text-[10px] font-mono text-accent-success">48ms</span>
+</div>
+<div class="p-2 bg-slate-200/50 dark:bg-panel-dark border border-border-muted rounded-lg flex items-center justify-between opacity-60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-warning text-sm">link_off</span>
+<span class="text-[10px] font-mono text-slate-300">AP-TOK-02</span>
+</div>
+<span class="text-[10px] font-mono text-accent-warning">240ms</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto p-4 border-t border-border-muted">
+<button class="w-full bg-primary hover:bg-primary/80 text-white font-bold py-2 rounded-lg text-sm transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">terminal</span> SSH Access
+                </button>
+</div>
+</aside>
+</main>
+<!-- Bottom Status Bar -->
+<footer class="h-8 bg-slate-100 dark:bg-[#090d14] border-t border-border-muted flex items-center justify-between px-4 shrink-0 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1.5"><span class="size-2 bg-accent-success rounded-full"></span> Engine: Online</span>
+<span class="border-l border-border-muted pl-4">Last Sync: 10:42:05 UTC</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-primary">AEGIS Protocol V2.4.0-Stable</span>
+<span class="border-l border-border-muted pl-4">System Load: 0.24</span>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AegisAlign | Support Ticket #AEG-4092</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #282e39;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-3 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Tickets</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Nodes</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">System Log</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1440px] mx-auto w-full px-6 py-8 gap-8">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col gap-4">
+<nav class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
+<a class="hover:text-primary" href="#">Support Tickets</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">#AEG-4092</span>
+</nav>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">Neural Link Synchronization Failure</h1>
+<div class="flex flex-wrap items-center gap-4 text-sm">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-bold">Ticket #AEG-4092</span>
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="size-2 rounded-full bg-yellow-500 animate-pulse"></span>
+<span class="font-medium">Status: In Progress</span>
+</div>
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-red-500 text-sm">priority_high</span>
+<span class="font-medium text-red-500">Priority: High</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center gap-2 px-4 h-11 rounded-lg border border-slate-300 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+                                Close Ticket
+                            </button>
+<button class="flex items-center justify-center gap-2 px-6 h-11 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm">reply</span>
+                                Post Reply
+                            </button>
+</div>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Main Conversation Area -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Tabs -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 gap-8">
+<button class="border-b-2 border-primary text-primary pb-3 font-bold text-sm">Messages</button>
+<button class="border-b-2 border-transparent text-slate-500 dark:text-slate-400 pb-3 font-bold text-sm hover:text-slate-900 dark:hover:text-white">System Logs</button>
+<button class="border-b-2 border-transparent text-slate-500 dark:text-slate-400 pb-3 font-bold text-sm hover:text-slate-900 dark:hover:text-white">Activity Feed</button>
+</div>
+<!-- Chat Thread -->
+<div class="flex flex-col gap-8 py-4">
+<!-- User Message -->
+<div class="flex gap-4 group">
+<div class="size-10 rounded-lg overflow-hidden shrink-0 border border-slate-200 dark:border-slate-800">
+<img alt="Reporter" data-alt="User avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCexubLrtj9kxhyomNsGEHXWDDdh2nWy__sPh0fVGJkuvjPCWWYCd3TCZ4ID7cCUdtBRRpXeH3kdKi5END_yuU4NmfvbauazgAiQpKy6KaitiROy6i2bqtcHYwZqYDvaCr83u8OjB251rFRQEccM5cKnbkEWlwmEHwl_fnrrWlVT_UHalYqq_lou05b4z2ZH1rT49Vfo4LZvZMtpyQdXbbNLL9k14mEoM07V7Nm2unQyUUHVL036avlUjjEIxdQ_WoIdMBqNB9O3GP-"/>
+</div>
+<div class="flex flex-col gap-2 flex-1 max-w-[85%]">
+<div class="flex items-baseline justify-between gap-4">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Kaelen Vance <span class="text-xs font-normal text-slate-500 ml-2">Reporter</span></span>
+<span class="text-xs text-slate-500">Oct 12, 09:42 AM</span>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl rounded-tl-none border border-slate-200 dark:border-slate-800">
+<p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            The neural link sync for Node ID #7721 is consistently failing at 84%. I've tried three manual resets, but the error persists. Protocol v4.2 seems to be throwing a handshake timeout. Attached the initial stack trace.
+                                        </p>
+<div class="mt-4 flex flex-wrap gap-2">
+<div class="flex items-center gap-2 bg-slate-200 dark:bg-slate-900 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 cursor-pointer hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-sm">description</span>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-300">stack_trace_7721.log</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Support Reply -->
+<div class="flex flex-row-reverse gap-4 group">
+<div class="size-10 rounded-lg overflow-hidden shrink-0 border border-primary/30 bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">support_agent</span>
+</div>
+<div class="flex flex-col gap-2 flex-1 items-end max-w-[85%]">
+<div class="flex items-baseline justify-between gap-4 w-full flex-row-reverse">
+<span class="text-sm font-bold text-primary">Aegis AI Agent <span class="text-xs font-normal text-slate-500 ml-2">Support</span></span>
+<span class="text-xs text-slate-500">Oct 12, 09:45 AM</span>
+</div>
+<div class="bg-primary/10 p-4 rounded-xl rounded-tr-none border border-primary/20">
+<p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            Hello Kaelen, I've analyzed your stack trace. It appears to be a phase alignment issue with the subnet. I'm escalating this to the Engineering team for a deep scan of Node #7721.
+                                        </p>
+</div>
+</div>
+</div>
+<!-- Senior Tech Reply -->
+<div class="flex gap-4 group">
+<div class="size-10 rounded-lg overflow-hidden shrink-0 border border-slate-200 dark:border-slate-800">
+<img alt="Support" data-alt="Staff avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAmWWxMGf3K7zDTxhyKXuq5bxgxQkLKSSXI9qhUVAZQm_NSP2I2encIqP0c2aYDsPVJsqAWIgS8foaUgm0y9TMW6z6pUkREQontPDiQBogstx1rRWOTMsUScv3iQwLEYQGcFOjn5-oKY-iWWDGUMfc6-mj7UQ18SwlPMBg6KVIprGwebUoD-g3mg3KWi1cQMUnfdpz-YHrUfp5j_VZ7uWGa5qQAw8OwFJM7k4LgH9mwQIlcAM1rKSpgtzKc2niDWpj_x5oSLqKbCv2"/>
+</div>
+<div class="flex flex-col gap-2 flex-1 max-w-[85%]">
+<div class="flex items-baseline justify-between gap-4">
+<span class="text-sm font-bold text-slate-900 dark:text-white">Sarah Chen <span class="text-xs font-normal text-slate-500 ml-2">Senior Engineer</span></span>
+<span class="text-xs text-slate-500">Oct 12, 10:12 AM</span>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl rounded-tl-none border border-slate-200 dark:border-slate-800">
+<p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            Acknowledged. We are seeing a pattern across the Orion Cluster. Kaelen, can you please run the following coordination on your node and paste the result? <br/>
+<code class="block bg-black/30 p-2 mt-2 rounded border border-slate-700 text-primary font-mono text-xs">aegisctl link --force-sync --node-id 7721 --verbose</code>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Reply Composer -->
+<div class="bg-slate-100 dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden mt-4">
+<div class="flex items-center gap-2 p-3 bg-slate-200 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-700">
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">format_bold</span></button>
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">format_italic</span></button>
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">code</span></button>
+<div class="w-px h-4 bg-slate-400 dark:bg-slate-600 mx-1"></div>
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">link</span></button>
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">image</span></button>
+</div>
+<textarea class="w-full bg-transparent border-none focus:ring-0 p-4 min-h-[150px] text-slate-900 dark:text-white placeholder:text-slate-500" placeholder="Type your reply here..."></textarea>
+<div class="flex items-center justify-between p-3 bg-slate-200 dark:bg-slate-800 border-t border-slate-300 dark:border-slate-700">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-400 dark:border-slate-600 text-xs font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-sm">attach_file</span>
+                                    Attach Log File
+                                </button>
+<button class="px-6 py-2 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity">
+                                    Send Reply
+                                </button>
+</div>
+</div>
+</div>
+<!-- Sidebar Metadata -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-slate-100 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col gap-6">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                                Ticket Metadata
+                            </h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Protocol Version</span>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Aegis Neural v4.2.0-STABLE</span>
+<span class="material-symbols-outlined text-green-500 text-sm">verified</span>
+</div>
+</div>
+<div class="h-px bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Node ID</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">#7721-DELTA-ORION</span>
+</div>
+<div class="h-px bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Last Sync Attempt</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Oct 12, 2023 10:05:21 UTC</span>
+</div>
+<div class="h-px bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Assigned Team</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex -space-x-2">
+<img alt="Team 1" class="size-6 rounded-full border-2 border-slate-800" data-alt="Team member small avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnmzbQM4UzsAV4Cg5EVYdLEAumiKw37bucUYGISaaUXqwkC-sgIvXmjoWybDDto7e33fKuXWMx-F4nYNL9stJw6atkR46n9oRb5Q7m6lbC4LctlZOQvZaF1dO1munnl5rG_UrA3L01xszczAPrN4tnboSdxWA_UM0LizPM46JJ2XGbb5J22Pj8cFTBfavPiV-iCQxm9zAOUWmp4JHC9cyPV9dyl0_e0y56WpSX5g9Rv3DCWacCjEq759bPiupzp5Z7sVvM_ixMExGf"/>
+<img alt="Team 2" class="size-6 rounded-full border-2 border-slate-800" data-alt="Team member small avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_-Z4PANyGa0mf_Tz8TOGpC6nuD1E4eOB32PCsip01NwaVsXFq_zVqLD5ocOinAdjAxaYiDXHkiSdmBtIFP64drmP8ruMVQnZQLBoS9NKIy_dIrOJj-EoNMKKU9zbJsQNoDOkBBuUsPBOa5W2GsZnLFg--b3-iisJeoof3cqebUYMhTHwtUfWOFX7W37Vh8dDFQHBp19aaDZAoK2w9cD-iVWILU-I_IdUFcEXcVw_cPJANDOPOXJIs1v_2-fDmFV1kaLnQ3aUvQh6G"/>
+<div class="size-6 rounded-full border-2 border-slate-800 bg-primary flex items-center justify-center text-[10px] font-bold">+2</div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Core Link Eng.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Ticket Map/Location Context -->
+<div class="bg-slate-100 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Reporter Location Context</span>
+</div>
+<div class="aspect-video relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl animate-pulse">location_on</span>
+</div>
+<img alt="Map" class="w-full h-full object-cover opacity-50 grayscale contrast-125" data-alt="Satellite map view of regional node" data-location="Reykjavik, Iceland" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_b8VpnekrvAqKDMEMQQwXIJo2aXMWy3k2I3frjBMuv8FNFLPG3znRflWEcgfiJ5mwnMA2wYS91z-L7KiB4pD3gA4kc1iS-E8FBp3_dJeI8WcWfUndu1uCaz6mSkqLbmDNOktDZvCFd13r1DLWn18paOasLN1-byYjfP6vjVsLFnkhSA7J7iePv-qxL4YvIFhvcNlOIC3LD5AT7DqkQnmPDkoygKcTzyJywc5tjtT7tzvHyEhaFfVvvNNZVGj2mMbAg7GMpb4dE8dm"/>
+</div>
+<div class="p-4 bg-slate-200 dark:bg-slate-800">
+<p class="text-xs text-slate-500">Latency: <span class="text-green-500 font-bold">12ms</span></p>
+<p class="text-xs text-slate-500">Region: <span class="text-slate-900 dark:text-slate-200 font-bold">Northern Atlantic-1</span></p>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="flex flex-col gap-3">
+<button class="w-full flex items-center justify-between px-4 py-3 bg-primary/20 hover:bg-primary/30 text-primary rounded-xl border border-primary/20 transition-all font-bold group">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+                                    Run Remote Diagnostics
+                                </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl border border-slate-300 dark:border-slate-700 transition-all font-bold group">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span>
+                                    View Past Issues
+                                </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 p-8">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-500 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">shield</span>
+<span>© 2023 AegisAlign System. All rights reserved.</span>
+</div>
+<div class="flex gap-6 text-sm font-medium text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Security Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Service Status</a>
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

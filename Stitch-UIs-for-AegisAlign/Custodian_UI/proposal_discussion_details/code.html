@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Governance | AIP-154 Discussion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #282e39;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<!-- Main Layout Container -->
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-12 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">shield</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">AEGIS <span class="text-primary">Governance</span></h2>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Proposals</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-primary" href="#">Forum</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-500" href="#">Staking</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-500" href="#">Docs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800/50 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-500" placeholder="Search proposals..." type="text"/>
+</div>
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full"></span>
+</button>
+<div class="size-9 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center overflow-hidden">
+<img alt="User Avatar" class="size-full object-cover" data-alt="Cyberpunk style user avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEidm8eeKqhCQNrDUy-3RD6VMu4JYKenrtr4YdSlePwxk_uff_CXQOleVC0EAsF65bkS1kJfIrj_hcYAzlPFrhWYj43cZoqFkq-bCQJw0aO5ekhkeDD9nuzrsbmEWo4T7ZQnkMa7ZYnr53814_96D_15G0E1Te_MnU7981xxuruyyy4a8MZ3xJjQd9vZ-M-91VCAubLne9AKqWzPE-DGDZx1ZCujfCP_RAyxqKwUv5ApKY5e1A_HzyCdD3ONEWuXjcSU8b4kcTVn_f"/>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 md:px-12 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Proposal Details -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Breadcrumbs & Actions -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<a class="hover:text-primary" href="#">Governance</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">Discussions</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">AIP-154</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-sm font-bold transition-all">
+<span class="material-symbols-outlined text-sm">share</span> Share
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 text-sm font-bold shadow-lg shadow-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">bookmark</span> Follow Discussion
+                        </button>
+</div>
+</div>
+<!-- Proposal Header -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/20">Discussion Phase</span>
+<span class="text-slate-500 text-sm">Created 2 days ago</span>
+</div>
+<h1 class="text-4xl font-black leading-tight tracking-tight">AIP-154: Upgrade Governance Module to V2.0</h1>
+<div class="flex items-center gap-4 py-2 border-y border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700" data-alt="Author profile avatar">
+<img alt="Author" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb23hNfUVYwJOMfQD0SuPwExamCIdHr9Biq6ljW3-SukGgSnMmY1FaNlhWPD5G_MaPSGDpmKnJqdwj6cnEvVxKNrCu0wTbI1J-NsDnJ-Uh9wRP5PloXG_Ls1DhOobSc5pBBEBwTtHhWuRO_tSD6fhQ6z3aQvIAhhSIAxagWaq8CPDYSP0WZbbyGifQO77tsD09a2mqZGymxdCFQMDB4OVld5tZcXn9WrpwVt1ALaFR0iu_mZXaRx1raHYrVES4qy3a0RQN62ablskF"/>
+</div>
+<span class="text-sm font-medium">0x71C...a2e <span class="text-slate-500 font-normal">(Core Contributor)</span></span>
+</div>
+<div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
+<div class="flex items-center gap-1 text-sm text-slate-500">
+<span class="material-symbols-outlined text-sm">chat_bubble</span> 142 Comments
+                        </div>
+</div>
+</section>
+<!-- Technical Summary -->
+<section class="bg-white dark:bg-slate-900/40 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span> Proposal Overview
+                    </h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        This proposal aims to upgrade the current AEGIS governance module from V1.4 to V2.0. The primary goal is to introduce quadratic voting weights for specific parameter-change proposals and implement a sub-committee system for emergency treasury allocations. This will significantly reduce latency in critical security responses while maintaining decentralization through a veto-capable main assembly.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="text-xs font-bold text-slate-500 uppercase mb-1">Impact Level</div>
+<div class="text-amber-500 font-bold flex items-center gap-1">High <span class="material-symbols-outlined text-sm">warning</span></div>
+</div>
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="text-xs font-bold text-slate-500 uppercase mb-1">Affected Modules</div>
+<div class="font-medium">Governance, Treasury, Staking</div>
+</div>
+</div>
+</section>
+<!-- Technical Specification -->
+<section class="flex flex-col gap-4">
+<h3 class="text-xl font-bold">Technical Specification</h3>
+<div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-950">
+<div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+<span class="text-xs font-mono text-slate-400">gov_module_config.yaml</span>
+<button class="text-xs text-slate-500 hover:text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">content_copy</span> Copy
+                            </button>
+</div>
+<pre class="p-6 text-sm font-mono overflow-x-auto text-emerald-400"><code><span class="text-slate-500"># Upgrade configuration for Governance V2.0</span>
+version: 2.0.0
+quadratic_voting:
+  enabled: true
+  min_stake_threshold: 1000AEGIS
+  coefficient: 0.5
+
+emergency_committee:
+  quorum: 0.66
+  max_spend_limit: 50000USDC
+  veto_period: 48h <span class="text-slate-500"># Time for main DAO to block action</span>
+
+modules_to_patch:
+  - id: "aegis-core-gov-v1"
+    target: "aegis-core-gov-v2"
+    checksum: "sha256:8f1a2b3c4d5e6f7g8h9i0j..."</code></pre>
+</div>
+</section>
+<!-- Discussion Thread -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold">Community Discussion</h3>
+<div class="flex items-center gap-2">
+<select class="bg-transparent border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:ring-primary">
+<option>Most Relevant</option>
+<option>Newest First</option>
+<option>Oldest First</option>
+</select>
+</div>
+</div>
+<!-- Comment Input -->
+<div class="flex gap-4 p-4 rounded-xl bg-primary/5 border border-primary/20">
+<div class="size-10 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center">
+<img alt="Me" class="size-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsEFnRTkYXNCV0XgpfaOvDamkl9UDjZVnI5taQX4a2qdYdQntYYhRykeI8qAGeDKSclxCkTCYFeaAU3C61RTLmJZ3yPCx_5sAxsUUK80Ocmj4GgDORHxKCUNFOA8KYbvf9YmoosTuZXWgYMXXgg0RIMv8VYWroWDurP9qLKiXxnyDnqJGr03P2ulghaYDk5FrqAJXES4jq5DMhPrGQkspGW-KyXBHSJd5oQv42XlUorASF_EKei_OBF4oZrIwoVEdvinpNOOFmFpLa"/>
+</div>
+<div class="flex-1 flex flex-col gap-3">
+<textarea class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary min-h-[100px]" placeholder="Add to the discussion..."></textarea>
+<div class="flex justify-between items-center">
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500">
+<span class="material-symbols-outlined text-xl">image</span>
+</button>
+<button class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500">
+<span class="material-symbols-outlined text-xl">code</span>
+</button>
+</div>
+<button class="px-6 py-2 bg-primary text-white rounded-lg font-bold text-sm">Post Comment</button>
+</div>
+</div>
+</div>
+<!-- Comments List -->
+<div class="flex flex-col gap-6 mt-4">
+<!-- Comment 1 -->
+<div class="flex gap-4">
+<div class="size-10 rounded-full bg-slate-800 flex-shrink-0 overflow-hidden">
+<img alt="DevX" data-alt="Developer icon placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcU7yKRlejtyeE_4KkeD0xrd8WCT8EPB-5hFeU8voXswyT15Ld8EMxkVonM_dZqbnDXOBCPwElCtxfmmUfzqs_ra8YrZDT949pWIARhT3n2pFVxr-DUbcZOZCGG0RDNPOfOFrvWY3eJkOUIUZtKGIUOc3WyUUPxir0jbOKVltXK6I0G2KrqLLBhPYFQWehCKkYAW3iLNpOHuh76bcZRNmL0qiNf7H0itKULIuqP7Igr2qt4zIF7xVmJUg-aGeVsqXOCX1pLlGC391v"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold">DevX_Protocol</span>
+<span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-500 uppercase">Maintainer</span>
+<span class="text-xs text-slate-500">4h ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+                                    I fully support the quadratic voting implementation. We've seen whale manipulation in smaller parameter tweaks recently. However, I'm concerned about the <code class="bg-slate-800 px-1 rounded">veto_period</code> of 48h. In a fast-moving exploit scenario, 48 hours might be too long to wait for a committee action to finalize?
+                                </p>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-2 py-0.5 gap-2">
+<button class="material-symbols-outlined text-sm hover:text-primary">thumb_up</button>
+<span class="text-xs font-bold">24</span>
+<button class="material-symbols-outlined text-sm hover:text-red-500">thumb_down</button>
+</div>
+<button class="text-xs font-bold text-slate-500 hover:text-primary">Reply</button>
+</div>
+<!-- Threaded Reply -->
+<div class="mt-4 pl-4 border-l-2 border-slate-200 dark:border-slate-800 flex gap-4">
+<div class="size-8 rounded-full bg-slate-700 flex-shrink-0 overflow-hidden">
+<img alt="Author" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFWMIeO7IkcFKGMzCd5m8qUzMogGyy11RIOtj9prjr_GQiZtqh1YSE9_gkmuV1obi0aZrz4uzc_Gazf6W6qRmPUswzz_wUnhfWSM_o0XSxdY8004fW-vbG8Yk4virjy5D_YnxIlOQ7WyqmkxquU_ICOtfNpvqbrfTvIzjdjC9gwgIdRqKu56nJHdfo3kHXJcTphQoBYculCL2uMYJ7jLkQYlW6AmsYqvTAAFXPawWE4L0aVkBtRPPcvnIdNmMJpPii6K964ONj2QFO"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-sm">0x71C...a2e</span>
+<span class="text-xs text-slate-500">2h ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">
+                                            Good point, DevX. The committee can act immediately; the 48h is for the *reversal* by the DAO. Funds are locked in a transition state until then.
+                                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Comment 2 -->
+<div class="flex gap-4">
+<div class="size-10 rounded-full bg-slate-800 flex-shrink-0 overflow-hidden">
+<img alt="Wale" data-alt="Investor avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7cq_y44yxr6LaX5in_j5pJpicDaa7vKcfNuMIi8GAJp_ogWv2-JeGbzHjbSjjCukMHBduLuxz1ZxTE-dmx3CcuebnD7I-Daa-HpoE9PEKEkTAhKF-1S5PmQgHy7DrdgY9KNAwX33suEIw5tcfjtCVraPBGeFAouPCUIW6-Y_Xlr_rzcFTtiIRoLyYjFGRZjaO6boy4u5J-K0g_N1RgabyuJsKUvgyZYurz3M-Dt-J2yYg7mpR5b5ARNLFbLb7SKITAasWcSeA6IAC"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold">Aegis_Voyager</span>
+<span class="text-xs text-slate-500">8h ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+                                    Will this change the staking rewards calculation as well? Quadratic voting usually implies a shift in how power is distributed.
+                                </p>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-2 py-0.5 gap-2">
+<button class="material-symbols-outlined text-sm hover:text-primary">thumb_up</button>
+<span class="text-xs font-bold">12</span>
+<button class="material-symbols-outlined text-sm hover:text-red-500">thumb_down</button>
+</div>
+<button class="text-xs font-bold text-slate-500 hover:text-primary">Reply</button>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full py-3 rounded-lg border border-slate-200 dark:border-slate-800 text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Load More Comments
+                    </button>
+</section>
+</div>
+<!-- Right Column: Sidebar Stats & Timeline -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Discussion Pulse -->
+<section class="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<h3 class="font-bold text-lg mb-6 flex items-center justify-between">
+                        Discussion Pulse
+                        <span class="material-symbols-outlined text-primary text-xl">insights</span>
+</h3>
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-500 uppercase">Total Comments</span>
+<span class="text-3xl font-black">142</span>
+</div>
+<span class="text-emerald-500 text-sm font-bold mb-1 flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span> +12%
+                            </span>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-500 uppercase">Unique Contributors</span>
+<span class="text-3xl font-black">48</span>
+</div>
+<span class="text-emerald-500 text-sm font-bold mb-1 flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5%
+                            </span>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-slate-500 uppercase">Sentiment Analysis</span>
+<span class="text-emerald-500 text-xs font-bold uppercase">70% Positive</span>
+</div>
+<div class="h-2 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden flex">
+<div class="h-full bg-emerald-500" style="width: 70%"></div>
+<div class="h-full bg-slate-400 dark:bg-slate-600" style="width: 20%"></div>
+<div class="h-full bg-red-500" style="width: 10%"></div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-500 font-bold">
+<span>POSITIVE</span>
+<span>NEUTRAL</span>
+<span>NEGATIVE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Governance Timeline -->
+<section class="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<h3 class="font-bold text-lg mb-6">Governance Timeline</h3>
+<div class="flex flex-col gap-0 relative">
+<!-- Line -->
+<div class="absolute left-[15px] top-2 bottom-2 w-0.5 bg-slate-200 dark:bg-slate-800"></div>
+<!-- Step 1 -->
+<div class="relative flex items-start gap-4 pb-8">
+<div class="size-8 rounded-full bg-emerald-500 flex items-center justify-center z-10 text-white border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-emerald-500">Draft Proposed</h4>
+<p class="text-xs text-slate-500 mt-0.5">Oct 12, 2023</p>
+</div>
+</div>
+<!-- Step 2 (Active) -->
+<div class="relative flex items-start gap-4 pb-8">
+<div class="size-8 rounded-full bg-primary flex items-center justify-center z-10 text-white border-4 border-background-light dark:border-background-dark shadow-[0_0_15px_rgba(17,82,212,0.5)]">
+<span class="material-symbols-outlined text-sm">forum</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">Community Discussion</h4>
+<p class="text-xs text-slate-400 mt-0.5">Active Phase • Ends in 3 days</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-start gap-4 pb-8 opacity-40">
+<div class="size-8 rounded-full bg-slate-700 flex items-center justify-center z-10 text-white border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined text-sm">rate_review</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">Final Review</h4>
+<p class="text-xs text-slate-500 mt-0.5">Estimated Oct 25</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex items-start gap-4 opacity-40">
+<div class="size-8 rounded-full bg-slate-700 flex items-center justify-center z-10 text-white border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined text-sm">how_to_vote</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">On-chain Voting</h4>
+<p class="text-xs text-slate-500 mt-0.5">Estimated Oct 28</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Relevant Links -->
+<section class="bg-primary/5 border border-primary/20 rounded-xl p-6">
+<h3 class="font-bold text-sm uppercase tracking-wider text-primary mb-4">Resources</h3>
+<ul class="flex flex-col gap-3">
+<li>
+<a class="flex items-center justify-between text-sm group" href="#">
+<span class="text-slate-600 dark:text-slate-400 group-hover:text-primary transition-colors">GitHub PR #201</span>
+<span class="material-symbols-outlined text-sm text-slate-500">open_in_new</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between text-sm group" href="#">
+<span class="text-slate-600 dark:text-slate-400 group-hover:text-primary transition-colors">V2 Whitepaper</span>
+<span class="material-symbols-outlined text-sm text-slate-500">description</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between text-sm group" href="#">
+<span class="text-slate-600 dark:text-slate-400 group-hover:text-primary transition-colors">Audit Report (Certik)</span>
+<span class="material-symbols-outlined text-sm text-slate-500">verified_user</span>
+</a>
+</li>
+</ul>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 px-12 mt-12 bg-slate-50 dark:bg-slate-900/20">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined">shield</span>
+<span class="text-sm font-bold">AEGIS Network v2.1.0</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary" href="#">Twitter</a>
+<a class="hover:text-primary" href="#">Discord</a>
+<a class="hover:text-primary" href="#">Documentation</a>
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop - Create New AI Agent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .step-active {
+            @apply text-primary border-primary;
+        }
+        .glass-panel {
+            background: rgba(17, 82, 212, 0.05);
+            border: 1px solid rgba(17, 82, 212, 0.2);
+            backdrop-filter: blur(8px);
+        }
+        .code-glow {
+            text-shadow: 0 0 10px rgba(17, 82, 212, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between border-b border-primary/20 px-6 py-4 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight uppercase">AEGIS <span class="text-primary">Agentic Workshop</span></h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full border-2 border-primary bg-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar with geometric pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ955ADgijrhNG0KwshxR_4f-aa0S2Wn8VhDUsAw3yII5lr6MJx8jNf9r3UtWrixeAa12_mgy_uqaF6kM4PgJDT3xUtrBnG0v3o6Rj_rKae3MKBMWCTCc6h8XHsUOng-eu0Q_n_NBaaaxiywUPioAg6E8CXzIFOmgU72QbH3_SXELELclF0op0eY-Vv1AaV3bE0bZXO5vQ_eIqa-pPhQsG-zVUl9cvNiE5J54jb9t6MDuB_iuky4GyGYkSQsUcjy-L8r5pMMrkHI69"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1400px] mx-auto w-full px-6 py-8 gap-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary/60 text-sm font-medium">
+<span>Workshops</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary">New AI Agent</span>
+</div>
+<h1 class="text-4xl font-black tracking-tight">Initialize Agent Prototype</h1>
+<p class="text-slate-400 max-w-2xl">Configure the core identity, neural constraints, and behavioral directives for your autonomous agent instance.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-primary/10 pb-8">
+<div class="flex items-center gap-4 group">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-[0_0_15px_rgba(17,82,212,0.4)]">
+<span class="material-symbols-outlined">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-primary text-sm font-bold uppercase tracking-wider">Step 1</span>
+<span class="font-medium">Core Identity</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold uppercase tracking-wider">Step 2</span>
+<span class="font-medium">Logic &amp; Intel</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">database</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold uppercase tracking-wider">Step 3</span>
+<span class="font-medium">Memory &amp; RAG</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold uppercase tracking-wider">Step 4</span>
+<span class="font-medium">Deployment</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-6 border border-primary/20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Agent Name</label>
+<input class="bg-background-dark border border-primary/30 rounded-lg p-3 focus:outline-none focus:border-primary text-slate-100 placeholder:text-slate-600" placeholder="e.g. AEGIS-Sentinel-01" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Operational Role</label>
+<select class="bg-background-dark border border-primary/30 rounded-lg p-3 focus:outline-none focus:border-primary text-slate-100">
+<option>Security Auditor</option>
+<option>Network Optimizer</option>
+<option>Data Strategist</option>
+<option>Protocol Enforcer</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Identity Constraints &amp; Behavioral Directives</label>
+<textarea class="bg-background-dark border border-primary/30 rounded-lg p-3 focus:outline-none focus:border-primary text-slate-100 placeholder:text-slate-600 resize-none" placeholder="Define the core personality, response style, and ethical boundaries..." rows="8"></textarea>
+<p class="text-xs text-slate-500 italic">Example: "Always maintain a professional, analytical tone. Prioritize system stability over speed."</p>
+</div>
+</div>
+<div class="flex items-center justify-between gap-4 mt-2">
+<button class="px-6 py-3 rounded-lg border border-primary/30 text-primary font-bold hover:bg-primary/10 transition-all uppercase tracking-widest text-sm">Cancel</button>
+<button class="px-8 py-3 rounded-lg bg-primary text-white font-bold hover:bg-primary/80 transition-all shadow-[0_0_20px_rgba(17,82,212,0.3)] uppercase tracking-widest text-sm flex items-center gap-2">
+                                Next: Logic Configuration
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+<div class="bg-slate-800 px-4 py-2 flex items-center justify-between border-b border-slate-700">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-red-500/50"></span>
+<span class="size-3 rounded-full bg-yellow-500/50"></span>
+<span class="size-3 rounded-full bg-green-500/50"></span>
+<span class="ml-2 text-xs font-mono text-slate-400">config.yaml</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-sm">content_copy</span>
+</div>
+<div class="p-6 font-mono text-sm overflow-x-auto">
+<pre class="text-primary/90 code-glow"><code><span class="text-slate-500"># AEGIS Agent Configuration</span>
+<span class="text-blue-400">version:</span> <span class="text-emerald-400">2.4.0-alpha</span>
+<span class="text-blue-400">identity:</span>
+  <span class="text-blue-400">name:</span> <span class="text-white">"AEGIS-Sentinel-01"</span>
+  <span class="text-blue-400">role:</span> <span class="text-white">"Security Auditor"</span>
+  <span class="text-blue-400">constraints:</span>
+    <span class="text-blue-400">-</span> <span class="text-white">"Strict professional tone"</span>
+    <span class="text-blue-400">-</span> <span class="text-white">"Zero-trust compliance"</span>
+<span class="text-blue-400">neural_link:</span>
+  <span class="text-blue-400">status:</span> <span class="text-emerald-400">initializing</span>
+  <span class="text-blue-400">readiness:</span> <span class="text-emerald-400">84%</span>
+<span class="text-blue-400">telemetry:</span>
+  <span class="text-blue-400">logging:</span> <span class="text-white">verbose</span></code></pre>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-panel p-4 rounded-xl border border-primary/20 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary/70 uppercase tracking-tighter">System Constraints</span>
+<span class="text-xs text-emerald-400 font-mono">OPTIMAL</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[72%] shadow-[0_0_10px_#1152d4]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-2xl font-black">72%</span>
+<span class="text-[10px] text-slate-500 uppercase">Usage Limit</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-xl border border-primary/20 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary/70 uppercase tracking-tighter">Network Readiness</span>
+<span class="text-xs text-blue-400 font-mono">SYNCING</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[84%] shadow-[0_0_10px_#1152d4]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-2xl font-black">84%</span>
+<span class="text-[10px] text-slate-500 uppercase">Uplink Speed</span>
+</div>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl border-l-4 border-l-primary border-primary/10">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">info</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-sm font-bold uppercase tracking-widest text-primary">Pro Tip</h4>
+<p class="text-xs text-slate-400 leading-relaxed">Agents with the <span class="text-primary font-medium">Security Auditor</span> role perform 15% better when combined with strict identity constraints. Ensure your directives include data encryption protocols.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-primary/10 py-4 px-6 mt-auto">
+<div class="flex justify-between items-center text-[10px] text-slate-500 uppercase tracking-widest">
+<div class="flex gap-4">
+<span>v0.8.4-BETA</span>
+<span>Neural Engine Active</span>
+</div>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">API Keys</a>
+<span>© 2024 AEGIS Labs</span>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

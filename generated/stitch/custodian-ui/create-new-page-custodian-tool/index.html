@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AegisAlign | Create New Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 px-6 py-3 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-semibold leading-normal border-b-2 border-primary" href="#">Site Pages</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Custodians</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-slate-900 dark:text-white placeholder:text-slate-500 w-48" placeholder="Search protocol..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="User avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg9LNMcYDoNInRH8-rZzN2LnIR9UfHogkQ54hH7DGeIYVPpEymsS5ocLpDD9jKcGeUaAolxi9WeOAHktlrI96Kbs1UA0u6dvIafQVCT8pOXwdJhw5tLGdohfhzlU5tKQUfJUVTo0TuAGlX6G3XJGUQeyZzclIcPSY1fwrdzw2AvXz_DCsx0-WciG-OvI4hC5gb0t6Cupz_lhS3Uyk_X_mA20x2bNFljazFgZqRsLITFRSMJenDQHPzPvvMNTsG_F-YJ2oVLNCDsWxK"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-8">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Create New Page</h1>
+<p class="text-slate-500 dark:text-slate-400">AEGIS Protocol Site Custodian Tool • v2.4.0</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    Discard
+                </button>
+<button class="px-5 py-2.5 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">publish</span>
+                    Publish to Protocol
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Content Area -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Page Basics -->
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="md:col-span-2">
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Page Title</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-lg font-medium focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white" placeholder="e.g., Understanding Node Validation" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">URL Slug</label>
+<div class="flex items-center">
+<span class="bg-slate-100 dark:bg-slate-800 border border-r-0 border-slate-200 dark:border-slate-800 px-3 py-3 rounded-l-lg text-slate-500 text-sm">aegis.io/</span>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-r-lg p-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white" placeholder="protocol-validation" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Category</label>
+<select class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white appearance-none">
+<option>Protocol</option>
+<option>Governance</option>
+<option>Documentation</option>
+<option>Ecosystem</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Editor Area -->
+<div class="bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col overflow-hidden min-h-[600px]">
+<div class="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="Bold"><span class="material-symbols-outlined text-lg">format_bold</span></button>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="Italic"><span class="material-symbols-outlined text-lg">format_italic</span></button>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="Link"><span class="material-symbols-outlined text-lg">link</span></button>
+<div class="w-px h-6 bg-slate-200 dark:border-slate-700 mx-1"></div>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="Heading"><span class="material-symbols-outlined text-lg">format_h1</span></button>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="List"><span class="material-symbols-outlined text-lg">format_list_bulleted</span></button>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="Code"><span class="material-symbols-outlined text-lg">code</span></button>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded text-slate-600 dark:text-slate-400" title="Image"><span class="material-symbols-outlined text-lg">image</span></button>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs font-mono text-slate-500 uppercase tracking-widest">Markdown Support Active</span>
+<div class="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+<button class="px-3 py-1 bg-primary text-white text-xs font-bold">Write</button>
+<button class="px-3 py-1 bg-transparent text-slate-500 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Preview</button>
+</div>
+</div>
+</div>
+<textarea class="flex-1 bg-transparent p-6 text-slate-900 dark:text-slate-100 font-mono text-sm leading-relaxed resize-none focus:ring-0 border-none outline-none" placeholder="Start writing technical documentation or markdown content here..."></textarea>
+<div class="px-4 py-2 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+<span class="text-xs text-slate-500">Words: 0 | Lines: 1</span>
+<span class="text-xs text-slate-500">Auto-save: Just now</span>
+</div>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<!-- Metadata Card -->
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Page Information</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-600 dark:text-slate-400">Author</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white flex items-center gap-2">
+<span class="size-5 rounded-full bg-primary/20 flex items-center justify-center text-[10px] text-primary font-bold">FA</span>
+                                Felix Anderson
+                            </span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-600 dark:text-slate-400">Created</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">Oct 24, 2023</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-600 dark:text-slate-400">Last Modified</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">--</span>
+</div>
+<div class="pt-2">
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Visibility Settings</label>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center p-2 rounded-lg border border-primary bg-primary/5 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary bg-transparent border-primary/40" name="visibility" type="radio"/>
+<span class="ml-3 text-sm font-medium text-primary">Public Protocol</span>
+</label>
+<label class="flex items-center p-2 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer">
+<input class="text-primary focus:ring-primary bg-transparent border-slate-400" name="visibility" type="radio"/>
+<span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300">Internal Only</span>
+</label>
+<label class="flex items-center p-2 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer">
+<input class="text-primary focus:ring-primary bg-transparent border-slate-400" name="visibility" type="radio"/>
+<span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300">Draft / Restricted</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- SEO Configuration -->
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-500">SEO Configuration</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-help" title="Configure how this page appears in searches">info</span>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-slate-500 mb-1">Meta Title</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none" placeholder="Understanding Aegis Protocol Validation" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 mb-1">Meta Description</label>
+<textarea class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none resize-none" placeholder="A comprehensive guide on how node validation works within the AEGIS Protocol ecosystem..." rows="3"></textarea>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 mb-1">Tags</label>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 flex items-center gap-1 uppercase tracking-wider">
+                                    Protocol <span class="material-symbols-outlined text-[12px] cursor-pointer">close</span>
+</span>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 flex items-center gap-1 uppercase tracking-wider">
+                                    Governance <span class="material-symbols-outlined text-[12px] cursor-pointer">close</span>
+</span>
+<button class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">add</span> Add Tag
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-2 gap-4">
+<button class="col-span-1 py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">save</span>
+                        Save Draft
+                    </button>
+<button class="col-span-1 py-3 px-4 rounded-lg bg-primary/20 text-primary border border-primary/30 font-bold hover:bg-primary/30 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">visibility</span>
+                        Preview
+                    </button>
+<button class="col-span-2 py-3 px-4 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">publish</span>
+                        Publish to Mainnet
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<footer class="mt-12 border-t border-slate-200 dark:border-slate-800 py-8 px-6 text-center text-slate-500 text-sm">
+<div class="flex justify-center items-center gap-6 mb-4">
+<a class="hover:text-primary transition-colors" href="#">Support Docs</a>
+<a class="hover:text-primary transition-colors" href="#">Style Guide</a>
+<a class="hover:text-primary transition-colors" href="#">Community Forum</a>
+<a class="hover:text-primary transition-colors" href="#">Changelog</a>
+</div>
+<p>© 2024 AegisAlign • Part of the AEGIS Protocol Ecosystem</p>
+</footer>
+</body></html>

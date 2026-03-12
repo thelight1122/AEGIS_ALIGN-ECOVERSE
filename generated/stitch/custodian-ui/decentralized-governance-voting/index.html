@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Protocol | Governance Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #282e39;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark px-6 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">AEGIS Protocol</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium text-primary border-b-2 border-primary pb-1" href="#">Governance</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Staking</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Treasury</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-500" placeholder="Search proposals..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">
+<span class="material-symbols-outlined text-sm">account_balance_wallet</span>
+<span>0x7a...4e21</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col lg:flex-row max-w-[1440px] mx-auto w-full p-6 gap-6">
+<!-- Left Sidebar: Navigation & Metrics -->
+<aside class="w-full lg:w-64 flex flex-col gap-6">
+<div class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Governance Meta</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col">
+<span class="text-sm text-slate-500">Current Epoch</span>
+<span class="text-xl font-bold">Epoch 42</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm text-slate-500">Voting Power</span>
+<span class="text-xl font-bold text-primary">125,400 AEG</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm text-slate-500">Staking Multiplier</span>
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold">1.45x</span>
+<span class="text-[10px] bg-green-500/10 text-green-500 px-1.5 py-0.5 rounded border border-green-500/20">Max Boost</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Protocol Health</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-500">Quorum Avg</span>
+<span class="text-sm font-medium">64.2%</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[64%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-500">Voter Turnout</span>
+<span class="text-sm font-medium text-green-500">↑ 12.4%</span>
+</div>
+<div class="flex justify-between items-center border-t border-slate-200 dark:border-slate-800 pt-3">
+<span class="text-sm text-slate-500">Total Proposals</span>
+<span class="text-sm font-medium">1,204</span>
+</div>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-primary hover:text-primary transition-all rounded-xl py-4 group">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform">add_circle</span>
+<span class="font-bold">New Proposal</span>
+</button>
+</aside>
+<!-- Main Content: Proposals -->
+<section class="flex-1 flex flex-col gap-6">
+<!-- Status Filter Bar -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
+<button class="px-4 py-2 text-sm font-bold bg-white dark:bg-primary text-slate-900 dark:text-white rounded-lg shadow-sm">All Proposals</button>
+<button class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">Active</button>
+<button class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">Passed</button>
+<button class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">Executed</button>
+</div>
+<div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+<span class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+                        LIVE VOTING ACTIVE
+                    </div>
+</div>
+<!-- Featured Proposal (Expanded) -->
+<div class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden relative">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="p-8">
+<div class="flex flex-wrap justify-between items-start gap-4 mb-6">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase bg-primary/10 text-primary border border-primary/20 rounded">AIP-154</span>
+<span class="px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase bg-green-500/10 text-green-500 border border-green-500/20 rounded">Voting Open</span>
+</div>
+<h1 class="text-2xl font-bold mb-2">Implement dynamic liquidity fees for v3 pools</h1>
+<div class="flex items-center gap-4 text-sm text-slate-500">
+<div class="flex items-center gap-1.5">
+<div class="size-5 rounded-full bg-slate-300 dark:bg-slate-700 overflow-hidden">
+<img alt="Proposer avatar" data-alt="User avatar icon for proposer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbP5skv1ojFnZzhvvgSUoH9FN3i2GYVLGKZIK5tsepDfp6rqfUWhLDA37kuKr7ZjMsvlopb_DFT3t7fgdUKpVaRwETGCvBNinYlVsIUYylDjnORmYzj5j47ZOBUP_QlouC3Kl1SxthuCvlgtSc7mjsAAygqLfPVJThTAaaMsYPLp_6K7Vi3WXbfPSpw0J-DSK-8mjZBR8ZDh_2JWvU9oeUgUIFPu0TmrRaxofglrgwuAHe61_-HTEW5F1qiymdAmxpXLjwAynRyjsZ"/>
+</div>
+<span class="font-medium">by aeginaut.eth</span>
+</div>
+<span>•</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                        Ends in 2 days, 4h
+                                    </div>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 min-w-[200px]">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs text-slate-500">Quorum Reached</span>
+<span class="text-xs font-bold text-green-500">100%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full">
+<div class="h-full bg-green-500 w-full"></div>
+</div>
+<p class="text-[10px] mt-2 text-slate-500">Min. required: 10M AEG</p>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    This proposal suggests adjusting the current static fee model to a volatility-aware dynamic model. This change aims to maximize returns for LP holders during high volatility periods while maintaining competitiveness.
+                                </p>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm font-bold">
+<span>For</span>
+<span class="text-primary">8.4M AEG (82%)</span>
+</div>
+<div class="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+<div class="bg-primary h-full w-[82%]"></div>
+<div class="bg-red-500/40 h-full w-[18%]"></div>
+</div>
+<div class="flex justify-between text-sm font-bold">
+<span>Against</span>
+<span class="text-slate-500">1.8M AEG (18%)</span>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+<h3 class="font-bold mb-4">Cast Your Vote</h3>
+<div class="grid grid-cols-2 gap-3 mb-6">
+<button class="flex flex-col items-center justify-center p-4 border-2 border-primary/20 hover:border-primary hover:bg-primary/5 rounded-xl transition-all group">
+<span class="material-symbols-outlined text-primary mb-1">thumb_up</span>
+<span class="text-sm font-bold">For</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border-2 border-slate-200 dark:border-slate-700 hover:border-red-500/50 hover:bg-red-500/5 rounded-xl transition-all group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-red-500 mb-1">thumb_down</span>
+<span class="text-sm font-bold">Against</span>
+</button>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs">
+<span class="text-slate-500">Your Impact</span>
+<span class="text-primary font-bold">+0.12% Total Weight</span>
+</div>
+<button class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+                                        Confirm Vote
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Proposals Grid -->
+<div class="grid md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase bg-slate-100 dark:bg-slate-800 text-slate-500 rounded">AIP-153</span>
+<span class="px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase bg-green-500/10 text-green-500 border border-green-500/20 rounded">Passed</span>
+</div>
+<h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">Treasury allocation for AEGIS Dev Grant</h3>
+<p class="text-sm text-slate-500 line-clamp-2 mb-4">Allocate 500k AEG from the community treasury to fund the Q3-Q4 developer grant program focused on UI improvements.</p>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between text-xs font-medium">
+<span>Support</span>
+<span>94%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[94%]"></div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-500">
+<span>Ended 2d ago</span>
+<span class="font-bold text-slate-700 dark:text-slate-300">14.2M AEG Total</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase bg-slate-100 dark:bg-slate-800 text-slate-500 rounded">AIP-152</span>
+<span class="px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase bg-primary/10 text-primary border border-primary/20 rounded">Quorum Reached</span>
+</div>
+<h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">Adjust staking lockup period to 14 days</h3>
+<p class="text-sm text-slate-500 line-clamp-2 mb-4">Decrease the current 28-day unbonding period to 14 days to increase protocol liquidity and user flexibility.</p>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between text-xs font-medium">
+<span>Support</span>
+<span>48%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[48%]"></div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-500">
+<span>Ends in 5h 22m</span>
+<span class="font-bold text-slate-700 dark:text-slate-300">11.8M AEG Total</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Recent Actions & Activity -->
+<aside class="w-full lg:w-80 flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden flex flex-col h-fit">
+<div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<h3 class="font-bold">Recent Actions</h3>
+<button class="text-xs text-primary font-bold">View All</button>
+</div>
+<div class="p-5 flex flex-col gap-5 max-h-[600px] overflow-y-auto custom-scrollbar">
+<!-- Action Item 1 -->
+<div class="flex gap-3">
+<div class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-lg">how_to_reg</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-medium">Vote cast by <span class="text-primary font-bold">vitalik.eth</span></p>
+<p class="text-xs text-slate-500 mt-0.5">Voted "For" on AIP-154 with 4.2M AEG</p>
+<span class="text-[10px] text-slate-400 mt-1 uppercase">2 minutes ago</span>
+</div>
+</div>
+<!-- Action Item 2 -->
+<div class="flex gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-lg">description</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-medium">New Proposal Submitted</p>
+<p class="text-xs text-slate-500 mt-0.5">AIP-155: Partnership with L2-Bridge protocol</p>
+<span class="text-[10px] text-slate-400 mt-1 uppercase">4 hours ago</span>
+</div>
+</div>
+<!-- Action Item 3 -->
+<div class="flex gap-3">
+<div class="size-8 rounded-full bg-green-500/10 text-green-500 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-medium">AIP-151 Executed</p>
+<p class="text-xs text-slate-500 mt-0.5">Upgrade of smart contract logic successfully deployed</p>
+<span class="text-[10px] text-slate-400 mt-1 uppercase">12 hours ago</span>
+</div>
+</div>
+<!-- Action Item 4 -->
+<div class="flex gap-3">
+<div class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-lg">how_to_reg</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-medium">Vote cast by <span class="text-primary font-bold">0x4a...d91c</span></p>
+<p class="text-xs text-slate-500 mt-0.5">Voted "Against" on AIP-154 with 150k AEG</p>
+<span class="text-[10px] text-slate-400 mt-1 uppercase">1 day ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Governance Tips/Education -->
+<div class="bg-gradient-to-br from-primary to-indigo-700 rounded-xl p-6 text-white relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-20">
+<span class="material-symbols-outlined text-[100px]">lightbulb</span>
+</div>
+<h4 class="font-bold mb-2">Stake to Vote</h4>
+<p class="text-sm opacity-90 mb-4">You need to have AEG tokens staked in the protocol for at least 7 days to participate in the current governance epoch.</p>
+<a class="inline-flex items-center gap-2 text-xs font-bold bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-all" href="#">
+                        Learn More <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+</aside>
+</main>
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-12 py-8 px-6">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="size-6 bg-slate-200 dark:bg-slate-800 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">shield</span>
+</div>
+<span class="text-sm font-bold text-slate-400">© 2024 AEGIS Protocol</span>
+</div>
+<div class="flex items-center gap-8">
+<a class="text-sm text-slate-500 hover:text-primary" href="#">Docs</a>
+<a class="text-sm text-slate-500 hover:text-primary" href="#">Twitter</a>
+<a class="text-sm text-slate-500 hover:text-primary" href="#">Discord</a>
+<a class="text-sm text-slate-500 hover:text-primary" href="#">Snapshot</a>
+</div>
+<div class="text-xs text-slate-500">
+                    Network: Ethereum Mainnet
+                </div>
+</div>
+</footer>
+</div>
+</body></html>

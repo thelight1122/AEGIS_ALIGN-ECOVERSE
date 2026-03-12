@@ -1,0 +1,12 @@
+[
+  {
+    "domain": "custodian-ui",
+    "fromSlug": "lockdown-protocol-sequence",
+    "toSlug": "safety-hold-protocol-sequence"
+  },
+  {
+    "domain": "custodian-ui",
+    "fromSlug": "security-incident-command-center",
+    "toSlug": "security-incident-assessor-center"
+  }
+]

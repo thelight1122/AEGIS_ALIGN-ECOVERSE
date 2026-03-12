@@ -1,0 +1,273 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AegisAlign | Web3 Gateway</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Header Section -->
+<header class="sticky top-0 z-50 border-b border-primary/20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-12 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-2xl" style="">shield_with_heart</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white uppercase" style="">AegisAlign</h1>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#" style="">Ecosystem</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#" style="">Protocol</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#" style="">Governance</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#" style="">Stitch</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" style="">search</span>
+<input class="bg-slate-200 dark:bg-slate-800/50 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Search ecosystem..." type="text">
+</div>
+<div class="flex items-center gap-3 bg-primary/10 border border-primary/30 px-4 py-2 rounded-lg">
+<div class="size-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-xs font-mono text-primary font-semibold" style="">0x4F...3B2D</span>
+<button class="flex items-center justify-center" style="">
+<span class="material-symbols-outlined text-lg text-primary" style="">account_balance_wallet</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 md:px-12 py-10">
+<!-- Hero Section -->
+<section class="relative mb-12 overflow-hidden rounded-xl bg-slate-900 p-8 md:p-16 border border-primary/20">
+<div class="absolute inset-0 opacity-20 pointer-events-none" data-alt="Abstract blue energy sphere pattern" style="background-image: radial-gradient(circle at 50% 50%, #1152d4 0%, transparent 70%);"></div>
+<div class="relative z-10 max-w-3xl">
+<span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6" style="">v2.0 Mainnet Live</span>
+<h2 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight" style="">Gateway to the&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.digitalSelf&nbsp; &nbsp;&nbsp;<span class="text-primary" style="">Decentralized</span> Ecosystem</h2>
+<p class="text-slate-400 text-lg md:text-xl mb-10 leading-relaxed" style="">
+                        Secure your digital identity and stitch your presence across the Web3 landscape with AegisAlign's next-generation identity protocol.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2" style="">
+<span class="" style="">Get Started</span>
+<span class="material-symbols-outlined" style="">arrow_forward</span>
+</button>
+<button class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-8 rounded-lg border border-slate-700 transition-all" style="">
+                            View Documentation
+                        </button>
+</div>
+</div>
+</section>
+<!-- Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<div class="p-6 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-sm font-medium text-slate-500" style="">Total Locked Value</p>
+<span class="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded" style="">+12.5%</span>
+</div>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white" style="">$1,248,932,104</h3>
+<div class="mt-4 h-1 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 70%"></div>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-sm font-medium text-slate-500" style="">Active Decentralized Identities</p>
+<span class="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded" style="">+5.2%</span>
+</div>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white" style="">852,401</h3>
+<div class="mt-4 flex gap-1">
+<div class="h-8 w-full bg-primary/20 rounded-sm"></div>
+<div class="h-10 w-full bg-primary/40 rounded-sm"></div>
+<div class="h-6 w-full bg-primary/20 rounded-sm"></div>
+<div class="h-12 w-full bg-primary rounded-sm"></div>
+<div class="h-9 w-full bg-primary/60 rounded-sm"></div>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-sm font-medium text-slate-500" style="">Governance Proposals</p>
+<span class="text-xs font-bold text-slate-400 bg-slate-400/10 px-2 py-1 rounded" style="">Active</span>
+</div>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white" style="">142</h3>
+<div class="mt-4 flex -space-x-2">
+<img class="size-8 rounded-full border-2 border-background-dark bg-slate-300" data-alt="Avatar of community member 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmy933IPOLnq2U_79HOL4Ca8rB5AERxWtApiKXuUntcjKsoJb_8SQvCRlm1ZV1iGrHWqZwziwy2tXgzkMz-7NvFZKtJkByyzZL_Ii-ww0pD7vDp81kTkF4DYZMwrT172_HCfCC8Wmr0RLkuV9er4Kg_GOGHQ_WE6JXZULjm83S9BCUj_K6e7rLWKzc7BJFCBwprGs1xWGWbiu_BO-QhGi97JFToYzfy9M_4n3bj_HHHCVyuaxpABG4xx7jCwOSEmNze7bdSB3636_7" style="">
+<img class="size-8 rounded-full border-2 border-background-dark bg-slate-300" data-alt="Avatar of community member 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiXOmtmFW_vomhp4rhx8BQ3kk7y9jW1Ofkn7j5u7_5bPvYHA9XV2DC0s4kstZMk7-M-BVYojdpOEmIwhd61zulg9eKxXR6jg_QwU1rTZpX-LMvkERMZH2Gm8tFlZNbGV79KwXeuwJHmuBmhEe8Sl2nOFqlZs5iPx5tGdzLM7PnLrLBW2t_7R4JWZxueNT-3pEnFyozLJq6y1P5ft1V-YS0yvSKtctbz0LjirnQUCbjKUR2FfqjCtZi1zPA6MEjfgzu7WMBexRqoY_U" style="">
+<img class="size-8 rounded-full border-2 border-background-dark bg-slate-300" data-alt="Avatar of community member 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTc8tHszWmcBTGxfG1rbXii8IhXJqDFugL9JqHt6g20yyP9eaKlYG1euoLOdeUPM1j7yFFgNAzdoJP0Y-B5nUa0GWPLpuRdOONdSgcnMfqZvjc0A3SgJ68sfo52GGsGzeY0tbHKi8ERxXwwrQzndMTBEVEzzfIVEmuGnk6WnAR6epgBHG8chQD2dWGrbBleOa7vL67pejL7s1Kcq6VOr1JnM-Vmd5caBPBY3C243R6bbTO8tdY39DY2DAKzEPwLz-BF8tJBKn8b2Kh" style="">
+<div class="size-8 rounded-full border-2 border-background-dark bg-primary flex items-center justify-center text-[10px] font-bold text-white" style="">+8k</div>
+</div>
+</div>
+</section>
+<!-- Core Modules -->
+<section class="mb-16">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold" style="">Core Modules</h2>
+<a class="text-primary text-sm font-semibold flex items-center gap-1" href="#" style="">View all modules <span class="material-symbols-outlined text-sm" style="">open_in_new</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="group relative overflow-hidden rounded-xl aspect-[16/9] bg-slate-900 border border-slate-800">
+<div class="absolute inset-0 transition-transform duration-500 group-hover:scale-110 opacity-60" data-alt="Digital threads connecting nodes illustration" style="background: linear-gradient(45deg, #1152d4 0%, #000 100%);"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" style="">cable</span>
+<h3 class="text-2xl font-bold text-white mb-2" style="">Stitch for Web3</h3>
+<p class="text-slate-300 max-w-md" style="">Seamlessly bridge your assets and data across disparate blockchain networks with zero-knowledge security.</p>
+<button class="mt-6 text-sm font-bold text-white flex items-center gap-2 group-hover:gap-3 transition-all" style="">
+                                Launch Module <span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl aspect-[16/9] bg-slate-900 border border-slate-800">
+<div class="absolute inset-0 transition-transform duration-500 group-hover:scale-110 opacity-60" data-alt="Futuristic digital portrait holographic effect" style="background: linear-gradient(225deg, #1152d4 0%, #000 100%);"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" style="">fingerprint</span>
+<h3 class="text-2xl font-bold text-white mb-2" style="">.digitalself</h3>
+<p class="text-slate-300 max-w-md" style="">Manage your sovereign identity, reputations, and credentials in a single, privacy-preserving interface.</p>
+<button class="mt-6 text-sm font-bold text-white flex items-center gap-2 group-hover:gap-3 transition-all" style="">
+                                Manage Identity <span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Identity Management & Governance -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- DID Management Card -->
+<div class="lg:col-span-2 p-8 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-bold" style="">DID Management</h3>
+<p class="text-sm text-slate-500 mt-1" style="">Status: Active &amp; Verified</p>
+</div>
+<button class="text-primary border border-primary/30 hover:bg-primary/10 px-4 py-2 rounded-lg text-sm font-bold transition-colors" style="">Edit Profile</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="">verified_user</span>
+</div>
+<div>
+<p class="font-bold text-sm" style="">Passport Credential</p>
+<p class="text-xs text-slate-500" style="">Verified by AegisProtocol</p>
+</div>
+</div>
+<span class="text-xs font-mono bg-green-500/10 text-green-500 px-2 py-1 rounded" style="">VALID</span>
+</div>
+<div class="flex items-center justify-between p-4 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined" style="">token</span>
+</div>
+<div>
+<p class="font-bold text-sm" style="">DAO Contribution Score</p>
+<p class="text-xs text-slate-500" style="">Tier: Platinum Explorer</p>
+</div>
+</div>
+<span class="text-xs font-mono bg-primary/10 text-primary px-2 py-1 rounded" style="">LVL 42</span>
+</div>
+<div class="flex items-center justify-between p-4 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined" style="">link</span>
+</div>
+<div>
+<p class="font-bold text-sm" style="">Multi-Chain Stitch</p>
+<p class="text-xs text-slate-500" style="">8 Networks Linked</p>
+</div>
+</div>
+<div class="flex -space-x-1">
+<div class="size-6 rounded-full bg-orange-500 border border-white dark:border-slate-900"></div>
+<div class="size-6 rounded-full bg-blue-400 border border-white dark:border-slate-900"></div>
+<div class="size-6 rounded-full bg-purple-500 border border-white dark:border-slate-900"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Governance Sidebar -->
+<div class="p-8 rounded-xl bg-primary text-white border border-primary">
+<h3 class="text-xl font-bold mb-6" style="">Governance Portal</h3>
+<div class="space-y-6">
+<div>
+<p class="text-primary-100 text-xs font-bold uppercase tracking-widest mb-3 opacity-80" style="">Active Proposals</p>
+<div class="space-y-3">
+<a class="block p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors border border-white/10" href="#" style="">
+<p class="text-sm font-bold line-clamp-1" style="">AAP-104: Liquidity Incentives</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-white" style="width: 82%"></div>
+</div>
+<span class="text-[10px] font-bold" style="">82%</span>
+</div>
+</a>
+<a class="block p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors border border-white/10" href="#" style="">
+<p class="text-sm font-bold line-clamp-1" style="">AAP-105: Security Audit Fund</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-white" style="width: 45%"></div>
+</div>
+<span class="text-[10px] font-bold" style="">45%</span>
+</div>
+</a>
+</div>
+</div>
+<div class="pt-4 border-t border-white/20">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-medium opacity-80" style="">Your Voting Power</span>
+<span class="text-sm font-bold" style="">2,450 AEG</span>
+</div>
+<button class="w-full bg-white text-primary font-bold py-3 rounded-lg hover:bg-slate-100 transition-colors" style="">
+                                Delegate Voting Power
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12 px-6">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="size-6 bg-primary rounded text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="">shield_with_heart</span>
+</div>
+<span class="text-sm font-bold uppercase" style="">AegisAlign</span>
+<span class="text-xs text-slate-500 ml-4" style="">© 2024 Decentralized Protocols Foundation</span>
+</div>
+<div class="flex gap-8">
+<a class="text-xs font-bold text-slate-500 hover:text-primary uppercase tracking-widest" href="#" style="">Twitter</a>
+<a class="text-xs font-bold text-slate-500 hover:text-primary uppercase tracking-widest" href="#" style="">Discord</a>
+<a class="text-xs font-bold text-slate-500 hover:text-primary uppercase tracking-widest" href="#" style="">GitHub</a>
+<a class="text-xs font-bold text-slate-500 hover:text-primary uppercase tracking-widest" href="#" style="">Medium</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

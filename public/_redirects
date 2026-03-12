@@ -1,0 +1,10 @@
+/custodian-ops /custodian-ui/ 302
+/custodian-status /custodian-ui/status/ 302
+/custodian-secure /custodian-ui/secure/ 302
+
+# BEGIN GENERATED STITCH REDIRECTS
+/custodian-ui/lockdown-protocol-sequence /custodian-ui/safety-hold-protocol-sequence/ 301
+/custodian-ui/lockdown-protocol-sequence/ /custodian-ui/safety-hold-protocol-sequence/ 301
+/custodian-ui/security-incident-command-center /custodian-ui/security-incident-assessor-center/ 301
+/custodian-ui/security-incident-command-center/ /custodian-ui/security-incident-assessor-center/ 301
+# END GENERATED STITCH REDIRECTS

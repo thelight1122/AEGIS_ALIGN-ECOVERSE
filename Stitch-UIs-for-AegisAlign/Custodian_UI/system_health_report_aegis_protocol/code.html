@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AegisAlign | System Health Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(17, 82, 212, 0.2) 0%, rgba(17, 82, 212, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-primary/20 bg-background-light dark:bg-background-dark px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">shield_with_heart</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">AegisAlign</h2>
+</div>
+<div class="flex flex-1 justify-end items-center gap-6">
+<div class="hidden md:flex flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-primary/10 border-none rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-sm" placeholder="Search system logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-primary/20 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold">Commander Kane</p>
+<p class="text-[10px] text-primary">System Admin</p>
+</div>
+<div class="size-10 rounded-full border-2 border-primary bg-cover bg-center" data-alt="User profile portrait of Commander Kane" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7L1uSKwGHd7eW6aH_Hl9SXniVbL5BGb9DyPZcMQqAXz0j2Xt79YmdSbwG3swhhQ6o03J58gbllyGOQl5rKGvliLvLuQr_20BClWxtmWwii9VZbfjkyx1ERko2xz42oMVllm1mBJNQdvF1lM_B2Gc6AxE-k4fg3QW655lQ-38irW7tv3uKJAr_ILpqYGSTHhj9nuJZTIFFhiWhY9BpprH0hPGcNHNsWLeI_WBwKkMK7jZ4DYh1gwx5qoew2rXEWw_l8eCvCgv7jhVs')"></div>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-primary/20 hidden lg:flex flex-col p-4 gap-6 bg-background-light dark:bg-background-dark">
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Main Control</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-lg shadow-primary/30" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">System Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="text-sm font-medium">Security</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-sm font-medium">Nodes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</div>
+<div class="mt-auto">
+<div class="bg-primary/10 rounded-xl p-4 border border-primary/20">
+<p class="text-xs font-bold text-primary mb-1">System Load</p>
+<div class="w-full bg-primary/20 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[42%]"></div>
+</div>
+<p class="text-[10px] mt-2 text-slate-400">42% CPU Utilization</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-6 lg:p-10 space-y-8 bg-background-light dark:bg-background-dark">
+<!-- Page Header & Global Status -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div>
+<h1 class="text-3xl font-black tracking-tight mb-2">System Status</h1>
+<p class="text-slate-500">Global infrastructure monitoring and incident log.</p>
+</div>
+<div class="flex items-center gap-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-6 py-4">
+<div class="size-3 bg-emerald-500 rounded-full animate-pulse"></div>
+<div>
+<p class="text-emerald-500 font-bold leading-none">All Systems Operational</p>
+<p class="text-[10px] text-emerald-500/70 mt-1 uppercase font-semibold">Verified 2m ago</p>
+</div>
+</div>
+</div>
+<!-- Key Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 p-6 rounded-xl">
+<p class="text-slate-500 text-sm font-medium">Protocol Uptime</p>
+<div class="flex items-baseline gap-2 mt-2">
+<p class="text-3xl font-bold">99.99%</p>
+<span class="text-emerald-500 text-xs font-bold">+0.01%</span>
+</div>
+<div class="mt-4 flex gap-1 h-1">
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+</div>
+</div>
+<div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 p-6 rounded-xl">
+<p class="text-slate-500 text-sm font-medium">Average Latency</p>
+<div class="flex items-baseline gap-2 mt-2">
+<p class="text-3xl font-bold">14ms</p>
+<span class="text-orange-500 text-xs font-bold">-2ms</span>
+</div>
+<div class="mt-4 flex gap-1 h-1">
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+<div class="flex-1 bg-orange-500 rounded-full"></div>
+<div class="flex-1 bg-emerald-500 rounded-full"></div>
+</div>
+</div>
+<div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 p-6 rounded-xl">
+<p class="text-slate-500 text-sm font-medium">Active Nodes</p>
+<div class="flex items-baseline gap-2 mt-2">
+<p class="text-3xl font-bold">1,248</p>
+<span class="text-emerald-500 text-xs font-bold">+12</span>
+</div>
+<div class="mt-4 flex gap-1 h-1">
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary/30 rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Service Health Grid -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold">Service Health</h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1">
+                        Refresh <span class="material-symbols-outlined text-sm">refresh</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Healthy -->
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-lg flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">sync</span>
+<span class="bg-emerald-500/10 text-emerald-500 text-[10px] px-2 py-1 rounded font-bold">HEALTHY</span>
+</div>
+<div>
+<p class="font-bold text-sm">Core Sync Engine</p>
+<p class="text-xs text-slate-500 mt-1">Version 2.4.1-stable</p>
+</div>
+</div>
+<!-- Healthy -->
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-lg flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">shield_moon</span>
+<span class="bg-emerald-500/10 text-emerald-500 text-[10px] px-2 py-1 rounded font-bold">HEALTHY</span>
+</div>
+<div>
+<p class="font-bold text-sm">Shield Network</p>
+<p class="text-xs text-slate-500 mt-1">Encryption: AES-256</p>
+</div>
+</div>
+<!-- Degraded -->
+<div class="bg-orange-500/5 border border-orange-500/20 p-4 rounded-lg flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-orange-500">api</span>
+<span class="bg-orange-500/10 text-orange-500 text-[10px] px-2 py-1 rounded font-bold">DEGRADED</span>
+</div>
+<div>
+<p class="font-bold text-sm">API Gateway</p>
+<p class="text-xs text-orange-500/70 mt-1">Elevated error rates in US-East</p>
+</div>
+</div>
+<!-- Maintenance -->
+<div class="bg-slate-500/5 border border-slate-500/20 p-4 rounded-lg flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-slate-500">rocket_launch</span>
+<span class="bg-slate-500/10 text-slate-500 text-[10px] px-2 py-1 rounded font-bold">MAINTENANCE</span>
+</div>
+<div>
+<p class="font-bold text-sm">Deployment Service</p>
+<p class="text-xs text-slate-500 mt-1">Scheduled: 02:00 - 04:00 UTC</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Historical Uptime & Incident History -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Historical Uptime Chart -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 rounded-xl p-6">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-lg font-bold">Historical Uptime (30 Days)</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400"><div class="size-2 rounded-full bg-primary"></div> Perf</span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400"><div class="size-2 rounded-full bg-slate-700"></div> Baseline</span>
+</div>
+</div>
+<!-- Mockup Line Chart -->
+<div class="relative h-48 w-full">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 100">
+<path d="M0,80 Q50,70 100,75 T200,60 T300,65 T400,20 T500,40 T600,30 T700,50 T800,20 T900,10 T1000,5" fill="none" stroke="#1152d4" stroke-width="3"></path>
+<path class="fill-primary/10" d="M0,80 Q50,70 100,75 T200,60 T300,65 T400,20 T500,40 T600,30 T700,50 T800,20 T900,10 T1000,5 L1000,100 L0,100 Z"></path>
+<line stroke="#334155" stroke-dasharray="4" x1="0" x2="1000" y1="90" y2="90"></line>
+</svg>
+<div class="absolute bottom-[-24px] w-full flex justify-between text-[10px] font-bold text-slate-500 uppercase">
+<span>30 Days Ago</span>
+<span>15 Days Ago</span>
+<span>Today</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Incident History -->
+<div class="lg:col-span-1">
+<div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 rounded-xl p-6 flex flex-col h-full">
+<h3 class="text-lg font-bold mb-6">Incident History</h3>
+<div class="space-y-6 flex-1">
+<div class="relative pl-6 border-l-2 border-primary/20 pb-4">
+<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-emerald-500"></div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">Oct 24, 2023</p>
+<p class="text-sm font-bold mt-1">API Gateway Latency Spike</p>
+<p class="text-xs text-slate-500 mt-1">Resolved: Automated scaling triggered successfully in US-East-1.</p>
+<span class="inline-block mt-2 text-[10px] bg-emerald-500/10 text-emerald-500 font-bold px-2 py-0.5 rounded">RESOLVED</span>
+</div>
+<div class="relative pl-6 border-l-2 border-primary/20 pb-4">
+<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-orange-500"></div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">Oct 21, 2023</p>
+<p class="text-sm font-bold mt-1">Core Database Maintenance</p>
+<p class="text-xs text-slate-500 mt-1">Scheduled index optimization for high-load clusters.</p>
+<span class="inline-block mt-2 text-[10px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded">COMPLETED</span>
+</div>
+<div class="relative pl-6 border-l-2 border-primary/20">
+<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-slate-600"></div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">Oct 15, 2023</p>
+<p class="text-sm font-bold mt-1">DDoS Mitigation Active</p>
+<p class="text-xs text-slate-500 mt-1">Shield Network successfully filtered 4TB/s of malicious traffic.</p>
+<span class="inline-block mt-2 text-[10px] bg-emerald-500/10 text-emerald-500 font-bold px-2 py-0.5 rounded">RESOLVED</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold rounded-lg transition-colors">
+                            View Archive
+                        </button>
+</div>
+</div>
+</div>
+<!-- Footer Details -->
+<div class="pt-10 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
+<p>© 2023 AegisAlign System Health Monitoring. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Security Policy</a>
+<a class="hover:text-primary transition-colors" href="#">API Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Engineering</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>

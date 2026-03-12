@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>AEGIS Implementation Apps | AegisAlign</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shield_with_heart</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Solutions</a>
+<a class="text-slate-900 dark:text-white text-sm font-semibold border-b-2 border-primary pb-1" href="#">Apps</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Docs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Security</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary w-64 text-slate-100" placeholder="Search implementation tools..." type="text"/>
+</div>
+<button class="hidden sm:flex bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105">
+                        Get Started
+                    </button>
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-300 dark:border-slate-700">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="User profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD15vdSkxIPNxNxFfcIYAwojmS93BX1_My9VIk2UOZGbCBAuOe6NzgiLQrpO4gwar16hPOr1jknSNU9d0NpR5MT_nXm1IUjRzCKIPl0hpfkDI-68jeAW7df0_UV3HEsEVOav-CgTeyuP--02AhMhqpEZLn1rXvZxa6-wj8W0h886a6dQ1VRMhJUUYbLUPjq2B6Ucy7vk0xcIY5O9r5bLCsqu16DDsxSt4GQr6VfmZlytbOOZTHasPo5h3Maiigdh7gyft0QFQ9OQy5y"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- Hero Section -->
+<div class="mb-16 space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                Core Ecosystem
+            </div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+                        AEGIS <span class="text-primary">Implementation</span> Apps
+                    </h1>
+<p class="text-lg text-slate-600 dark:text-slate-400">
+                        A suite of high-performance tools designed for real-time monitoring, security orchestration, and advanced data visualization across your entire infrastructure.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-xl font-bold transition-all">
+<span class="material-symbols-outlined">menu_book</span>
+                        Documentation
+                    </button>
+</div>
+</div>
+</div>
+<!-- Apps Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- App Card 1 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1">
+<div class="h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Network server racks with blue glowing lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4CXnv0Nvb5jomZLFlqBx6Y3FtdXICAzdP0vxR9ZRnGQoxcQ5mcLp68g4Mj9AOjl-RmdlqbmZpC8FwGXQww6Q_2eKHzNxPHarOsTQOihRj1VJc6-CrK8sW3ZvKV9ZiwsNLW1292CcjfiJQKm8X6u8xhzz4hxOeO0-42dcwYFjSKXn-0cS66BOp1i-elnhKOrjbn_3KSUpepphr9XyYqeqRKoVhbXn1gKaAluZ6O65xCYKGD4FYsfsdNjbmCOAv3vVFhyy6jPdpHW-U"/>
+<div class="absolute top-4 left-4 z-20 bg-primary/90 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">radar</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">AEGIS Interceptor</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1">
+                        Real-time traffic monitoring and threat interception. Advanced packet analysis at line speed with automated malicious pattern recognition.
+                    </p>
+<div class="flex items-center justify-between">
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                            Launch App <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+<span class="text-xs font-mono text-slate-400 dark:text-slate-500">v2.4.0-stable</span>
+</div>
+</div>
+</div>
+<!-- App Card 2 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1">
+<div class="h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Abstract colorful data visualization dashboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeUhBPh-tS0C4Wq_y1Ln-xJfvJWEs4HZH-7Kx-S08AM2Z8DLKFL5hVoIVVKnczT2cFbVQae7kwjt-zs_6Y6-QlCPMXylvWa4_hKeUSEJAG0sgCxUTwEnQv1_H5uwVcdDJ9vw2odFNsGkgVGWjum_uXZpPfm6Gqavgm3_OYIciwWDa2VMW8bUQSsuvQutoom0OC_fIBqorWLvBHVT55LY1YJJeISFJxXMaZxywl-m167GClleaYzIC6kpAJbRBKKjIDrz0RHApbY05z"/>
+<div class="absolute top-4 left-4 z-20 bg-indigo-600/90 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">query_stats</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">AEGIS Reflective Prism</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1">
+                        Advanced data visualization and transparency. Transform complex security telemetry into actionable, high-fidelity visual narratives.
+                    </p>
+<div class="flex items-center justify-between">
+<button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                            View Details <span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+<span class="text-xs font-mono text-slate-400 dark:text-slate-500">Live Preview</span>
+</div>
+</div>
+</div>
+<!-- App Card 3 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1">
+<div class="h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Digital circuit board pattern representing a core shield" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGkXmhA1NEPrKyKHwaXIJ75TSprq18fNlmZMeucl3mCfBJlRKNS3ePxLvhnbyv3_ao1rMPhBundSA0HCuZsvBkRgqn306QMMqzGo0AHpnfwFY9xAnX7sSZFpkBUKCko64WVoLq8pnshHylzt9N6q4ES8DUodm7lZ8mCa8A3zM8Qcs-R2SloEw7ajAB1Ccbprv50PstbBtWYOAZ_xx-KU79PRR2xJUxp044ux0n70sUqUCXR9Eey9J96Tg0jipO0nXBNkslAn8dG4da"/>
+<div class="absolute top-4 left-4 z-20 bg-emerald-600/90 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">enhanced_encryption</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">AEGIS Core Shield</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1">
+                        Primary security layer for infrastructure protection. Hardens core system kernels and manages encrypted communication channels across VPCs.
+                    </p>
+<div class="flex items-center justify-between">
+<button class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                            Launch App <span class="material-symbols-outlined text-sm">lock</span>
+</button>
+<span class="text-xs font-mono text-slate-400 dark:text-slate-500">v1.12-LTS</span>
+</div>
+</div>
+</div>
+<!-- App Card 4 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1">
+<div class="h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Glowing digital globe with connections showing policy enforcement" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS5hZcUTRESDvDx1VcHXYnHDywLDK7DQhmbxZsiT-5HfyGhd3LNWySfA0MG-mqCcGEJOe30vCTyFymh15Y6heq26JIzTwst576QTlw7n0pBpJ-MtHec2jWXOGI-sCwjJ34C-7pjjPKXUhSgJvAKaFnXHSMTBt2-xjd9dJ_WwR4Veh-bkauQAgiSmdsNerZW9RKOWof1nxCYYfobsehtvUIIBysMnTwoRfM8paziE8Efg3AIEPZInYhm9ytZpJ9yI6sxKZ9oWUdXh9U"/>
+<div class="absolute top-4 left-4 z-20 bg-orange-600/90 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">gavel</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-xl font-bold mb-2 group-hover:text-orange-400 transition-colors">AEGIS Arbitor</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1">
+                        Automated policy enforcement and decision-making. Set governance rules once and let the Arbitor manage compliance across multi-cloud environments.
+                    </p>
+<div class="flex items-center justify-between">
+<button class="bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                            View Details <span class="material-symbols-outlined text-sm">policy</span>
+</button>
+<span class="text-xs font-mono text-slate-400 dark:text-slate-500">Active Node</span>
+</div>
+</div>
+</div>
+<!-- App Card 5 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1">
+<div class="h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Minimalist technology hardware component design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5cXDXaymdaMNp7oOViC9tNvc47kvOHDPt3MSZb9LwokRxsP9W4M0vKPKeIsMInzzIPKQatYYfTSzAPyeEg8kY1dX-5z_QtIB0Dxy4PaWnTsUYlxZdpWg1J5P846XMI1Xutj4vu8FKMtiAugRmxgdFuiMRyFle1iuFtLJpBiXiCLtoMYgLXo9W0UBr0X7UcSmaUSA26LmXWdWO5GFaQpV_RYWF-DgFY-wA-S2a_q2XXnbqyTSSHrzHYDHpavU3ZZ-mK70Afros9Gvi"/>
+<div class="absolute top-4 left-4 z-20 bg-purple-600/90 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">widgets</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">AEGIS Reflective Widget</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1">
+                        Portable, embeddable monitoring UI component. Bring the power of AEGIS analytics to any internal dashboard or third-party platform.
+                    </p>
+<div class="flex items-center justify-between">
+<button class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                            Get Widget <span class="material-symbols-outlined text-sm">code</span>
+</button>
+<span class="text-xs font-mono text-slate-400 dark:text-slate-500">SDK v3.0</span>
+</div>
+</div>
+</div>
+<!-- App Card 6 -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-all hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1">
+<div class="h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Neural network artificial intelligence visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_FzVS186m3BSVh5v5buQik8nbD3ZsM_OXIfDHdqiEnd1QlZRHrWq5-1Zm69rgyXza35KM9Iqu7xMooJoIn6OnP4NtDmnENsaoNZnVeyN82RqrCmwWNe6tUgRnbNufMOk1Ec8Bl7ZpkEECiG__2f0XTwxiB8IeD8S2NGZOO601iQaTQLE8ijthhj4_E95xOjTOMldu3lwKccTaPvtwRnctsryDB3_BSXqnsRkfJZYNrKkiNxXc-4JhJpZm3wwqQ2UOMyjVgvJMwT89"/>
+<div class="absolute top-4 left-4 z-20 bg-cyan-600/90 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">AEGIS LLM Colab</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-1">
+                        AI-driven security orchestration and collaborative agent training. Train autonomous security agents in a sandboxed agentic workshop.
+                    </p>
+<div class="flex items-center justify-between">
+<button class="bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                            Open Workshop <span class="material-symbols-outlined text-sm">science</span>
+</button>
+<span class="text-xs font-mono text-slate-400 dark:text-slate-500">Beta Access</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="mt-24 rounded-3xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 p-8 md:p-16 text-center">
+<h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">Ready to secure your infrastructure?</h2>
+<p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10">
+                Deploy the full AEGIS suite today and experience unparalleled protection with our integrated implementation tools.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="px-8 py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+                    Contact Sales
+                </button>
+<button class="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+                    Request Demo
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<div class="flex flex-wrap items-center justify-center gap-8 mb-8">
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Security Certifications</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Developer API</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Support Portal</a>
+</div>
+<div class="flex justify-center gap-6 mb-8">
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.27 20.1H3.65V9.24h3.62V20.1zM5.47 7.76c-1.16 0-2.09-.93-2.09-2.09 0-1.15.93-2.09 2.09-2.09 1.15 0 2.09.93 2.09 2.09 0 1.16-.94 2.09-2.09 2.09zm14.63 12.34h-3.62v-5.71c0-1.36-.03-3.11-1.9-3.11-1.9 0-2.19 1.48-2.19 3.01v5.81h-3.6V9.24h3.46v1.48h.05c.48-.91 1.66-1.87 3.41-1.87 3.65 0 4.32 2.41 4.32 5.54v5.71z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M24 4.56a9.83 9.83 0 0 1-2.83.77 4.93 4.93 0 0 0 2.17-2.72 9.86 9.86 0 0 1-3.12 1.19 4.92 4.92 0 0 0-8.39 4.48A13.94 13.94 0 0 1 1.67 3.15a4.93 4.93 0 0 0 1.52 6.57 4.91 4.91 0 0 1-2.23-.62v.06a4.92 4.92 0 0 0 3.95 4.83 4.94 4.94 0 0 1-2.22.08 4.92 4.92 0 0 0 4.6 3.42 9.87 9.87 0 0 1-6.11 2.11c-.4 0-.79-.02-1.18-.07a13.93 13.93 0 0 0 7.55 2.21c9.05 0 14-7.5 14-14 0-.21 0-.42-.01-.63A10 10 0 0 0 24 4.56z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 .3a12.1 12.1 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.3-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.3 1.9 1.3 3.2 0 4.6-2.9 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12.1 12.1 0 0 0 12 .3z"></path></svg>
+</a>
+</div>
+<p class="text-slate-500 text-sm">© 2024 AegisAlign Security &amp; Infrastructure. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body></html>

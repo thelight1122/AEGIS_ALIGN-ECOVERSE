@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>AEGIS Interceptor | Deep Packet Security</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 px-6 py-3 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">shield_lock</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Interceptor</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Logs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Rules</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm placeholder:text-slate-500 w-48" placeholder="Search parameters..." type="text"/>
+</div>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center overflow-hidden">
+<img alt="User" data-alt="User profile avatar circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwKdH1OSzCQGzf2PyGdrSOKJPn9GXUN9pQKWOG-wNzyODjNB9-89FF_cDo8a2zWDXcXgNNYN4G5KuY7nCrAzFDm3YzR3X6bvZJV-CjOZ0GiDzeiypBxfBKRrQaCzwg2TxtNdhNEj-nKz1NeMfPaSSlEDOpupUrYezLXsh3Q8ijqsdPevtR-zbc9xwiZOiU-peY7nhaNBPtut1Mw1gXRl3GdHLIwwcb-kxym-Aj1MwIXG1wkc-kPVemcPCTEFuXyvLzTahw56d6YM1A"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-8 w-full">
+<!-- Hero Section -->
+<section class="relative overflow-hidden rounded-xl bg-slate-900 dark:bg-slate-900 p-8 md:p-16 mb-12 border border-slate-800">
+<div class="absolute inset-0 opacity-20 pointer-events-none" data-alt="Technical grid pattern background" style="background-image: radial-gradient(circle at 2px 2px, #1152d4 1px, transparent 0); background-size: 40px 40px;"></div>
+<div class="relative z-10 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-primary/30">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                        Next-Gen DPI Engine
+                    </div>
+<h1 class="text-white text-4xl md:text-6xl font-black leading-tight tracking-tight mb-6">
+                        AEGIS Interceptor: <span class="text-primary">Deep Packet</span> Security
+                    </h1>
+<p class="text-slate-400 text-lg md:text-xl leading-relaxed mb-8">
+                        Real-time threat mitigation and granular protocol analysis designed for mission-critical infrastructure. Intercept, analyze, and neutralize at the speed of light.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center gap-2">
+                            Deploy Interceptor <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-lg font-bold transition-all border border-slate-700">
+                            View Documentation
+                        </button>
+</div>
+</div>
+</section>
+<!-- Metrics & Monitoring -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+                        Real-time Interception Metrics
+                    </h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-slate-500">Packets Analyzed/sec</span>
+<span class="font-bold">452,109 / 500k</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-slate-500">Threats Neutralized (Live)</span>
+<span class="text-red-500 font-bold">1,204</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+<div class="bg-red-500 h-full rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-slate-500">Network Load</span>
+<span class="text-emerald-500 font-bold">14% Overhead</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 14%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">hub</span>
+                        Network Topology
+                    </h3>
+<div class="relative h-48 flex flex-col justify-between items-center py-4">
+<div class="w-full flex justify-center">
+<div class="px-4 py-2 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-mono">PUBLIC_WEB</div>
+</div>
+<div class="w-full h-full flex items-center justify-center relative">
+<div class="w-px h-full bg-slate-200 dark:bg-slate-700 absolute"></div>
+<div class="z-10 bg-primary text-white p-3 rounded-lg shadow-lg shadow-primary/20 animate-pulse">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+</div>
+<div class="w-full flex justify-center">
+<div class="px-4 py-2 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-mono">INTRANET_VLAN</div>
+</div>
+</div>
+<p class="text-center text-xs text-slate-500 mt-4 italic">Active L7 Gatekeeper Placement</p>
+</div>
+</section>
+<!-- Core Capabilities -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-8">Core Capabilities</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-primary text-3xl mb-4 group-hover:scale-110 transition-transform">find_in_page</span>
+<h4 class="font-bold text-lg mb-2">Full Packet Inspection</h4>
+<p class="text-sm text-slate-500 leading-relaxed">L7 deep analysis of every incoming packet at line speed with zero latency jitter.</p>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-primary text-3xl mb-4 group-hover:scale-110 transition-transform">psychology</span>
+<h4 class="font-bold text-lg mb-2">Malicious Recognition</h4>
+<p class="text-sm text-slate-500 leading-relaxed">AI-driven pattern matching and heuristic analysis for zero-day threat detection.</p>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-primary text-3xl mb-4 group-hover:scale-110 transition-transform">bolt</span>
+<h4 class="font-bold text-lg mb-2">Automated Response</h4>
+<p class="text-sm text-slate-500 leading-relaxed">Instantaneous isolation and blacklisting of compromised nodes via API triggers.</p>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-primary text-3xl mb-4 group-hover:scale-110 transition-transform">terminal</span>
+<h4 class="font-bold text-lg mb-2">Protocol Analysis</h4>
+<p class="text-sm text-slate-500 leading-relaxed">Granular decoding of non-standard and proprietary protocols across all ports.</p>
+</div>
+</div>
+</section>
+<!-- Rule Configuration -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+<div>
+<h2 class="text-2xl font-bold mb-4">Rule Configuration</h2>
+<p class="text-slate-500 mb-6">Deploy robust protection policies using our human-readable YAML specification. Interceptor handles the heavy lifting of mapping these to kernel-level filters.</p>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="text-sm font-medium">Stateful SQLI &amp; XSS prevention engines</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="text-sm font-medium">Dynamic DDoS threshold adjustments</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="text-sm font-medium">Payload sanitization and stripping</span>
+</li>
+</ul>
+</div>
+<div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+<div class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700">
+<div class="flex gap-1.5">
+<div class="size-2.5 rounded-full bg-red-500/50"></div>
+<div class="size-2.5 rounded-full bg-yellow-500/50"></div>
+<div class="size-2.5 rounded-full bg-emerald-500/50"></div>
+</div>
+<span class="text-[10px] text-slate-400 font-mono">interceptor-policy.yaml</span>
+</div>
+<div class="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
+<div class="flex gap-4">
+<span class="text-slate-700 select-none">01</span>
+<span class="text-slate-300"><span class="text-primary">version</span>: "2.4.0-stable"</span>
+</div>
+<div class="flex gap-4">
+<span class="text-slate-700 select-none">02</span>
+<span class="text-slate-300"><span class="text-primary">rules</span>:</span>
+</div>
+<div class="flex gap-4 pl-4">
+<span class="text-slate-700 select-none">03</span>
+<span class="text-slate-300">- <span class="text-primary">id</span>: sqli_prevention</span>
+</div>
+<div class="flex gap-4 pl-8">
+<span class="text-slate-700 select-none">04</span>
+<span class="text-slate-300"><span class="text-primary">action</span>: DROP</span>
+</div>
+<div class="flex gap-4 pl-8">
+<span class="text-slate-700 select-none">05</span>
+<span class="text-slate-300"><span class="text-primary">pattern</span>: "(SELECT|UNION|DROP).*"</span>
+</div>
+<div class="flex gap-4 pl-4">
+<span class="text-slate-700 select-none">06</span>
+<span class="text-slate-300">- <span class="text-primary">id</span>: ddos_threshold</span>
+</div>
+<div class="flex gap-4 pl-8">
+<span class="text-slate-700 select-none">07</span>
+<span class="text-slate-300"><span class="text-primary">max_requests_sec</span>: 5000</span>
+</div>
+<div class="flex gap-4 pl-8">
+<span class="text-slate-700 select-none">08</span>
+<span class="text-slate-300"><span class="text-primary">burst</span>: 10000</span>
+</div>
+<div class="flex gap-4 pl-8">
+<span class="text-slate-700 select-none">09</span>
+<span class="text-slate-300"><span class="text-primary">on_violation</span>: BAN_IP_60M</span>
+</div>
+<div class="flex gap-4">
+<span class="text-slate-700 select-none">10</span>
+<span class="text-slate-300"><span class="text-primary">logging</span>: true</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 px-6 mt-12">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-500 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">verified_user</span>
+                    © 2024 AegisAlign Suite. All systems operational.
+                </div>
+<div class="flex gap-6 text-sm font-medium text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Security Policy</a>
+<a class="hover:text-primary transition-colors" href="#">API Access</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

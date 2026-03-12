@@ -1,0 +1,20 @@
+{
+  "name": "aegis-align-ecoverse",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:canon": "node scripts/sync-canon.mjs",
+    "check:canon": "node scripts/check-canon.mjs",
+    "sync:stitch": "node scripts/sync-stitch.mjs",
+    "check:routes": "node scripts/check-routes.mjs",
+    "export:sitemap": "node scripts/export-sitemap.mjs",
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "three": "^0.180.0",
+    "vite": "^7.1.0"
+  }
+}

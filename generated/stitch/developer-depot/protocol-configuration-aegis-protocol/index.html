@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>AegisAlign | Protocol Configuration</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 px-6 lg:px-10 py-4 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</header>
+<main class="flex-1 px-4 lg:px-10 py-8 max-w-[1440px] mx-auto w-full">
+<!-- Page Header & Status -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Protocol Configuration</h1>
+<div class="flex items-center gap-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+</span>
+<p class="text-slate-500 dark:text-slate-400 font-medium">Status: <span class="text-emerald-500 dark:text-emerald-400">Active Sync</span></p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-sm font-bold transition-all hover:bg-slate-300 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                            View Logs
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Settings -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Core Settings Section -->
+<section class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">settings_input_component</span>
+<h2 class="text-xl font-bold">Core Settings</h2>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between mb-4">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Synchronization Interval (ms)</label>
+<span class="text-sm font-mono text-primary bg-primary/10 px-2 py-0.5 rounded">100ms</span>
+</div>
+<input class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" max="1000" min="50" step="50" type="range" value="100"/>
+<div class="flex justify-between mt-2 text-[10px] text-slate-400 uppercase tracking-widest">
+<span>50ms</span>
+<span>500ms</span>
+<span>1000ms</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Consensus Algorithm</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary">
+<option value="arbitor">Arbitor Mesh</option>
+<option value="bft">BFT-Sync</option>
+<option value="raft">Raft Protocol</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Peer Discovery Mode</label>
+<div class="flex items-center h-full gap-4">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+<span class="ml-3 text-sm font-medium text-slate-600 dark:text-slate-300">Automatic</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Security & Encryption Section -->
+<section class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">security</span>
+<h2 class="text-xl font-bold">Security &amp; Encryption</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Encryption Level</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary">
+<option value="std">Standard (AES-256)</option>
+<option value="high">High-Fidelity</option>
+<option value="quantum">Quantum-Resistant</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Rotation Policy</label>
+<select class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary">
+<option value="24h">24h Rotation</option>
+<option value="7d">7d Interval</option>
+<option value="30d">30d Cycle</option>
+</select>
+</div>
+<div class="col-span-1 md:col-span-2 p-4 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">hub</span>
+<div>
+<p class="text-sm font-bold">VPC Tunneling</p>
+<p class="text-xs text-slate-500">Route all internal peer traffic through secure VPC mesh.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Node Governance -->
+<section class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+<h2 class="text-xl font-bold">Node Governance</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Minimum Node Threshold</label>
+<div class="flex items-center gap-4">
+<input class="w-20 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg p-2 text-center text-sm" type="number" value="3"/>
+<span class="text-xs text-slate-500 uppercase font-bold tracking-widest">Active Peers Required</span>
+</div>
+</div>
+<div class="space-y-4">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Reputation Scoring Weights</label>
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2 bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 flex justify-between items-center">
+<span class="text-[10px] font-bold uppercase">Uptime</span>
+<span class="text-xs text-primary font-bold">0.6</span>
+</div>
+<div class="p-2 bg-slate-50 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 flex justify-between items-center">
+<span class="text-[10px] font-bold uppercase">Latency</span>
+<span class="text-xs text-primary font-bold">0.4</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Technical Preview -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col h-full min-h-[400px]">
+<div class="bg-slate-800 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">code</span>
+<span class="text-xs font-bold text-slate-300 uppercase tracking-widest">Config Preview</span>
+</div>
+<span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">VALIDATED</span>
+</div>
+<div class="p-6 font-mono text-sm text-slate-400 leading-relaxed overflow-auto flex-1">
+<pre><span class="text-primary">aegis_protocol_v4</span>:
+  <span class="text-primary">sync</span>: 100ms
+  <span class="text-primary">consensus</span>: arbitor_mesh
+  <span class="text-primary">discovery</span>: auto
+  <span class="text-primary">security</span>:
+    <span class="text-primary">encryption</span>: quantum_res
+    <span class="text-primary">key_rotation</span>: 24h
+    <span class="text-primary">vpc_tunnel</span>: false
+  <span class="text-primary">governance</span>:
+    <span class="text-primary">min_nodes</span>: 3
+    <span class="text-primary">rep_weight</span>:
+      <span class="text-primary">uptime</span>: 0.6
+      <span class="text-primary">latency</span>: 0.4
+</pre>
+</div>
+<div class="p-4 bg-slate-950 border-t border-slate-800 text-[11px] text-slate-500 italic">
+                                Live-sync enabled. Config reflects current session state.
+                            </div>
+</div>
+<!-- Info Card -->
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-6">
+<h4 class="text-primary font-bold mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">info</span>
+                                Pro Tip
+                            </h4>
+<p class="text-sm text-slate-400">Quantum-Resistant encryption increases handshake latency by ~12ms but prevents harvesting attacks.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Action Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 lg:px-10 py-6 sticky bottom-0">
+<div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+<div class="text-sm text-slate-500">
+<span class="font-bold text-slate-800 dark:text-slate-200">Local Changes:</span> 4 modified parameters
+                    </div>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-6 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            Reset to Defaults
+                        </button>
+<button class="flex-1 sm:flex-none px-8 py-2.5 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all">
+                            Apply Changes
+                        </button>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

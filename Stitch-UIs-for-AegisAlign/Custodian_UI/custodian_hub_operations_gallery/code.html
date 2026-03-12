@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 lg:px-40 py-4 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">shield_with_heart</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-[-0.015em]">AegisAlign</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Protocol</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Governance</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Custodians</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Ecosystem</a>
+</nav>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold leading-normal transition-all hover:opacity-90 active:scale-95">
+                    Launch App
+                </button>
+</div>
+</header>
+<main class="flex-1 flex flex-col px-6 md:px-20 lg:px-40 py-10 gap-16">
+<!-- Hero Section -->
+<section class="@container"><div class="flex min-h-[500px] flex-col gap-8 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 relative overflow-hidden text-center border border-slate-200 dark:border-slate-800" style="background-image: linear-gradient(rgba(16, 22, 34, 0.85) 0%, rgba(16, 22, 34, 0.98) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8FyGdNZnPDIN5ErjqISPA1v4RnlSTpG9RXqPnyWk0nmd-rF4M9_T1-dZr8GEr9bqAVz4qruhi8-Y1pmTKI_ez5hRgRG2WvH4b0pgNMeqC-cHtOzjMGfp2WAvObYjZqYCoDQ0j-N7cH-L8nA5ndQoozV2e0_MRq0rxwZNxt4j3bIVbHQbStwJKzNk9pUaYyDJOUIFQTg5akP6MZ-7y9QzX_pArWmDoV779154ZaJMp3QuH7jxUM4J1O0AVLQGnNQMYOFCYM3oaXaUT');">
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+<div class="w-[600px] h-[600px] border-[20px] border-primary rounded-full flex items-center justify-center relative">
+<div class="absolute w-1 h-full bg-primary top-0 left-1/2 -translate-x-1/2"></div>
+<div class="absolute h-1 w-full bg-primary left-0 top-1/2 -translate-y-1/2"></div>
+<div class="absolute h-1 w-full bg-primary left-0 top-1/2 -translate-y-1/2 rotate-45"></div>
+<div class="absolute h-1 w-full bg-primary left-0 top-1/2 -translate-y-1/2 -rotate-45"></div>
+</div>
+</div>
+<div class="flex flex-col gap-4 max-w-3xl z-10">
+<span class="text-primary font-bold tracking-widest uppercase text-xs">Network Operations &amp; Entry</span>
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
+            Custodian Hub
+        </h1>
+<p class="text-slate-300 text-base md:text-lg font-normal leading-relaxed">
+            A decentralized management portal where every member is a ring and every action a spoke. Securely login to manage protocol content or apply to join the circle.
+        </p>
+</div>
+<div class="flex flex-wrap gap-4 z-10 justify-center">
+<button class="flex min-w-[180px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold transition-all hover:bg-primary/90 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined mr-2">login</span>
+            Custodian Login
+        </button>
+<button class="flex min-w-[180px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-white/10 text-white text-base font-bold backdrop-blur-sm border border-white/20 hover:bg-white/20">
+<span class="material-symbols-outlined mr-2">person_add</span>
+            Apply to Join
+        </button>
+</div>
+</div></section>
+<!-- The High Council -->
+<section class="border-2 border-primary/30 bg-primary/5 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[12rem]">cyclone</span>
+</div>
+<div class="relative z-10">
+<div class="flex flex-col gap-4 mb-12"><h2 class="text-white text-3xl md:text-4xl font-black leading-tight tracking-tight uppercase group-hover:text-primary transition-colors">Command &amp; Growth</h2>
+<div class="h-1 w-20 bg-primary mt-2"></div>
+<p class="text-slate-400 max-w-2xl mt-4 font-light leading-relaxed">Architecting the next generation of decentralized control. Our circular hierarchy ensures every custodian is an integral node of the protocol's evolution.</p></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Management Spoke -->
+<div class="flex flex-col gap-6 bg-white dark:bg-slate-900/80 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">settings_applications</span>
+</div>
+<h3 class="text-xl font-bold">Protocol Management</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<span class="font-bold text-sm">Create New Page</span>
+<span class="text-xs text-slate-500">Expand the protocol's digital footprint.</span>
+</button>
+<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
+<span class="material-symbols-outlined text-primary">edit_document</span>
+<span class="font-bold text-sm">Edit Site Content</span>
+<span class="text-xs text-slate-500">Update live pages and documentation.</span>
+</button>
+<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
+<span class="material-symbols-outlined text-primary">cloud_sync</span>
+<span class="font-bold text-sm">Dynamic Updates</span>
+<span class="text-xs text-slate-500">Sync changes across the decentralized web.</span>
+</button>
+<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
+<span class="material-symbols-outlined text-primary">group_work</span>
+<span class="font-bold text-sm">Network Health</span>
+<span class="text-xs text-slate-500">Monitor the status of all ring nodes.</span>
+</button>
+</div>
+</div>
+<!-- Recruitment Spoke -->
+<div class="flex flex-col gap-6 bg-white dark:bg-slate-900/80 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">hub</span>
+</div>
+<h3 class="text-xl font-bold">Recruitment Portal</h3>
+</div>
+<div class="space-y-4">
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-l-4 border-primary">
+<p class="text-sm font-medium italic">"Every member is a ring, and everyone is a spoke on the ring."</p>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Seeking experts in cryptoeconomics and secure systems. Join the circle to uphold the AEGIS charter.</p>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-xs">
+<span>Current Openings</span>
+<span class="text-primary font-bold">4 Available</span>
+</div>
+<div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%]"></div>
+</div>
+</div>
+<button class="w-full h-11 bg-primary text-white rounded-lg font-bold hover:opacity-90 transition-all">Initiate Application</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Founding Entities -->
+<!-- Custodian Responsibilities -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-6">
+<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight tracking-tight">Custodian Operations Gallery</h2>
+<div class="space-y-4"><div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="aspect-square rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 relative group">
+<img alt="Operational Node Alpha" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQK9NjsNQFP7_68dNuPsoOvuDKWyYwyIFj_JBznESQ5xf_vVCmAXXFZO2rnpNlKenm0zi2A6QtUYWsvJchgHWUBseD9S8Ao1GxYY9WXxbR82Nd2IgymcwcIQV4QSrQhdL1YuPxL2J4cjgE1uo1eZSYAKwF7KneCNd-pBAlahLnDXXUvH0gaaiJoFjI-2-a-JtJQddidEonuUj_gGsRiwWvzDA6KuKDWUtc4FYScEVwKz6BSK2GoQ_yGuZoqrrCla_kt6rxk5HVib12"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent flex items-end p-4">
+<p class="text-xs font-bold tracking-widest uppercase text-primary">Node Alpha</p>
+</div>
+</div>
+<div class="aspect-square rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 relative group">
+<img alt="Operational Node Beta" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABfj0_hX25iAy6ona3Tg0-z9HUgJdS_FngLCPbjySzjmX6vEfmfsbsLT_jpGnsA1gUFEkEE2v0RObyuDrhQUvHEvyVv-WeOjIWWAGoZo2enuyNoObinNk8FLXJzGbPYMZ72xnr-rcLiqzbTS9NuYVtz9eBTlAg9pjlE56RgsaByaC6Nmnr_JP7Ncj-gEtQ3N6t0JB-LZXWnRNDLUygqFTyNP1qy6IaI9EWKzspYSVes9TxHKsgk-Q4d-PNDA1tiTfUvleUdh-vdXEh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent flex items-end p-4">
+<p class="text-xs font-bold tracking-widest uppercase text-primary">Node Beta</p>
+</div>
+</div>
+</div></div>
+</div>
+<div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900">
+<div class="p-8 flex flex-col items-center justify-center gap-6 relative">
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);"></div>
+<span class="material-symbols-outlined text-primary text-6xl">verified</span>
+<div class="text-center z-10">
+<p class="text-white text-xl font-bold">Standard of Excellence</p>
+<p class="text-slate-400 mt-2 text-sm px-8">All Custodians are bound by a cryptographically signed oath to uphold protocol neutrality and security above all other interests.</p>
+</div>
+<div class="w-full h-[1px] bg-slate-800"></div>
+<div class="flex justify-between w-full px-4 text-xs font-mono text-primary/70 z-10">
+<span>AUTH_KEY: 0x8a...4f2e</span>
+<span>STATUS: VERIFIED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Becoming a Custodian -->
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark py-12 px-6 md:px-20 lg:px-40">
+<div class="flex flex-col md:flex-row justify-between gap-12">
+<div class="flex flex-col gap-4 max-w-xs">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="text-slate-900 dark:text-slate-100 font-bold text-lg">AegisAlign</span>
+</div>
+<p class="text-slate-500 text-sm">Aligning decentralized security with long-term governance standards.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
+<div class="flex flex-col gap-3">
+<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Protocol</p>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Architecture</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">SDKs</a>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Community</p>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Discord</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Twitter</a>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Legal</p>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Charter</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Privacy</a>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-slate-500 text-xs">
+                © 2024 AEGIS Protocol. All nodes verified.
+            </div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop - Logic &amp; Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .step-active {
+            @apply text-primary border-primary;
+        }
+        .glass-panel {
+            background: rgba(17, 82, 212, 0.05);
+            border: 1px solid rgba(17, 82, 212, 0.2);
+            backdrop-filter: blur(8px);
+        }
+        .code-glow {
+            text-shadow: 0 0 10px rgba(17, 82, 212, 0.5);
+        }
+        /* Custom Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #1e293b;
+            transition: .4s;
+            border: 1px solid rgba(17, 82, 212, 0.3);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
+        input:checked + .slider {
+            background-color: #1152d4;
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between border-b border-primary/20 px-6 py-4 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight uppercase">AEGIS <span class="text-primary">Agentic Workshop</span></h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full border-2 border-primary bg-primary/20 overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ955ADgijrhNG0KwshxR_4f-aa0S2Wn8VhDUsAw3yII5lr6MJx8jNf9r3UtWrixeAa12_mgy_uqaF6kM4PgJDT3xUtrBnG0v3o6Rj_rKae3MKBMWCTCc6h8XHsUOng-eu0Q_n_NBaaaxiywUPioAg6E8CXzIFOmgU72QbH3_SXELELclF0op0eY-Vv1AaV3bE0bZXO5vQ_eIqa-pPhQsG-zVUl9cvNiE5J54jb9t6MDuB_iuky4GyGYkSQsUcjy-L8r5pMMrkHI69"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1400px] mx-auto w-full px-6 py-8 gap-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary/60 text-sm font-medium">
+<span>Workshops</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary">New AI Agent</span>
+</div>
+<h1 class="text-4xl font-black tracking-tight">Initialize Agent Prototype</h1>
+<p class="text-slate-400 max-w-2xl">Configure the core identity, neural constraints, and behavioral directives for your autonomous agent instance.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-primary/10 pb-8">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center border border-emerald-500/30">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div class="flex flex-col">
+<span class="text-emerald-500 text-sm font-bold uppercase tracking-wider">Step 1</span>
+<span class="font-medium">Core Identity</span>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-[0_0_15px_rgba(17,82,212,0.4)]">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="text-primary text-sm font-bold uppercase tracking-wider">Step 2</span>
+<span class="font-medium">Logic &amp; Intel</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">database</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold uppercase tracking-wider">Step 3</span>
+<span class="font-medium">Memory &amp; RAG</span>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold uppercase tracking-wider">Step 4</span>
+<span class="font-medium">Deployment</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-8 border border-primary/20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Base Intelligence Model</label>
+<select class="bg-background-dark border border-primary/30 rounded-lg p-3 focus:outline-none focus:border-primary text-slate-100">
+<option>AEGIS-Titan-70B (Recommended)</option>
+<option>AEGIS-Lumina-8B (Efficiency)</option>
+<option>AEGIS-Quantum-Exp (Advanced)</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Reasoning Depth</label>
+<div class="flex items-center gap-2 h-full">
+<div class="grid grid-cols-3 w-full bg-background-dark border border-primary/30 rounded-lg overflow-hidden h-[46px]">
+<button class="flex items-center justify-center text-xs font-bold border-r border-primary/30 hover:bg-primary/10 transition-colors">STANDARD</button>
+<button class="flex items-center justify-center text-xs font-bold border-r border-primary/30 bg-primary/20 text-primary">ENHANCED</button>
+<button class="flex items-center justify-center text-xs font-bold hover:bg-primary/10 transition-colors">RECURSIVE</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Tool Access Permissions</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<label class="flex items-center gap-3 p-3 rounded-lg border border-primary/10 bg-background-dark/50 cursor-pointer hover:border-primary/30 transition-all">
+<input checked="" class="form-checkbox bg-slate-800 border-primary/30 text-primary rounded focus:ring-primary focus:ring-offset-slate-900" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-medium">Network Diagnostics</span>
+<span class="text-[10px] text-slate-500">Read-only system access</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-primary/10 bg-background-dark/50 cursor-pointer hover:border-primary/30 transition-all">
+<input checked="" class="form-checkbox bg-slate-800 border-primary/30 text-primary rounded focus:ring-primary focus:ring-offset-slate-900" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-medium">Terminal Executor</span>
+<span class="text-[10px] text-slate-500">Execute sandbox commands</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-primary/10 bg-background-dark/50 cursor-pointer hover:border-primary/30 transition-all">
+<input class="form-checkbox bg-slate-800 border-primary/30 text-primary rounded focus:ring-primary focus:ring-offset-slate-900" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-medium">Database API</span>
+<span class="text-[10px] text-slate-500">Query structured datasets</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-primary/10 bg-background-dark/50 cursor-pointer hover:border-primary/30 transition-all">
+<input class="form-checkbox bg-slate-800 border-primary/30 text-primary rounded focus:ring-primary focus:ring-offset-slate-900" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-medium">External Web Search</span>
+<span class="text-[10px] text-slate-500">Live internet browsing</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 rounded-lg border border-primary/20 bg-primary/5">
+<div class="flex flex-col gap-1">
+<label class="text-sm font-bold text-primary/80 uppercase tracking-widest">Knowledge Base RAG</label>
+<p class="text-xs text-slate-400">Enable Retrieval Augmented Generation for local vector store access.</p>
+</div>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-between gap-4 mt-2">
+<button class="px-6 py-3 rounded-lg border border-primary/30 text-primary font-bold hover:bg-primary/10 transition-all uppercase tracking-widest text-sm">Previous Step</button>
+<button class="px-8 py-3 rounded-lg bg-primary text-white font-bold hover:bg-primary/80 transition-all shadow-[0_0_20px_rgba(17,82,212,0.3)] uppercase tracking-widest text-sm flex items-center gap-2">
+                                Next: Memory &amp; RAG
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+<div class="bg-slate-800 px-4 py-2 flex items-center justify-between border-b border-slate-700">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-red-500/50"></span>
+<span class="size-3 rounded-full bg-yellow-500/50"></span>
+<span class="size-3 rounded-full bg-green-500/50"></span>
+<span class="ml-2 text-xs font-mono text-slate-400">config.yaml</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-sm">content_copy</span>
+</div>
+<div class="p-6 font-mono text-sm overflow-x-auto">
+<pre class="text-primary/90 code-glow"><code><span class="text-slate-500"># AEGIS Agent Configuration</span>
+<span class="text-blue-400">version:</span> <span class="text-emerald-400">2.4.0-alpha</span>
+<span class="text-blue-400">logic:</span>
+  <span class="text-blue-400">model_id:</span> <span class="text-white">"aegis-titan-70b-v4"</span>
+  <span class="text-blue-400">reasoning_mode:</span> <span class="text-white">"enhanced"</span>
+  <span class="text-blue-400">tools_enabled:</span>
+    <span class="text-blue-400">-</span> <span class="text-white">"network_diagnostics"</span>
+    <span class="text-blue-400">-</span> <span class="text-white">"terminal_executor"</span>
+  <span class="text-blue-400">rag_config:</span>
+    <span class="text-blue-400">enabled:</span> <span class="text-emerald-400">true</span>
+    <span class="text-blue-400">vector_sync:</span> <span class="text-white">active</span>
+<span class="text-blue-400">neural_link:</span>
+  <span class="text-blue-400">status:</span> <span class="text-emerald-400">processing</span>
+  <span class="text-blue-400">readiness:</span> <span class="text-emerald-400">92%</span></code></pre>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-panel p-4 rounded-xl border border-primary/20 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary/70 uppercase tracking-tighter">Inference Load</span>
+<span class="text-xs text-emerald-400 font-mono">STABLE</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[45%] shadow-[0_0_10px_#1152d4]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-2xl font-black">45%</span>
+<span class="text-[10px] text-slate-500 uppercase">GPU Clusters</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-xl border border-primary/20 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary/70 uppercase tracking-tighter">Neural Readiness</span>
+<span class="text-xs text-blue-400 font-mono">READY</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[92%] shadow-[0_0_10px_#1152d4]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-2xl font-black">92%</span>
+<span class="text-[10px] text-slate-500 uppercase">Synapse Count</span>
+</div>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl border-l-4 border-l-primary border-primary/10">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">psychology_alt</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-sm font-bold uppercase tracking-widest text-primary">Intelligence Tip</h4>
+<p class="text-xs text-slate-400 leading-relaxed"><span class="text-primary font-medium">Recursive reasoning</span> provides superior problem solving for complex coding tasks but increases inference latency by up to <span class="text-primary">40%</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-primary/10 py-4 px-6 mt-auto">
+<div class="flex justify-between items-center text-[10px] text-slate-500 uppercase tracking-widest">
+<div class="flex gap-4">
+<span>v0.8.4-BETA</span>
+<span>Neural Engine Active</span>
+</div>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">API Keys</a>
+<span>© 2024 AEGIS Labs</span>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

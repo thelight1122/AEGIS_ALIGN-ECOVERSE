@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Protocol API Reference</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #282e39;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">shield_locked</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Docs</a>
+<a class="text-sm font-medium text-primary" href="#">API</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Network</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Status</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-slate-200 dark:bg-slate-800 rounded-lg px-3 py-1.5 w-64">
+<span class="material-symbols-outlined text-slate-500 text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-500" placeholder="Search documentation..." type="text"/>
+<span class="text-[10px] bg-slate-300 dark:bg-slate-700 px-1.5 py-0.5 rounded text-slate-600 dark:text-slate-400">⌘K</span>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white text-sm font-bold px-4 py-2 rounded-lg transition-all">
+                    Console
+                </button>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-300 dark:border-slate-700">
+<img alt="User Profile" class="size-full" data-alt="Abstract geometric avatar icon for user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzTWzaYBYqZecvlACF9Xj2ZwiAJKElEKV1nH47FZPT-bHF8A0eqN3bX6BVK9z9foEQ-c1oWUL3HpZ9QOU2H7LyS556GQb3gnAcaGX_6yffGlYT5WM3i66MCTQ__2SpGik_HgyocJ-1hYSsJ9AqAKUG_uwRidXO6DC13UPwNyoiJOAI8lXtdZZwqwR8BdA_Yy0nvjsc8lPEJd0xhqkTmjyA2NyScmMK8a94VtmYeCmzhTwOYDfQhoyA5wO_8vrZI2z6L_VJlbtY9MU6"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex w-72 flex-col border-r border-slate-200 dark:border-slate-800 p-6 gap-8 overflow-y-auto h-[calc(100vh-65px)] sticky top-[65px]">
+<div class="flex flex-col gap-2">
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Protocol Version</p>
+<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 border border-primary/20">
+<span class="material-symbols-outlined text-primary text-sm">terminal</span>
+<span class="text-sm font-medium">v2.4.0-stable</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6">
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 px-3">Endpoints</p>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">lock</span>
+<span class="text-sm font-medium">Authentication</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary transition-colors border-l-2 border-primary" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="text-sm font-medium">Shield Perimeter</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">database</span>
+<span class="text-sm font-medium">State Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">bar_chart</span>
+<span class="text-sm font-medium">Metrics &amp; Telemetry</span>
+</a>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 px-3">Guides</p>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="text-sm font-medium">Quick Start</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="text-sm font-medium">Rate Limiting</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="text-sm font-medium">Webhooks</span>
+</a>
+</div>
+</div>
+</nav>
+</aside>
+<!-- Main Content + Code Block Grid -->
+<main class="flex-1 grid grid-cols-1 xl:grid-cols-2">
+<!-- Documentation Section -->
+<div class="p-6 md:p-12 border-r border-slate-200 dark:border-slate-800 overflow-y-auto custom-scrollbar h-[calc(100vh-65px)]">
+<div class="flex flex-col gap-2 mb-8">
+<div class="flex items-center gap-2 text-primary font-medium text-sm">
+<span>Shield</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span>Deployment</span>
+</div>
+<h1 class="text-4xl font-black tracking-tight mt-2">Deploy Shield</h1>
+<p class="text-lg text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                            Initializes a new security perimeter within the AEGIS network. This endpoint creates a logically isolated shield instance tailored to the specified protocol requirements.
+                        </p>
+</div>
+<div class="flex items-center gap-3 mb-10">
+<span class="px-3 py-1 bg-green-500/10 text-green-500 text-xs font-bold rounded border border-green-500/20">POST</span>
+<code class="text-sm bg-slate-200 dark:bg-slate-800 px-3 py-1 rounded font-mono">/v1/shield/deploy</code>
+</div>
+<!-- Request Parameters Section -->
+<div class="space-y-12">
+<section>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">key</span>
+                                Headers
+                            </h3>
+<div class="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<table class="w-full text-left text-sm">
+<thead class="bg-slate-100 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<tr>
+<th class="px-4 py-3 font-semibold">Field</th>
+<th class="px-4 py-3 font-semibold">Type</th>
+<th class="px-4 py-3 font-semibold">Description</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr>
+<td class="px-4 py-4 font-mono text-primary">Authorization</td>
+<td class="px-4 py-4 text-slate-500">string</td>
+<td class="px-4 py-4">Bearer token required for API access.</td>
+</tr>
+<tr>
+<td class="px-4 py-4 font-mono text-primary">X-Aegis-Cluster</td>
+<td class="px-4 py-4 text-slate-500">string</td>
+<td class="px-4 py-4">Optional cluster identifier for region pinning.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                Body Parameters
+                            </h3>
+<div class="space-y-6">
+<div class="flex gap-4 items-start pb-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-mono font-bold">shield_name</span>
+<span class="text-[10px] text-red-500 bg-red-500/10 px-1 rounded uppercase font-bold">Required</span>
+<span class="text-xs text-slate-500">string</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">A unique identifier for the shield instance.</p>
+</div>
+</div>
+<div class="flex gap-4 items-start pb-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-mono font-bold">protocol_type</span>
+<span class="text-[10px] text-red-500 bg-red-500/10 px-1 rounded uppercase font-bold">Required</span>
+<span class="text-xs text-slate-500">string</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Specifies the defense layer. Options: <code class="text-xs">quantum</code>, <code class="text-xs">standard</code>, <code class="text-xs">legacy</code>.</p>
+</div>
+</div>
+<div class="flex gap-4 items-start pb-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-mono font-bold">auto_scaling</span>
+<span class="text-xs text-slate-500">boolean</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Enable automated compute adjustments based on load. Defaults to <code class="text-xs">true</code>.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Code Example Section -->
+<div class="bg-slate-50 dark:bg-[#0c111b] p-6 md:p-12 overflow-y-auto custom-scrollbar h-[calc(100vh-65px)]">
+<div class="flex flex-col gap-8 sticky top-0">
+<!-- Example Request -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-sm font-bold uppercase tracking-widest text-slate-500">Example Request</h4>
+<div class="flex gap-2">
+<button class="text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-primary/20 transition-colors">cURL</button>
+<button class="text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-primary/20 transition-colors">Python</button>
+<button class="text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-primary/20 transition-colors">Node.js</button>
+</div>
+</div>
+<div class="bg-slate-900 rounded-xl p-5 border border-slate-800 shadow-2xl relative group">
+<button class="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+</button>
+<pre class="text-sm font-mono text-slate-300 leading-relaxed overflow-x-auto"><span class="text-primary">curl</span> --request POST \
+  --url https://api.aegis.io/v1/shield/deploy \
+  --header <span class="text-green-400">'Authorization: Bearer YOUR_TOKEN'</span> \
+  --header <span class="text-green-400">'Content-Type: application/json'</span> \
+  --data <span class="text-amber-400">'{
+    "shield_name": "alpha-secure-01",
+    "protocol_type": "quantum",
+    "auto_scaling": true
+  }'</span></pre>
+</div>
+</div>
+<!-- Example Response -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-sm font-bold uppercase tracking-widest text-slate-500">Example Response</h4>
+<span class="text-xs font-bold text-green-500">201 Created</span>
+</div>
+<div class="bg-slate-900 rounded-xl p-5 border border-slate-800 shadow-2xl overflow-x-auto relative">
+<pre class="text-sm font-mono text-slate-300 leading-relaxed">{
+  <span class="text-primary">"status"</span>: <span class="text-green-400">"success"</span>,
+  <span class="text-primary">"data"</span>: {
+    <span class="text-primary">"shield_id"</span>: <span class="text-green-400">"sh_01GZH8"</span>,
+    <span class="text-primary">"deployment_id"</span>: <span class="text-green-400">"dep_992120"</span>,
+    <span class="text-primary">"endpoint"</span>: <span class="text-green-400">"alpha-secure-01.shield.aegis.io"</span>,
+    <span class="text-primary">"created_at"</span>: <span class="text-green-400">"2023-10-24T14:32:01Z"</span>,
+    <span class="text-primary">"config"</span>: {
+      <span class="text-primary">"auto_scaling"</span>: <span class="text-amber-400">true</span>,
+      <span class="text-primary">"zones"</span>: [<span class="text-green-400">"us-east-1"</span>, <span class="text-green-400">"eu-central-1"</span>]
+    }
+  }
+}</pre>
+</div>
+</div>
+<!-- Error Handling -->
+<div class="mt-8 p-4 rounded-lg bg-red-500/5 border border-red-500/20">
+<h5 class="text-sm font-bold text-red-400 mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">warning</span>
+                                Common Errors
+                            </h5>
+<ul class="text-xs space-y-2 text-slate-500 dark:text-slate-400">
+<li><span class="font-bold text-slate-700 dark:text-slate-200">401:</span> Invalid or expired authorization token.</li>
+<li><span class="font-bold text-slate-700 dark:text-slate-200">409:</span> Shield name already exists in current cluster.</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

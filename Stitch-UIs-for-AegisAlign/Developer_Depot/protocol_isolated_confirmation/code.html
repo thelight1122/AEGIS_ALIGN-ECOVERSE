@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Security Cockpit - Protocol Isolated</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "success-glow": "#0bda5e",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glow-success {
+            box-shadow: 0 0 20px rgba(11, 218, 94, 0.15);
+        }
+        .terminal-bg {
+            background: linear-gradient(180deg, rgba(16, 22, 34, 1) 0%, rgba(13, 18, 28, 1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-20 bg-background-light dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Security Cockpit <span class="text-xs font-mono font-normal opacity-50 ml-2">v4.0.2</span></h2>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 bg-primary text-white gap-2 px-4 text-sm font-bold transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="hidden sm:inline">Administrator</span>
+</button>
+</div>
+</header>
+<main class="flex-1 max-w-6xl mx-auto w-full px-6 py-8 flex flex-col gap-8">
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 p-8 rounded-xl bg-success-glow/5 border border-success-glow/20 glow-success">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-success-glow text-4xl">check_circle</span>
+<h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tighter">PROTOCOL ISOLATED</h1>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-lg font-normal">Emergency lockdown successfully terminated. System state: <span class="text-success-glow font-mono uppercase">Secure</span></p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="text-xs font-mono text-slate-500 uppercase">Verification Hash</span>
+<span class="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">0x882_SEC_PROTOCOL_ALPHA</span>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span> Verification Summary
+                            </h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<p class="text-slate-900 dark:text-slate-100 text-sm font-medium">Data Integrity Verified</p>
+<p class="text-success-glow text-xl font-bold font-mono">100%</p>
+</div>
+<div class="h-2 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-success-glow rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase mb-1">Active Breaches</p>
+<p class="text-2xl font-bold text-success-glow">0</p>
+<p class="text-xs text-slate-400 mt-1">-100% from Peak</p>
+</div>
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase mb-1">System Health</p>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">100%</p>
+<p class="text-xs text-success-glow mt-1">+45% Critical Fix</p>
+</div>
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase mb-1">Isolation Level</p>
+<p class="text-xl font-bold text-primary">COLD-STORE</p>
+<p class="text-xs text-slate-400 mt-1">Air-Gapped Status</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-950 terminal-bg">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-primary text-sm font-bold font-mono uppercase tracking-widest">Post-Isolation Terminal Log</h3>
+<div class="flex gap-1.5">
+<div class="size-2 rounded-full bg-slate-700"></div>
+<div class="size-2 rounded-full bg-slate-700"></div>
+<div class="size-2 rounded-full bg-slate-700"></div>
+</div>
+</div>
+<div class="font-mono text-sm space-y-2 text-slate-400">
+<p><span class="text-slate-600">[14:22:01]</span> <span class="text-primary">INIT</span> Sequence: Terminal Lockdown Release...</p>
+<p><span class="text-slate-600">[14:22:03]</span> <span class="text-success-glow">SUCCESS</span> Core Isolation Confirmed.</p>
+<p><span class="text-slate-600">[14:22:05]</span> <span class="text-success-glow">SUCCESS</span> Mesh Network Severed (Node 0-255).</p>
+<p><span class="text-slate-600">[14:22:08]</span> <span class="text-primary">INFO</span> Encrypting local persistence layers...</p>
+<p><span class="text-slate-600">[14:22:12]</span> <span class="text-success-glow">SUCCESS</span> Protocol Cold-Storage Active.</p>
+<p class="pt-2 animate-pulse text-primary">_</p>
+</div>
+</div>
+</div>
+<aside class="flex flex-col gap-6">
+<div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold mb-4">Network Status</h3>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">lan</span>
+<span class="text-sm font-medium">Mesh Network</span>
+</div>
+<span class="text-[10px] font-mono font-bold bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded text-slate-600 dark:text-slate-300">SEVERED</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-success-glow">lock</span>
+<span class="text-sm font-medium">Core Firewall</span>
+</div>
+<span class="text-[10px] font-mono font-bold bg-success-glow/20 px-2 py-0.5 rounded text-success-glow">REINFORCED</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">cloud_off</span>
+<span class="text-sm font-medium">Cloud Sync</span>
+</div>
+<span class="text-[10px] font-mono font-bold bg-primary/20 px-2 py-0.5 rounded text-primary">DISABLED</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-full py-4 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold flex items-center justify-center gap-3 transition-all">
+<span class="material-symbols-outlined">rule_settings</span>
+                                Initiate System Audit
+                            </button>
+<button class="w-full py-4 px-6 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold flex items-center justify-center gap-3 transition-all">
+<span class="material-symbols-outlined">power_settings_new</span>
+                                Enter Standby Mode
+                            </button>
+<p class="text-center text-xs text-slate-500 font-medium px-4">Standard recovery window: 12m 45s</p>
+</div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
+<img class="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" data-alt="Abstract glowing circuit lines in dark tech room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHZU8Qf8Vz_iVJYINBedHuf8O9JXCOXfoTXExTTlgD9RYSKS5LBXk8QUzJnDPkk4ERu6UqLBx0bT5H51bATlo92ZoAuSfC_-x9Kh9H_F-Hri0ePo1Q1VgEgTGDXq8rt_3nL7ty7u2Ns039PA_zVm4HssOfro4x3sxzwjIUuaZdESa47Ml2cGL0V13IVGeQsiGoGCbU8jefgZkgz1oSB2OhJY-YCLtKa9U24aZkGKDtaQs3XK3Y0O3-tqFzRogq14lXHTls3u1DYfNG"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<p class="text-[10px] font-mono text-slate-400 uppercase tracking-tighter">Secure Visualization</p>
+<p class="text-sm font-bold text-white">Mainframe Node Delta-9</p>
+</div>
+</div>
+</aside>
+</div>
+<footer class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-between items-center gap-4">
+<div class="flex gap-6">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-success-glow"></span>
+<span class="text-xs font-mono text-slate-500">Uptime: 144:12:09</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-xs font-mono text-slate-500">Latency: 0.2ms</span>
+</div>
+</div>
+<p class="text-xs text-slate-500 font-mono">System Integrity Index: AA+ | Authorized Access Only</p>
+</footer>
+</main>
+</div>
+</div>
+</body></html>

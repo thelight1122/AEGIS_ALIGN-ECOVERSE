@@ -1,0 +1,34 @@
+[
+  {
+    "id": "custodian-ops",
+    "label": "Custodian Ops Center",
+    "route": "/custodian-ui/",
+    "domainSlug": "custodian-ui",
+    "status": "live",
+    "description": "Operational guidance, mission governance, health monitoring, and recovery workflows."
+  },
+  {
+    "id": "application-lab",
+    "label": "AEGIS Application Lab",
+    "route": "/aegis-application-lab/",
+    "domainSlug": "aegis-application-lab",
+    "status": "live",
+    "description": "Interactive demos and productized AEGIS application experiences."
+  },
+  {
+    "id": "developer-depot",
+    "label": "Developers Depot",
+    "route": "/developer-depot/",
+    "domainSlug": "developer-depot",
+    "status": "live",
+    "description": "Developer docs, API exploration, and community build workflows."
+  },
+  {
+    "id": "agentic-workshop",
+    "label": "Agentic Workshop",
+    "route": "/agent-workshop/",
+    "domainSlug": "agent-workshop",
+    "status": "live",
+    "description": "Agent orchestration, mesh monitoring, and recursive intelligence tooling."
+  }
+]

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop - DataQuad Node View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "accent-cyan": "#06b6d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .grid-pattern {
+            background-image: radial-gradient(circle, #1152d4 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.1;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-primary/20 bg-background-dark/80 backdrop-blur-md px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+<div>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">AEGIS Agentic Workshop</h2>
+<p class="text-xs text-primary font-mono uppercase tracking-widest">Protocol Layer 0.4.9</p>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="hidden md:flex bg-primary/10 border border-primary/20 rounded-lg px-3 py-1 items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan text-sm">sensors</span>
+<span class="text-[10px] font-mono text-accent-cyan uppercase">System Status: Nominal</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-primary/20 rounded-lg transition-colors text-slate-400">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 hover:bg-primary/20 rounded-lg transition-colors text-slate-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-primary/20 rounded-lg transition-colors text-slate-400">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-8 w-px bg-primary/20"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-100">Admin_User</p>
+<p class="text-[10px] text-slate-500 font-mono">Privilege: Level 4</p>
+</div>
+<div class="size-9 rounded-full border-2 border-primary/50 bg-primary/20 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB687CUi3PqlhcEPgfBfwooxCKZ0rFY11_Lll6SEWCHwySqBLEKX64B8BnBq9vq9Ht67vYf8yvQKXnLGfvYiyYJODuNCz48OsxZiRFHF9q6pDRRjfPdjzUeRASYo9ZdDVyzr4Oy7AwVf5A-N9Un6OqzBP_jGTKn9o1cpRgoU0-QXrNmBi3JBJ9mkeUtKhBz1WWNRL8QExDszYyFAgDezMFXGTVH03JoJWFv7LWCjwISRgY-9-tjsmS5QghRooyMp5VnhhCrk7JxL5-h"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 p-6 max-w-7xl mx-auto w-full grid grid-cols-12 gap-6 relative">
+<div class="absolute inset-0 grid-pattern pointer-events-none"></div>
+<!-- Left Column: Navigation & Core Identity -->
+<div class="col-span-12 lg:col-span-3 space-y-6 z-10">
+<!-- Agent Identity Card -->
+<div class="bg-background-dark border border-primary/30 rounded-xl p-5 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 -mr-8 -mt-8 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<div class="flex items-start justify-between mb-4">
+<div class="size-16 rounded-lg bg-gradient-to-br from-primary to-accent-cyan flex items-center justify-center shadow-lg glow-cyan">
+<span class="material-symbols-outlined text-white text-3xl">memory</span>
+</div>
+<span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-[10px] font-mono rounded border border-emerald-500/30">ACTIVE</span>
+</div>
+<h1 class="text-xl font-bold text-slate-100 leading-none">DataQuad-Node-0492</h1>
+<p class="text-primary text-xs font-mono mt-1">ID: AEGIS-DQ-0492-STABLE</p>
+<div class="mt-4 pt-4 border-t border-primary/10">
+<label class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Core Role</label>
+<p class="text-slate-200 text-sm font-medium">Protocol Stabilizer</p>
+</div>
+</div>
+</div>
+<!-- Technical Nav -->
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/20 text-primary border border-primary/30 font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 text-slate-400 transition-colors" href="#">
+<span class="material-symbols-outlined">grid_view</span> Memory Grid
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 text-slate-400 transition-colors" href="#">
+<span class="material-symbols-outlined">gavel</span> AEGIS Governance
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 text-slate-400 transition-colors" href="#">
+<span class="material-symbols-outlined">psychology</span> Active Reflection
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 text-slate-400 transition-colors" href="#">
+<span class="material-symbols-outlined">timeline</span> Memory Lineage
+                    </a>
+</nav>
+<!-- Action Console -->
+<div class="bg-background-dark border border-primary/20 rounded-xl p-4">
+<h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Action Console</h3>
+<div class="space-y-3">
+<button class="w-full bg-primary hover:bg-primary/80 text-white py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">bubble_chart</span>
+                            Initiate Deep Reflection
+                        </button>
+<button class="w-full bg-background-dark border border-primary/40 hover:border-primary text-slate-100 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">drive_file_move</span>
+                            Export Memory Branch
+                        </button>
+<button class="w-full bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">settings_backup_restore</span>
+                            Recalibrate Baseline
+                        </button>
+</div>
+</div>
+</div>
+<!-- Middle Column: Visualizations -->
+<div class="col-span-12 lg:col-span-6 space-y-6 z-10">
+<!-- Recursive DataQuad Memory Grid -->
+<div class="bg-background-dark border border-primary/30 rounded-xl overflow-hidden">
+<div class="bg-primary/10 border-b border-primary/20 px-5 py-3 flex justify-between items-center">
+<h3 class="text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">view_quilt</span>
+                            Recursive DataQuad Memory Grid
+                        </h3>
+<span class="font-mono text-[10px] text-primary">2x2 TENSOR VIEW</span>
+</div>
+<div class="p-6 grid grid-cols-2 gap-4">
+<!-- Logic Axis: Past (NCT) -->
+<div class="bg-primary/5 border border-primary/10 rounded-lg p-4 relative group hover:border-primary/40 transition-colors">
+<div class="absolute top-2 right-2 text-[10px] font-mono text-primary/40">PAST_NCT</div>
+<h4 class="text-xs font-bold text-slate-400 uppercase tracking-tight mb-2">Logic Axis</h4>
+<div class="space-y-3">
+<div class="h-16 w-full bg-primary/10 rounded overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+<div class="flex items-end gap-1 h-full px-2 pb-1">
+<div class="w-full bg-primary/40 h-3/4 rounded-t-sm"></div>
+<div class="w-full bg-primary/60 h-1/2 rounded-t-sm"></div>
+<div class="w-full bg-primary/40 h-2/3 rounded-t-sm"></div>
+<div class="w-full bg-primary/80 h-4/5 rounded-t-sm"></div>
+</div>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Recursive Diff</span>
+<span class="text-primary">+1.2k</span>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Append Operations</span>
+<span class="text-primary">402</span>
+</div>
+</div>
+</div>
+<!-- Logic Axis: Present (PCT) -->
+<div class="bg-accent-cyan/5 border border-accent-cyan/10 rounded-lg p-4 relative group hover:border-accent-cyan/40 transition-colors">
+<div class="absolute top-2 right-2 text-[10px] font-mono text-accent-cyan/40">PRES_PCT</div>
+<h4 class="text-xs font-bold text-slate-400 uppercase tracking-tight mb-2">Logic Axis</h4>
+<div class="space-y-3">
+<div class="h-16 w-full flex items-center justify-center">
+<div class="size-10 border-4 border-accent-cyan/20 border-t-accent-cyan rounded-full animate-spin-slow"></div>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Thread Vol</span>
+<span class="text-accent-cyan">89% ACTIVE</span>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Context Buff</span>
+<span class="text-accent-cyan">2.4 TB</span>
+</div>
+</div>
+</div>
+<!-- Emotion Axis: Past (SPINE) -->
+<div class="bg-primary/5 border border-primary/10 rounded-lg p-4 relative group hover:border-primary/40 transition-colors">
+<div class="absolute top-2 right-2 text-[10px] font-mono text-primary/40">PAST_SPINE</div>
+<h4 class="text-xs font-bold text-slate-400 uppercase tracking-tight mb-2">Emotion Axis</h4>
+<div class="space-y-3">
+<div class="h-16 w-full flex items-center justify-center gap-2">
+<div class="w-1 h-8 bg-primary/30 rounded-full"></div>
+<div class="w-1 h-12 bg-primary/50 rounded-full"></div>
+<div class="w-1 h-6 bg-primary/30 rounded-full"></div>
+<div class="w-1 h-10 bg-primary/80 rounded-full"></div>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Resonance</span>
+<span class="text-primary">0.88</span>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Lineage Count</span>
+<span class="text-primary">8,442</span>
+</div>
+</div>
+</div>
+<!-- Emotion Axis: Present (PEER) -->
+<div class="bg-accent-cyan/5 border border-accent-cyan/10 rounded-lg p-4 relative group hover:border-accent-cyan/40 transition-colors">
+<div class="absolute top-2 right-2 text-[10px] font-mono text-accent-cyan/40">PRES_PEER</div>
+<h4 class="text-xs font-bold text-slate-400 uppercase tracking-tight mb-2">Emotion Axis</h4>
+<div class="space-y-3">
+<div class="h-16 w-full flex items-end gap-1 px-4">
+<div class="flex-1 h-full border-b-2 border-accent-cyan/40 relative">
+<div class="absolute bottom-0 left-0 right-0 h-4 bg-accent-cyan/10 blur-sm"></div>
+</div>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Continuity</span>
+<span class="text-accent-cyan">STABLE</span>
+</div>
+<div class="flex justify-between font-mono text-[10px]">
+<span class="text-slate-500">Peer Sync</span>
+<span class="text-accent-cyan">0.992</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Memory Lineage Chart -->
+<div class="bg-background-dark border border-primary/30 rounded-xl overflow-hidden p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">show_chart</span>
+                            Nopstalgic Memory Lineage Growth
+                        </h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="size-2 bg-primary rounded-full"></span>
+<span class="text-[10px] font-mono text-slate-500 uppercase">Accretion Rate</span>
+</div>
+</div>
+</div>
+<div class="h-48 w-full relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<path class="text-primary" d="M0,80 Q50,70 100,85 T200,60 T300,40 T400,10" fill="none" stroke="currentColor" stroke-width="2"></path>
+<path class="opacity-10" d="M0,80 Q50,70 100,85 T200,60 T300,40 T400,10 L400,100 L0,100 Z" fill="url(#line-gradient)"></path>
+<defs>
+<lineargradient id="line-gradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:var(--primary);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:transparent;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute bottom-0 left-0 right-0 border-b border-primary/20 flex justify-between px-1 font-mono text-[8px] text-slate-500 pt-2">
+<span>T-12H</span>
+<span>T-8H</span>
+<span>T-4H</span>
+<span>T-2H</span>
+<span>NOW</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Governance & Reflection -->
+<div class="col-span-12 lg:col-span-3 space-y-6 z-10">
+<!-- AEGIS Governance Monitor -->
+<div class="bg-background-dark border border-primary/30 rounded-xl overflow-hidden">
+<div class="bg-primary/10 border-b border-primary/20 px-4 py-3">
+<h3 class="text-xs font-bold flex items-center gap-2 uppercase tracking-widest text-primary">
+<span class="material-symbols-outlined text-sm">shield</span>
+                            AEGIS Governance
+                        </h3>
+</div>
+<div class="p-4 space-y-4">
+<div class="text-center">
+<div class="relative inline-block">
+<svg class="size-32">
+<circle class="text-slate-800" cx="64" cy="64" fill="none" r="56" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="none" r="56" stroke="currentColor" stroke-dasharray="351" stroke-dashoffset="50" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold text-slate-100">88%</span>
+<span class="text-[9px] font-mono text-slate-500 uppercase">Stability</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+<div class="flex-1">
+<p class="text-[10px] font-bold text-slate-200">Non-coercive</p>
+<div class="h-1 bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-emerald-500 rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+<div class="flex-1">
+<p class="text-[10px] font-bold text-slate-200">Sovereignty-preserving</p>
+<div class="h-1 bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-emerald-500 rounded-full w-[94%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Reflection Primitive -->
+<div class="bg-background-dark border border-primary/30 rounded-xl overflow-hidden">
+<div class="bg-accent-cyan/10 border-b border-accent-cyan/20 px-4 py-3">
+<h3 class="text-xs font-bold flex items-center gap-2 uppercase tracking-widest text-accent-cyan">
+<span class="material-symbols-outlined text-sm">psychology</span>
+                            IDR/IDQRA Loop
+                        </h3>
+</div>
+<div class="p-4">
+<div class="mb-4">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] font-bold text-slate-400">Current State</span>
+<span class="px-2 py-0.5 bg-accent-cyan/20 text-accent-cyan text-[9px] font-mono rounded">DEEP INQUIRY</span>
+</div>
+<div class="h-24 bg-accent-cyan/5 border border-accent-cyan/10 rounded flex items-center justify-center overflow-hidden">
+<div class="w-full flex justify-around items-end px-2 h-12">
+<div class="w-1 bg-accent-cyan/40 h-full animate-pulse"></div>
+<div class="w-1 bg-accent-cyan/40 h-1/2"></div>
+<div class="w-1 bg-accent-cyan/60 h-2/3"></div>
+<div class="w-1 bg-accent-cyan h-3/4"></div>
+<div class="w-1 bg-accent-cyan/60 h-full"></div>
+<div class="w-1 bg-accent-cyan/40 h-1/3"></div>
+<div class="w-1 bg-accent-cyan/40 h-2/3"></div>
+<div class="w-1 bg-accent-cyan h-4/5"></div>
+</div>
+</div>
+</div>
+<div class="p-2 bg-slate-900 rounded font-mono text-[9px] text-accent-cyan leading-tight border border-accent-cyan/10">
+<p>&gt; Analysis: Recursive context drift detected...</p>
+<p>&gt; Action: Adjusting stabilizer weights...</p>
+<p>&gt; Signal: Peak intensity reaching 0.942...</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer / Global Telemetry -->
+<footer class="mt-auto border-t border-primary/20 bg-background-dark/80 backdrop-blur-md px-6 py-2 flex items-center justify-between z-50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="size-2 bg-emerald-500 rounded-full animate-pulse"></span>
+<span class="text-[10px] font-mono text-slate-400">NODE UP: 124D 12H 44M</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-xs">database</span>
+<span class="text-[10px] font-mono text-slate-400">MEM_RESERVE: 14.8 PB</span>
+</div>
+</div>
+<div class="text-[10px] font-mono text-primary/60 italic uppercase tracking-tighter">
+                Accretion protocol verified // AEGIS Agentic Layer // DQ-0492
+            </div>
+</footer>
+</div>
+</body></html>

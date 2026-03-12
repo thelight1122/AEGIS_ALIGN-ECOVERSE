@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark px-10 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield_with_heart</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">AegisAlign Depot</h2>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Queue</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Security Logs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<label class="relative hidden lg:block">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="block w-64 rounded-lg border-none bg-slate-100 dark:bg-slate-800 py-2 pl-10 pr-3 text-sm placeholder-slate-500 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Search submissions..." type="text"/>
+</label>
+<div class="flex gap-2">
+<button class="flex size-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-gradient-to-tr from-primary to-blue-400" data-alt="User profile avatar gradient pattern"></div>
+</div>
+</header>
+<main class="flex flex-1">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 p-6 hidden xl:flex flex-col gap-8 sticky top-[73px] h-[calc(100vh-73px)]">
+<div class="flex flex-col gap-2">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Reviewer Panel</h3>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-sm">Pending Review</span>
+<span class="ml-auto bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">12</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-sm">Approved</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">cancel</span>
+<span class="text-sm">Rejected</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="text-sm">Audit Trail</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+<p class="text-xs text-slate-500 mb-2">System Status</p>
+<div class="flex items-center gap-2 mb-3">
+<div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="text-xs font-medium">All Scanners Operational</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[78%]" data-alt="Scanning progress bar indicator"></div>
+</div>
+<p class="text-[10px] text-slate-400 mt-2">78% Queue processed today</p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<section class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark/50">
+<!-- Breadcrumbs & Title -->
+<div class="px-8 pt-8">
+<div class="flex items-center gap-2 text-xs text-slate-500 mb-4">
+<span>Depot</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span>Submissions Queue</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-primary font-medium">Plugin #88219</span>
+</div>
+<div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h1 class="text-3xl font-black tracking-tight">Advanced Analytics Plugin</h1>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20 uppercase">Critical Review</span>
+</div>
+<p class="text-slate-500">Submitted by <span class="text-slate-900 dark:text-slate-200 font-semibold">DevCorp v1.2.4</span> • 4 hours ago</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                                Back to Queue
+                            </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+                                Claim Submission
+                            </button>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 gap-8 mb-6">
+<button class="border-b-2 border-primary text-primary pb-3 px-1 text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">overview</span> Overview
+                        </button>
+<button class="border-b-2 border-transparent text-slate-500 pb-3 px-1 text-sm font-medium hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">verified_user</span> Security Scan <span class="bg-red-500 text-white text-[10px] size-4 flex items-center justify-center rounded-full">2</span>
+</button>
+<button class="border-b-2 border-transparent text-slate-500 pb-3 px-1 text-sm font-medium hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">code</span> Code Review
+                        </button>
+<button class="border-b-2 border-transparent text-slate-500 pb-3 px-1 text-sm font-medium hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">info</span> Metadata
+                        </button>
+</div>
+</div>
+<!-- Dashboard Content Grid -->
+<div class="px-8 pb-12 grid grid-cols-12 gap-6">
+<!-- Left Column: Details & Scan -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<!-- Metadata Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                Plugin Description &amp; Scope
+                            </h3>
+<div class="grid grid-cols-3 gap-6 mb-6">
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+<p class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Target Engine</p>
+<p class="text-sm font-semibold">Aegis Core v4.2+</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+<p class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Permissions</p>
+<p class="text-sm font-semibold text-amber-500">Read/Write filesystem, Network access</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+<p class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Bundle Size</p>
+<p class="text-sm font-semibold">12.4 MB</p>
+</div>
+</div>
+<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                This plugin provides real-time visualization of data streams using the D3.js library. It hooks into the internal event bus to monitor traffic throughput and provides a customizable dashboard overlay for administrative users.
+                            </p>
+</div>
+<!-- Security Analysis -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">gpp_maybe</span>
+                                    Automated Security Report
+                                </h3>
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-red-500/10 text-red-500">Action Required</span>
+</div>
+<div class="divide-y divide-slate-200 dark:divide-slate-800">
+<div class="p-4 flex gap-4 items-start bg-red-50 dark:bg-red-900/10">
+<span class="material-symbols-outlined text-red-500 mt-1">warning</span>
+<div>
+<h4 class="text-sm font-bold text-red-600 dark:text-red-400">Potential Dependency Vulnerability</h4>
+<p class="text-xs text-slate-600 dark:text-slate-400 mt-1">CVE-2023-4421 found in included package 'axios@0.21.1'. Upgrade to v0.28+ required.</p>
+</div>
+<button class="ml-auto text-xs font-bold text-primary hover:underline">Ignore</button>
+</div>
+<div class="p-4 flex gap-4 items-start">
+<span class="material-symbols-outlined text-amber-500 mt-1">error_outline</span>
+<div>
+<h4 class="text-sm font-bold">Unsigned Executable Detected</h4>
+<p class="text-xs text-slate-600 dark:text-slate-400 mt-1">The binary 'lib-native-bridge.so' does not have a valid EV code signing certificate.</p>
+</div>
+<button class="ml-auto text-xs font-bold text-primary hover:underline">Ignore</button>
+</div>
+<div class="p-4 flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<div>
+<h4 class="text-sm font-bold">Privacy Policy Check</h4>
+<p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Privacy policy URL is valid and contains required data processing disclosures.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Code Sandbox Snippet -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-4 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<span class="text-xs font-mono font-bold text-slate-500">src/main.ts</span>
+<div class="flex gap-2">
+<button class="size-6 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="p-6 font-mono text-sm overflow-x-auto bg-[#0d1117] text-slate-300">
+<pre><code><span class="text-purple-400">import</span> { AegisPlugin, EventType } <span class="text-purple-400">from</span> <span class="text-green-400">"@aegis/sdk"</span>;
+
+<span class="text-purple-400">export class</span> <span class="text-yellow-400">AnalyticsPlugin</span> <span class="text-purple-400">extends</span> <span class="text-yellow-400">AegisPlugin</span> {
+  <span class="text-purple-400">async</span> <span class="text-blue-400">initialize</span>() {
+    <span class="text-slate-500">// Vulnerable: overly broad event listener</span>
+    <span class="text-purple-400">this</span>.subscribe(EventType.ALL_TRAFFIC, (data) =&gt; {
+      <span class="text-purple-400">this</span>.logger.info(<span class="text-green-400">`Processing packet: ${data.id}`</span>);
+      <span class="text-purple-400">this</span>.sendToExternalDashboard(data);
+    });
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Review Status -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- Review Action Center -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 sticky top-24 shadow-xl">
+<h3 class="text-lg font-bold mb-4">Review Verdict</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-slate-500 uppercase">Reviewer Comments</label>
+<textarea class="w-full rounded-lg bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-sm focus:ring-primary focus:border-primary placeholder:text-slate-500" placeholder="Type your findings here..." rows="4"></textarea>
+</div>
+<div class="grid grid-cols-1 gap-2">
+<button class="w-full py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">verified</span>
+                                        Approve Submission
+                                    </button>
+<button class="w-full py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">edit_note</span>
+                                        Request Changes
+                                    </button>
+<button class="w-full py-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">block</span>
+                                        Reject &amp; Block
+                                    </button>
+</div>
+</div>
+<hr class="my-6 border-slate-200 dark:border-slate-800"/>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="text-sm font-bold">Assigned to Me</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wide">Senior Security Auditor</p>
+</div>
+</div>
+</div>
+<!-- Developer History -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-sm font-bold mb-4 uppercase tracking-widest text-slate-500">Dev Performance</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm">Past Submissions</span>
+<span class="text-sm font-bold">14</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm">Approval Rate</span>
+<span class="text-sm font-bold text-emerald-500">92%</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm">Trust Score</span>
+<div class="flex gap-0.5">
+<span class="material-symbols-outlined text-[14px] text-primary fill-1">star</span>
+<span class="material-symbols-outlined text-[14px] text-primary fill-1">star</span>
+<span class="material-symbols-outlined text-[14px] text-primary fill-1">star</span>
+<span class="material-symbols-outlined text-[14px] text-primary fill-1">star</span>
+<span class="material-symbols-outlined text-[14px] text-slate-300">star</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity on Submission -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-sm font-bold mb-4 uppercase tracking-widest text-slate-500">Log Activity</h3>
+<div class="space-y-4">
+<div class="flex gap-3 relative before:content-[''] before:absolute before:left-[7px] before:top-6 before:bottom-[-16px] before:w-[2px] before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
+<div class="size-4 rounded-full bg-primary mt-1 shrink-0 z-10 border-4 border-slate-50 dark:border-slate-900"></div>
+<div>
+<p class="text-xs font-bold">Scan Completed</p>
+<p class="text-[10px] text-slate-500">Automated System • 12 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3 relative before:content-[''] before:absolute before:left-[7px] before:top-6 before:bottom-[-16px] before:w-[2px] before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
+<div class="size-4 rounded-full bg-slate-400 mt-1 shrink-0 z-10 border-4 border-slate-50 dark:border-slate-900"></div>
+<div>
+<p class="text-xs font-bold">Bundle Extracted</p>
+<p class="text-[10px] text-slate-500">System Worker #4 • 45 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3 relative">
+<div class="size-4 rounded-full bg-slate-400 mt-1 shrink-0 z-10 border-4 border-slate-50 dark:border-slate-900"></div>
+<div>
+<p class="text-xs font-bold">Submission Received</p>
+<p class="text-[10px] text-slate-500">Queue API • 4 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Tooltip/Notification Overlay (Decorative) -->
+<div class="fixed bottom-6 right-6 flex items-center gap-3 bg-slate-900 text-white p-4 rounded-xl shadow-2xl border border-slate-700 max-w-sm hidden md:flex">
+<div class="size-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<p class="text-sm font-bold">Auto-Review Helper</p>
+<p class="text-xs text-slate-400">3 similar plugins were rejected for CVE-2023-4421 this week.</p>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</body></html>

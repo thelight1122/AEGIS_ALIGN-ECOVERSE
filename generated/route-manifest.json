@@ -1,0 +1,457 @@
+[
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-arbitor-features-1",
+    "title": "AEGIS Arbitor | Decentralized Governance & Consensus",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_arbitor_features_1/code.html",
+    "routePath": "/aegis-application-lab/aegis-arbitor-features-1/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-arbitor-features-2",
+    "title": "AEGIS Arbitor | Decentralized Governance & Consensus",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_arbitor_features_2/code.html",
+    "routePath": "/aegis-application-lab/aegis-arbitor-features-2/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-core-shield-features",
+    "title": "AEGIS Core Shield | Infrastructure Hardening",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_core_shield_features/code.html",
+    "routePath": "/aegis-application-lab/aegis-core-shield-features/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-implementation-apps",
+    "title": "AEGIS Implementation Apps | AegisAlign",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_implementation_apps/code.html",
+    "routePath": "/aegis-application-lab/aegis-implementation-apps/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-interceptor-features-v2",
+    "title": "AEGIS Interceptor | Deep Packet Security",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_interceptor_features_v2/code.html",
+    "routePath": "/aegis-application-lab/aegis-interceptor-features-v2/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-llm-colab-and-agentic-workshop",
+    "title": "AegisAlign | LLM Colab & Agentic Workshop",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_llm_colab_and_agentic_workshop/code.html",
+    "routePath": "/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-reflective-prism-features",
+    "title": "Aegis Reflective Prism Features",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_reflective_prism_features/code.html",
+    "routePath": "/aegis-application-lab/aegis-reflective-prism-features/"
+  },
+  {
+    "domain": "aegis-application-lab",
+    "slug": "aegis-reflective-widget-features",
+    "title": "AEGIS Reflective Widget | AegisAlign Security",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/AEGIS_Application_Lab/aegis_reflective_widget_features/code.html",
+    "routePath": "/aegis-application-lab/aegis-reflective-widget-features/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "active-agents-monitor-agentic-workshop",
+    "title": "AEGIS Agentic Workshop - Active Monitoring",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/active_agents_monitor_agentic_workshop/code.html",
+    "routePath": "/agent-workshop/active-agents-monitor-agentic-workshop/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "aegis-project-tree-index",
+    "title": "Aegis Project Tree Index",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/aegis_project_tree_index/code.html",
+    "routePath": "/agent-workshop/aegis-project-tree-index/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "agent-communication-protocol",
+    "title": "AEGIS Agentic Workshop | Communication Protocol",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agent_communication_protocol/code.html",
+    "routePath": "/agent-workshop/agent-communication-protocol/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "agent-mesh-visualizer",
+    "title": "Agent Mesh Visualizer",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agent_mesh_visualizer/code.html",
+    "routePath": "/agent-workshop/agent-mesh-visualizer/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "agentic-workshop-entrance",
+    "title": "AEGIS Agentic Workshop - Secure Terminal",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agentic_workshop_entrance/code.html",
+    "routePath": "/agent-workshop/agentic-workshop-entrance/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "agentic-workshop-main-console",
+    "title": "Agentic Workshop Main Console",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agentic_workshop_main_console/code.html",
+    "routePath": "/agent-workshop/agentic-workshop-main-console/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "ai-audit-analysis-recursive-training",
+    "title": "AEGIS Agentic Workshop - AI Audit Analysis",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/ai_audit_analysis_recursive_training/code.html",
+    "routePath": "/agent-workshop/ai-audit-analysis-recursive-training/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "anomaly-analysis-detail",
+    "title": "AEGIS Protocol | Anomaly Analysis",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/anomaly_analysis_detail/code.html",
+    "routePath": "/agent-workshop/anomaly-analysis-detail/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "bulk-export-progress-modal",
+    "title": "Bulk Export Progress Modal",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/bulk_export_progress_modal/code.html",
+    "routePath": "/agent-workshop/bulk-export-progress-modal/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "create-new-agent-dataquad-memory-configuration",
+    "title": "AEGIS Agentic Workshop - Step 3: DataQuad Memory",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/create_new_agent_dataquad_memory_configuration/code.html",
+    "routePath": "/agent-workshop/create-new-agent-dataquad-memory-configuration/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "create-new-agent-flow",
+    "title": "AEGIS Agentic Workshop - Create New Agent",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/create_new_agent_flow/code.html",
+    "routePath": "/agent-workshop/create-new-agent-flow/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "create-new-agent-identity-configuration",
+    "title": "AEGIS Agentic Workshop - Create New AI Agent",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/create_new_agent_identity_configuration/code.html",
+    "routePath": "/agent-workshop/create-new-agent-identity-configuration/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "create-new-agent-logic-intelligence",
+    "title": "AEGIS Agentic Workshop - Logic & Intelligence",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/create_new_agent_logic_intelligence/code.html",
+    "routePath": "/agent-workshop/create-new-agent-logic-intelligence/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "create-new-agent-memory-rag",
+    "title": "AEGIS Agentic Workshop - Step 3: Memory & RAG",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/create_new_agent_memory_rag/code.html",
+    "routePath": "/agent-workshop/create-new-agent-memory-rag/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "dataquad-agent-deployment",
+    "title": "Agentic Workshop - Deployment",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/dataquad_agent_deployment/code.html",
+    "routePath": "/agent-workshop/dataquad-agent-deployment/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "detailed-agent-view-dataquad-node",
+    "title": "AEGIS Agentic Workshop - DataQuad Node View",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/detailed_agent_view_dataquad_node/code.html",
+    "routePath": "/agent-workshop/detailed-agent-view-dataquad-node/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "global-anomaly-heatmap",
+    "title": "AEGIS AI - Global Anomaly Heatmap",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/global_anomaly_heatmap/code.html",
+    "routePath": "/agent-workshop/global-anomaly-heatmap/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "model-deployment-flow",
+    "title": "Model Deployment Flow",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/model_deployment_flow/code.html",
+    "routePath": "/agent-workshop/model-deployment-flow/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "recursive-logic-debugger-agentic-workshop",
+    "title": "Recursive Logic Debugger Agentic Workshop",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/recursive_logic_debugger_agentic_workshop/code.html",
+    "routePath": "/agent-workshop/recursive-logic-debugger-agentic-workshop/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "recursive-training-progress-report",
+    "title": "AEGIS AI Audit - Recursive Training Progress",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/recursive_training_progress_report/code.html",
+    "routePath": "/agent-workshop/recursive-training-progress-report/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "sssp-respawn-archive-1",
+    "title": "SSSP Respawn Archive | AegisAlign",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/sssp_respawn_archive_1/code.html",
+    "routePath": "/agent-workshop/sssp-respawn-archive-1/"
+  },
+  {
+    "domain": "agent-workshop",
+    "slug": "sssp-respawn-archive-2",
+    "title": "SSSP Respawn Archive | AegisAlign",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/sssp_respawn_archive_2/code.html",
+    "routePath": "/agent-workshop/sssp-respawn-archive-2/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "aegis-protocol-dashboard",
+    "title": "AEGIS Protocol - Mission Guidance",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/aegis_protocol_dashboard/code.html",
+    "routePath": "/custodian-ui/aegis-protocol-dashboard/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "api-reference-aegis-protocol",
+    "title": "AEGIS Protocol API Reference",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/api_reference_aegis_protocol/code.html",
+    "routePath": "/custodian-ui/api-reference-aegis-protocol/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "create-new-page-custodian-tool",
+    "title": "AegisAlign | Create New Page",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/create_new_page_custodian_tool/code.html",
+    "routePath": "/custodian-ui/create-new-page-custodian-tool/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "custodian-cockpit-hud-1",
+    "title": "Custodian Coordination Cockpit - AEGIS Protocol",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/custodian_cockpit_hud_1/code.html",
+    "routePath": "/custodian-ui/custodian-cockpit-hud-1/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "custodian-cockpit-hud-2",
+    "title": "Custodian Coordination Cockpit - AEGIS Protocol",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/custodian_cockpit_hud_2/code.html",
+    "routePath": "/custodian-ui/custodian-cockpit-hud-2/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "custodian-hub-operations-gallery",
+    "title": "Custodian Hub Operations Gallery",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/custodian_hub_operations_gallery/code.html",
+    "routePath": "/custodian-ui/custodian-hub-operations-gallery/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "custodian-login-portal",
+    "title": "AEGIS Protocol | Custodian Login",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/custodian_login_portal/code.html",
+    "routePath": "/custodian-ui/custodian-login-portal/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "decentralized-governance-voting",
+    "title": "AEGIS Protocol | Governance Dashboard",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/decentralized_governance_voting/code.html",
+    "routePath": "/custodian-ui/decentralized-governance-voting/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "incident-report-aeg-2023-08",
+    "title": "AegisAlign Incident Report | AEG-2023-08",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/incident_report_aeg_2023_08/code.html",
+    "routePath": "/custodian-ui/incident-report-aeg-2023-08/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "proposal-discussion-details",
+    "title": "AEGIS Governance | AIP-154 Discussion",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/proposal_discussion_details/code.html",
+    "routePath": "/custodian-ui/proposal-discussion-details/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "regional-drill-down-us-east-1",
+    "title": "AEGIS Protocol - US-EAST-1 Regional Drill-down",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/regional_drill_down_us_east_1/code.html",
+    "routePath": "/custodian-ui/regional-drill-down-us-east-1/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "safety-hold-protocol-sequence",
+    "title": "AEGIS Custodian - Safety hold Protocol",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/lockdown_protocol_sequence/code.html",
+    "routePath": "/custodian-ui/safety-hold-protocol-sequence/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "security-incident-assessor-center",
+    "title": "AEGIS Protocol | Incident Coordination Center",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/security_incident_command_center/code.html",
+    "routePath": "/custodian-ui/security-incident-assessor-center/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "security-logs-aegis-protocol",
+    "title": "AEGIS Protocol | Security Logs",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/security_logs_aegis_protocol/code.html",
+    "routePath": "/custodian-ui/security-logs-aegis-protocol/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "site-custodian-hub-gallery-update",
+    "title": "Site Custodian Hub Gallery Update",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/site_custodian_hub_gallery_update/code.html",
+    "routePath": "/custodian-ui/site-custodian-hub-gallery-update/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "site-custodian-login-recruitment-hub",
+    "title": "Site Custodian Login Recruitment Hub",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/site_custodian_login_recruitment_hub/code.html",
+    "routePath": "/custodian-ui/site-custodian-login-recruitment-hub/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "site-custodians",
+    "title": "Site Custodians",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/site_custodians/code.html",
+    "routePath": "/custodian-ui/site-custodians/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "submission-review-interface",
+    "title": "Submission Review Interface",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/submission_review_interface/code.html",
+    "routePath": "/custodian-ui/submission-review-interface/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "system-health-report-aegis-protocol",
+    "title": "AegisAlign | System Health Report",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/system_health_report_aegis_protocol/code.html",
+    "routePath": "/custodian-ui/system-health-report-aegis-protocol/"
+  },
+  {
+    "domain": "custodian-ui",
+    "slug": "ticket-details-aeg-4092",
+    "title": "AegisAlign | Support Ticket #AEG-4092",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/ticket_details_aeg_4092/code.html",
+    "routePath": "/custodian-ui/ticket-details-aeg-4092/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "api-reference-aegis-protocol",
+    "title": "AEGIS Protocol API Reference",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/api_reference_aegis_protocol/code.html",
+    "routePath": "/developer-depot/api-reference-aegis-protocol/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "api-usage-report-aegis-protocol",
+    "title": "AEGIS Protocol | API Usage Report",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/api_usage_report_aegis_protocol/code.html",
+    "routePath": "/developer-depot/api-usage-report-aegis-protocol/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "colab-creation-page-1",
+    "title": "AegisAlign - Collaboration Hub",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/colab_creation_page_1/code.html",
+    "routePath": "/developer-depot/colab-creation-page-1/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "colab-creation-page-2",
+    "title": "AegisAlign - Collaboration Hub",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/colab_creation_page_2/code.html",
+    "routePath": "/developer-depot/colab-creation-page-2/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "developer-console-aegis-protocol",
+    "title": "AEGIS Protocol | Developer Console",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/developer_console_aegis_protocol/code.html",
+    "routePath": "/developer-depot/developer-console-aegis-protocol/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "developer-hub-depot",
+    "title": "AegisAlign Developer Hub & Depot",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/developer_hub_depot/code.html",
+    "routePath": "/developer-depot/developer-hub-depot/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "my-submissions-dashboard",
+    "title": "My Submissions - AegisAlign Depot",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/my_submissions_dashboard/code.html",
+    "routePath": "/developer-depot/my-submissions-dashboard/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "network-topology-visualizer",
+    "title": "AEGIS Protocol | Network Topology Visualizer",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/network_topology_visualizer/code.html",
+    "routePath": "/developer-depot/network-topology-visualizer/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "node-management-aegis-protocol",
+    "title": "AEGIS Protocol - Node Management",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/node_management_aegis_protocol/code.html",
+    "routePath": "/developer-depot/node-management-aegis-protocol/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "plugin-developer-analytics",
+    "title": "AegisGuard Pro Analytics | AegisAlign Depot",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/plugin_developer_analytics/code.html",
+    "routePath": "/developer-depot/plugin-developer-analytics/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "protocol-configuration-aegis-protocol",
+    "title": "AegisAlign | Protocol Configuration",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/protocol_configuration_aegis_protocol/code.html",
+    "routePath": "/developer-depot/protocol-configuration-aegis-protocol/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "protocol-isolated-confirmation",
+    "title": "Security Cockpit - Protocol Isolated",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/protocol_isolated_confirmation/code.html",
+    "routePath": "/developer-depot/protocol-isolated-confirmation/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "submit-plugin-to-depot",
+    "title": "AEGIS Depot - Submit Plugin",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/submit_plugin_to_depot/code.html",
+    "routePath": "/developer-depot/submit-plugin-to-depot/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "web3-portal",
+    "title": "AegisAlign | Web3 Gateway",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/web3_portal/code.html",
+    "routePath": "/developer-depot/web3-portal/"
+  },
+  {
+    "domain": "developer-depot",
+    "slug": "webhooks-configuration-aegis-protocol",
+    "title": "AEGIS Protocol - Webhooks Configuration",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/webhooks_configuration_aegis_protocol/code.html",
+    "routePath": "/developer-depot/webhooks-configuration-aegis-protocol/"
+  }
+]

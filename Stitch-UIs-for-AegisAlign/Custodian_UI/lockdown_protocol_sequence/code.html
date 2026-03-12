@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ef4444", // Overriding primary to red for "Critical Alert" status
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0a0a0c",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>AEGIS Custodian - Lockdown Protocol</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 overflow-hidden">
+<!-- HUD Background Wrapper with Red Tint -->
+<div class="relative flex h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- Background HUD Elements (Simulated with Gradients and Lines) -->
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
+<div class="absolute top-0 left-0 w-full h-full border-[20px] border-primary/10"></div>
+<!-- Grid Lines -->
+<div class="h-full w-full bg-[linear-gradient(to_right,#ef444411_1px,transparent_1px),linear-gradient(to_bottom,#ef444411_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+</div>
+<!-- Top Navigation Bar -->
+<header class="relative z-20 flex items-center justify-between border-b border-primary/30 bg-background-dark/80 backdrop-blur-md px-10 py-3">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<span class="material-symbols-outlined text-4xl">shield_lock</span>
+</div>
+<div>
+<h2 class="text-xl font-bold leading-tight tracking-tight uppercase">Aegis Custodian</h2>
+<p class="text-[10px] font-bold text-primary/70 tracking-[0.2em]">DEFENSE SECTOR 7G</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-3">
+<div class="flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/40 rounded">
+<span class="material-symbols-outlined text-primary text-sm animate-pulse">warning</span>
+<span class="text-xs font-bold text-primary">SYSTEM BREACH DETECTED</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-slate-800 border border-slate-700 rounded">
+<span class="text-xs font-bold text-slate-400">SCREEN: SCREEN_55</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="High ranking officer profile portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJZbHrX_nXEeeDINjaQaoVKVRGlatcHAMgN9Ja9f2AqPe5HNpW_3mXQJnWuFmTdJRZy94jnpylug58XjHJlMAQENB1Ev43KOaGpt5QhhcMVL---dch3qdlxEo_3H5I6PbKKmIo6Jcm01lEGA79Jv3mzbLjVWY5xGj9uyTyTmn0pOSw0k0vsOSu1JAv2eWP7CAuKmxsALD1y2kQQA5UrnL_c83848wDo6QZZR6Am2VEQvNZ1ITTxqh86vqZps_iI8TJUXofxOHWQ_v1");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="relative z-10 flex-1 flex flex-col items-center justify-center p-8">
+<!-- Warning Banner Overlay -->
+<div class="absolute top-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+<div class="bg-primary text-white px-8 py-2 font-black text-2xl tracking-[0.3em] rounded-none skew-x-[-12deg] shadow-[0_0_30px_rgba(239,68,68,0.5)]">
+                    CRITICAL ALERT
+                </div>
+<div class="text-primary font-bold animate-pulse tracking-widest text-sm">EMERGENCY PROTOCOL ACTIVE: LOCKDOWN SEQUENCE</div>
+</div>
+<!-- Central Lockdown Modal -->
+<div class="w-full max-w-4xl bg-slate-900/90 border-2 border-primary/50 backdrop-blur-xl rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col">
+<!-- Modal Header -->
+<div class="bg-primary/20 border-b border-primary/30 p-6 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-4xl">lock_reset</span>
+<div>
+<h3 class="text-2xl font-bold text-slate-100">LOCKDOWN PROTOCOL</h3>
+<p class="text-slate-400 text-sm font-medium tracking-tight uppercase">Initiated by: Command-Alpha-01</p>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs text-primary font-bold">ESTIMATED TIME TO ISOLATION</div>
+<div class="text-2xl font-mono font-bold text-slate-100">00:04:12</div>
+</div>
+</div>
+<!-- Sequence Steps Container -->
+<div class="flex p-8 gap-8">
+<!-- Left Column: Steps Navigation -->
+<div class="w-1/3 flex flex-col gap-4">
+<!-- Step 1 (Active) -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-primary/20 border border-primary">
+<div class="size-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">1</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-primary tracking-widest uppercase">Stage 1</p>
+<p class="text-sm font-bold text-slate-100 uppercase">Authorization</p>
+</div>
+<span class="material-symbols-outlined text-primary">pending</span>
+</div>
+<!-- Step 2 (In Progress) -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-slate-800/50 border border-slate-700">
+<div class="size-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-400 font-bold">2</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-slate-500 tracking-widest uppercase">Stage 2</p>
+<p class="text-sm font-bold text-slate-300 uppercase">Core Isolation</p>
+</div>
+</div>
+<!-- Step 3 (Pending) -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-slate-800/50 border border-slate-700 opacity-50">
+<div class="size-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-400 font-bold">3</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-slate-500 tracking-widest uppercase">Stage 3</p>
+<p class="text-sm font-bold text-slate-300 uppercase">Mesh Severing</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Active Stage Detail -->
+<div class="flex-1 bg-slate-950/50 rounded-xl border border-slate-800 p-6 flex flex-col">
+<!-- STAGE 1: Authorization -->
+<div class="flex flex-col gap-8">
+<div class="border-b border-slate-800 pb-4">
+<h4 class="text-xl font-bold text-slate-100">STAGE 1: AUTHORIZATION REQUIRED</h4>
+<p class="text-slate-400 text-sm">Credentials must be verified by local authority to proceed.</p>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Biometric Scan -->
+<div class="flex flex-col items-center gap-4 p-6 rounded-lg bg-slate-900 border border-primary/30 group cursor-pointer hover:bg-primary/5 transition-all">
+<div class="relative">
+<span class="material-symbols-outlined text-6xl text-primary">fingerprint</span>
+<div class="absolute inset-0 border-t-2 border-primary animate-bounce opacity-50"></div>
+</div>
+<div class="text-center">
+<p class="text-sm font-bold text-slate-100 uppercase">Biometric Scan</p>
+<p class="text-[10px] text-primary font-bold animate-pulse">AWAITING INPUT...</p>
+</div>
+</div>
+<!-- Keycard Auth -->
+<div class="flex flex-col items-center gap-4 p-6 rounded-lg bg-slate-900 border border-slate-700 group cursor-pointer hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-6xl text-slate-600 group-hover:text-primary/70 transition-colors">contactless</span>
+<div class="text-center">
+<p class="text-sm font-bold text-slate-100 uppercase">Keycard Auth</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">TAP TO AUTHENTICATE</p>
+</div>
+</div>
+</div>
+<!-- Progress Bar for Stage 2 (Current Overall Status) -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Overall Protocol Progress</span>
+<span class="text-xl font-mono font-bold text-primary">45%</span>
+</div>
+<div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700">
+<div class="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)]" style="width: 45%;"></div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase">
+<span>Core Isolation Initiated</span>
+<span>Syncing with Global Mesh...</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer Controls -->
+<div class="bg-slate-800/50 border-t border-slate-700 p-4 flex justify-between items-center">
+<button class="px-6 py-2 text-slate-400 font-bold text-sm uppercase hover:text-white transition-colors">
+                        Protocol Details
+                    </button>
+<div class="flex gap-4">
+<button class="px-8 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm rounded-lg transition-all uppercase">
+                            Emergency Override
+                        </button>
+<button class="px-8 py-2 bg-primary text-white font-black text-sm rounded-lg shadow-lg hover:shadow-primary/20 transition-all uppercase tracking-widest">
+                            Confirm Authorization
+                        </button>
+</div>
+</div>
+</div>
+<!-- HUD Data Widgets (Sides) -->
+<div class="absolute left-10 top-1/2 -translate-y-1/2 w-64 flex flex-col gap-6">
+<div class="p-4 bg-slate-900/60 border-l-4 border-primary backdrop-blur-sm">
+<p class="text-[10px] text-primary font-bold uppercase mb-2">Internal Temp</p>
+<div class="text-2xl font-mono font-bold text-slate-100">42.5°C</div>
+<div class="w-full h-1 bg-slate-800 mt-2">
+<div class="h-full bg-primary" style="width: 75%;"></div>
+</div>
+</div>
+<div class="p-4 bg-slate-900/60 border-l-4 border-slate-500 backdrop-blur-sm">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-2">Defense Grid</p>
+<div class="text-2xl font-mono font-bold text-slate-100">ACTIVE</div>
+<p class="text-[10px] text-slate-500 mt-1 uppercase">Sectors 1-9 Locked</p>
+</div>
+</div>
+<div class="absolute right-10 top-1/2 -translate-y-1/2 w-64 flex flex-col gap-6 text-right">
+<div class="p-4 bg-slate-900/60 border-r-4 border-primary backdrop-blur-sm">
+<p class="text-[10px] text-primary font-bold uppercase mb-2">Network Status</p>
+<div class="text-2xl font-mono font-bold text-slate-100">SEVERING...</div>
+<p class="text-[10px] text-primary font-bold mt-1 uppercase">Stage 3 Pending Auth</p>
+</div>
+<div class="p-4 bg-slate-900/60 border-r-4 border-slate-500 backdrop-blur-sm">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-2">Data Integrity</p>
+<div class="text-2xl font-mono font-bold text-slate-100">99.98%</div>
+<p class="text-[10px] text-slate-500 mt-1 uppercase">Encryption: Tier 5</p>
+</div>
+</div>
+</main>
+<!-- Bottom Status Bar -->
+<footer class="relative z-20 flex items-center justify-between border-t border-primary/20 bg-background-dark/80 backdrop-blur-md px-10 py-2">
+<div class="flex gap-8 text-[10px] font-bold tracking-[0.2em] text-slate-500">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+<span>LOCKDOWN ACTIVE</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500"></span>
+<span>BACKUP GEN ONLINE</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary"></span>
+<span>COMMS SILENCE ENABLED</span>
+</div>
+</div>
+<div class="text-[10px] font-mono text-slate-500">
+                CRC_CHECKSUM: 0x889F2A11
+            </div>
+</footer>
+</div>
+</body></html>

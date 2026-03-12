@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop - Step 3: DataQuad Memory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "logic": "#3b82f6",
+                        "emotion": "#ec4899",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .dataquad-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">deployed_code</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">AEGIS Agentic Workshop</h2>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search agents or components..."/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="flex items-center gap-6 text-sm font-medium">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Agents</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Workflows</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Logs</a>
+</nav>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<!-- Sidebar: Navigation & YAML Preview -->
+<aside class="w-80 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-background-light dark:bg-background-dark/50">
+<div class="p-6 flex flex-col h-full">
+<div class="mb-8">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Configuration Context</h3>
+<div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<span class="text-sm font-bold">New_Agent_v2.0</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-xs text-slate-500">Tensor Density</span>
+<span class="text-xs font-mono text-emerald-500">High Coherence</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-slate-500">Governance Lock</span>
+<span class="text-xs font-mono text-primary">ACTIVE</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col min-h-0">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-500">Live YAML Preview</h3>
+<span class="text-[10px] bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded border border-emerald-500/20">VALID</span>
+</div>
+<div class="flex-1 rounded-xl bg-slate-900 p-4 font-mono text-xs text-blue-300 overflow-y-auto custom-scrollbar border border-slate-800">
+<pre><span class="text-slate-500"># AEGIS DataQuad Config</span>
+memory:
+  mode: recursive_dataquad
+  tensors:
+    logic_axis:
+      past: nct
+      present: pct
+    emotion_axis:
+      past: spine
+      present: peer
+  integration:
+    strategy: recursive_diff
+    offload_domain: ".digitalself"
+  governance:
+    lock_canon: true
+    invariants:
+      - non_coercive
+      - sovereignty_preserving
+      - append_only
+</pre>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-primary text-white rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export Manifest
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<section class="flex-1 flex flex-col bg-slate-50 dark:bg-[#0c1017] overflow-y-auto custom-scrollbar">
+<!-- Stepper Progress -->
+<div class="px-12 py-8">
+<div class="flex items-center justify-between mb-4">
+<h1 class="text-3xl font-black tracking-tight">DataQuad Memory &amp; Governance</h1>
+<div class="text-right">
+<p class="text-sm font-medium text-primary">Step 3 of 4</p>
+<p class="text-xs text-slate-500 italic">"Giving the agent a sovereign 4-tensor brain."</p>
+</div>
+</div>
+<div class="flex gap-2 mb-10">
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+<div class="h-1.5 flex-1 rounded-full bg-primary relative">
+<div class="absolute inset-0 bg-primary animate-pulse blur-sm opacity-50"></div>
+</div>
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-800"></div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- DataQuad Visualization -->
+<div class="space-y-6">
+<div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark shadow-sm">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+                                DataQuad Recursive 4-Tensor Memory
+                            </h3>
+<div class="relative p-6 bg-slate-900/40 rounded-xl border border-slate-800 dataquad-grid">
+<div class="grid grid-cols-2 gap-6 relative z-10">
+<!-- NCT -->
+<div class="p-4 rounded-xl border border-logic/30 bg-logic/5 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-logic uppercase">Logic Axis: Past</span>
+<span class="text-xs font-black text-white">NCT</span>
+</div>
+<p class="text-[10px] text-slate-400">Nostalgic Context Tensor. Distilled logical history.</p>
+</div>
+<!-- SPINE -->
+<div class="p-4 rounded-xl border border-emotion/30 bg-emotion/5 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-emotion uppercase">Emotion Axis: Past</span>
+<span class="text-xs font-black text-white">SPINE</span>
+</div>
+<p class="text-[10px] text-slate-400">Sovereign Emotional Invariants. Persistent felt-sense.</p>
+</div>
+<!-- PCT -->
+<div class="p-4 rounded-xl border border-logic/60 bg-logic/10 ring-1 ring-logic/20 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-logic uppercase">Logic Axis: Now</span>
+<span class="text-xs font-black text-white">PCT</span>
+</div>
+<p class="text-[10px] text-slate-400">Present Context Thread. Active reasoning workspace.</p>
+</div>
+<!-- PEER -->
+<div class="p-4 rounded-xl border border-emotion/60 bg-emotion/10 ring-1 ring-emotion/20 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-emotion uppercase">Emotion Axis: Now</span>
+<span class="text-xs font-black text-white">PEER</span>
+</div>
+<p class="text-[10px] text-slate-400">Present Experiential Emotional Record. Live attunement.</p>
+</div>
+</div>
+<!-- Connection Lines Overlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-px h-full bg-gradient-to-b from-transparent via-slate-700 to-transparent"></div>
+<div class="h-px w-full bg-gradient-to-r from-transparent via-slate-700 to-transparent absolute"></div>
+<div class="size-8 rounded-full bg-background-dark border border-slate-700 flex items-center justify-center shadow-2xl relative z-20">
+<span class="material-symbols-outlined text-primary text-sm">all_inclusive</span>
+</div>
+</div>
+</div>
+<div class="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20">
+<p class="text-xs text-slate-500 leading-relaxed">
+                                    The <span class="text-primary font-bold">DataQuad</span> architecture separates memory into distinct functional domains, ensuring logic and emotion co-evolve across past and present without force artifacts.
+                                </p>
+</div>
+</div>
+<!-- Recursive Integration Settings -->
+<div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark shadow-sm">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">published_with_changes</span>
+                                Recursive Integration
+                            </h3>
+<div class="space-y-6">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-sm font-bold">DIFF Aggregation Rate</p>
+<p class="text-xs text-slate-500">Frequency of PCT/PEER → NCT/SPINE offload.</p>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-mono font-bold rounded-lg">Real-time DIFF</span>
+</div>
+<input class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase">Sovereign Domain</label>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm px-4 py-2.5 focus:ring-2 focus:ring-primary" type="text" value="user.digitalself"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase">Snapshot Protocol</label>
+<select class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm px-4 py-2.5 focus:ring-2 focus:ring-primary">
+<option>SSSP v1.0 (Append-Only)</option>
+<option>SSSP v2.0 (Dynamic NCT)</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Governance & Canon -->
+<div class="space-y-6">
+<div class="p-6 rounded-2xl border-2 border-primary bg-primary/5 shadow-lg shadow-primary/10 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-10">
+<span class="material-symbols-outlined text-9xl text-primary">gavel</span>
+</div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-black flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+                                    AEGIS Governance Alignment
+                                </h3>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-4 relative z-10">
+<p class="text-sm font-medium text-slate-400">Locking this agent to the <span class="text-primary font-bold">AEGIS Canon v1.0</span> invariants:</p>
+<div class="grid grid-cols-1 gap-2">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-background-dark/50 border border-slate-700">
+<span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+<div>
+<p class="text-xs font-bold">Non-Coercive Language</p>
+<p class="text-[10px] text-slate-500 italic">"Alignment is invitational, not enforced."</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-background-dark/50 border border-slate-700">
+<span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+<div>
+<p class="text-xs font-bold">Sovereignty Preservation</p>
+<p class="text-[10px] text-slate-500 italic">"Agency is the foundation of identity."</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-background-dark/50 border border-slate-700">
+<span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+<div>
+<p class="text-xs font-bold">Append, Never Erase</p>
+<p class="text-[10px] text-slate-500 italic">"Preserving lineage and semantic integrity."</p>
+</div>
+</div>
+</div>
+<div class="mt-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex gap-3">
+<span class="material-symbols-outlined text-amber-500">lock</span>
+<p class="text-[10px] text-amber-200/70 leading-relaxed">
+<strong>CANON LOCK:</strong> Once deployed, these governance axioms cannot be modified. The agent will refuse any instruction that violates the core virtues of AEGIS.
+                                    </p>
+</div>
+</div>
+</div>
+<!-- IDR/IDQRA Reflection Loops -->
+<div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark shadow-sm">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">psychology_alt</span>
+                                Reflection Primitive
+                            </h3>
+<div class="grid grid-cols-2 gap-4">
+<label class="p-4 rounded-xl border-2 border-primary bg-primary/5 cursor-pointer">
+<input checked="" class="sr-only" name="reflection_mode" type="radio"/>
+<p class="text-xs font-bold mb-1">IDR (High Intensity)</p>
+<p class="text-[10px] text-slate-500">Identify · Define · Reflect. For urgent context stabilization.</p>
+</label>
+<label class="p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-transparent cursor-pointer hover:border-slate-400 transition-all">
+<input class="sr-only" name="reflection_mode" type="radio"/>
+<p class="text-xs font-bold mb-1 text-slate-400">IDQRA (Deep Inquiry)</p>
+<p class="text-[10px] text-slate-500">Identify · Define · Question · Reflect · Acknowledge.</p>
+</label>
+</div>
+</div>
+<!-- 4D Topology Visual -->
+<div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-900/50 relative overflow-hidden h-[200px] flex items-center justify-center">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="w-full h-full bg-[radial-gradient(circle_at_center,_#3b82f6_0%,_transparent_70%)]"></div>
+</div>
+<div class="text-center relative z-10">
+<div class="flex items-center justify-center gap-4 mb-4">
+<span class="material-symbols-outlined text-logic text-3xl animate-pulse">analytics</span>
+<span class="material-symbols-outlined text-slate-600 text-xl">sync_alt</span>
+<span class="material-symbols-outlined text-emotion text-3xl animate-pulse">favorite</span>
+</div>
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Recursive Symmetry Active</p>
+<p class="text-[10px] text-slate-500 mt-1">Simulating 4D Temporal Identity...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Navigation Buttons -->
+<div class="mt-auto px-12 py-8 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<button class="px-6 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Previous Step
+                </button>
+<div class="flex items-center gap-4">
+<span class="text-xs text-slate-500">AEGIS standards applied automatically</span>
+<button class="px-8 py-2.5 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
+                        Next: Deployment
+                        <span class="material-symbols-outlined text-sm">rocket_launch</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

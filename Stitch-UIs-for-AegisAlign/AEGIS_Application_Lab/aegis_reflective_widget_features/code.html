@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Reflective Widget | AegisAlign Security</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-20 py-4 bg-background-light dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shield</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Products</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Solutions</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Developers</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-slate-500 text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-slate-900 dark:text-white placeholder:text-slate-500 w-32 lg:w-48" placeholder="Search docs..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white text-sm font-bold py-2 px-5 rounded-lg transition-all">
+                        Get Started
+                    </button>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="px-6 lg:px-20 py-16 lg:py-24 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider w-fit">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                                Now in Beta: v2.4.0
+                            </div>
+<h1 class="text-slate-900 dark:text-white text-5xl lg:text-7xl font-bold leading-tight tracking-tighter">
+                                Real-time Security <span class="text-primary">Insights</span>, Anywhere
+                            </h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg lg:text-xl leading-relaxed max-w-xl">
+                                The AEGIS Reflective Widget is a customizable, embeddable component providing live security visualization with zero-latency synchronization for any web environment.
+                            </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg text-base transition-all flex items-center gap-2">
+                                    Get the Widget <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-3 px-8 rounded-lg text-base transition-all">
+                                    View Documentation
+                                </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+<div class="relative bg-slate-100 dark:bg-[#1c2433] rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl">
+<div class="bg-slate-200/50 dark:bg-slate-800/50 px-4 py-2 flex items-center justify-between border-b border-slate-200 dark:border-slate-700">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">AEGIS_LIVE_FEED.jsx</span>
+</div>
+<div class="p-8 aspect-video flex items-center justify-center bg-background-light dark:bg-background-dark">
+<div class="w-full h-full rounded-lg bg-gradient-to-br from-primary/5 to-primary/20 flex flex-col items-center justify-center border border-dashed border-primary/30 relative overflow-hidden">
+<img alt="Widget Preview" class="w-full h-full object-cover opacity-80" data-alt="Cybersecurity world map with digital threat lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSoFZphcypu-zLmTnQuu78nieIAMHxUCDDEMu8YnQtQ_b37GLZAaLLusKWWSejUwLaWt4TLXYtQK1VUg7KOS12wH_d4uq30XW8SnvwCgC5G7mLBXHHiqP0ZREZX8JEnDbsI9cUrDo_68l2cHzpOTFUkrawoSPksa6nsyJ8Pj62HrOdEm7rdBZ2RtNV83YobtPXjumcwXFRfx9zDXMvaoe02wcx-2bl7t7YGfMWSb3HWZkxh6Rm9hYBfdH7FTlQMuE89mIIo9jEi97T"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="p-4 bg-background-dark/80 backdrop-blur-sm border border-primary/40 rounded-lg text-center">
+<span class="material-symbols-outlined text-primary text-4xl mb-2">monitoring</span>
+<p class="text-xs font-mono text-primary">SCANNING LIVE TRAFFIC</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Capabilities Grid -->
+<section class="bg-slate-50 dark:bg-slate-900/30 py-20">
+<div class="px-6 lg:px-20 max-w-7xl mx-auto">
+<div class="mb-16">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold mb-4">Core Capabilities</h2>
+<p class="text-slate-600 dark:text-slate-400 max-w-2xl">Engineered for performance. Built to provide deep security insights without compromising host application speed.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-slate-800/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">speed</span>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg mb-2">Lightweight Footprint</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Sub-50KB bundle size ensures zero impact on initial page load times.</p>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">devices</span>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg mb-2">Cross-Platform</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Native support for React, Vue, Angular, and Vanilla JS applications.</p>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">sync</span>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg mb-2">Real-time Sync</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Proprietary WebSocket layer ensures synchronization in under 10ms.</p>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">palette</span>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg mb-2">Custom Styling</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Deep theming capabilities via CSS variables to match your brand identity.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Widget Preview / Live Vis -->
+<section class="px-6 lg:px-20 py-24 max-w-7xl mx-auto">
+<div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+<div class="grid grid-cols-1 lg:grid-cols-3">
+<div class="p-8 lg:p-12 lg:col-span-1 bg-slate-800/50 border-b lg:border-b-0 lg:border-r border-slate-700">
+<h2 class="text-white text-3xl font-bold mb-6">Widget Preview</h2>
+<p class="text-slate-400 mb-8">Interact with the reflective live environment. This is exactly how the widget renders in your dashboard or public-facing status pages.</p>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-xs font-mono text-slate-500 mb-2 uppercase">
+<span>System Integrity</span>
+<span class="text-green-400">99.8%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+<div class="w-[99.8%] h-full bg-green-500"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-mono text-slate-500 mb-2 uppercase">
+<span>Global Threat Level</span>
+<span class="text-yellow-400">Low</span>
+</div>
+<div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+<div class="w-[25%] h-full bg-yellow-500"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-2 p-4 lg:p-8 bg-black/40 flex flex-col">
+<div class="flex-1 min-h-[400px] rounded-lg border border-slate-800 bg-slate-950 flex flex-col relative overflow-hidden">
+<!-- Map Mockup -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<img alt="Threat Map" class="w-full h-full object-cover" data-alt="Minimalist dark world map with neon data points" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo4kTydciBHo0xFdYm3S2LcA6s2gmz9mKW-x7hBforgdCiEbDl9CRl1FFOOLNBJRVSzkzk_AOvP2rf3iSEZjSjij8VCvqcl7hEwoENc1qz4pnfXa40zQrbJwZrf5abPvOiBdR7IbylDxoi7xrCgz8MMdUmLG8riLWZax8_0KfKaEUeovvImGAoVeb5TtWASY7EdgS8ZhFriBtPK7qcNlPqsZMURUIC0CuiRHBdmWzS-hTw0wJ7qZQY_pL86yjry4qTuf02GTBL9S8d"/>
+</div>
+<div class="p-6 relative z-10 flex justify-between items-start">
+<div>
+<p class="text-primary font-mono text-[10px] tracking-[0.2em] mb-1">REAL-TIME STATUS</p>
+<h3 class="text-white text-xl font-bold">Reflective Node Alpha</h3>
+</div>
+<div class="flex gap-2">
+<div class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-[10px] text-white font-mono">24ms Latency</div>
+<div class="px-2 py-1 rounded bg-primary/20 border border-primary/40 text-[10px] text-primary font-mono">Live</div>
+</div>
+</div>
+<div class="mt-auto p-6 relative z-10 grid grid-cols-3 gap-4">
+<div class="bg-slate-900/80 backdrop-blur p-4 rounded border border-slate-800">
+<p class="text-slate-500 text-[10px] uppercase font-bold mb-1">Encrypted Flows</p>
+<p class="text-white text-lg font-mono">1,402</p>
+</div>
+<div class="bg-slate-900/80 backdrop-blur p-4 rounded border border-slate-800">
+<p class="text-slate-500 text-[10px] uppercase font-bold mb-1">Dropped Packets</p>
+<p class="text-white text-lg font-mono">0</p>
+</div>
+<div class="bg-slate-900/80 backdrop-blur p-4 rounded border border-slate-800">
+<p class="text-slate-500 text-[10px] uppercase font-bold mb-1">Threats Blocked</p>
+<p class="text-white text-lg font-mono">14</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Implementation Section -->
+<section class="bg-slate-50 dark:bg-background-dark/50 py-24 border-y border-slate-200 dark:border-slate-800">
+<div class="px-6 lg:px-20 max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row gap-16">
+<div class="flex-1">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold mb-6">Simple Implementation</h2>
+<p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                                    Integrating the AEGIS Reflective Widget takes less than 5 minutes. Use our CDN-hosted script or install via NPM for full type support.
+                                </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                        Universal script tag support
+                                    </li>
+<li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                        No external CSS required
+                                    </li>
+<li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                        React and Vue 3 wrappers available
+                                    </li>
+</ul>
+</div>
+<div class="flex-1">
+<div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+<div class="flex items-center justify-between px-4 py-2 bg-slate-800">
+<span class="text-slate-400 text-xs font-mono uppercase">Embed Script</span>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+<div class="p-6 font-mono text-sm overflow-x-auto">
+<pre class="text-slate-300"><code><span class="text-blue-400">&lt;script</span> <span class="text-green-400">src</span>=<span class="text-orange-300">"https://cdn.aegis.com/widget.v2.js"</span><span class="text-blue-400">&gt;&lt;/script&gt;</span>
+
+<span class="text-blue-400">&lt;div</span> <span class="text-green-400">id</span>=<span class="text-orange-300">"aegis-container"</span><span class="text-blue-400">&gt;&lt;/div&gt;</span>
+
+<span class="text-blue-400">&lt;script&gt;</span>
+  <span class="text-primary">AegisReflect</span>.<span class="text-yellow-400">init</span>({
+    container: <span class="text-orange-300">'#aegis-container'</span>,
+    apiKey: <span class="text-orange-300">'YOUR_KEY'</span>,
+    theme: <span class="text-orange-300">'dark'</span>,
+    features: [<span class="text-orange-300">'threat-map'</span>, <span class="text-orange-300">'sync-stats'</span>]
+  });
+<span class="text-blue-400">&lt;/script&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Performance Metrics -->
+<section class="px-6 lg:px-20 py-24 max-w-7xl mx-auto text-center">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold mb-16 uppercase tracking-widest">Performance Metrics</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center">
+<div class="text-5xl font-bold text-primary mb-4 font-mono">0.02ms</div>
+<h4 class="text-slate-900 dark:text-white font-bold text-lg mb-2">JS Execution Overhead</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Optimized V8-compatible runtime logic that won't block the main thread.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="text-5xl font-bold text-primary mb-4 font-mono">&lt;10ms</div>
+<h4 class="text-slate-900 dark:text-white font-bold text-lg mb-2">Sync Latency</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Synchronous visualization updates across all global edge nodes.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="text-5xl font-bold text-primary mb-4 font-mono">ZERO</div>
+<h4 class="text-slate-900 dark:text-white font-bold text-lg mb-2">Dependencies</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">No jQuery, no external libraries. Pure, native TypeScript implementation.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-6 lg:px-20 py-20 bg-primary mb-20 rounded-3xl max-w-7xl mx-auto overflow-hidden relative">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<img alt="Tech background" class="w-full h-full object-cover" data-alt="Abstract circuit board pattern on blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1xduVswI0K9NIrnXGvreWyksUUsM_OErxvLDwpTGDCWXJrsH5XcpuNzl7qstUTy2YepzifPqChJjBU-j85pN4V0lmyijBpAzSQ3ZmncgmnCcmW8qap7nPndwBr3UWOPhCCnaXIv2QDbtopCrDGCwqiwO_7ZAqmu9J23-qUXPlSAWco4IQ--CJYkp0zfAqVvl1RbAmoBoC5Qxhl1_dK_7ZmOntEYjLiwVLNW_yzxpY9Mf7BQR3H5DMyMNQ0xaVKCZ7a7k6LGnTc09T"/>
+</div>
+<div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
+<div class="text-center lg:text-left">
+<h2 class="text-4xl font-bold mb-4">Ready to secure your interface?</h2>
+<p class="text-white/80 text-lg">Join 4,000+ teams using AegisAlign widgets today.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-white text-primary font-bold py-3 px-10 rounded-lg hover:bg-slate-100 transition-all">Get API Key</button>
+<button class="bg-primary/20 border border-white/30 text-white font-bold py-3 px-10 rounded-lg hover:bg-primary/30 transition-all">Sales Inquiry</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 px-6 lg:px-20 py-12">
+<div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+<div class="col-span-2">
+<div class="flex items-center gap-3 text-primary mb-6">
+<span class="material-symbols-outlined text-3xl font-bold">shield</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold">AegisAlign</h2>
+</div>
+<p class="text-slate-500 text-sm max-w-sm mb-6 leading-relaxed">
+                            Protecting the modern web with real-time security infrastructure. Our Reflective Widget series brings high-tier observability to every platform.
+                        </p>
+<div class="flex gap-4">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">brand_awareness</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">hub</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold mb-6">Product</h4>
+<ul class="space-y-4 text-slate-500 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">Widgets</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cloud Proxy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Threat Intelligence</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold mb-6">Company</h4>
+<ul class="space-y-4 text-slate-500 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold mb-6">Legal</h4>
+<ul class="space-y-4 text-slate-500 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Compliance</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between gap-4">
+<p class="text-slate-500 text-xs">© 2024 AegisAlign Systems Inc. All rights reserved.</p>
+<div class="flex gap-6 text-slate-500 text-xs uppercase tracking-widest font-bold">
+<a class="hover:text-primary transition-colors" href="#">System Status</a>
+<a class="hover:text-primary transition-colors" href="#">Uptime 99.99%</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

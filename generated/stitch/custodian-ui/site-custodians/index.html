@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 lg:px-40 py-4 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">shield_with_heart</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-[-0.015em]">AegisAlign</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Protocol</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Governance</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Custodians</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Ecosystem</a>
+</nav>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold leading-normal transition-all hover:opacity-90 active:scale-95">
+                    Launch App
+                </button>
+</div>
+</header>
+<main class="flex-1 flex flex-col px-6 md:px-20 lg:px-40 py-10 gap-16">
+<!-- Hero Section -->
+<section class="@container">
+<div class="flex min-h-[400px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 relative overflow-hidden text-center border border-slate-200 dark:border-slate-800" data-alt="Futuristic digital network map with glowing nodes" style="background-image: linear-gradient(rgba(16, 22, 34, 0.8) 0%, rgba(16, 22, 34, 0.95) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8FyGdNZnPDIN5ErjqISPA1v4RnlSTpG9RXqPnyWk0nmd-rF4M9_T1-dZr8GEr9bqAVz4qruhi8-Y1pmTKI_ez5hRgRG2WvH4b0pgNMeqC-cHtOzjMGfp2WAvObYjZqYCoDQ0j-N7cH-L8nA5ndQoozV2e0_MRq0rxwZNxt4j3bIVbHQbStwJKzNk9pUaYyDJOUIFQTg5akP6MZ-7y9QzX_pArWmDoV779154ZaJMp3QuH7jxUM4J1O0AVLQGnNQMYOFCYM3oaXaUT');">
+<div class="flex flex-col gap-4 max-w-3xl z-10">
+<span class="text-primary font-bold tracking-widest uppercase text-xs">Governance &amp; Security</span>
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
+                            Site Custodians
+                        </h1>
+<p class="text-slate-300 text-base md:text-lg font-normal leading-relaxed">
+                            Meet the guardians of the AEGIS Protocol, ensuring long-term security, decentralization, and governance integrity through dedicated oversight and technical expertise.
+                        </p>
+</div>
+<div class="flex gap-4 z-10">
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold transition-all hover:bg-primary/90">
+                            View Charter
+                        </button>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-white/10 text-white text-base font-bold backdrop-blur-sm border border-white/20 hover:bg-white/20">
+                            Selection Process
+                        </button>
+</div>
+</div>
+</section>
+<!-- The High Council -->
+<section>
+<div class="flex flex-col gap-2 mb-8">
+<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight tracking-tight">The High Council</h2>
+<p class="text-slate-600 dark:text-slate-400">Individual experts leading technical and strategic alignment.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Member 1 -->
+<div class="flex flex-col gap-4 p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:border-primary/50 transition-colors group">
+<div class="size-20 bg-primary/10 rounded-full overflow-hidden self-center border-2 border-primary/20 group-hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of Aetheris Vane" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdlykGmFZj7dg_MKxNALvDyp5v15_bFa0c7w9iBco35jRO-51k9Cta-VdYjeZlvGE7hIjY97TKN4mmQukIY7yd5t2idACaZjkhBq9zlZsYpsZFJdsG0AACurO1YuGhBSO9xveQiyKFCFM4o5BlZ0mBdU39u7wmTkhnCO0dGnoM3evNfXPYi8euNIFF9grm81wZ26S7vHAdpRE4bm53UwPwF-vM84K5V5UY7tfAlI6CJAF3dopbg72kL3kE2fLZ4xy2cPR1rdei0dM-"/>
+</div>
+<div class="text-center">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Aetheris Vane</h3>
+<p class="text-primary text-sm font-semibold uppercase tracking-wider mb-2">Lead Architect</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Expert in modular consensus frameworks and formal verification. Oversaw the initial deployment of the Aegis Core.</p>
+</div>
+</div>
+<!-- Member 2 -->
+<div class="flex flex-col gap-4 p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:border-primary/50 transition-colors group">
+<div class="size-20 bg-primary/10 rounded-full overflow-hidden self-center border-2 border-primary/20 group-hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of Soren Kael" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQmet3ge6HDyrmgGRWqLanAKR2ILBx_mJs6JmKWUX25tHf1Is9qrl7fXh4u-ap7ngEvr-r9nZKrJ9rzgBk300Y2GUOxQuiNBMXeJpG3ADHuiupGHLzAcspr73pCTeOuX7-Se0wwxzhzRCyC5q3iJx8ioz0OhTZH7JkkPoZOPSxzFl9Lkm_kcj97uBW7zqa15yBQkOT0AfS_6VxtnW-UzskycD7v83r_xRxYyPm6xv0Fgt50jr4s56SWgRhQwrK7kmOOLVbDxcE05HH"/>
+</div>
+<div class="text-center">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Soren Kael</h3>
+<p class="text-primary text-sm font-semibold uppercase tracking-wider mb-2">Security Auditor</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Specializing in zero-knowledge proof audits and smart contract security. Former lead at a Tier-1 security lab.</p>
+</div>
+</div>
+<!-- Member 3 -->
+<div class="flex flex-col gap-4 p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:border-primary/50 transition-colors group">
+<div class="size-20 bg-primary/10 rounded-full overflow-hidden self-center border-2 border-primary/20 group-hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of Lyra Thorne" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKgbtRyi87KCDfhDjTXGzifwX6ujx6XEWz8iohVcG_6s1mUFv0vunPgMnLizV934MTZGX05ThmLwLikufUr1fCL2YXxRP5k2AgOklfXrm-ODtdmH6WXDCNuqum8D6vffX5PFSHzWnTnXWjznZO4Cte1gPhxPsXYKhtgmEE3CUuIpM4ulWYKL5zTQ8gjcKEFyxVZRvzq984KUIT-xaAeuR2eCSAGLiJgJFBEPp1drcTTfUJw-b0__mQbiUYl5eWSoNxlRjaeBZo1aFH"/>
+</div>
+<div class="text-center">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Lyra Thorne</h3>
+<p class="text-primary text-sm font-semibold uppercase tracking-wider mb-2">Protocol Envoy</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Facilitating cross-chain governance and community alignment. Dedicated to expanding the Aegis ecosystem global reach.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Founding Entities -->
+<section>
+<div class="flex flex-col gap-2 mb-8">
+<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight tracking-tight">Founding Entities</h2>
+<p class="text-slate-600 dark:text-slate-400">Institutional partners who architected the foundation.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex items-center gap-6 p-6 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="size-16 flex-shrink-0 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-slate-100 font-bold text-lg">Nexus Labs</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Lead development studio for the core protocol and initial SDK implementation.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 p-6 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="size-16 flex-shrink-0 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">security</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-slate-100 font-bold text-lg">CipherSafe Foundation</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Non-profit entity managing initial security funds and multi-sig operations.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Custodian Responsibilities -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-6">
+<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight tracking-tight">Custodian Responsibilities</h2>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-primary">emergency_home</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Emergency Patching</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Rapid response to critical vulnerabilities and zero-day threats in the protocol code.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Governance Oversight</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Vetting and managing governance proposals to prevent malicious takeovers or technical errors.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Treasury Management</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Secure handling of protocol reserves and distribution of ecosystem development grants.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Integrity Validation</h4>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Ensuring all protocol upgrades align with the original AEGIS Decentralization Charter.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900">
+<div class="p-8 flex flex-col items-center justify-center gap-6 relative">
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);"></div>
+<span class="material-symbols-outlined text-primary text-6xl">verified</span>
+<div class="text-center z-10">
+<p class="text-white text-xl font-bold">Standard of Excellence</p>
+<p class="text-slate-400 mt-2 text-sm px-8">All Custodians are bound by a cryptographically signed oath to uphold protocol neutrality and security above all other interests.</p>
+</div>
+<div class="w-full h-[1px] bg-slate-800"></div>
+<div class="flex justify-between w-full px-4 text-xs font-mono text-primary/70 z-10">
+<span>AUTH_KEY: 0x8a...4f2e</span>
+<span>STATUS: VERIFIED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Becoming a Custodian -->
+<section class="bg-primary/10 dark:bg-primary/5 rounded-2xl p-8 md:p-12 border border-primary/20 text-center flex flex-col items-center gap-6">
+<span class="material-symbols-outlined text-primary text-5xl">person_add</span>
+<div class="max-w-2xl flex flex-col gap-4">
+<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight">Become a Protocol Custodian</h2>
+<p class="text-slate-600 dark:text-slate-400">
+                        Custodians are selected based on technical merit, contributions to the ecosystem, and historical commitment to decentralized governance. Vacancies are filled through a specialized DAO election process held biannually.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 mt-4 w-full justify-center">
+<div class="flex flex-col items-start p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-left sm:w-64">
+<span class="text-xs font-bold text-primary mb-1">01. Contribution</span>
+<p class="text-sm">Minimum 12 months of active protocol development.</p>
+</div>
+<div class="flex flex-col items-start p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-left sm:w-64">
+<span class="text-xs font-bold text-primary mb-1">02. Endorsement</span>
+<p class="text-sm">Nomination by 3 existing Custodians or Governance vote.</p>
+</div>
+<div class="flex flex-col items-start p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-left sm:w-64">
+<span class="text-xs font-bold text-primary mb-1">03. Verification</span>
+<p class="text-sm">Security screening and identity verification.</p>
+</div>
+</div>
+<button class="mt-4 flex min-w-[200px] cursor-pointer items-center justify-center rounded-lg h-12 px-8 bg-primary text-white text-base font-bold transition-all hover:bg-primary/90">
+                    Apply for Next Cycle
+                </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark py-12 px-6 md:px-20 lg:px-40">
+<div class="flex flex-col md:flex-row justify-between gap-12">
+<div class="flex flex-col gap-4 max-w-xs">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="text-slate-900 dark:text-slate-100 font-bold text-lg">AegisAlign</span>
+</div>
+<p class="text-slate-500 text-sm">Aligning decentralized security with long-term governance standards.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
+<div class="flex flex-col gap-3">
+<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Protocol</p>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Architecture</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">SDKs</a>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Community</p>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Discord</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Twitter</a>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Legal</p>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Charter</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Privacy</a>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-slate-500 text-xs">
+                © 2024 AEGIS Protocol. All nodes verified.
+            </div>
+</footer>
+</div>
+</div>
+</body></html>

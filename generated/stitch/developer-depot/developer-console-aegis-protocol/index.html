@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Protocol | Developer Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1152d4",
+                "background-light": "#f6f6f8",
+                "background-dark": "#101622",
+                "accent-green": "#0bda5e",
+                "accent-red": "#fa6238",
+              },
+              fontFamily: {
+                "display": ["Space Grotesk", "sans-serif"],
+                "mono": ["JetBrains Mono", "monospace"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3b4354; border-radius: 10px; }
+        .terminal-glow { box-shadow: 0 0 20px rgba(17, 82, 212, 0.1); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col justify-between py-6">
+<div>
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-lg">shield</span>
+</div>
+<div>
+<h1 class="text-sm font-bold tracking-tight">AEGIS PROTOCOL</h1>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">Developer v2.4</p>
+</div>
+</div>
+<nav class="space-y-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary group" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">vpn_key</span>
+<span class="text-sm font-medium">API Keys</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">webhook</span>
+<span class="text-sm font-medium">Webhooks</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">insights</span>
+<span class="text-sm font-medium">Usage Metrics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">terminal</span>
+<span class="text-sm font-medium">CLI Access</span>
+</a>
+</nav>
+</div>
+<div class="px-6">
+<div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+<p class="text-[10px] text-slate-500 uppercase mb-2 font-bold">Quota Usage</p>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-2">
+<div class="h-full bg-primary" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-slate-500">650k / 1M req</span>
+<span class="material-symbols-outlined text-xs text-primary">bolt</span>
+</div>
+</div>
+<button class="w-full mt-4 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-white text-sm font-bold hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>New Project</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 px-8 flex items-center justify-between flex-shrink-0">
+<div class="flex items-center gap-4">
+<h2 class="font-bold text-lg">Developer Overview</h2>
+<div class="px-2 py-0.5 rounded-full bg-accent-green/10 text-accent-green text-[10px] font-bold border border-accent-green/20">SYSTEM OPERATIONAL</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-slate-400 hover:text-slate-100 cursor-pointer">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-accent-red rounded-full border-2 border-background-dark"></div>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 dark:border-slate-800">
+<div class="text-right">
+<p class="text-sm font-medium">Alex Rivera</p>
+<p class="text-[10px] text-slate-500">Pro Developer Plan</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="User profile avatar of Alex Rivera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQxgBaBzGQT73Rgqr4yqPdWyYo67SSm9ZB904c5ttYFfwlhZjwyOty7XnxeU8QPoZdDhfK7i-_G32uaBXmvKR-xG_cwjRMfN1hTOjc7h9NhbJyeAon5FuF8eOLTmo-D8NT3TWJElBUrOvrM4nlyfbZIVySZWhRb8h0fWHh4eWxHbTUUJlDq7cy_GySlUeLjnlZw6ZbCeuaubKyuTkHN59EAm_a0Y59Kk9hkxUFPmHm848yLPUxz2a14tsyPFq_CYEpR7vHXVpmNjs5"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Dashboard -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8 space-y-8">
+<!-- Quick Start CLI -->
+<section class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+<h3 class="font-bold text-sm uppercase tracking-wide">Quick Start</h3>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-1 bg-slate-900 text-slate-300 font-mono text-sm p-4 rounded-lg border border-slate-700 flex justify-between items-center group">
+<span><span class="text-primary">$</span> curl -sSL https://get.aegis.dev | sh &amp;&amp; aegis init --env=production</span>
+<button class="material-symbols-outlined text-slate-500 hover:text-white cursor-pointer transition-colors">content_copy</button>
+</div>
+<div class="text-xs text-slate-500 max-w-[200px]">
+                        Paste this into your terminal to initialize the AEGIS environment in seconds.
+                    </div>
+</div>
+</section>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Total Requests (24h)</p>
+<div class="flex items-end justify-between">
+<h4 class="text-2xl font-bold">1,245,892</h4>
+<span class="text-xs text-accent-green font-bold flex items-center">+12.4% <span class="material-symbols-outlined text-xs">trending_up</span></span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Avg. Latency</p>
+<div class="flex items-end justify-between">
+<h4 class="text-2xl font-bold">42.8ms</h4>
+<span class="text-xs text-accent-green font-bold flex items-center">-2.1ms <span class="material-symbols-outlined text-xs">arrow_downward</span></span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Error Rate</p>
+<div class="flex items-end justify-between">
+<h4 class="text-2xl font-bold">0.04%</h4>
+<span class="text-xs text-slate-500 font-bold">Stable</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Active Webhooks</p>
+<div class="flex items-end justify-between">
+<h4 class="text-2xl font-bold">14</h4>
+<span class="text-xs text-slate-500 font-bold">Healthy</span>
+</div>
+</div>
+</div>
+<!-- Charts & Logs -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Request Volume Chart -->
+<div class="lg:col-span-2 space-y-8">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-base">API Request Volume</h3>
+<select class="bg-slate-100 dark:bg-slate-800 border-none text-xs rounded-lg px-3 py-1.5 focus:ring-primary text-slate-400">
+<option>Last 24 Hours</option>
+<option>Last 7 Days</option>
+</select>
+</div>
+<div class="h-[220px] w-full flex flex-col gap-4">
+<svg fill="none" height="180" preserveaspectratio="none" viewbox="-3 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H326.769H0V109Z" fill="url(#paint0_linear_volume)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#1152d4" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_volume" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#1152d4" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#1152d4" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="flex justify-between px-2 text-[10px] font-bold text-slate-500 uppercase">
+<span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>23:59</span>
+</div>
+</div>
+</div>
+<!-- API Keys Section -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-base">Active API Keys</h3>
+<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                                Generate New Key
+                            </button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">key</span>
+</div>
+<div>
+<p class="text-sm font-bold">Production Master</p>
+<p class="text-xs font-mono text-slate-500">ae_live_8293....9x2a</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-[10px] text-slate-500 uppercase font-bold">Permissions</p>
+<p class="text-xs font-medium">Full Access</p>
+</div>
+<button class="px-3 py-1.5 rounded bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-white transition-all">Roll Key</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">key</span>
+</div>
+<div>
+<p class="text-sm font-bold">Frontend Analytics</p>
+<p class="text-xs font-mono text-slate-500">ae_pk_1102....j8w1</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-[10px] text-slate-500 uppercase font-bold">Permissions</p>
+<p class="text-xs font-medium">Read Only</p>
+</div>
+<button class="px-3 py-1.5 rounded bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-white transition-all">Roll Key</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Logs Terminal Area -->
+<div class="lg:col-span-1 h-full flex flex-col gap-6">
+<div class="flex-1 bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col terminal-glow">
+<div class="px-4 py-3 bg-slate-800/50 border-b border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="flex gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-accent-red/50"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-accent-green/50"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-2">Live Request Stream</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
+</div>
+<div class="flex-1 p-4 font-mono text-[11px] leading-relaxed overflow-y-auto custom-scrollbar">
+<div class="mb-2">
+<span class="text-slate-500">[14:22:01]</span>
+<span class="text-accent-green">POST</span>
+<span class="text-white">/v2/protocol/handshake</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">42ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:03]</span>
+<span class="text-accent-green">GET</span>
+<span class="text-white">/v2/metrics/realtime</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">12ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:05]</span>
+<span class="text-accent-red">POST</span>
+<span class="text-white">/v2/auth/validate</span>
+<span class="px-1 bg-accent-red/20 text-accent-red rounded">401 Unauthorized</span>
+<span class="text-slate-600">21ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:08]</span>
+<span class="text-accent-green">PATCH</span>
+<span class="text-white">/v2/node/config</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">156ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:12]</span>
+<span class="text-accent-green">POST</span>
+<span class="text-white">/v2/protocol/handshake</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">38ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:15]</span>
+<span class="text-accent-green">GET</span>
+<span class="text-white">/v2/user/session</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">8ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:19]</span>
+<span class="text-accent-green">POST</span>
+<span class="text-white">/v2/protocol/handshake</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">40ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:21]</span>
+<span class="text-primary italic"># System: Garbage collection completed</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:24]</span>
+<span class="text-accent-green">GET</span>
+<span class="text-white">/v2/node/health</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">5ms</span>
+</div>
+<div class="mb-2">
+<span class="text-slate-500">[14:22:25]</span>
+<span class="text-accent-green">POST</span>
+<span class="text-white">/v2/protocol/handshake</span>
+<span class="px-1 bg-accent-green/20 text-accent-green rounded">200 OK</span>
+<span class="text-slate-600">45ms</span>
+</div>
+</div>
+<div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
+<span class="text-primary font-mono text-xs font-bold">$</span>
+<input class="bg-transparent border-none p-0 text-xs font-mono focus:ring-0 text-slate-300 w-full" placeholder="Filter logs or run CLI coordination..." type="text"/>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+<h3 class="font-bold text-sm mb-4">Error Rate Trend</h3>
+<div class="h-24 w-full">
+<svg fill="none" height="80" preserveaspectratio="none" viewbox="-3 0 478 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 80C50 80 80 20 120 20C160 20 200 60 250 60C300 60 350 40 472 40" stroke="#fa6238" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-[10px] text-slate-500">0.02% min</p>
+<p class="text-[10px] text-slate-500">0.12% peak</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
