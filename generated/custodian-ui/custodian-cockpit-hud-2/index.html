@@ -38,28 +38,43 @@
       <div class="shell">
         <aside class="panel sidebar">
           <h2>Custodian Ops Center Pages</h2>
-          <nav class="page-list">
-            <a class="" data-page-link href="/custodian-ui/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
-<a class="" data-page-link href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
-<a class="" data-page-link href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
+          <div class="page-sections">
+            <section class="page-list-section">
+                <h3>Operations</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/custodian-ui/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
 <a class="" data-page-link href="/custodian-ui/custodian-cockpit-hud-1/">Custodian Coordination Cockpit - AEGIS Protocol</a>
 <a class="active" data-page-link href="/custodian-ui/custodian-cockpit-hud-2/">Custodian Coordination Cockpit - AEGIS Protocol</a>
 <a class="" data-page-link href="/custodian-ui/custodian-hub-operations-gallery/">Custodian Hub Operations Gallery</a>
-<a class="" data-page-link href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
-<a class="" data-page-link href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
-<a class="" data-page-link href="/custodian-ui/incident-report-aeg-2023-08/">AegisAlign Incident Report | AEG-2023-08</a>
-<a class="" data-page-link href="/custodian-ui/proposal-discussion-details/">AEGIS Governance | AIP-154 Discussion</a>
 <a class="" data-page-link href="/custodian-ui/regional-drill-down-us-east-1/">AEGIS Protocol - US-EAST-1 Regional Drill-down</a>
+<a class="" data-page-link href="/custodian-ui/site-custodians/">Site Custodians</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Security &amp; Review</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/custodian-ui/incident-report-aeg-2023-08/">AegisAlign Incident Report | AEG-2023-08</a>
+<a class="" data-page-link href="/custodian-ui/proposal-discussion-details/">AEGIS Governance | AIP-154 Discussion</a>
 <a class="" data-page-link href="/custodian-ui/safety-hold-protocol-sequence/">AEGIS Custodian - Safety hold Protocol</a>
 <a class="" data-page-link href="/custodian-ui/security-incident-assessor-center/">AEGIS Protocol | Incident Coordination Center</a>
 <a class="" data-page-link href="/custodian-ui/security-logs-aegis-protocol/">AEGIS Protocol | Security Logs</a>
+<a class="" data-page-link href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
+<a class="" data-page-link href="/custodian-ui/ticket-details-aeg-4092/">AegisAlign | Support Ticket #AEG-4092</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Governance &amp; Publishing</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
+<a class="" data-page-link href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
+<a class="" data-page-link href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
+<a class="" data-page-link href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
 <a class="" data-page-link href="/custodian-ui/site-custodian-hub-gallery-update/">Site Custodian Hub Gallery Update</a>
 <a class="" data-page-link href="/custodian-ui/site-custodian-login-recruitment-hub/">Site Custodian Login Recruitment Hub</a>
-<a class="" data-page-link href="/custodian-ui/site-custodians/">Site Custodians</a>
-<a class="" data-page-link href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
 <a class="" data-page-link href="/custodian-ui/system-health-report-aegis-protocol/">AegisAlign | System Health Report</a>
-<a class="" data-page-link href="/custodian-ui/ticket-details-aeg-4092/">AegisAlign | Support Ticket #AEG-4092</a>
-          </nav>
+                </nav>
+              </section>
+          </div>
         </aside>
 
         <main class="panel content-wrap">
@@ -129,8 +144,19 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
-            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
-            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const body = doc.body;
+            const root = doc.documentElement;
+            const measuredHeights = [
+              body ? body.scrollHeight : 0,
+              body ? body.offsetHeight : 0,
+              body ? body.clientHeight : 0,
+              body ? Math.ceil(body.getBoundingClientRect().height) : 0,
+              root ? root.scrollHeight : 0,
+              root ? root.offsetHeight : 0,
+              root ? root.clientHeight : 0,
+              root ? Math.ceil(root.getBoundingClientRect().height) : 0,
+            ];
+            const contentHeight = Math.max(...measuredHeights);
             const role = frame.dataset.frameRole;
             const minHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.46)
@@ -140,8 +166,8 @@
             const maxHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.7)
               : Number.POSITIVE_INFINITY;
-            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
-            frame.style.height = String(height + 12) + 'px';
+            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            frame.style.height = String(height) + 'px';
           } catch {
             frame.style.minHeight = frame.dataset.frameRole === 'entrance'
               ? '46vh'

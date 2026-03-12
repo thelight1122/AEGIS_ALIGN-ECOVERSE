@@ -38,23 +38,38 @@
       <div class="shell">
         <aside class="panel sidebar">
           <h2>Developer Depot Pages</h2>
-          <nav class="page-list">
-            <a class="" data-page-link href="/developer-depot/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
-<a class="" data-page-link href="/developer-depot/api-usage-report-aegis-protocol/">AEGIS Protocol | API Usage Report</a>
-<a class="" data-page-link href="/developer-depot/colab-creation-page-1/">AegisAlign - Collaboration Hub</a>
-<a class="" data-page-link href="/developer-depot/colab-creation-page-2/">AegisAlign - Collaboration Hub</a>
-<a class="" data-page-link href="/developer-depot/developer-console-aegis-protocol/">AEGIS Protocol | Developer Console</a>
+          <div class="page-sections">
+            <section class="page-list-section">
+                <h3>Developer Hub</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/developer-depot/developer-console-aegis-protocol/">AEGIS Protocol | Developer Console</a>
 <a class="" data-page-link href="/developer-depot/developer-hub-depot/">AegisAlign Developer Hub &amp; Depot</a>
 <a class="" data-page-link href="/developer-depot/my-submissions-dashboard/">My Submissions - AegisAlign Depot</a>
-<a class="active" data-page-link href="/developer-depot/network-topology-visualizer/">AEGIS Protocol | Network Topology Visualizer</a>
-<a class="" data-page-link href="/developer-depot/node-management-aegis-protocol/">AEGIS Protocol - Node Management</a>
 <a class="" data-page-link href="/developer-depot/plugin-developer-analytics/">AegisGuard Pro Analytics | AegisAlign Depot</a>
-<a class="" data-page-link href="/developer-depot/protocol-configuration-aegis-protocol/">AegisAlign | Protocol Configuration</a>
-<a class="" data-page-link href="/developer-depot/protocol-isolated-confirmation/">Security Cockpit - Protocol Isolated</a>
 <a class="" data-page-link href="/developer-depot/submit-plugin-to-depot/">AEGIS Depot - Submit Plugin</a>
 <a class="" data-page-link href="/developer-depot/web3-portal/">AegisAlign | Web3 Gateway</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Protocol APIs</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/developer-depot/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
+<a class="" data-page-link href="/developer-depot/api-usage-report-aegis-protocol/">AEGIS Protocol | API Usage Report</a>
+<a class="" data-page-link href="/developer-depot/node-management-aegis-protocol/">AEGIS Protocol - Node Management</a>
+<a class="" data-page-link href="/developer-depot/protocol-configuration-aegis-protocol/">AegisAlign | Protocol Configuration</a>
+<a class="" data-page-link href="/developer-depot/protocol-isolated-confirmation/">Security Cockpit - Protocol Isolated</a>
 <a class="" data-page-link href="/developer-depot/webhooks-configuration-aegis-protocol/">AEGIS Protocol - Webhooks Configuration</a>
-          </nav>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Creation &amp; Analytics</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/developer-depot/colab-creation-page-1/">AegisAlign - Collaboration Hub</a>
+<a class="" data-page-link href="/developer-depot/colab-creation-page-2/">AegisAlign - Collaboration Hub</a>
+<a class="active" data-page-link href="/developer-depot/network-topology-visualizer/">AEGIS Protocol | Network Topology Visualizer</a>
+                </nav>
+              </section>
+          </div>
         </aside>
 
         <main class="panel content-wrap">
@@ -124,8 +139,19 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
-            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
-            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const body = doc.body;
+            const root = doc.documentElement;
+            const measuredHeights = [
+              body ? body.scrollHeight : 0,
+              body ? body.offsetHeight : 0,
+              body ? body.clientHeight : 0,
+              body ? Math.ceil(body.getBoundingClientRect().height) : 0,
+              root ? root.scrollHeight : 0,
+              root ? root.offsetHeight : 0,
+              root ? root.clientHeight : 0,
+              root ? Math.ceil(root.getBoundingClientRect().height) : 0,
+            ];
+            const contentHeight = Math.max(...measuredHeights);
             const role = frame.dataset.frameRole;
             const minHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.46)
@@ -135,8 +161,8 @@
             const maxHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.7)
               : Number.POSITIVE_INFINITY;
-            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
-            frame.style.height = String(height + 12) + 'px';
+            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            frame.style.height = String(height) + 'px';
           } catch {
             frame.style.minHeight = frame.dataset.frameRole === 'entrance'
               ? '46vh'

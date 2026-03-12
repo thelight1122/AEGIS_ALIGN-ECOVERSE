@@ -38,30 +38,50 @@
       <div class="shell">
         <aside class="panel sidebar">
           <h2>Agentic Workshop Pages</h2>
-          <nav class="page-list">
-            <a class="" data-page-link href="/agent-workshop/active-agents-monitor-agentic-workshop/">AEGIS Agentic Workshop - Active Monitoring</a>
-<a class="" data-page-link href="/agent-workshop/aegis-project-tree-index/">Aegis Project Tree Index</a>
-<a class="active" data-page-link href="/agent-workshop/agent-communication-protocol/">AEGIS Agentic Workshop | Communication Protocol</a>
-<a class="" data-page-link href="/agent-workshop/agent-mesh-visualizer/">Agent Mesh Visualizer</a>
-<a class="" data-page-link href="/agent-workshop/agentic-workshop-entrance/">AEGIS Agentic Workshop - Secure Terminal</a>
+          <div class="page-sections">
+            <section class="page-list-section">
+                <h3>Access</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/agent-workshop/agentic-workshop-entrance/">AEGIS Agentic Workshop - Secure Terminal</a>
 <a class="" data-page-link href="/agent-workshop/agentic-workshop-main-console/">Agentic Workshop Main Console</a>
-<a class="" data-page-link href="/agent-workshop/ai-audit-analysis-recursive-training/">AEGIS Agentic Workshop - AI Audit Analysis</a>
-<a class="" data-page-link href="/agent-workshop/anomaly-analysis-detail/">AEGIS Protocol | Anomaly Analysis</a>
-<a class="" data-page-link href="/agent-workshop/bulk-export-progress-modal/">Bulk Export Progress Modal</a>
-<a class="" data-page-link href="/agent-workshop/create-new-agent-dataquad-memory-configuration/">AEGIS Agentic Workshop - Step 3: DataQuad Memory</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Agent Creation</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/agent-workshop/create-new-agent-dataquad-memory-configuration/">AEGIS Agentic Workshop - Step 3: DataQuad Memory</a>
 <a class="" data-page-link href="/agent-workshop/create-new-agent-flow/">AEGIS Agentic Workshop - Create New Agent</a>
 <a class="" data-page-link href="/agent-workshop/create-new-agent-identity-configuration/">AEGIS Agentic Workshop - Create New AI Agent</a>
 <a class="" data-page-link href="/agent-workshop/create-new-agent-logic-intelligence/">AEGIS Agentic Workshop - Logic &amp; Intelligence</a>
 <a class="" data-page-link href="/agent-workshop/create-new-agent-memory-rag/">AEGIS Agentic Workshop - Step 3: Memory &amp; RAG</a>
 <a class="" data-page-link href="/agent-workshop/dataquad-agent-deployment/">Agentic Workshop - Deployment</a>
-<a class="" data-page-link href="/agent-workshop/detailed-agent-view-dataquad-node/">AEGIS Agentic Workshop - DataQuad Node View</a>
-<a class="" data-page-link href="/agent-workshop/global-anomaly-heatmap/">AEGIS AI - Global Anomaly Heatmap</a>
 <a class="" data-page-link href="/agent-workshop/model-deployment-flow/">Model Deployment Flow</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Monitoring &amp; Analysis</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/agent-workshop/active-agents-monitor-agentic-workshop/">AEGIS Agentic Workshop - Active Monitoring</a>
+<a class="" data-page-link href="/agent-workshop/ai-audit-analysis-recursive-training/">AEGIS Agentic Workshop - AI Audit Analysis</a>
+<a class="" data-page-link href="/agent-workshop/anomaly-analysis-detail/">AEGIS Protocol | Anomaly Analysis</a>
+<a class="" data-page-link href="/agent-workshop/global-anomaly-heatmap/">AEGIS AI - Global Anomaly Heatmap</a>
 <a class="" data-page-link href="/agent-workshop/recursive-logic-debugger-agentic-workshop/">Recursive Logic Debugger Agentic Workshop</a>
 <a class="" data-page-link href="/agent-workshop/recursive-training-progress-report/">AEGIS AI Audit - Recursive Training Progress</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Systems &amp; Tools</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/agent-workshop/aegis-project-tree-index/">Aegis Project Tree Index</a>
+<a class="active" data-page-link href="/agent-workshop/agent-communication-protocol/">AEGIS Agentic Workshop | Communication Protocol</a>
+<a class="" data-page-link href="/agent-workshop/agent-mesh-visualizer/">Agent Mesh Visualizer</a>
+<a class="" data-page-link href="/agent-workshop/bulk-export-progress-modal/">Bulk Export Progress Modal</a>
+<a class="" data-page-link href="/agent-workshop/detailed-agent-view-dataquad-node/">AEGIS Agentic Workshop - DataQuad Node View</a>
 <a class="" data-page-link href="/agent-workshop/sssp-respawn-archive-1/">SSSP Respawn Archive | AegisAlign</a>
 <a class="" data-page-link href="/agent-workshop/sssp-respawn-archive-2/">SSSP Respawn Archive | AegisAlign</a>
-          </nav>
+                </nav>
+              </section>
+          </div>
         </aside>
 
         <main class="panel content-wrap">
@@ -150,8 +170,19 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
-            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
-            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const body = doc.body;
+            const root = doc.documentElement;
+            const measuredHeights = [
+              body ? body.scrollHeight : 0,
+              body ? body.offsetHeight : 0,
+              body ? body.clientHeight : 0,
+              body ? Math.ceil(body.getBoundingClientRect().height) : 0,
+              root ? root.scrollHeight : 0,
+              root ? root.offsetHeight : 0,
+              root ? root.clientHeight : 0,
+              root ? Math.ceil(root.getBoundingClientRect().height) : 0,
+            ];
+            const contentHeight = Math.max(...measuredHeights);
             const role = frame.dataset.frameRole;
             const minHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.46)
@@ -161,8 +192,8 @@
             const maxHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.7)
               : Number.POSITIVE_INFINITY;
-            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
-            frame.style.height = String(height + 12) + 'px';
+            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            frame.style.height = String(height) + 'px';
           } catch {
             frame.style.minHeight = frame.dataset.frameRole === 'entrance'
               ? '46vh'

@@ -339,8 +339,19 @@ function iframeBehaviorScript() {
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
-            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
-            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const body = doc.body;
+            const root = doc.documentElement;
+            const measuredHeights = [
+              body ? body.scrollHeight : 0,
+              body ? body.offsetHeight : 0,
+              body ? body.clientHeight : 0,
+              body ? Math.ceil(body.getBoundingClientRect().height) : 0,
+              root ? root.scrollHeight : 0,
+              root ? root.offsetHeight : 0,
+              root ? root.clientHeight : 0,
+              root ? Math.ceil(root.getBoundingClientRect().height) : 0,
+            ];
+            const contentHeight = Math.max(...measuredHeights);
             const role = frame.dataset.frameRole;
             const minHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.46)
@@ -350,8 +361,8 @@ function iframeBehaviorScript() {
             const maxHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.7)
               : Number.POSITIVE_INFINITY;
-            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
-            frame.style.height = String(height + 12) + 'px';
+            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            frame.style.height = String(height) + 'px';
           } catch {
             frame.style.minHeight = frame.dataset.frameRole === 'entrance'
               ? '46vh'
@@ -432,13 +443,117 @@ function voiceByDomain(domainSlug) {
   };
 }
 
-function routeTemplate({ page, domain, domainPages }) {
-  const sidebarLinks = domainPages
-    .map((item) => {
-      const active = item.slug === page.slug ? "active" : "";
-      return `<a class="${active}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
+function groupPagesForSidebar(domain, domainPages) {
+  if (domain.slug === "agent-workshop") {
+    const sections = [
+      {
+        label: "Access",
+        match: (page) => [
+          "agentic-workshop-entrance",
+          "agentic-workshop-main-console",
+        ].includes(page.slug),
+      },
+      {
+        label: "Agent Creation",
+        match: (page) => [
+          "create-new-agent-flow",
+          "create-new-agent-identity-configuration",
+          "create-new-agent-logic-intelligence",
+          "create-new-agent-memory-rag",
+          "create-new-agent-dataquad-memory-configuration",
+          "dataquad-agent-deployment",
+          "model-deployment-flow",
+        ].includes(page.slug),
+      },
+      {
+        label: "Monitoring & Analysis",
+        match: (page) => [
+          "active-agents-monitor-agentic-workshop",
+          "ai-audit-analysis-recursive-training",
+          "anomaly-analysis-detail",
+          "global-anomaly-heatmap",
+          "recursive-logic-debugger-agentic-workshop",
+          "recursive-training-progress-report",
+        ].includes(page.slug),
+      },
+      {
+        label: "Systems & Tools",
+        match: () => true,
+      },
+    ];
+
+    const remaining = [...domainPages];
+    return sections
+      .map((section) => {
+        const items = remaining.filter(section.match);
+        for (const item of items) {
+          const index = remaining.indexOf(item);
+          if (index >= 0) remaining.splice(index, 1);
+        }
+        return { label: section.label, items };
+      })
+      .filter((section) => section.items.length > 0);
+  }
+
+  const keywordSections = {
+    "developer-depot": [
+      { label: "Developer Hub", match: (page) => /developer|dashboard|submissions|submit|portal|web3/.test(page.slug) },
+      { label: "Protocol APIs", match: (page) => /api|webhooks|configuration|node-management|protocol/.test(page.slug) },
+      { label: "Creation & Analytics", match: () => true },
+    ],
+    "custodian-ui": [
+      { label: "Operations", match: (page) => /dashboard|cockpit|operations|site-custodians|regional|status|secure/.test(page.slug) },
+      { label: "Security & Review", match: (page) => /security|incident|review|logs|ticket|proposal|safety/.test(page.slug) },
+      { label: "Governance & Publishing", match: () => true },
+    ],
+    "aegis-application-lab": [
+      { label: "Core Systems", match: (page) => /core|interceptor|implementation/.test(page.slug) },
+      { label: "Reflective Interfaces", match: (page) => /reflective|prism|widget/.test(page.slug) },
+      { label: "Arbitor & Colab", match: () => true },
+    ],
+  };
+
+  const sectionConfig = keywordSections[domain.slug];
+  if (!sectionConfig) {
+    return [{ label: `${domain.label} Pages`, items: domainPages }];
+  }
+
+  const remaining = [...domainPages];
+  return sectionConfig
+    .map((section) => {
+      const items = remaining.filter(section.match);
+      for (const item of items) {
+        const index = remaining.indexOf(item);
+        if (index >= 0) remaining.splice(index, 1);
+      }
+      return { label: section.label, items };
+    })
+    .filter((section) => section.items.length > 0);
+}
+
+function renderSidebarNav(domain, domainPages, currentPage) {
+  const sections = groupPagesForSidebar(domain, domainPages);
+  return sections
+    .map((section) => {
+      const links = section.items
+        .map((item) => {
+          const active = item.slug === currentPage.slug ? "active" : "";
+          return `<a class="${active}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
+        })
+        .join("\n");
+
+      return `<section class="page-list-section">
+                <h3>${escapeHtml(section.label)}</h3>
+                <nav class="page-list">
+                  ${links}
+                </nav>
+              </section>`;
     })
     .join("\n");
+}
+
+function routeTemplate({ page, domain, domainPages }) {
+  const sidebarLinks = renderSidebarNav(domain, domainPages, page);
 
   const workshopEntrance = domain.slug === "agent-workshop"
     ? domainPages.find((item) => item.slug === "agentic-workshop-entrance")
@@ -583,9 +698,9 @@ function routeTemplate({ page, domain, domainPages }) {
       <div class="shell">
         <aside class="panel sidebar">
           <h2>${escapeHtml(domain.label)} Pages</h2>
-          <nav class="page-list">
+          <div class="page-sections">
             ${sidebarLinks}
-          </nav>
+          </div>
         </aside>
 
         <main class="panel content-wrap">

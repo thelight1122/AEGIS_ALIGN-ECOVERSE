@@ -38,16 +38,31 @@
       <div class="shell">
         <aside class="panel sidebar">
           <h2>AEGIS Application Lab Pages</h2>
-          <nav class="page-list">
-            <a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-1/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
-<a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-2/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
-<a class="active" data-page-link href="/aegis-application-lab/aegis-core-shield-features/">AEGIS Core Shield | Infrastructure Hardening</a>
+          <div class="page-sections">
+            <section class="page-list-section">
+                <h3>Core Systems</h3>
+                <nav class="page-list">
+                  <a class="active" data-page-link href="/aegis-application-lab/aegis-core-shield-features/">AEGIS Core Shield | Infrastructure Hardening</a>
 <a class="" data-page-link href="/aegis-application-lab/aegis-implementation-apps/">AEGIS Implementation Apps | AegisAlign</a>
 <a class="" data-page-link href="/aegis-application-lab/aegis-interceptor-features-v2/">AEGIS Interceptor | Deep Packet Security</a>
-<a class="" data-page-link href="/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/">AegisAlign | LLM Colab &amp; Agentic Workshop</a>
-<a class="" data-page-link href="/aegis-application-lab/aegis-reflective-prism-features/">Aegis Reflective Prism Features</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Reflective Interfaces</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/aegis-application-lab/aegis-reflective-prism-features/">Aegis Reflective Prism Features</a>
 <a class="" data-page-link href="/aegis-application-lab/aegis-reflective-widget-features/">AEGIS Reflective Widget | AegisAlign Security</a>
-          </nav>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Arbitor &amp; Colab</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-1/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-2/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
+<a class="" data-page-link href="/aegis-application-lab/aegis-llm-colab-and-agentic-workshop/">AegisAlign | LLM Colab &amp; Agentic Workshop</a>
+                </nav>
+              </section>
+          </div>
         </aside>
 
         <main class="panel content-wrap">
@@ -117,8 +132,19 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
-            const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
-            const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+            const body = doc.body;
+            const root = doc.documentElement;
+            const measuredHeights = [
+              body ? body.scrollHeight : 0,
+              body ? body.offsetHeight : 0,
+              body ? body.clientHeight : 0,
+              body ? Math.ceil(body.getBoundingClientRect().height) : 0,
+              root ? root.scrollHeight : 0,
+              root ? root.offsetHeight : 0,
+              root ? root.clientHeight : 0,
+              root ? Math.ceil(root.getBoundingClientRect().height) : 0,
+            ];
+            const contentHeight = Math.max(...measuredHeights);
             const role = frame.dataset.frameRole;
             const minHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.46)
@@ -128,8 +154,8 @@
             const maxHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.7)
               : Number.POSITIVE_INFINITY;
-            const height = Math.min(Math.max(bodyHeight, docHeight, minHeight), maxHeight);
-            frame.style.height = String(height + 12) + 'px';
+            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            frame.style.height = String(height) + 'px';
           } catch {
             frame.style.minHeight = frame.dataset.frameRole === 'entrance'
               ? '46vh'
