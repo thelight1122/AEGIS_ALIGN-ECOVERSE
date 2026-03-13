@@ -31,11 +31,18 @@ function gatherHtmlEntries(dirPath, entries = {}) {
 }
 
 export default defineConfig({
+  root: "generated",
+  publicDir: path.resolve(__dirname, "public"),
+  resolve: {
+    alias: {
+      "/src": path.resolve(__dirname, "src"),
+    },
+  },
   build: {
-    outDir: "dist",
+    outDir: "../dist",
+    emptyOutDir: true,
     rollupOptions: {
       input: gatherHtmlEntries(generatedDir),
     },
   },
-  publicDir: "public",
 });
