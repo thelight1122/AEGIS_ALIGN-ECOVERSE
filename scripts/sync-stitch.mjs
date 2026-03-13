@@ -722,7 +722,7 @@ function routeTemplate({ page, domain, domainPages }) {
 `;
 }
 
-function redirectTemplate({ title, destination, label }) {
+function redirectTemplate({ title, destination, label, bodyClass = "domain-surface domain-agent-workshop", breadcrumb = "Opening the primary surface", bridge = "Routing directly into the primary surface so the shared shell experience begins immediately." }) {
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -732,17 +732,17 @@ function redirectTemplate({ title, destination, label }) {
     <title>${escapeHtml(title)} | AegisAlign EcoVerse</title>
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
-  <body class="domain-surface domain-agent-workshop">
+  <body class="${escapeHtml(bodyClass)}">
     <main class="panel landing-redirect">
       <div class="content-head">
         <div>
           <h1>${escapeHtml(title)}</h1>
-          <div class="breadcrumb">Opening the primary workshop surface</div>
+          <div class="breadcrumb">${escapeHtml(breadcrumb)}</div>
         </div>
         <div class="phase-pill live">Primary Route</div>
       </div>
       <section class="voice-bridge">
-        <p>Routing directly into the Workshop Entrance so the login surface is always the first step before console work begins.</p>
+        <p>${escapeHtml(bridge)}</p>
       </section>
       <p class="redirect-copy">If you are not redirected automatically, continue to <a href="${escapeHtml(destination)}">${escapeHtml(label)}</a>.</p>
     </main>
@@ -752,6 +752,17 @@ function redirectTemplate({ title, destination, label }) {
   </body>
 </html>
 `;
+}
+
+function primaryLandingSlug(domainSlug) {
+  const byDomain = {
+    "developer-depot": "developer-hub-depot",
+    "custodian-ui": "aegis-protocol-dashboard",
+    "aegis-application-lab": "aegis-reflective-prism-features",
+    "agent-workshop": "agentic-workshop-entrance",
+  };
+
+  return byDomain[domainSlug] || null;
 }
 
 function domainIndexTemplate(domain, domainPages, hubByDomain) {
@@ -1241,11 +1252,25 @@ for (const domain of domains) {
   const domainPages = pages.filter((page) => page.domain === domain.slug);
 
   if (domain.slug === "custodian-ui") {
-    writeFile(path.join(generatedRoot, domain.slug, "index.html"), custodianOpsIndexTemplate(domain, domainPages, hubByDomain));
+    const landingPage = domainPages.find((page) => page.slug === primaryLandingSlug(domain.slug));
+    if (!landingPage) {
+      throw new Error(`Primary landing page is missing for ${domain.slug}.`);
+    }
+    writeFile(
+      path.join(generatedRoot, domain.slug, "index.html"),
+      redirectTemplate({
+        title: domain.label,
+        destination: landingPage.routePath,
+        label: landingPage.title,
+        bodyClass: domainBodyClass(domain.slug),
+        breadcrumb: "Opening the primary operational surface",
+        bridge: "Routing directly into the main Custodian operations surface so the shared shell and grouped navigation appear immediately.",
+      }),
+    );
     writeFile(path.join(generatedRoot, domain.slug, "status", "index.html"), custodianStatusTemplate());
     writeFile(path.join(generatedRoot, domain.slug, "secure", "index.html"), custodianSecureTemplate());
   } else if (domain.slug === "agent-workshop") {
-    const landingPage = domainPages.find((page) => page.slug === "agentic-workshop-entrance");
+    const landingPage = domainPages.find((page) => page.slug === primaryLandingSlug(domain.slug));
     if (!landingPage) {
       throw new Error("Agentic Workshop landing page is missing agentic-workshop-entrance.");
     }
@@ -1255,10 +1280,33 @@ for (const domain of domains) {
         title: domain.label,
         destination: landingPage.routePath,
         label: landingPage.title,
+        bodyClass: domainBodyClass(domain.slug),
+        breadcrumb: "Opening the primary workshop surface",
+        bridge: "Routing directly into the Workshop Entrance so the login surface is always the first step before console work begins.",
       }),
     );
   } else {
-    writeFile(path.join(generatedRoot, domain.slug, "index.html"), domainIndexTemplate(domain, domainPages, hubByDomain));
+    const landingPage = domainPages.find((page) => page.slug === primaryLandingSlug(domain.slug));
+    if (!landingPage) {
+      throw new Error(`Primary landing page is missing for ${domain.slug}.`);
+    }
+    const breadcrumb = domain.slug === "developer-depot"
+      ? "Opening the primary builder surface"
+      : "Opening the primary application surface";
+    const bridge = domain.slug === "developer-depot"
+      ? "Routing directly into the Developer Hub so the shared shell, grouped rail, and glass frame appear as soon as the section opens."
+      : "Routing directly into the Reflective Prism surface so the Application Lab opens inside the shared shell immediately.";
+    writeFile(
+      path.join(generatedRoot, domain.slug, "index.html"),
+      redirectTemplate({
+        title: domain.label,
+        destination: landingPage.routePath,
+        label: landingPage.title,
+        bodyClass: domainBodyClass(domain.slug),
+        breadcrumb,
+        bridge,
+      }),
+    );
   }
 
   for (const page of domainPages) {
