@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Protocol - Mission Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1152d433;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex h-16 items-center justify-between border-b border-primary/10 bg-background-light/50 dark:bg-background-dark/50 px-8 backdrop-blur-md">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center rounded bg-primary p-1.5 text-white">
+<span class="material-symbols-outlined text-xl font-bold">shield</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white uppercase">AEGIS Protocol</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold text-primary" href="#">Dashboard</a>
+<a class="text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">Shields</a>
+<a class="text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">Threats</a>
+<a class="text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">Nodes</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="h-9 w-64 rounded-lg border-none bg-primary/5 pl-10 text-sm focus:ring-1 focus:ring-primary dark:bg-primary/10" placeholder="Search protocol..." type="text"/>
+</div>
+<button class="flex items-center justify-center rounded-lg h-9 w-9 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-9 w-9 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary/30 overflow-hidden border border-primary/20" data-alt="User avatar placeholder with abstract geometric patterns">
+<img alt="User" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvjAwBYw3Q45qxlbkdYIskByzHcjaYfTvxMSyxn3c-mtrIvzC_FrruMaDq39jYlP1_Z0ymfG2e0u-yhOskKUsJtzEWyoOS5gdEDxi3M6x8HnXuPs1YfZkk6buUn9wk0wceSrHl1I3dqbOndZMaOXKdde0ZFUNZnC5NKvNgbPJzh-TR8rOYL_Jy4XKuTsgR9X-J_v_Lr1Mxk5Fr5iVZ6ReaE9wl-N2jC2oHzufwLHpxKgif7Gbc7O8oPbdgRu2h5TQiP_OFW4YYUJ1F"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-primary/10 bg-background-light dark:bg-background-dark p-4 hidden lg:flex flex-col justify-between">
+<div class="space-y-6">
+<div>
+<p class="px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Command Center</p>
+<div class="space-y-1">
+<a class="flex items-center gap-3 rounded-lg bg-primary px-3 py-2.5 text-white" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Mission Control</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">public</span>
+<span class="text-sm font-medium">Global Network</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">lock</span>
+<span class="text-sm font-medium">Vault Security</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">terminal</span>
+<span class="text-sm font-medium">System Logs</span>
+</a>
+</div>
+</div>
+<div>
+<p class="px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Quick Actions</p>
+<div class="space-y-3 px-3">
+<button class="w-full flex items-center justify-between group rounded-lg border border-primary/20 bg-primary/5 p-3 text-left hover:border-primary transition-all">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-primary uppercase">Deploy Shield</span>
+<span class="text-[10px] text-slate-400">Instantiate new node</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">add_circle</span>
+</button>
+<button class="w-full flex items-center justify-between group rounded-lg border border-slate-700 bg-background-dark p-3 text-left hover:border-primary transition-all">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-300 uppercase">Protocol Sync</span>
+<span class="text-[10px] text-slate-500">Manual re-encryption</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-hover:rotate-180 transition-transform duration-500">sync</span>
+</button>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-primary/5 p-4 border border-primary/10">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-medium text-slate-400 uppercase">Protocol Uptime</span>
+<span class="text-xs font-bold text-primary">99.998%</span>
+</div>
+<div class="h-1.5 w-full rounded-full bg-slate-800">
+<div class="h-full w-[99.9%] rounded-full bg-primary shadow-[0_0_8px_rgba(17,82,212,0.5)]"></div>
+</div>
+<p class="mt-3 text-[10px] text-slate-500 text-center font-medium">VERSION 4.0.2 - STABLE</p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto custom-scrollbar bg-background-light dark:bg-[#0a0f1a] p-6">
+<div class="max-w-[1200px] mx-auto space-y-6">
+<!-- Status Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm font-medium text-slate-500 uppercase tracking-wider">System Status</span>
+<span class="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold text-emerald-500 uppercase">
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Secure
+                            </span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold dark:text-white">Fully Operational</h3>
+</div>
+<p class="mt-2 text-xs text-slate-500">All protocol layers are responding within 12ms nominal range.</p>
+</div>
+<div class="rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm font-medium text-slate-500 uppercase tracking-wider">Active Shields</span>
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold dark:text-white">1,248</h3>
+<span class="text-xs font-bold text-emerald-500">+12 Nodes</span>
+</div>
+<p class="mt-2 text-xs text-slate-500">Distributed across 4 global clusters with zero fallback events.</p>
+</div>
+<div class="rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm font-medium text-slate-500 uppercase tracking-wider">Threat Level</span>
+<span class="material-symbols-outlined text-slate-400">warning</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold text-emerald-500">Low</h3>
+<span class="text-xs font-bold text-slate-500">0.02% Detection</span>
+</div>
+<p class="mt-2 text-xs text-slate-500">Current intrusion attempts are effectively mitigated by AEGIS-WAF.</p>
+</div>
+</div>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Metrics Chart -->
+<div class="xl:col-span-2 rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark p-6">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-lg font-bold dark:text-white leading-tight">Security Metrics</h3>
+<p class="text-xs text-slate-500 uppercase tracking-tighter">Traffic vs Threat Detection (Last 24H)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+<span class="text-[10px] font-bold text-slate-400 uppercase">Nominal Traffic</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-slate-500"></span>
+<span class="text-[10px] font-bold text-slate-400 uppercase">Threat Level</span>
+</div>
+</div>
+</div>
+<!-- High Fidelity Placeholder Chart -->
+<div class="relative h-[240px] w-full">
+<svg class="h-full w-full overflow-visible" viewbox="0 0 800 240">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#1152d4" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#1152d4" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line class="text-primary/5" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="0" y2="0"></line>
+<line class="text-primary/5" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="60" y2="60"></line>
+<line class="text-primary/5" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="120" y2="120"></line>
+<line class="text-primary/5" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="180" y2="180"></line>
+<line class="text-primary/10" stroke="currentColor" x1="0" x2="800" y1="240" y2="240"></line>
+<!-- Traffic Area Path -->
+<path d="M0 160 Q 50 140, 100 150 T 200 120 T 300 160 T 400 100 T 500 130 T 600 80 T 700 110 T 800 60 L 800 240 L 0 240 Z" fill="url(#chartGradient)"></path>
+<!-- Traffic Line Path -->
+<path d="M0 160 Q 50 140, 100 150 T 200 120 T 300 160 T 400 100 T 500 130 T 600 80 T 700 110 T 800 60" fill="none" stroke="#1152d4" stroke-linecap="round" stroke-width="3"></path>
+<!-- Threat Path (Low) -->
+<path d="M0 220 Q 100 215, 200 225 T 400 210 T 600 220 T 800 215" fill="none" stroke="#64748b" stroke-dasharray="6" stroke-width="2"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-between px-2 pt-[250px]">
+<span class="text-[10px] font-bold text-slate-500 uppercase">00:00</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">06:00</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">12:00</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">18:00</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Current</span>
+</div>
+</div>
+</div>
+<!-- Node Deployments -->
+<div class="rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark p-6 flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold dark:text-white leading-tight">Active Gateways</h3>
+<span class="material-symbols-outlined text-slate-400 text-sm">filter_list</span>
+</div>
+<div class="flex-1 space-y-4">
+<!-- Node Item -->
+<div class="flex items-center justify-between group p-2 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/10">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">dns</span>
+</div>
+<div>
+<p class="text-sm font-bold dark:text-slate-200">Alpha-Secure-01</p>
+<p class="text-[10px] text-slate-500">Region: EU-West (Berlin)</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-emerald-500">ONLINE</p>
+<p class="text-[10px] text-slate-500">99.9% Uptime</p>
+</div>
+</div>
+<!-- Node Item -->
+<div class="flex items-center justify-between group p-2 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/10">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">dns</span>
+</div>
+<div>
+<p class="text-sm font-bold dark:text-slate-200">Omega-Vault-X</p>
+<p class="text-[10px] text-slate-500">Region: US-East (Virginia)</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-emerald-500">ONLINE</p>
+<p class="text-[10px] text-slate-500">100% Uptime</p>
+</div>
+</div>
+<!-- Node Item -->
+<div class="flex items-center justify-between group p-2 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/10">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">dns</span>
+</div>
+<div>
+<p class="text-sm font-bold dark:text-slate-200">Terra-Point-04</p>
+<p class="text-[10px] text-slate-500">Region: AS-East (Tokyo)</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-emerald-500">ONLINE</p>
+<p class="text-[10px] text-slate-500">98.4% Uptime</p>
+</div>
+</div>
+<!-- Node Item -->
+<div class="flex items-center justify-between group p-2 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/10 opacity-60">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded bg-slate-500/10 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">dns</span>
+</div>
+<div>
+<p class="text-sm font-bold dark:text-slate-200">Shadow-Base-Y</p>
+<p class="text-[10px] text-slate-500">Region: Hybrid (Dark-Node)</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-amber-500">SYNCING</p>
+<p class="text-[10px] text-slate-500">--% Uptime</p>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full rounded-lg border border-primary/20 py-2 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all uppercase tracking-wider">
+                            Manage All Gateways
+                        </button>
+</div>
+</div>
+<!-- Footer Technical Stats Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 rounded-xl bg-primary/5 border border-primary/10">
+<div class="flex items-center gap-4 border-r border-primary/10 px-4 last:border-0">
+<div class="rounded-full bg-primary/20 p-2 text-primary">
+<span class="material-symbols-outlined text-xl">hub</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">Connected Clusters</p>
+<p class="text-sm font-bold dark:text-white">64 Primary</p>
+</div>
+</div>
+<div class="flex items-center gap-4 border-r border-primary/10 px-4 last:border-0">
+<div class="rounded-full bg-primary/20 p-2 text-primary">
+<span class="material-symbols-outlined text-xl">encrypted</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">Encrypted Streams</p>
+<p class="text-sm font-bold dark:text-white">18.4k Live</p>
+</div>
+</div>
+<div class="flex items-center gap-4 border-r border-primary/10 px-4 last:border-0">
+<div class="rounded-full bg-primary/20 p-2 text-primary">
+<span class="material-symbols-outlined text-xl">database</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">Data Throughput</p>
+<p class="text-sm font-bold dark:text-white">4.2 PB/s</p>
+</div>
+</div>
+<div class="flex items-center gap-4 border-r border-primary/10 px-4 last:border-0">
+<div class="rounded-full bg-primary/20 p-2 text-primary">
+<span class="material-symbols-outlined text-xl">router</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase">System Latency</p>
+<p class="text-sm font-bold dark:text-white">0.45 ms</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

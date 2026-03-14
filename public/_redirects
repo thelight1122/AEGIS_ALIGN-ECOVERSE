@@ -151,5 +151,25 @@
 /developer-depot/webhooks-configuration-aegis-protocol/index.html /developer-depot/webhooks-configuration-aegis-protocol/ 301
 /index.html / 301
 /nexus /nexus/ 301
+/nexus/aegis-protocol-dashboard /nexus/aegis-protocol-dashboard/ 301
+/nexus/aegis-protocol-dashboard/index.html /nexus/aegis-protocol-dashboard/ 301
+/nexus/aegis-protocol-documentation-portal /nexus/aegis-protocol-documentation-portal/ 301
+/nexus/aegis-protocol-documentation-portal/index.html /nexus/aegis-protocol-documentation-portal/ 301
+/nexus/aegis-protocol-features /nexus/aegis-protocol-features/ 301
+/nexus/aegis-protocol-features/index.html /nexus/aegis-protocol-features/ 301
+/nexus/aegisalign-landing-page /nexus/aegisalign-landing-page/ 301
+/nexus/aegisalign-landing-page/index.html /nexus/aegisalign-landing-page/ 301
+/nexus/aegisalign-pricing-plans /nexus/aegisalign-pricing-plans/ 301
+/nexus/aegisalign-pricing-plans/index.html /nexus/aegisalign-pricing-plans/ 301
+/nexus/aegisalign-settings /nexus/aegisalign-settings/ 301
+/nexus/aegisalign-settings/index.html /nexus/aegisalign-settings/ 301
 /nexus/index.html /nexus/ 301
+/nexus/login-aegisalign /nexus/login-aegisalign/ 301
+/nexus/login-aegisalign/index.html /nexus/login-aegisalign/ 301
+/nexus/login-success-transition /nexus/login-success-transition/ 301
+/nexus/login-success-transition/index.html /nexus/login-success-transition/ 301
+/nexus/multi-factor-authentication /nexus/multi-factor-authentication/ 301
+/nexus/multi-factor-authentication/index.html /nexus/multi-factor-authentication/ 301
+/nexus/signup-aegisalign /nexus/signup-aegisalign/ 301
+/nexus/signup-aegisalign/index.html /nexus/signup-aegisalign/ 301
 # END GENERATED STITCH REDIRECTS

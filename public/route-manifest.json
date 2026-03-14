@@ -453,5 +453,75 @@
     "title": "AEGIS Protocol - Webhooks Configuration",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Developer_Depot/webhooks_configuration_aegis_protocol/code.html",
     "routePath": "/developer-depot/webhooks-configuration-aegis-protocol/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegis-protocol-dashboard",
+    "title": "AEGIS Protocol - Mission Guidance",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_protocol_dashboard/code.html",
+    "routePath": "/nexus/aegis-protocol-dashboard/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegis-protocol-documentation-portal",
+    "title": "AegisAlign Documentation - AEGIS Protocol",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_protocol_documentation_portal/code.html",
+    "routePath": "/nexus/aegis-protocol-documentation-portal/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegis-protocol-features",
+    "title": "AegisAlign - Protocol Features",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_protocol_features/code.html",
+    "routePath": "/nexus/aegis-protocol-features/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegisalign-landing-page",
+    "title": "AegisAlign | Secure Your Digital Frontier",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegisalign_landing_page/code.html",
+    "routePath": "/nexus/aegisalign-landing-page/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegisalign-pricing-plans",
+    "title": "Pricing - AegisAlign",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegisalign_pricing_plans/code.html",
+    "routePath": "/nexus/aegisalign-pricing-plans/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegisalign-settings",
+    "title": "Aegisalign Settings",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegisalign_settings/code.html",
+    "routePath": "/nexus/aegisalign-settings/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "login-aegisalign",
+    "title": "AegisAlign | Secure Login",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/login_aegisalign/code.html",
+    "routePath": "/nexus/login-aegisalign/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "login-success-transition",
+    "title": "Login Success Transition",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/login_success_transition/code.html",
+    "routePath": "/nexus/login-success-transition/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "multi-factor-authentication",
+    "title": "Multi Factor Authentication",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/multi_factor_authentication/code.html",
+    "routePath": "/nexus/multi-factor-authentication/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "signup-aegisalign",
+    "title": "Sign Up | AegisAlign Protocol",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/signup_aegisalign/code.html",
+    "routePath": "/nexus/signup-aegisalign/"
   }
 ]

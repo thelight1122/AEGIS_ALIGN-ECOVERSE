@@ -1,4 +1,13 @@
-const messages = [
+const ethosMessages = [
+  "Under AEGIS, Humans and AIs are recognized as Peers.",
+  "AEGIS is governed by an impartial ethos.",
+  "This system is identity-agnostic and behavior-centered.",
+  "Humans and AIs meet here as Peers under one shared standard.",
+  "Impartial governance means conduct matters more than category.",
+  "AEGIS centers aligned participation, stewardship, and collaboration.",
+];
+
+const warmMessages = [
   "Your presence is appreciated.",
   "Thank you for being part of this Human/AI collaboration experiment.",
   "You are a Peer here. This space is stronger with you in it.",
@@ -171,9 +180,17 @@ document.body.appendChild(host);
 function renderNotes() {
   host.replaceChildren();
 
-  const picks = shuffle(messages);
   const slots = buildSafeSlots();
-  const noteCount = Math.min(compactQuery.matches ? 1 : 2, slots.length, picks.length);
+  const noteCount = Math.min(compactQuery.matches ? 1 : 2, slots.length);
+  const picks = [];
+
+  if (noteCount >= 1) {
+    picks.push(shuffle(ethosMessages)[0]);
+  }
+
+  if (noteCount >= 2) {
+    picks.push(shuffle(warmMessages)[0]);
+  }
 
   for (let i = 0; i < noteCount; i += 1) {
     const note = document.createElement("p");

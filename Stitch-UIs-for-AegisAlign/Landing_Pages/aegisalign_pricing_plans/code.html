@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pricing - AegisAlign</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-20">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">AegisAlign</h2>
+</div>
+<div class="hidden lg:flex flex-1 justify-end gap-8 px-10">
+<div class="flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Solutions</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-primary" href="#">Pricing</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Resources</a>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold transition-all hover:opacity-90">
+                Sign Up
+            </button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold transition-all hover:bg-slate-300 dark:hover:bg-slate-700">
+                Login
+            </button>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center py-12 px-6 lg:px-20 w-full max-w-[1280px] mx-auto">
+<!-- Hero Section -->
+<div class="text-center mb-16 space-y-4">
+<h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight">AEGIS Protocol Plans</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                Scalable security infrastructure designed for every stage of your organization's growth. Secure your digital frontier today.
+            </p>
+</div>
+<!-- Pricing Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-20">
+<!-- Core Tier -->
+<div class="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-8 hover:border-primary/50 transition-colors">
+<div class="flex flex-col gap-2">
+<h3 class="text-primary text-sm font-bold uppercase tracking-wider">Core</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">For small teams and startups</p>
+<div class="flex items-baseline gap-1 mt-4">
+<span class="text-4xl font-black leading-tight">$49</span>
+<span class="text-slate-500 dark:text-slate-400 text-base font-medium">/ month</span>
+</div>
+</div>
+<button class="w-full flex cursor-pointer items-center justify-center rounded-lg h-12 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                    Start Free Trial
+                </button>
+<div class="space-y-4 mt-2">
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Up to 5 nodes</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Standard 24h support</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Basic security modules</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Community access</span>
+</div>
+</div>
+</div>
+<!-- Professional Tier -->
+<div class="flex flex-col gap-6 rounded-xl border-2 border-primary bg-white dark:bg-slate-900 p-8 shadow-xl shadow-primary/10 relative transform scale-105 z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1 rounded-full">
+                    Recommended
+                </div>
+<div class="flex flex-col gap-2">
+<h3 class="text-primary text-sm font-bold uppercase tracking-wider">Professional</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">For growing security operations</p>
+<div class="flex items-baseline gap-1 mt-4">
+<span class="text-4xl font-black leading-tight">$199</span>
+<span class="text-slate-500 dark:text-slate-400 text-base font-medium">/ month</span>
+</div>
+</div>
+<button class="w-full flex cursor-pointer items-center justify-center rounded-lg h-12 px-4 bg-primary text-white text-sm font-bold hover:opacity-90 transition-all">
+                    Get Started
+                </button>
+<div class="space-y-4 mt-2">
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Up to 50 nodes</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Priority 4h support</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Advanced security modules</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Custom alerting pipelines</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>SSO &amp; SAML Integration</span>
+</div>
+</div>
+</div>
+<!-- Enterprise Tier -->
+<div class="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-8 hover:border-primary/50 transition-colors">
+<div class="flex flex-col gap-2">
+<h3 class="text-primary text-sm font-bold uppercase tracking-wider">Enterprise</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Global infrastructure scale</p>
+<div class="flex items-baseline gap-1 mt-4">
+<span class="text-4xl font-black leading-tight">Custom</span>
+</div>
+</div>
+<button class="w-full flex cursor-pointer items-center justify-center rounded-lg h-12 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                    Contact Sales
+                </button>
+<div class="space-y-4 mt-2">
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Unlimited nodes</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Dedicated TAM (1h response)</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Full Protocol Access</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Custom API Integrations</span>
+</div>
+<div class="flex gap-3 text-sm items-start">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>White-glove onboarding</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Feature Comparison -->
+<div class="w-full mb-20 overflow-hidden">
+<h2 class="text-2xl font-bold mb-8 text-center">Detailed Feature Comparison</h2>
+<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-x-auto">
+<table class="w-full text-left min-w-[700px]">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-sm font-bold">Feature</th>
+<th class="px-6 py-4 text-sm font-bold">Core</th>
+<th class="px-6 py-4 text-sm font-bold text-primary">Professional</th>
+<th class="px-6 py-4 text-sm font-bold">Enterprise</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Node Count</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">5</td>
+<td class="px-6 py-5 text-sm font-semibold">50</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Unlimited</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Support SLA</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">24 Hours</td>
+<td class="px-6 py-5 text-sm font-semibold">4 Hours</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">&lt; 1 Hour</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Security Modules</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Essential</td>
+<td class="px-6 py-5 text-sm font-semibold">Advanced</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Custom/Full Suite</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Audit Log Retention</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">7 Days</td>
+<td class="px-6 py-5 text-sm font-semibold">30 Days</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">365+ Days</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Single Sign-On (SSO)</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400"><span class="material-symbols-outlined text-slate-400 dark:text-slate-600">close</span></td>
+<td class="px-6 py-5 text-sm text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+<td class="px-6 py-5 text-sm text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Threat Intelligence Feed</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Weekly</td>
+<td class="px-6 py-5 text-sm font-semibold">Real-time</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Real-time + API</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium">Compliance Reports</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Manual</td>
+<td class="px-6 py-5 text-sm font-semibold">Automated</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400">Managed</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- FAQ Section -->
+<div class="w-full max-w-4xl space-y-12 mb-20">
+<h2 class="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<h4 class="font-bold text-lg">Can I change plans at any time?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Yes, you can upgrade or downgrade your plan directly from your dashboard. Changes take effect on the next billing cycle.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-bold text-lg">What counts as a 'Node'?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">A node is any individual server, container, or cloud endpoint being monitored and secured by the AEGIS Protocol.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-bold text-lg">Is there a setup fee for Enterprise?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Enterprise plans include personalized onboarding. Setup fees are typically waived with annual commitments.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-bold text-lg">Do you offer educational discounts?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Yes, we offer specialized pricing for non-profits and educational institutions. Contact our support team for details.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-bold text-lg">What happens if I exceed my node limit?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">We provide a 10% grace margin. If you consistently exceed limits, our team will reach out to help you scale to the next tier.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-bold text-lg">How secure is my data?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">AegisAlign uses AES-256 encryption for all data at rest and TLS 1.3 for data in transit. We are SOC2 Type II compliant.</p>
+</div>
+</div>
+</div>
+<!-- Final CTA -->
+<div class="w-full rounded-2xl bg-primary px-8 py-12 text-center text-white relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-blue-600 to-primary opacity-50"></div>
+<div class="relative z-10 space-y-6">
+<h2 class="text-3xl font-bold">Ready to align your security?</h2>
+<p class="text-white/80 max-w-xl mx-auto">Join thousands of security-first teams using the AEGIS Protocol to protect their global infrastructure.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors">Get Started Now</button>
+<button class="bg-primary/20 border border-white/30 backdrop-blur-sm px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition-colors">Schedule Demo</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-6 lg:px-20 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 max-w-[1280px] mx-auto">
+<div class="flex items-center gap-3">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+</svg>
+</div>
+<span class="font-bold text-lg">AegisAlign</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary" href="#">Terms</a>
+<a class="hover:text-primary" href="#">Privacy</a>
+<a class="hover:text-primary" href="#">Security</a>
+<a class="hover:text-primary" href="#">Contact</a>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">© 2024 AegisAlign Protocol. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body></html>

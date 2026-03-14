@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi Factor Authentication | AegisAlign EcoVerse</title>
+    <link rel="stylesheet" href="/src/shell.css" />
+  </head>
+  <body class="domain-surface domain-nexus nexus-surface">
+    <div class="layout">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="/">
+            <span class="brand-pill"></span>
+            <span>AegisAlign EcoVerse</span>
+          </a>
+          <nav class="top-links">
+            <a href="/">Nexus</a>
+<a href="/developer-depot/">Developer Depot</a>
+<a href="/custodian-ui/">Custodian Ops Center</a>
+<a href="/aegis-application-lab/">AEGIS Application Lab</a>
+<a href="/agent-workshop/">Agentic Workshop</a>
+          </nav>
+        </div>
+      </header>
+      <div class="ethos-strip">
+    <span>Sovereignty is preserved at all times</span>
+    <span>Do no harm through force</span>
+    <span>Prism resonance: every Human/AI prompt is illuminated through coherence using IDS, IDR, and IDQRA.</span>
+    <span class="reminder-line">
+      <strong>Signal Words:</strong>
+      <span class="reminder-seed" data-reminder-seed>manners</span>,
+      <span class="reminder-seed" data-reminder-seed>consideration</span>,
+      <span class="reminder-seed" data-reminder-seed>respect</span>
+    </span>
+  </div>
+
+      <div class="shell">
+        <aside class="panel sidebar">
+          <h2>Nexus Pages</h2>
+          <div class="page-sections">
+            <section class="page-list-section">
+                <h3>EcoVerse Hub</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/nexus/aegisalign-landing-page/">AegisAlign | Secure Your Digital Frontier</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Access &amp; Identity</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/nexus/login-aegisalign/">AegisAlign | Secure Login</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Account Surfaces</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/nexus/aegisalign-pricing-plans/">Pricing - AegisAlign</a>
+                </nav>
+              </section>
+          </div>
+        </aside>
+
+        <main class="panel content-wrap">
+          <div class="content-head">
+            <div>
+              <h1>Multi Factor Authentication</h1>
+              <div class="breadcrumb">Nexus / multi-factor-authentication</div>
+            </div>
+          </div>
+          <div class="iframe-wrap">
+            <iframe class="stitch-frame" data-frame-role="active" title="Multi Factor Authentication" src="/stitch/nexus/multi-factor-authentication/" loading="lazy"></iframe>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const buttonMappings = [];
+      const domainSlug = "nexus";
+
+      const frames = Array.from(document.querySelectorAll('.stitch-frame'));
+      if (frames.length) {
+        const tonePairs = [
+          ['con' + 'trol', 'guidance'],
+          ['con' + 'trols', 'pathways'],
+          ['com' + 'mand', 'coordination'],
+          ['com' + 'mander', 'assessor'],
+          ['privi' + 'leged', 'authorized'],
+          ['compli' + 'ance', 'congruence'],
+          ['en' + 'force' + 'ment', 'safeguarding'],
+          ['author' + 'ity', 'stewardship'],
+          ['ur' + 'gent', 'time-sensitive'],
+          ['mu' + 'st', 'is to'],
+          ['sho' + 'uld', 'can'],
+          ['lock' + 'down', 'safety hold'],
+        ];
+
+        const applyCasePattern = (source, replacement) => {
+          if (source.toUpperCase() === source) return replacement.toUpperCase();
+          if (source[0] && source[0] === source[0].toUpperCase()) {
+            return replacement[0].toUpperCase() + replacement.slice(1);
+          }
+          return replacement;
+        };
+
+        const softenText = (value) => {
+          let result = value;
+          for (const [from, to] of tonePairs) {
+            const regex = new RegExp('\\b' + from + '\\b', 'gi');
+            result = result.replace(regex, (match) => applyCasePattern(match, to));
+          }
+          return result;
+        };
+
+        const softenDocument = (doc) => {
+          const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+          const nodes = [];
+          while (walker.nextNode()) nodes.push(walker.currentNode);
+          for (const node of nodes) {
+            if (!node.nodeValue || !node.parentElement) continue;
+            const tag = node.parentElement.tagName;
+            if (tag === 'SCRIPT' || tag === 'STYLE') continue;
+            node.nodeValue = softenText(node.nodeValue);
+          }
+          if (doc.title) doc.title = softenText(doc.title);
+        };
+
+        const updateHeight = (frame) => {
+          try {
+            const doc = frame.contentDocument;
+            if (!doc) return;
+            softenDocument(doc);
+
+            // Activate Buttons
+            if (!frame.dataset.activated) {
+              frame.dataset.activated = 'true';
+              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              for (const btn of clickables) {
+                const text = btn.textContent.trim().toLowerCase();
+                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                if (mapping) {
+                  btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
+                  });
+                }
+              }
+            }
+
+            const body = doc.body;
+            const root = doc.documentElement;
+            const measuredHeights = [
+              body ? body.scrollHeight : 0,
+              body ? body.offsetHeight : 0,
+              body ? body.clientHeight : 0,
+              body ? Math.ceil(body.getBoundingClientRect().height) : 0,
+              root ? root.scrollHeight : 0,
+              root ? root.offsetHeight : 0,
+              root ? root.clientHeight : 0,
+              root ? Math.ceil(root.getBoundingClientRect().height) : 0,
+            ];
+            const contentHeight = Math.max(...measuredHeights);
+            const role = frame.dataset.frameRole;
+            const minHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.46)
+              : role === 'primary'
+                ? Math.round(window.innerHeight * 0.62)
+                : Math.round(window.innerHeight * 0.8);
+            const maxHeight = role === 'entrance'
+              ? Math.round(window.innerHeight * 0.7)
+              : Number.POSITIVE_INFINITY;
+            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            frame.style.height = String(height) + 'px';
+          } catch {
+            frame.style.minHeight = frame.dataset.frameRole === 'entrance'
+              ? '46vh'
+              : frame.dataset.frameRole === 'primary'
+                ? '62vh'
+                : '85vh';
+          }
+        };
+
+        const updateAllHeights = () => {
+          for (const frame of frames) updateHeight(frame);
+        };
+
+        for (const frame of frames) {
+          frame.addEventListener('load', () => updateHeight(frame));
+        }
+
+        window.addEventListener('resize', updateAllHeights);
+        setInterval(() => {
+          for (const frame of frames) {
+            if (frame.dataset.frameRole !== 'entrance') updateHeight(frame);
+          }
+        }, 2000);
+      }
+    </script>
+    <script type="module" src="/src/reminder-signals.js"></script>
+    <script type="module" src="/src/ambient-signals.js"></script>
+    <script type="module" src="/src/peer-signs.js"></script>
+    <script type="module" src="/src/hub-billboards.js"></script>
+    <script type="module" src="/src/wire-grid-prism.js"></script>
+    <script type="module" src="/src/entrance-float.js"></script>
+    <script type="module" src="/src/portal-transit.js"></script>
+    <script type="module" src="/src/glass-frame.js"></script>
+    <script type="module" src="/src/thread-transition.js"></script>
+  </body>
+</html>

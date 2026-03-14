@@ -1,5 +1,35 @@
 [
   {
+    "domain": "nexus",
+    "sections": [
+      {
+        "label": "EcoVerse Hub",
+        "pages": [
+          { "slug": "aegisalign-landing-page", "isParent": true },
+          { "slug": "aegis-protocol-features", "parent": "aegisalign-landing-page" },
+          { "slug": "aegis-protocol-documentation-portal", "parent": "aegisalign-landing-page" },
+          { "slug": "aegis-protocol-dashboard", "parent": "aegisalign-landing-page" }
+        ]
+      },
+      {
+        "label": "Access & Identity",
+        "pages": [
+          { "slug": "login-aegisalign", "isParent": true },
+          { "slug": "signup-aegisalign", "parent": "login-aegisalign" },
+          { "slug": "multi-factor-authentication", "parent": "login-aegisalign" },
+          { "slug": "login-success-transition", "parent": "login-aegisalign" }
+        ]
+      },
+      {
+        "label": "Account Surfaces",
+        "pages": [
+          { "slug": "aegisalign-pricing-plans", "isParent": true },
+          { "slug": "aegisalign-settings", "parent": "aegisalign-pricing-plans" }
+        ]
+      }
+    ]
+  },
+  {
     "domain": "agent-workshop",
     "sections": [
       {

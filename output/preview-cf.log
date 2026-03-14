@@ -1,0 +1,19 @@
+
+> aegis-align-ecoverse@1.0.0 preview:cf
+> npx wrangler pages dev ./dist --compatibility-date=2026-03-12
+
+
+ Γ¢à∩╕Å wrangler 4.73.0
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+No Functions. Shimming...
+Γ£¿ Parsed 172 valid redirect rules.
+Γ£¿ Parsed 4 valid header rules.
+Your Worker has access to the following bindings:
+Binding                                                                   Resource                  Mode
+env.CF_PAGES ("1")                                                        Environment Variable      local
+env.CF_PAGES_BRANCH ("master")                                            Environment Variable      local
+env.CF_PAGES_COMMIT_SHA ("783f1170aabec20e401c5fe0f414194772763...")      Environment Variable      local
+env.CF_PAGES_URL ("https://783f117.aegis-align-ecoverse....")             Environment Variable      local
+
+ΓÄö Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:8788

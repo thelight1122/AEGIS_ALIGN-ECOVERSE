@@ -15,6 +15,7 @@ const routeMigrationsPath = path.join(repoRoot, "config", "route-migrations.json
 const canonicalContractPath = path.join(repoRoot, "config", "canonical-behavior-contract.json");
 const canonicalSourcePath = path.join(repoRoot, "AEGIS_Docs", "AEGIS CANON v1.0.html");
 const navigationHierarchyPath = path.join(repoRoot, "config", "navigation-hierarchy.json");
+const nexusDomain = { source: "Landing_Pages", slug: "nexus", label: "Nexus" };
 
 const domains = [
   { source: "Developer_Depot", slug: "developer-depot", label: "Developer Depot" },
@@ -291,6 +292,9 @@ function topLinksTemplate() {
 }
 
 function domainBodyClass(domainSlug) {
+  if (domainSlug === "nexus") {
+    return "domain-surface domain-nexus nexus-surface";
+  }
   return `domain-surface domain-${domainSlug}`;
 }
 
@@ -458,6 +462,9 @@ function ethosStripTemplate(canonicalContract) {
 
 function voiceByDomain(domainSlug) {
   const library = {
+    "nexus": {
+      bridge: "Enter through the EcoVerse hub, move between protocol surfaces, and access account gateways without losing orientation.",
+    },
     "custodian-ui": {
       bridge: "See what is stable right now while tracking operational posture, incident history, and service continuity.",
     },
@@ -752,6 +759,7 @@ function redirectTemplate({ title, destination, label, bodyClass = "domain-surfa
 
 function primaryLandingSlug(domainSlug) {
   const byDomain = {
+    "nexus": "aegisalign-landing-page",
     "developer-depot": "developer-hub-depot",
     "custodian-ui": "aegis-protocol-dashboard",
     "aegis-application-lab": "aegis-reflective-prism-features",
@@ -1238,6 +1246,42 @@ for (const domain of domains) {
   }
 }
 
+const nexusSourceDir = path.join(stitchRoot, nexusDomain.source);
+if (fs.existsSync(nexusSourceDir)) {
+  const codeFiles = listCodeHtml(nexusSourceDir);
+
+  for (const codeFile of codeFiles) {
+    const relDir = path.relative(nexusSourceDir, path.dirname(codeFile));
+    const relSegments = relDir.split(path.sep).filter(Boolean);
+    const sourceSlug = slugify(relSegments.join("-"));
+    if (!sourceSlug) {
+      continue;
+    }
+
+    const routePath = `/${nexusDomain.slug}/${sourceSlug}/`;
+    if (seenRoutes.has(routePath)) {
+      throw new Error(`Duplicate route generated: ${routePath}`);
+    }
+    seenRoutes.add(routePath);
+
+    const sourceHtml = fs.readFileSync(codeFile, "utf8");
+    const html = applyToneToHtmlContent(sourceHtml);
+    const title = extractTitle(html, titleFromSlug(sourceSlug));
+
+    const stitchOutDir = path.join(generatedRoot, "stitch", nexusDomain.slug, sourceSlug);
+    writeFile(path.join(stitchOutDir, "index.html"), html);
+
+    pages.push({
+      domain: nexusDomain.slug,
+      slug: sourceSlug,
+      title,
+      sourcePath: path.relative(repoRoot, codeFile).replaceAll("\\", "/"),
+      routePath,
+      stitchPath: `/stitch/${nexusDomain.slug}/${sourceSlug}/`,
+    });
+  }
+}
+
 pages.sort((a, b) => {
   if (a.domain === b.domain) {
     return a.slug.localeCompare(b.slug);
@@ -1312,8 +1356,37 @@ for (const domain of domains) {
   }
 }
 
+const nexusPages = pages.filter((page) => page.domain === nexusDomain.slug);
+if (nexusPages.length > 0) {
+  const landingPage = nexusPages.find((page) => page.slug === primaryLandingSlug(nexusDomain.slug));
+  if (!landingPage) {
+    throw new Error("Nexus landing page is missing aegisalign-landing-page.");
+  }
+
+  writeFile(
+    path.join(generatedRoot, nexusDomain.slug, "index.html"),
+    redirectTemplate({
+      title: nexusDomain.label,
+      destination: landingPage.routePath,
+      label: landingPage.title,
+      bodyClass: domainBodyClass(nexusDomain.slug),
+      breadcrumb: "Opening the central EcoVerse hub",
+      bridge: "Routing directly into the primary AegisAlign landing surface so the Nexus opens as the central hub of the EcoVerse.",
+    }),
+  );
+
+  for (const page of nexusPages) {
+    const wrapper = routeTemplate({ page, domain: nexusDomain, domainPages: nexusPages });
+    writeFile(path.join(generatedRoot, nexusDomain.slug, page.slug, "index.html"), wrapper);
+  }
+}
+
 writeFile(path.join(generatedRoot, "index.html"), rootIndexTemplate(hubs, pages));
-writeFile(path.join(generatedRoot, "nexus", "index.html"), nexusTemplate(hubs, pages));
+if (nexusPages.length === 0) {
+  writeFile(path.join(generatedRoot, "nexus", "index.html"), nexusTemplate(hubs, pages));
+} else {
+  writeFile(path.join(generatedRoot, "nexus", "orientation", "index.html"), nexusTemplate(hubs, pages));
+}
 
 const manifest = pages.map(({ domain, slug, title, sourcePath, routePath }) => ({
   domain,
