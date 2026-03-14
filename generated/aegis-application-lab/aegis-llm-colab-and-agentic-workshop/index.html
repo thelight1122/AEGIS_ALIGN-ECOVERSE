@@ -42,20 +42,17 @@
             <section class="page-list-section">
                 <h3>Core Systems</h3>
                 <nav class="page-list">
-                  <a class="" data-page-link href="/aegis-application-lab/aegis-core-shield-features/">AEGIS Core Shield | Infrastructure Hardening</a>
-<a class="" data-page-link href="/aegis-application-lab/aegis-implementation-apps/">AEGIS Implementation Apps | AegisAlign</a>
-<a class="" data-page-link href="/aegis-application-lab/aegis-interceptor-features-v2/">AEGIS Interceptor | Deep Packet Security</a>
+                  <a class="" data-page-link href="/aegis-application-lab/aegis-implementation-apps/">AEGIS Implementation Apps | AegisAlign</a>
                 </nav>
               </section>
 <section class="page-list-section">
                 <h3>Reflective Interfaces</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/aegis-application-lab/aegis-reflective-prism-features/">Aegis Reflective Prism Features</a>
-<a class="" data-page-link href="/aegis-application-lab/aegis-reflective-widget-features/">AEGIS Reflective Widget | AegisAlign Security</a>
                 </nav>
               </section>
 <section class="page-list-section">
-                <h3>Arbitor &amp; Colab</h3>
+                <h3>Other Pages</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-1/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
 <a class="" data-page-link href="/aegis-application-lab/aegis-arbitor-features-2/">AEGIS Arbitor | Decentralized Governance &amp; Consensus</a>
@@ -80,6 +77,9 @@
     </div>
 
     <script>
+      const buttonMappings = [];
+      const domainSlug = "aegis-application-lab";
+
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
         const tonePairs = [
@@ -132,6 +132,23 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
+
+            // Activate Buttons
+            if (!frame.dataset.activated) {
+              frame.dataset.activated = 'true';
+              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              for (const btn of clickables) {
+                const text = btn.textContent.trim().toLowerCase();
+                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                if (mapping) {
+                  btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
+                  });
+                }
+              }
+            }
+
             const body = doc.body;
             const root = doc.documentElement;
             const measuredHeights = [

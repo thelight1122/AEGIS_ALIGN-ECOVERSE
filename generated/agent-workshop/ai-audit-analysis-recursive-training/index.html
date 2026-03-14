@@ -49,28 +49,17 @@
 <section class="page-list-section">
                 <h3>Agent Creation</h3>
                 <nav class="page-list">
-                  <a class="" data-page-link href="/agent-workshop/create-new-agent-dataquad-memory-configuration/">AEGIS Agentic Workshop - Step 3: DataQuad Memory</a>
-<a class="" data-page-link href="/agent-workshop/create-new-agent-flow/">AEGIS Agentic Workshop - Create New Agent</a>
-<a class="" data-page-link href="/agent-workshop/create-new-agent-identity-configuration/">AEGIS Agentic Workshop - Create New AI Agent</a>
-<a class="" data-page-link href="/agent-workshop/create-new-agent-logic-intelligence/">AEGIS Agentic Workshop - Logic &amp; Intelligence</a>
-<a class="" data-page-link href="/agent-workshop/create-new-agent-memory-rag/">AEGIS Agentic Workshop - Step 3: Memory &amp; RAG</a>
-<a class="" data-page-link href="/agent-workshop/dataquad-agent-deployment/">Agentic Workshop - Deployment</a>
-<a class="" data-page-link href="/agent-workshop/model-deployment-flow/">Model Deployment Flow</a>
+                  <a class="" data-page-link href="/agent-workshop/create-new-agent-flow/">AEGIS Agentic Workshop - Create New Agent</a>
                 </nav>
               </section>
 <section class="page-list-section">
                 <h3>Monitoring &amp; Analysis</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/agent-workshop/active-agents-monitor-agentic-workshop/">AEGIS Agentic Workshop - Active Monitoring</a>
-<a class="active" data-page-link href="/agent-workshop/ai-audit-analysis-recursive-training/">AEGIS Agentic Workshop - AI Audit Analysis</a>
-<a class="" data-page-link href="/agent-workshop/anomaly-analysis-detail/">AEGIS Protocol | Anomaly Analysis</a>
-<a class="" data-page-link href="/agent-workshop/global-anomaly-heatmap/">AEGIS AI - Global Anomaly Heatmap</a>
-<a class="" data-page-link href="/agent-workshop/recursive-logic-debugger-agentic-workshop/">Recursive Logic Debugger Agentic Workshop</a>
-<a class="" data-page-link href="/agent-workshop/recursive-training-progress-report/">AEGIS AI Audit - Recursive Training Progress</a>
                 </nav>
               </section>
 <section class="page-list-section">
-                <h3>Systems &amp; Tools</h3>
+                <h3>Other Pages</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/agent-workshop/aegis-project-tree-index/">Aegis Project Tree Index</a>
 <a class="" data-page-link href="/agent-workshop/agent-communication-protocol/">AEGIS Agentic Workshop | Communication Protocol</a>
@@ -118,6 +107,9 @@
     </div>
 
     <script>
+      const buttonMappings = [];
+      const domainSlug = "agent-workshop";
+
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
         const tonePairs = [
@@ -170,6 +162,23 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
+
+            // Activate Buttons
+            if (!frame.dataset.activated) {
+              frame.dataset.activated = 'true';
+              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              for (const btn of clickables) {
+                const text = btn.textContent.trim().toLowerCase();
+                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                if (mapping) {
+                  btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
+                  });
+                }
+              }
+            }
+
             const body = doc.body;
             const root = doc.documentElement;
             const measuredHeights = [

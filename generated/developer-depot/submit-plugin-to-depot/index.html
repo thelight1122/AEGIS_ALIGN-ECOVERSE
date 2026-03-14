@@ -42,31 +42,23 @@
             <section class="page-list-section">
                 <h3>Developer Hub</h3>
                 <nav class="page-list">
-                  <a class="" data-page-link href="/developer-depot/developer-console-aegis-protocol/">AEGIS Protocol | Developer Console</a>
-<a class="" data-page-link href="/developer-depot/developer-hub-depot/">AegisAlign Developer Hub &amp; Depot</a>
-<a class="" data-page-link href="/developer-depot/my-submissions-dashboard/">My Submissions - AegisAlign Depot</a>
-<a class="" data-page-link href="/developer-depot/plugin-developer-analytics/">AegisGuard Pro Analytics | AegisAlign Depot</a>
-<a class="active" data-page-link href="/developer-depot/submit-plugin-to-depot/">AEGIS Depot - Submit Plugin</a>
-<a class="" data-page-link href="/developer-depot/web3-portal/">AegisAlign | Web3 Gateway</a>
+                  <a class="" data-page-link href="/developer-depot/developer-hub-depot/">AegisAlign Developer Hub &amp; Depot</a>
                 </nav>
               </section>
 <section class="page-list-section">
                 <h3>Protocol APIs</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/developer-depot/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
-<a class="" data-page-link href="/developer-depot/api-usage-report-aegis-protocol/">AEGIS Protocol | API Usage Report</a>
-<a class="" data-page-link href="/developer-depot/node-management-aegis-protocol/">AEGIS Protocol - Node Management</a>
-<a class="" data-page-link href="/developer-depot/protocol-configuration-aegis-protocol/">AegisAlign | Protocol Configuration</a>
-<a class="" data-page-link href="/developer-depot/protocol-isolated-confirmation/">Security Cockpit - Protocol Isolated</a>
-<a class="" data-page-link href="/developer-depot/webhooks-configuration-aegis-protocol/">AEGIS Protocol - Webhooks Configuration</a>
                 </nav>
               </section>
 <section class="page-list-section">
-                <h3>Creation &amp; Analytics</h3>
+                <h3>Other Pages</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/developer-depot/colab-creation-page-1/">AegisAlign - Collaboration Hub</a>
 <a class="" data-page-link href="/developer-depot/colab-creation-page-2/">AegisAlign - Collaboration Hub</a>
 <a class="" data-page-link href="/developer-depot/network-topology-visualizer/">AEGIS Protocol | Network Topology Visualizer</a>
+<a class="" data-page-link href="/developer-depot/plugin-developer-analytics/">AegisGuard Pro Analytics | AegisAlign Depot</a>
+<a class="" data-page-link href="/developer-depot/protocol-isolated-confirmation/">Security Cockpit - Protocol Isolated</a>
                 </nav>
               </section>
           </div>
@@ -87,6 +79,9 @@
     </div>
 
     <script>
+      const buttonMappings = [];
+      const domainSlug = "developer-depot";
+
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
         const tonePairs = [
@@ -139,6 +134,23 @@
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
+
+            // Activate Buttons
+            if (!frame.dataset.activated) {
+              frame.dataset.activated = 'true';
+              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              for (const btn of clickables) {
+                const text = btn.textContent.trim().toLowerCase();
+                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                if (mapping) {
+                  btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
+                  });
+                }
+              }
+            }
+
             const body = doc.body;
             const root = doc.documentElement;
             const measuredHeights = [

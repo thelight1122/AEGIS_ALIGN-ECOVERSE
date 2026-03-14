@@ -1,0 +1,126 @@
+[
+  {
+    "domain": "agent-workshop",
+    "sections": [
+      {
+        "label": "Access",
+        "pages": [
+          { "slug": "agentic-workshop-entrance", "isParent": true },
+          { "slug": "agentic-workshop-main-console", "isParent": true }
+        ]
+      },
+      {
+        "label": "Agent Creation",
+        "pages": [
+          { "slug": "create-new-agent-flow", "isParent": true },
+          { "slug": "create-new-agent-identity-configuration", "parent": "create-new-agent-flow" },
+          { "slug": "create-new-agent-logic-intelligence", "parent": "create-new-agent-flow" },
+          { "slug": "create-new-agent-memory-rag", "parent": "create-new-agent-flow" },
+          { "slug": "create-new-agent-dataquad-memory-configuration", "parent": "create-new-agent-flow" },
+          { "slug": "dataquad-agent-deployment", "parent": "create-new-agent-flow" },
+          { "slug": "model-deployment-flow", "parent": "create-new-agent-flow" }
+        ],
+        "buttonMappings": {
+          "create-new-agent-flow": [
+            { "text": "Next", "target": "create-new-agent-identity-configuration" },
+            { "text": "Continue", "target": "create-new-agent-identity-configuration" }
+          ],
+          "create-new-agent-identity-configuration": [
+            { "text": "Next", "target": "create-new-agent-logic-intelligence" }
+          ],
+          "create-new-agent-logic-intelligence": [
+            { "text": "Next", "target": "create-new-agent-memory-rag" }
+          ],
+          "create-new-agent-memory-rag": [
+            { "text": "Next", "target": "create-new-agent-dataquad-memory-configuration" }
+          ]
+        }
+      },
+      {
+        "label": "Monitoring & Analysis",
+        "pages": [
+          { "slug": "active-agents-monitor-agentic-workshop", "isParent": true },
+          { "slug": "ai-audit-analysis-recursive-training", "parent": "active-agents-monitor-agentic-workshop" },
+          { "slug": "anomaly-analysis-detail", "parent": "active-agents-monitor-agentic-workshop" },
+          { "slug": "global-anomaly-heatmap", "parent": "active-agents-monitor-agentic-workshop" },
+          { "slug": "recursive-logic-debugger-agentic-workshop", "parent": "active-agents-monitor-agentic-workshop" },
+          { "slug": "recursive-training-progress-report", "parent": "active-agents-monitor-agentic-workshop" }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "custodian-ui",
+    "sections": [
+      {
+        "label": "Operations",
+        "pages": [
+          { "slug": "aegis-protocol-dashboard", "isParent": true },
+          { "slug": "custodian-cockpit-hud-1", "parent": "aegis-protocol-dashboard" },
+          { "slug": "custodian-cockpit-hud-2", "parent": "aegis-protocol-dashboard" },
+          { "slug": "custodian-hub-operations-gallery", "parent": "aegis-protocol-dashboard" },
+          { "slug": "site-custodians", "parent": "aegis-protocol-dashboard" },
+          { "slug": "regional-drill-down-us-east-1", "parent": "aegis-protocol-dashboard" },
+          { "slug": "system-health-report-aegis-protocol", "parent": "aegis-protocol-dashboard" },
+          { "slug": "custodian-secure", "parent": "aegis-protocol-dashboard" }
+        ]
+      },
+      {
+        "label": "Security & Review",
+        "pages": [
+          { "slug": "security-incident-assessor-center", "isParent": true },
+          { "slug": "security-logs-aegis-protocol", "parent": "security-incident-assessor-center" },
+          { "slug": "incident-report-aeg-2023-08", "parent": "security-incident-assessor-center" },
+          { "slug": "ticket-details-aeg-4092", "parent": "security-incident-assessor-center" },
+          { "slug": "proposal-discussion-details", "parent": "security-incident-assessor-center" },
+          { "slug": "safety-hold-protocol-sequence", "parent": "security-incident-assessor-center" }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "developer-depot",
+    "sections": [
+      {
+        "label": "Developer Hub",
+        "pages": [
+          { "slug": "developer-hub-depot", "isParent": true },
+          { "slug": "developer-console-aegis-protocol", "parent": "developer-hub-depot" },
+          { "slug": "my-submissions-dashboard", "parent": "developer-hub-depot" },
+          { "slug": "submit-plugin-to-depot", "parent": "developer-hub-depot" },
+          { "slug": "web3-portal", "parent": "developer-hub-depot" }
+        ]
+      },
+      {
+        "label": "Protocol APIs",
+        "pages": [
+          { "slug": "api-reference-aegis-protocol", "isParent": true },
+          { "slug": "api-usage-report-aegis-protocol", "parent": "api-reference-aegis-protocol" },
+          { "slug": "webhooks-configuration-aegis-protocol", "parent": "api-reference-aegis-protocol" },
+          { "slug": "node-management-aegis-protocol", "parent": "api-reference-aegis-protocol" },
+          { "slug": "protocol-configuration-aegis-protocol", "parent": "api-reference-aegis-protocol" }
+        ]
+      }
+    ]
+  },
+  {
+    "domain": "aegis-application-lab",
+    "sections": [
+      {
+        "label": "Core Systems",
+        "pages": [
+          { "slug": "aegis-implementation-apps", "isParent": true },
+          { "slug": "aegis-core-shield-features", "parent": "aegis-implementation-apps" },
+          { "slug": "aegis-interceptor-features-v2", "parent": "aegis-implementation-apps" }
+        ]
+      },
+      {
+        "label": "Reflective Interfaces",
+        "pages": [
+          { "slug": "aegis-reflective-prism-features", "isParent": true },
+          { "slug": "aegis-reflective-widget-features", "parent": "aegis-reflective-prism-features" }
+        ]
+      }
+    ]
+  }
+]

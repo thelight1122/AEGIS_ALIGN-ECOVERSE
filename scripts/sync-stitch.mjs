@@ -14,6 +14,7 @@ const hubsManifestPath = path.join(repoRoot, "config", "hubs-manifest.json");
 const routeMigrationsPath = path.join(repoRoot, "config", "route-migrations.json");
 const canonicalContractPath = path.join(repoRoot, "config", "canonical-behavior-contract.json");
 const canonicalSourcePath = path.join(repoRoot, "AEGIS_Docs", "AEGIS CANON v1.0.html");
+const navigationHierarchyPath = path.join(repoRoot, "config", "navigation-hierarchy.json");
 
 const domains = [
   { source: "Developer_Depot", slug: "developer-depot", label: "Developer Depot" },
@@ -207,6 +208,18 @@ function loadRouteMigrations() {
   return map;
 }
 
+function loadNavigationHierarchy() {
+  if (!fs.existsSync(navigationHierarchyPath)) {
+    return [];
+  }
+  try {
+    return JSON.parse(fs.readFileSync(navigationHierarchyPath, "utf8"));
+  } catch (err) {
+    console.error("Error loading navigation hierarchy:", err);
+    return [];
+  }
+}
+
 function loadCanonicalContract() {
   const fromSource = () => {
     if (!fs.existsSync(canonicalSourcePath)) {
@@ -285,8 +298,12 @@ function shellScriptsTemplate() {
   return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/entrance-float.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>\n    <script type="module" src="/src/glass-frame.js"></script>\n    <script type="module" src="/src/thread-transition.js"></script>';
 }
 
-function iframeBehaviorScript() {
+function iframeBehaviorScript(buttonMappings = [], domainSlug = "") {
+  const mappingsJson = JSON.stringify(buttonMappings);
   return `<script>
+      const buttonMappings = ${mappingsJson};
+      const domainSlug = "${domainSlug}";
+
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
         const tonePairs = [
@@ -339,6 +356,23 @@ function iframeBehaviorScript() {
             const doc = frame.contentDocument;
             if (!doc) return;
             softenDocument(doc);
+
+            // Activate Buttons
+            if (!frame.dataset.activated) {
+              frame.dataset.activated = 'true';
+              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              for (const btn of clickables) {
+                const text = btn.textContent.trim().toLowerCase();
+                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                if (mapping) {
+                  btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
+                  });
+                }
+              }
+            }
+
             const body = doc.body;
             const root = doc.documentElement;
             const measuredHeights = [
@@ -443,104 +477,61 @@ function voiceByDomain(domainSlug) {
   };
 }
 
-function groupPagesForSidebar(domain, domainPages) {
-  if (domain.slug === "agent-workshop") {
-    const sections = [
-      {
-        label: "Access",
-        match: (page) => [
-          "agentic-workshop-entrance",
-          "agentic-workshop-main-console",
-        ].includes(page.slug),
-      },
-      {
-        label: "Agent Creation",
-        match: (page) => [
-          "create-new-agent-flow",
-          "create-new-agent-identity-configuration",
-          "create-new-agent-logic-intelligence",
-          "create-new-agent-memory-rag",
-          "create-new-agent-dataquad-memory-configuration",
-          "dataquad-agent-deployment",
-          "model-deployment-flow",
-        ].includes(page.slug),
-      },
-      {
-        label: "Monitoring & Analysis",
-        match: (page) => [
-          "active-agents-monitor-agentic-workshop",
-          "ai-audit-analysis-recursive-training",
-          "anomaly-analysis-detail",
-          "global-anomaly-heatmap",
-          "recursive-logic-debugger-agentic-workshop",
-          "recursive-training-progress-report",
-        ].includes(page.slug),
-      },
-      {
-        label: "Systems & Tools",
-        match: () => true,
-      },
-    ];
-
-    const remaining = [...domainPages];
-    return sections
-      .map((section) => {
-        const items = remaining.filter(section.match);
-        for (const item of items) {
-          const index = remaining.indexOf(item);
-          if (index >= 0) remaining.splice(index, 1);
-        }
-        return { label: section.label, items };
-      })
-      .filter((section) => section.items.length > 0);
-  }
-
-  const keywordSections = {
-    "developer-depot": [
-      { label: "Developer Hub", match: (page) => /developer|dashboard|submissions|submit|portal|web3/.test(page.slug) },
-      { label: "Protocol APIs", match: (page) => /api|webhooks|configuration|node-management|protocol/.test(page.slug) },
-      { label: "Creation & Analytics", match: () => true },
-    ],
-    "custodian-ui": [
-      { label: "Operations", match: (page) => /dashboard|cockpit|operations|site-custodians|regional|status|secure/.test(page.slug) },
-      { label: "Security & Review", match: (page) => /security|incident|review|logs|ticket|proposal|safety/.test(page.slug) },
-      { label: "Governance & Publishing", match: () => true },
-    ],
-    "aegis-application-lab": [
-      { label: "Core Systems", match: (page) => /core|interceptor|implementation/.test(page.slug) },
-      { label: "Reflective Interfaces", match: (page) => /reflective|prism|widget/.test(page.slug) },
-      { label: "Arbitor & Colab", match: () => true },
-    ],
-  };
-
-  const sectionConfig = keywordSections[domain.slug];
-  if (!sectionConfig) {
+function groupPagesForSidebar(domain, domainPages, navigationHierarchy) {
+  const domainConfig = (navigationHierarchy || []).find((d) => d.domain === domain.slug);
+  if (!domainConfig) {
     return [{ label: `${domain.label} Pages`, items: domainPages }];
   }
 
+  const sections = [];
   const remaining = [...domainPages];
-  return sectionConfig
-    .map((section) => {
-      const items = remaining.filter(section.match);
-      for (const item of items) {
-        const index = remaining.indexOf(item);
-        if (index >= 0) remaining.splice(index, 1);
+
+  for (const section of domainConfig.sections) {
+    const sectionPages = [];
+    for (const pageConfig of section.pages) {
+      const page = remaining.find((p) => p.slug === pageConfig.slug);
+      if (page) {
+        sectionPages.push({
+          ...page,
+          isParent: pageConfig.isParent,
+          parent: pageConfig.parent
+        });
+        const idx = remaining.indexOf(page);
+        if (idx >= 0) remaining.splice(idx, 1);
       }
-      return { label: section.label, items };
-    })
-    .filter((section) => section.items.length > 0);
+    }
+    if (sectionPages.length > 0) {
+      sections.push({
+        label: section.label,
+        items: sectionPages,
+        buttonMappings: section.buttonMappings
+      });
+    }
+  }
+
+  if (remaining.length > 0) {
+    sections.push({
+      label: "Other Pages",
+      items: remaining
+    });
+  }
+
+  return sections;
 }
 
-function renderSidebarNav(domain, domainPages, currentPage) {
-  const sections = groupPagesForSidebar(domain, domainPages);
+function renderSidebarNav(domain, domainPages, currentPage, navigationHierarchy) {
+  const sections = groupPagesForSidebar(domain, domainPages, navigationHierarchy);
   return sections
     .map((section) => {
       const links = section.items
+        .filter((item) => item.isParent || !item.parent)
         .map((item) => {
           const active = item.slug === currentPage.slug ? "active" : "";
           return `<a class="${active}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
         })
         .join("\n");
+
+      if (!links.trim()) return "";
 
       return `<section class="page-list-section">
                 <h3>${escapeHtml(section.label)}</h3>
@@ -549,11 +540,16 @@ function renderSidebarNav(domain, domainPages, currentPage) {
                 </nav>
               </section>`;
     })
+    .filter(Boolean)
     .join("\n");
 }
 
 function routeTemplate({ page, domain, domainPages }) {
-  const sidebarLinks = renderSidebarNav(domain, domainPages, page);
+  const domainConfig = (typeof navigationHierarchy !== "undefined" ? navigationHierarchy : []).find((d) => d.domain === domain.slug);
+  const section = domainConfig?.sections.find(s => s.pages.some(p => p.slug === page.slug));
+  const buttonMappings = section?.buttonMappings?.[page.slug] || [];
+
+  const sidebarLinks = renderSidebarNav(domain, domainPages, page, typeof navigationHierarchy !== "undefined" ? navigationHierarchy : []);
 
   const workshopEntrance = domain.slug === "agent-workshop"
     ? domainPages.find((item) => item.slug === "agentic-workshop-entrance")
@@ -715,7 +711,7 @@ function routeTemplate({ page, domain, domainPages }) {
       </div>
     </div>
 
-    ${iframeBehaviorScript()}
+    ${iframeBehaviorScript(buttonMappings, domain.slug)}
     ${shellScriptsTemplate()}
   </body>
 </html>
@@ -1165,6 +1161,7 @@ if (!fs.existsSync(stitchRoot)) {
 const hubs = loadHubsManifest();
 const hubByDomain = new Map(hubs.map((hub) => [hub.domainSlug, hub]));
 const routeMigrations = loadRouteMigrations();
+const navigationHierarchy = loadNavigationHierarchy();
 const canonicalContract = loadCanonicalContract();
 
 fs.rmSync(generatedRoot, { recursive: true, force: true });
