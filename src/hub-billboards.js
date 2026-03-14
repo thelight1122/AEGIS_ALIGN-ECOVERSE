@@ -1,4 +1,18 @@
-import * as THREE from "three";
+import {
+  AdditiveBlending,
+  Clock,
+  DoubleSide,
+  FogExp2,
+  LinearFilter,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Scene,
+  SRGBColorSpace,
+  VideoTexture,
+  WebGLRenderer,
+} from "three";
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isCompact = window.matchMedia("(max-width: 980px)").matches;
@@ -31,16 +45,16 @@ if (config) {
   canvas.className = "hub-billboards-canvas";
   document.body.prepend(canvas);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
 
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x07101a, 0.045);
+  const scene = new Scene();
+  scene.fog = new FogExp2(0x07101a, 0.045);
 
-  const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 60);
+  const camera = new PerspectiveCamera(52, 1, 0.1, 60);
   camera.position.set(0, 0.2, 10.5);
 
-  const boardGeometry = new THREE.PlaneGeometry(2.4, 1.36);
+  const boardGeometry = new PlaneGeometry(2.4, 1.36);
   const boards = [];
   const videos = [];
   const textures = [];
@@ -60,22 +74,22 @@ if (config) {
     video.setAttribute("playsinline", "");
     video.setAttribute("muted", "");
 
-    const texture = new THREE.VideoTexture(video);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
+    const texture = new VideoTexture(video);
+    texture.colorSpace = SRGBColorSpace;
+    texture.minFilter = LinearFilter;
+    texture.magFilter = LinearFilter;
     texture.generateMipmaps = false;
 
-    const material = new THREE.MeshBasicMaterial({
+    const material = new MeshBasicMaterial({
       map: texture,
-      side: THREE.DoubleSide,
+      side: DoubleSide,
       transparent: true,
       opacity: config.opacity,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
       depthWrite: false,
     });
 
-    const mesh = new THREE.Mesh(boardGeometry, material);
+    const mesh = new Mesh(boardGeometry, material);
     const spread = activeSources.length === 1 ? 0 : i / (activeSources.length - 1);
     mesh.position.set((spread - 0.5) * 6.5, (Math.random() - 0.5) * 1.8, -3.4 - i * 1.5);
     mesh.rotation.set((Math.random() - 0.5) * 0.2, Math.random() * Math.PI * 2, 0);
@@ -111,7 +125,7 @@ if (config) {
   resize();
   window.addEventListener("resize", resize);
 
-  const clock = new THREE.Clock();
+  const clock = new Clock();
   let raf = 0;
 
   function tick() {

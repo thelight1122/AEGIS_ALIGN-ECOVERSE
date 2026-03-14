@@ -456,6 +456,20 @@
   },
   {
     "domain": "nexus",
+    "slug": "aegis-governance-hub",
+    "title": "AEGIS Governance Hub",
+    "sourcePath": "AEGIS_Docs",
+    "routePath": "/nexus/aegis-governance-hub/"
+  },
+  {
+    "domain": "nexus",
+    "slug": "aegis-peer-profile",
+    "title": "AEGIS Peer Profile",
+    "sourcePath": "generated-profile",
+    "routePath": "/nexus/aegis-peer-profile/"
+  },
+  {
+    "domain": "nexus",
     "slug": "aegis-protocol-dashboard",
     "title": "AEGIS Protocol - Mission Guidance",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_protocol_dashboard/code.html",

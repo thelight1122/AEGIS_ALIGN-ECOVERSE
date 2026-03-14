@@ -1,4 +1,28 @@
-import * as THREE from "three";
+import {
+  AdditiveBlending,
+  BufferAttribute,
+  BufferGeometry,
+  CanvasTexture,
+  Clock,
+  DoubleSide,
+  FogExp2,
+  IcosahedronGeometry,
+  LinearFilter,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Points,
+  PointsMaterial,
+  RingGeometry,
+  Scene,
+  SRGBColorSpace,
+  TorusGeometry,
+  Vector2,
+  Vector3,
+  VideoTexture,
+  WebGLRenderer,
+} from "three";
 
 const canvas = document.getElementById("ether-canvas");
 if (!canvas) {
@@ -6,25 +30,25 @@ if (!canvas) {
 } else {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
 
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x020711, 0.028);
+  const scene = new Scene();
+  scene.fog = new FogExp2(0x020711, 0.028);
 
-  const camera = new THREE.PerspectiveCamera(58, 1, 0.1, 80);
+  const camera = new PerspectiveCamera(58, 1, 0.1, 80);
   camera.position.set(0, 0.2, 5.5);
-  const cameraTarget = new THREE.Vector3(0, 0, 0);
-  const driftTarget = new THREE.Vector2(0, 0);
+  const cameraTarget = new Vector3(0, 0, 0);
+  const driftTarget = new Vector2(0, 0);
   let hasEntranceFocus = false;
   const isImmersiveNexus = document.body.classList.contains("immersive-root");
   const roadSigns = [];
   let lockedRoadSign = null;
-  const projectionBuffer = new THREE.Vector3();
+  const projectionBuffer = new Vector3();
   const focusThreshold = 0.13;
   let transitPull = 0;
 
-  const starGeometry = new THREE.BufferGeometry();
+  const starGeometry = new BufferGeometry();
   const starCount = 2500;
   const positions = new Float32Array(starCount * 3);
   for (let i = 0; i < starCount; i += 1) {
@@ -32,21 +56,21 @@ if (!canvas) {
     positions[i * 3 + 1] = (Math.random() - 0.5) * 12;
     positions[i * 3 + 2] = -Math.random() * 28;
   }
-  starGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  starGeometry.setAttribute("position", new BufferAttribute(positions, 3));
 
-  const starMaterial = new THREE.PointsMaterial({
+  const starMaterial = new PointsMaterial({
     color: 0xa6d8ff,
     size: 0.024,
     transparent: true,
     opacity: 0.85,
-    blending: THREE.AdditiveBlending,
+    blending: AdditiveBlending,
     depthWrite: false,
   });
 
-  const stars = new THREE.Points(starGeometry, starMaterial);
+  const stars = new Points(starGeometry, starMaterial);
   scene.add(stars);
 
-  const veilGeometry = new THREE.BufferGeometry();
+  const veilGeometry = new BufferGeometry();
   const veilCount = 900;
   const veilPositions = new Float32Array(veilCount * 3);
   for (let i = 0; i < veilCount; i += 1) {
@@ -54,33 +78,33 @@ if (!canvas) {
     veilPositions[i * 3 + 1] = (Math.random() - 0.5) * 8;
     veilPositions[i * 3 + 2] = -Math.random() * 24;
   }
-  veilGeometry.setAttribute("position", new THREE.BufferAttribute(veilPositions, 3));
+  veilGeometry.setAttribute("position", new BufferAttribute(veilPositions, 3));
 
-  const veilMaterial = new THREE.PointsMaterial({
+  const veilMaterial = new PointsMaterial({
     color: 0x84ffd2,
     size: 0.015,
     transparent: true,
     opacity: 0.55,
-    blending: THREE.AdditiveBlending,
+    blending: AdditiveBlending,
     depthWrite: false,
   });
 
-  const veil = new THREE.Points(veilGeometry, veilMaterial);
+  const veil = new Points(veilGeometry, veilMaterial);
   scene.add(veil);
 
-  const glowGeometry = new THREE.TorusGeometry(1.2, 0.08, 16, 96);
-  const glowMaterial = new THREE.MeshBasicMaterial({
+  const glowGeometry = new TorusGeometry(1.2, 0.08, 16, 96);
+  const glowMaterial = new MeshBasicMaterial({
     color: 0x59b0ff,
     transparent: true,
     opacity: 0.25,
   });
-  const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+  const glow = new Mesh(glowGeometry, glowMaterial);
   glow.position.set(0, -0.3, -2.2);
   glow.rotation.x = Math.PI * 0.5;
   scene.add(glow);
 
-  const shardGeometry = new THREE.IcosahedronGeometry(0.16, 0);
-  const shardMaterial = new THREE.MeshBasicMaterial({
+  const shardGeometry = new IcosahedronGeometry(0.16, 0);
+  const shardMaterial = new MeshBasicMaterial({
     color: 0xb8d8ff,
     transparent: true,
     opacity: 0.45,
@@ -88,7 +112,7 @@ if (!canvas) {
   });
   const shards = [];
   for (let i = 0; i < 8; i += 1) {
-    const shard = new THREE.Mesh(shardGeometry, shardMaterial);
+    const shard = new Mesh(shardGeometry, shardMaterial);
     shard.position.set((Math.random() - 0.5) * 7, (Math.random() - 0.5) * 3.8, -2 - Math.random() * 8);
     shard.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
     scene.add(shard);
@@ -128,10 +152,10 @@ if (!canvas) {
     ctx.font = "500 28px 'Segoe UI', sans-serif";
     ctx.fillText("Drift into resonance and click to enter", 48, 272);
 
-    const texture = new THREE.CanvasTexture(canvasTexture);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
+    const texture = new CanvasTexture(canvasTexture);
+    texture.colorSpace = SRGBColorSpace;
+    texture.minFilter = LinearFilter;
+    texture.magFilter = LinearFilter;
     return texture;
   }
 
@@ -203,19 +227,19 @@ if (!canvas) {
       },
     ];
 
-    const signGeometry = new THREE.PlaneGeometry(2.6, 0.95);
+    const signGeometry = new PlaneGeometry(2.6, 0.95);
 
     for (let i = 0; i < specs.length; i += 1) {
       const spec = specs[i];
       const texture = makeRoadSignTexture(spec.label, spec.subtitle, spec.palette);
-      const material = new THREE.MeshBasicMaterial({
+      const material = new MeshBasicMaterial({
         map: texture,
-        side: THREE.DoubleSide,
+        side: DoubleSide,
         transparent: true,
         opacity: 0.92,
         depthWrite: false,
       });
-      const sign = new THREE.Mesh(signGeometry, material);
+      const sign = new Mesh(signGeometry, material);
       sign.position.set(spec.x, spec.y, spec.z);
       sign.userData.route = spec.route;
       sign.userData.label = spec.label;
@@ -223,13 +247,13 @@ if (!canvas) {
       sign.userData.phase = Math.random() * Math.PI * 2;
       scene.add(sign);
 
-      const halo = new THREE.Mesh(
-        new THREE.RingGeometry(0.62, 0.7, 52),
-        new THREE.MeshBasicMaterial({
+      const halo = new Mesh(
+        new RingGeometry(0.62, 0.7, 52),
+        new MeshBasicMaterial({
           color: spec.color,
           transparent: true,
           opacity: 0.33,
-          side: THREE.DoubleSide,
+          side: DoubleSide,
           depthWrite: false,
         }),
       );
@@ -238,9 +262,9 @@ if (!canvas) {
 
       const tunnelRings = [];
       for (let r = 0; r < 7; r += 1) {
-        const ring = new THREE.Mesh(
-          new THREE.TorusGeometry(0.46 + r * 0.08, 0.016, 12, 42),
-          new THREE.MeshBasicMaterial({
+        const ring = new Mesh(
+          new TorusGeometry(0.46 + r * 0.08, 0.016, 12, 42),
+          new MeshBasicMaterial({
             color: spec.color,
             transparent: true,
             opacity: 0.06 + r * 0.012,
@@ -277,7 +301,7 @@ if (!canvas) {
     "/media/billboard-soft-light-562.mp4",
   ];
   const activeBillboardSources = isCompact ? billboardSources.slice(0, 3) : billboardSources;
-  const billboardGeometry = new THREE.PlaneGeometry(1.9, 1.1);
+  const billboardGeometry = new PlaneGeometry(1.9, 1.1);
   const billboardMeshes = [];
   const billboardMaterials = [];
   const billboardTextures = [];
@@ -296,22 +320,22 @@ if (!canvas) {
     video.setAttribute("playsinline", "");
     video.setAttribute("muted", "");
 
-    const texture = new THREE.VideoTexture(video);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
+    const texture = new VideoTexture(video);
+    texture.colorSpace = SRGBColorSpace;
+    texture.minFilter = LinearFilter;
+    texture.magFilter = LinearFilter;
     texture.generateMipmaps = false;
 
-    const material = new THREE.MeshBasicMaterial({
+    const material = new MeshBasicMaterial({
       map: texture,
-      side: THREE.DoubleSide,
+      side: DoubleSide,
       transparent: true,
       opacity: 0.78,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
       depthWrite: false,
     });
 
-    const mesh = new THREE.Mesh(billboardGeometry, material);
+    const mesh = new Mesh(billboardGeometry, material);
     const arc = (i / activeBillboardSources.length) * Math.PI * 2;
     mesh.position.set(Math.cos(arc) * 3.4, Math.sin(arc * 1.2) * 1.2, -4.2 - i * 1.2);
     scene.add(mesh);
@@ -347,7 +371,7 @@ if (!canvas) {
   window.addEventListener("resize", resize);
 
   let raf = 0;
-  const clock = new THREE.Clock();
+  const clock = new Clock();
 
   window.addEventListener("aegis:entrance-focus", (event) => {
     const detail = event.detail || {};

@@ -16,6 +16,8 @@
           </a>
           <nav class="top-links">
             <a href="/">Nexus</a>
+<a class="top-link-governance" href="/nexus/aegis-governance-hub/">AEGIS Principles</a>
+<a class="top-link-profile" href="/nexus/aegis-peer-profile/">Profile</a>
 <a href="/developer-depot/">Developer Depot</a>
 <a href="/custodian-ui/">Custodian Ops Center</a>
 <a href="/aegis-application-lab/">AEGIS Application Lab</a>
@@ -71,6 +73,7 @@
               <div class="breadcrumb">Developer Depot / webhooks-configuration-aegis-protocol</div>
             </div>
           </div>
+          
           <div class="iframe-wrap">
             <iframe class="stitch-frame" data-frame-role="active" title="AEGIS Protocol - Webhooks Configuration" src="/stitch/developer-depot/webhooks-configuration-aegis-protocol/" loading="lazy"></iframe>
           </div>
@@ -81,6 +84,7 @@
     <script>
       const buttonMappings = [];
       const domainSlug = "developer-depot";
+      const autoTransition = null;
 
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
@@ -129,6 +133,11 @@
           if (doc.title) doc.title = softenText(doc.title);
         };
 
+        const normalizeButtonText = (value) => String(value || "")
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+
         const updateHeight = (frame) => {
           try {
             const doc = frame.contentDocument;
@@ -138,16 +147,27 @@
             // Activate Buttons
             if (!frame.dataset.activated) {
               frame.dataset.activated = 'true';
-              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              const clickables = Array.from(doc.querySelectorAll('button, a, a.btn, a.button, .stitch-btn'));
               for (const btn of clickables) {
-                const text = btn.textContent.trim().toLowerCase();
-                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                const text = normalizeButtonText(btn.textContent);
+                const mapping = buttonMappings.find((m) => {
+                  const targetText = normalizeButtonText(m.text);
+                  return text === targetText || text.includes(targetText);
+                });
                 if (mapping) {
                   btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
                   });
                 }
+              }
+
+              if (autoTransition?.target && !frame.dataset.autoTransitionBound) {
+                frame.dataset.autoTransitionBound = 'true';
+                const delayMs = Number(autoTransition.delayMs) || 1400;
+                window.setTimeout(() => {
+                  window.location.href = '/' + domainSlug + '/' + autoTransition.target + '/';
+                }, delayMs);
               }
             }
 
@@ -203,11 +223,7 @@
     <script type="module" src="/src/reminder-signals.js"></script>
     <script type="module" src="/src/ambient-signals.js"></script>
     <script type="module" src="/src/peer-signs.js"></script>
-    <script type="module" src="/src/hub-billboards.js"></script>
-    <script type="module" src="/src/wire-grid-prism.js"></script>
-    <script type="module" src="/src/entrance-float.js"></script>
-    <script type="module" src="/src/portal-transit.js"></script>
     <script type="module" src="/src/glass-frame.js"></script>
-    <script type="module" src="/src/thread-transition.js"></script>
+    <script type="module" src="/src/hub-billboards.js"></script>
   </body>
 </html>

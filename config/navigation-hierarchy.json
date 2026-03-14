@@ -9,7 +9,44 @@
           { "slug": "aegis-protocol-features", "parent": "aegisalign-landing-page" },
           { "slug": "aegis-protocol-documentation-portal", "parent": "aegisalign-landing-page" },
           { "slug": "aegis-protocol-dashboard", "parent": "aegisalign-landing-page" }
-        ]
+        ],
+        "buttonMappings": {
+          "aegisalign-landing-page": [
+            { "text": "Login", "target": "login-aegisalign" },
+            { "text": "Get Started", "target": "signup-aegisalign" },
+            { "text": "Deploy Now", "target": "aegisalign-pricing-plans" },
+            { "text": "Watch Demo", "target": "aegis-protocol-dashboard" },
+            { "text": "Get Started Free", "target": "signup-aegisalign" },
+            { "text": "Talk to Sales", "target": "aegisalign-pricing-plans" },
+            { "text": "AEGIS Protocol", "target": "aegis-protocol-features" },
+            { "text": "Documentation", "target": "aegis-protocol-documentation-portal" }
+          ],
+          "aegis-protocol-documentation-portal": [
+            { "text": "Log In", "target": "login-aegisalign" },
+            { "text": "Getting Started", "target": "aegis-protocol-features" },
+            { "text": "API Reference", "target": "aegis-protocol-documentation-portal" },
+            { "text": "Protocol Specs", "target": "aegis-protocol-features" },
+            { "text": "SDKs", "target": "aegis-protocol-documentation-portal" },
+            { "text": "Security Whitepapers", "target": "aegis-protocol-features" },
+            { "text": "Authentication Flow", "target": "login-aegisalign" },
+            { "text": "Webhook Setup", "target": "aegis-protocol-dashboard" },
+            { "text": "Encryption Standards", "target": "aegis-protocol-features" },
+            { "text": "Release Notes", "target": "aegis-protocol-features" },
+            { "text": "Book a Session", "target": "aegisalign-pricing-plans" }
+          ],
+          "aegis-protocol-dashboard": [
+            { "text": "Dashboard", "target": "aegis-protocol-dashboard" },
+            { "text": "Shields", "target": "aegis-protocol-features" },
+            { "text": "Threats", "target": "aegis-protocol-dashboard" },
+            { "text": "Nodes", "target": "aegis-protocol-dashboard" },
+            { "text": "Mission Control", "target": "aegis-protocol-dashboard" },
+            { "text": "Global Network", "target": "aegis-protocol-dashboard" },
+            { "text": "Vault Security", "target": "aegisalign-settings" },
+            { "text": "System Logs", "target": "aegis-protocol-dashboard" },
+            { "text": "Manage All Gateways", "target": "aegisalign-settings" },
+            { "text": "Settings", "target": "aegisalign-settings" }
+          ]
+        }
       },
       {
         "label": "Access & Identity",
@@ -18,13 +55,64 @@
           { "slug": "signup-aegisalign", "parent": "login-aegisalign" },
           { "slug": "multi-factor-authentication", "parent": "login-aegisalign" },
           { "slug": "login-success-transition", "parent": "login-aegisalign" }
-        ]
+        ],
+        "buttonMappings": {
+          "login-aegisalign": [
+            { "text": "Login to Protocol", "target": "login-success-transition" },
+            { "text": "Create an account", "target": "signup-aegisalign" },
+            { "text": "Forgot Password?", "target": "aegisalign-settings" },
+            { "text": "Support", "target": "aegis-protocol-documentation-portal" }
+          ],
+          "signup-aegisalign": [
+            { "text": "Create Account", "target": "multi-factor-authentication" },
+            { "text": "Login", "target": "login-aegisalign" },
+            { "text": "Documentation", "target": "aegis-protocol-documentation-portal" },
+            { "text": "Support", "target": "aegis-protocol-documentation-portal" },
+            { "text": "System Status", "target": "aegis-protocol-dashboard" }
+          ],
+          "multi-factor-authentication": [
+            { "text": "Verify Identity", "target": "login-success-transition" },
+            { "text": "Send SMS Code instead", "target": "login-success-transition" },
+            { "text": "Use Backup Recovery Key", "target": "login-success-transition" }
+          ]
+        },
+        "autoTransitions": {
+          "login-success-transition": {
+            "target": "aegis-protocol-dashboard",
+            "delayMs": 1400
+          }
+        }
       },
       {
         "label": "Account Surfaces",
         "pages": [
-          { "slug": "aegisalign-pricing-plans", "isParent": true },
-          { "slug": "aegisalign-settings", "parent": "aegisalign-pricing-plans" }
+          { "slug": "aegis-peer-profile", "isParent": true },
+          { "slug": "aegisalign-pricing-plans", "parent": "aegis-peer-profile" },
+          { "slug": "aegisalign-settings", "parent": "aegis-peer-profile" }
+        ],
+        "buttonMappings": {
+          "aegis-peer-profile": [
+            { "text": "Open Settings", "target": "aegisalign-settings" },
+            { "text": "Subscriber Plans", "target": "aegisalign-pricing-plans" },
+            { "text": "Login", "target": "login-aegisalign" },
+            { "text": "Documentation", "target": "aegis-protocol-documentation-portal" }
+          ],
+          "aegisalign-pricing-plans": [
+            { "text": "Sign Up", "target": "signup-aegisalign" },
+            { "text": "Login", "target": "login-aegisalign" },
+            { "text": "Start Free Trial", "target": "signup-aegisalign" },
+            { "text": "Get Started", "target": "signup-aegisalign" },
+            { "text": "Contact Sales", "target": "aegis-protocol-documentation-portal" },
+            { "text": "Get Started Now", "target": "signup-aegisalign" },
+            { "text": "Schedule Demo", "target": "aegis-protocol-dashboard" },
+            { "text": "Documentation", "target": "aegis-protocol-documentation-portal" }
+          ]
+        }
+      },
+      {
+        "label": "Governance & Canon",
+        "pages": [
+          { "slug": "aegis-governance-hub", "isParent": true }
         ]
       }
     ]

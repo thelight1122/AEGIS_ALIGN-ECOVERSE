@@ -151,6 +151,10 @@
 /developer-depot/webhooks-configuration-aegis-protocol/index.html /developer-depot/webhooks-configuration-aegis-protocol/ 301
 /index.html / 301
 /nexus /nexus/ 301
+/nexus/aegis-governance-hub /nexus/aegis-governance-hub/ 301
+/nexus/aegis-governance-hub/index.html /nexus/aegis-governance-hub/ 301
+/nexus/aegis-peer-profile /nexus/aegis-peer-profile/ 301
+/nexus/aegis-peer-profile/index.html /nexus/aegis-peer-profile/ 301
 /nexus/aegis-protocol-dashboard /nexus/aegis-protocol-dashboard/ 301
 /nexus/aegis-protocol-dashboard/index.html /nexus/aegis-protocol-dashboard/ 301
 /nexus/aegis-protocol-documentation-portal /nexus/aegis-protocol-documentation-portal/ 301

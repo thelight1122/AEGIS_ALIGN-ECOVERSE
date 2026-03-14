@@ -16,6 +16,8 @@
           </a>
           <nav class="top-links">
             <a href="/">Nexus</a>
+<a class="top-link-governance" href="/nexus/aegis-governance-hub/">AEGIS Principles</a>
+<a class="top-link-profile" href="/nexus/aegis-peer-profile/">Profile</a>
 <a href="/developer-depot/">Developer Depot</a>
 <a href="/custodian-ui/">Custodian Ops Center</a>
 <a href="/aegis-application-lab/">AEGIS Application Lab</a>
@@ -43,18 +45,32 @@
                 <h3>EcoVerse Hub</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/nexus/aegisalign-landing-page/">AegisAlign | Secure Your Digital Frontier</a>
+<a class="page-link-child" data-page-link href="/nexus/aegis-protocol-features/">AegisAlign - Protocol Features</a>
+<a class="page-link-child" data-page-link href="/nexus/aegis-protocol-documentation-portal/">AegisAlign Documentation - AEGIS Protocol</a>
+<a class="active page-link-child" data-page-link href="/nexus/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
                 </nav>
               </section>
 <section class="page-list-section">
                 <h3>Access &amp; Identity</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/nexus/login-aegisalign/">AegisAlign | Secure Login</a>
+<a class="page-link-child" data-page-link href="/nexus/signup-aegisalign/">Sign Up | AegisAlign Protocol</a>
+<a class="page-link-child" data-page-link href="/nexus/multi-factor-authentication/">Multi Factor Authentication</a>
+<a class="page-link-child" data-page-link href="/nexus/login-success-transition/">Login Success Transition</a>
                 </nav>
               </section>
 <section class="page-list-section">
                 <h3>Account Surfaces</h3>
                 <nav class="page-list">
-                  <a class="" data-page-link href="/nexus/aegisalign-pricing-plans/">Pricing - AegisAlign</a>
+                  <a class="" data-page-link href="/nexus/aegis-peer-profile/">AEGIS Peer Profile</a>
+<a class="page-link-child" data-page-link href="/nexus/aegisalign-pricing-plans/">Pricing - AegisAlign</a>
+<a class="page-link-child" data-page-link href="/nexus/aegisalign-settings/">Aegisalign Settings</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Governance &amp; Canon</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/nexus/aegis-governance-hub/">AEGIS Governance Hub</a>
                 </nav>
               </section>
           </div>
@@ -67,6 +83,15 @@
               <div class="breadcrumb">Nexus / aegis-protocol-dashboard</div>
             </div>
           </div>
+          <section class="nexus-command-deck" data-nexus-command-deck data-page-slug="aegis-protocol-dashboard">
+          <div class="nexus-command-grid">
+            <article class="nexus-command-card nexus-command-card-session" data-nexus-session-card></article>
+            <article class="nexus-command-card nexus-command-card-activity" data-nexus-activity-card></article>
+            <article class="nexus-command-card nexus-command-card-actions" data-nexus-actions-card></article>
+          </div>
+          <article class="nexus-handoff-panel" data-nexus-handoff-card></article>
+          
+        </section>
           <div class="iframe-wrap">
             <iframe class="stitch-frame" data-frame-role="active" title="AEGIS Protocol - Mission Guidance" src="/stitch/nexus/aegis-protocol-dashboard/" loading="lazy"></iframe>
           </div>
@@ -75,8 +100,9 @@
     </div>
 
     <script>
-      const buttonMappings = [];
+      const buttonMappings = [{"text":"Dashboard","target":"aegis-protocol-dashboard"},{"text":"Shields","target":"aegis-protocol-features"},{"text":"Threats","target":"aegis-protocol-dashboard"},{"text":"Nodes","target":"aegis-protocol-dashboard"},{"text":"Mission Control","target":"aegis-protocol-dashboard"},{"text":"Global Network","target":"aegis-protocol-dashboard"},{"text":"Vault Security","target":"aegisalign-settings"},{"text":"System Logs","target":"aegis-protocol-dashboard"},{"text":"Manage All Gateways","target":"aegisalign-settings"},{"text":"Settings","target":"aegisalign-settings"}];
       const domainSlug = "nexus";
+      const autoTransition = null;
 
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
@@ -125,6 +151,11 @@
           if (doc.title) doc.title = softenText(doc.title);
         };
 
+        const normalizeButtonText = (value) => String(value || "")
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+
         const updateHeight = (frame) => {
           try {
             const doc = frame.contentDocument;
@@ -134,16 +165,27 @@
             // Activate Buttons
             if (!frame.dataset.activated) {
               frame.dataset.activated = 'true';
-              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              const clickables = Array.from(doc.querySelectorAll('button, a, a.btn, a.button, .stitch-btn'));
               for (const btn of clickables) {
-                const text = btn.textContent.trim().toLowerCase();
-                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                const text = normalizeButtonText(btn.textContent);
+                const mapping = buttonMappings.find((m) => {
+                  const targetText = normalizeButtonText(m.text);
+                  return text === targetText || text.includes(targetText);
+                });
                 if (mapping) {
                   btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
                   });
                 }
+              }
+
+              if (autoTransition?.target && !frame.dataset.autoTransitionBound) {
+                frame.dataset.autoTransitionBound = 'true';
+                const delayMs = Number(autoTransition.delayMs) || 1400;
+                window.setTimeout(() => {
+                  window.location.href = '/' + domainSlug + '/' + autoTransition.target + '/';
+                }, delayMs);
               }
             }
 
@@ -199,11 +241,7 @@
     <script type="module" src="/src/reminder-signals.js"></script>
     <script type="module" src="/src/ambient-signals.js"></script>
     <script type="module" src="/src/peer-signs.js"></script>
-    <script type="module" src="/src/hub-billboards.js"></script>
-    <script type="module" src="/src/wire-grid-prism.js"></script>
-    <script type="module" src="/src/entrance-float.js"></script>
-    <script type="module" src="/src/portal-transit.js"></script>
     <script type="module" src="/src/glass-frame.js"></script>
-    <script type="module" src="/src/thread-transition.js"></script>
+    <script type="module" src="/src/nexus-state.js"></script>
   </body>
 </html>

@@ -14,6 +14,8 @@ const hubsManifestPath = path.join(repoRoot, "config", "hubs-manifest.json");
 const routeMigrationsPath = path.join(repoRoot, "config", "route-migrations.json");
 const canonicalContractPath = path.join(repoRoot, "config", "canonical-behavior-contract.json");
 const canonicalSourcePath = path.join(repoRoot, "AEGIS_Docs", "AEGIS CANON v1.0.html");
+const glossarySourcePath = path.join(repoRoot, "AEGIS_Docs", "AEGIS Canonical Glossary v1.0.md");
+const standardsSourcePath = path.join(repoRoot, "AEGIS_Docs", "AEGIS Standards v0.1.md");
 const navigationHierarchyPath = path.join(repoRoot, "config", "navigation-hierarchy.json");
 const nexusDomain = { source: "Landing_Pages", slug: "nexus", label: "Nexus" };
 
@@ -287,8 +289,324 @@ function updateRedirectsFile(redirectFilePath, redirects) {
 function topLinksTemplate() {
   return [
     '<a href="/">Nexus</a>',
+    '<a class="top-link-governance" href="/nexus/aegis-governance-hub/">AEGIS Principles</a>',
+    '<a class="top-link-profile" href="/nexus/aegis-peer-profile/">Profile</a>',
     ...domains.map((domain) => `<a href="/${domain.slug}/">${escapeHtml(domain.label)}</a>`),
   ].join("\n");
+}
+
+function excerptParagraphs(markdown, count = 2) {
+  return markdown
+    .split(/\r?\n\r?\n/)
+    .map((block) => block.replace(/\r?\n/g, " ").trim())
+    .filter((block) => block && !block.startsWith("#") && !block.startsWith("- ") && !/^\d+\./.test(block))
+    .slice(0, count);
+}
+
+function loadGlossaryEntries(limit = 10) {
+  if (!fs.existsSync(glossarySourcePath)) return [];
+  const source = fs.readFileSync(glossarySourcePath, "utf8");
+  const blocks = source.split(/\r?\n\r?\n/).map((block) => block.trim()).filter(Boolean);
+  const entries = [];
+
+  for (let index = 0; index < blocks.length - 1; index += 1) {
+    const term = blocks[index];
+    const definition = blocks[index + 1];
+    if (!term || !definition) continue;
+    if (term.startsWith("#")) continue;
+    if (/^[A-Z][A-Za-z0-9\s&()–-]+$/.test(term) || /\([A-Z]+\)/.test(term)) {
+      entries.push({
+        term: term.replace(/\s+/g, " ").trim(),
+        definition: definition.replace(/\s+/g, " ").trim(),
+      });
+    }
+    if (entries.length >= limit) break;
+  }
+
+  return entries;
+}
+
+function loadStandardsHighlights(limit = 5) {
+  if (!fs.existsSync(standardsSourcePath)) return [];
+  const source = fs.readFileSync(standardsSourcePath, "utf8");
+  const sections = source.split(/^##\s+/m).slice(1);
+  return sections.slice(0, limit).map((section) => {
+    const [headingLine, ...rest] = section.split(/\r?\n/);
+    return {
+      heading: headingLine.trim(),
+      paragraphs: excerptParagraphs(rest.join("\n"), 2),
+    };
+  });
+}
+
+function governanceHubTemplate(canonicalContract) {
+  const axioms = canonicalContract.lockedCanon.axioms;
+  const virtues = canonicalContract.lockedCanon.virtues;
+  const ethos = canonicalContract.lockedCanon.ethos;
+  const imperatives = canonicalContract.lockedCanon.imperatives;
+  const glossary = loadGlossaryEntries(12);
+  const standards = loadStandardsHighlights(4);
+
+  const axiomCards = axioms.map((axiom) => `
+    <article class="governance-card">
+      <p class="governance-kicker">Locked Canon · ${escapeHtml(String(axiom.id))}</p>
+      <h3>${escapeHtml(axiom.title)}</h3>
+      <p>${escapeHtml(axiom.text.replace(/\s+/g, " "))}</p>
+    </article>
+  `).join("\n");
+
+  const virtueItems = virtues.map((virtue) => `
+    <div class="governance-chip-card">
+      <strong>${escapeHtml(virtue.name)}</strong>
+      <span>${escapeHtml(virtue.definition.replace(/\s+/g, " "))}</span>
+    </div>
+  `).join("\n");
+
+  const glossaryItems = glossary.map((entry) => `
+    <details class="governance-detail">
+      <summary>${escapeHtml(entry.term)}</summary>
+      <p>${escapeHtml(entry.definition)}</p>
+    </details>
+  `).join("\n");
+
+  const standardItems = standards.map((section) => `
+    <article class="governance-standard">
+      <h3>${escapeHtml(section.heading)}</h3>
+      ${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n")}
+    </article>
+  `).join("\n");
+
+  const ethosItems = ethos.map((item) => `<span class="governance-pill">${escapeHtml(item)}</span>`).join("\n");
+  const imperativeItems = imperatives.map((item) => `<span class="governance-pill governance-pill-imperative">${escapeHtml(item)}</span>`).join("\n");
+
+  return `
+    <section class="governance-hero">
+      <div>
+        <p class="governance-kicker">AEGIS Governance Hub</p>
+        <h2>One impartial reference surface for the canon, glossary, standards, and governing posture of the EcoVerse.</h2>
+        <p class="governance-lead">Peers can enter here from any page to understand the non-force principles that guide the platform. This is the shared reference layer for Humans and AIs operating under AEGIS.</p>
+      </div>
+      <div class="governance-hero-actions">
+        <a class="governance-action" href="/nexus/aegis-protocol-documentation-portal/">Open Docs</a>
+        <a class="governance-action governance-action-secondary" href="/nexus/aegisalign-landing-page/">Return to Nexus</a>
+      </div>
+    </section>
+    <section class="governance-section">
+      <div class="governance-section-head">
+        <h2>Core Posture</h2>
+        <p>The locked ethos and imperatives define the stance AEGIS takes before any product surface, workflow, or interaction pattern begins.</p>
+      </div>
+      <div class="governance-subsection">
+        <h3 class="governance-subhead">Ethos</h3>
+        <div class="governance-pill-row">${ethosItems}</div>
+      </div>
+      <div class="governance-subsection">
+        <h3 class="governance-subhead">Imperatives</h3>
+        <div class="governance-pill-row">${imperativeItems}</div>
+      </div>
+    </section>
+    <section class="governance-section">
+      <div class="governance-section-head">
+        <h2>Canon</h2>
+        <p>The canon constrains the system rather than the Peer. All fourteen axioms are listed here as the backbone of the governance model.</p>
+      </div>
+      <div class="governance-grid">${axiomCards}</div>
+    </section>
+    <section class="governance-section">
+      <div class="governance-section-head">
+        <h2>Seven Virtues of Integrity</h2>
+        <p>Integrity in AEGIS is structural coherence across the virtues below.</p>
+      </div>
+      <div class="governance-chip-grid">${virtueItems}</div>
+    </section>
+    <section class="governance-section governance-section-split">
+      <div>
+        <div class="governance-section-head">
+          <h2>Canonical Glossary</h2>
+          <p>Common definitions for the concepts that govern the EcoVerse.</p>
+        </div>
+        <div class="governance-detail-list">${glossaryItems}</div>
+      </div>
+      <div>
+        <div class="governance-section-head">
+          <h2>Standards</h2>
+          <p>Standards explain how AEGIS operates and what it refuses to become.</p>
+        </div>
+        <div class="governance-standard-list">${standardItems}</div>
+      </div>
+    </section>
+  `;
+}
+
+function governanceStitchTemplate(canonicalContract) {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AEGIS Governance Hub</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07111d;
+        --panel: #0d1d30;
+        --border: rgba(129, 205, 255, 0.18);
+        --text: #e9f5ff;
+        --muted: #9db8d4;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 28px;
+        font-family: "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 0% 0%, rgba(125, 199, 255, 0.18), transparent 28%), var(--bg);
+        color: var(--text);
+      }
+      .note {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(160deg, rgba(11, 28, 44, 0.94), rgba(7, 18, 31, 0.9));
+      }
+      h1 { margin-top: 0; font-size: 32px; }
+      p { color: var(--muted); line-height: 1.65; }
+    </style>
+  </head>
+  <body>
+    <main class="note">
+      <h1>AEGIS Governance Hub</h1>
+      <p>This governance surface is rendered directly by the EcoVerse shell so Peers can reach canon, glossary, standards, and governing posture from any page.</p>
+      <p>The locked ethos begins here: ${escapeHtml(canonicalContract.lockedCanon.ethos[0])}. The first imperative remains: ${escapeHtml(canonicalContract.lockedCanon.imperatives[0])}.</p>
+    </main>
+  </body>
+</html>`;
+}
+
+function profileHubTemplate() {
+  return `
+    <section class="profile-hub-hero">
+      <div>
+        <p class="governance-kicker">Peer Profile</p>
+        <h2>The identity, access, and subscriber surface for a Peer moving through the EcoVerse.</h2>
+        <p class="governance-lead">Use this hub to move between public exploration, governed access, subscription status, and the premium tools that unlock as the platform grows.</p>
+      </div>
+      <div class="governance-hero-actions">
+        <a class="governance-action" href="/nexus/login-aegisalign/">Open Access Flow</a>
+        <a class="governance-action governance-action-secondary" href="/nexus/aegisalign-settings/">Trusted Settings</a>
+      </div>
+    </section>
+    <section class="profile-hub-grid">
+      <article class="profile-hub-card">
+        <p class="governance-kicker">Identity Layer</p>
+        <h3>Peer Status</h3>
+        <p>Profiles are where Peers maintain account posture, trusted access, and the continuity of their work across Nexus, demos, and premium modules.</p>
+        <div class="profile-hub-pills">
+          <span class="governance-pill">Guest or Authenticated</span>
+          <span class="governance-pill">Subscription-aware</span>
+          <span class="governance-pill">Cross-section continuity</span>
+        </div>
+      </article>
+      <article class="profile-hub-card">
+        <p class="governance-kicker">Subscriber Path</p>
+        <h3>Upgrade into the full workspace</h3>
+        <p>The Profile surface is the natural handoff into premium utilities, hosted workspaces, future application unlocks, and Developer Connect access.</p>
+        <div class="profile-hub-action-row">
+          <a class="nexus-action-btn nexus-action-upgrade" href="/nexus/aegisalign-pricing-plans/">View Plans</a>
+          <a class="nexus-action-btn" href="/nexus/aegis-protocol-dashboard/">Open Demo</a>
+        </div>
+      </article>
+    </section>
+    <section class="profile-hub-grid profile-hub-grid-secondary">
+      <article class="profile-hub-panel">
+        <div class="governance-section-head">
+          <h2>Included Now</h2>
+          <p>These are the surfaces a Peer should be able to reach quickly from Profile.</p>
+        </div>
+        <div class="profile-hub-list">
+          <a class="profile-hub-link" href="/nexus/aegisalign-settings/">
+            <strong>Trusted Settings</strong>
+            <span>Preferences, access posture, and secure account controls.</span>
+          </a>
+          <a class="profile-hub-link" href="/nexus/aegis-protocol-documentation-portal/">
+            <strong>Starter Systems</strong>
+            <span>Download-ready docs and starter system handoff surfaces.</span>
+          </a>
+          <a class="profile-hub-link" href="/nexus/aegisalign-pricing-plans/">
+            <strong>Subscriber Upgrade</strong>
+            <span>Unlock the full system, premium tools, and future workspace modules.</span>
+          </a>
+        </div>
+      </article>
+      <article class="profile-hub-panel">
+        <div class="governance-section-head">
+          <h2>Coming Through Profile</h2>
+          <p>This is the right anchor point for the subscriber tool family as it becomes active.</p>
+        </div>
+        <div class="profile-hub-points">
+          <div class="profile-hub-point">
+            <strong>Developer Connect</strong>
+            <span>Vaults, key creation, API storage, and full developer workspace access for subscribing Peers.</span>
+          </div>
+          <div class="profile-hub-point">
+            <strong>Subscriber Workspace</strong>
+            <span>Cross-product access, return visits, and governed continuity across the EcoVerse.</span>
+          </div>
+          <div class="profile-hub-point">
+            <strong>Peer Identity</strong>
+            <span>An impartial identity surface for Humans and AIs recognized as Peers under AEGIS.</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  `;
+}
+
+function profileStitchTemplate() {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AEGIS Peer Profile</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07111d;
+        --panel: #0d1d30;
+        --border: rgba(129, 205, 255, 0.18);
+        --text: #e9f5ff;
+        --muted: #9db8d4;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 28px;
+        font-family: "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 100% 0%, rgba(125, 199, 255, 0.18), transparent 28%), var(--bg);
+        color: var(--text);
+      }
+      .note {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(160deg, rgba(11, 28, 44, 0.94), rgba(7, 18, 31, 0.9));
+      }
+      h1 { margin-top: 0; font-size: 32px; }
+      p { color: var(--muted); line-height: 1.65; }
+    </style>
+  </head>
+  <body>
+    <main class="note">
+      <h1>AEGIS Peer Profile</h1>
+      <p>This profile surface is rendered directly by the EcoVerse shell so Peers can reach identity, settings, subscriptions, and future premium modules from anywhere.</p>
+      <p>It is the clean handoff point into login, trusted settings, starter systems, and subscriber workspaces such as Developer Connect.</p>
+    </main>
+  </body>
+</html>`;
 }
 
 function domainBodyClass(domainSlug) {
@@ -298,15 +616,41 @@ function domainBodyClass(domainSlug) {
   return `domain-surface domain-${domainSlug}`;
 }
 
-function shellScriptsTemplate() {
-  return '<script type="module" src="/src/reminder-signals.js"></script>\n    <script type="module" src="/src/ambient-signals.js"></script>\n    <script type="module" src="/src/peer-signs.js"></script>\n    <script type="module" src="/src/hub-billboards.js"></script>\n    <script type="module" src="/src/wire-grid-prism.js"></script>\n    <script type="module" src="/src/entrance-float.js"></script>\n    <script type="module" src="/src/portal-transit.js"></script>\n    <script type="module" src="/src/glass-frame.js"></script>\n    <script type="module" src="/src/thread-transition.js"></script>';
+function shellScriptsTemplate(options = {}) {
+  const { domainSlug = "", immersive = false } = options;
+  const scripts = [
+    "/src/reminder-signals.js",
+    "/src/ambient-signals.js",
+    "/src/peer-signs.js",
+    "/src/glass-frame.js",
+  ];
+
+  if (domainSlug === "developer-depot" || domainSlug === "aegis-application-lab") {
+    scripts.push("/src/hub-billboards.js");
+  }
+
+  if (domainSlug === "agent-workshop") {
+    scripts.push("/src/wire-grid-prism.js", "/src/entrance-float.js", "/src/thread-transition.js");
+  }
+
+  if (domainSlug === "nexus") {
+    scripts.push("/src/nexus-state.js");
+  }
+
+  if (immersive) {
+    scripts.push("/src/portal-transit.js");
+  }
+
+  return scripts.map((src) => `<script type="module" src="${src}"></script>`).join("\n    ");
 }
 
-function iframeBehaviorScript(buttonMappings = [], domainSlug = "") {
+function iframeBehaviorScript(buttonMappings = [], domainSlug = "", autoTransition = null) {
   const mappingsJson = JSON.stringify(buttonMappings);
+  const autoTransitionJson = JSON.stringify(autoTransition);
   return `<script>
       const buttonMappings = ${mappingsJson};
       const domainSlug = "${domainSlug}";
+      const autoTransition = ${autoTransitionJson};
 
       const frames = Array.from(document.querySelectorAll('.stitch-frame'));
       if (frames.length) {
@@ -355,6 +699,11 @@ function iframeBehaviorScript(buttonMappings = [], domainSlug = "") {
           if (doc.title) doc.title = softenText(doc.title);
         };
 
+        const normalizeButtonText = (value) => String(value || "")
+          .replace(/\\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+
         const updateHeight = (frame) => {
           try {
             const doc = frame.contentDocument;
@@ -364,16 +713,27 @@ function iframeBehaviorScript(buttonMappings = [], domainSlug = "") {
             // Activate Buttons
             if (!frame.dataset.activated) {
               frame.dataset.activated = 'true';
-              const clickables = Array.from(doc.querySelectorAll('button, a.btn, a.button, .stitch-btn'));
+              const clickables = Array.from(doc.querySelectorAll('button, a, a.btn, a.button, .stitch-btn'));
               for (const btn of clickables) {
-                const text = btn.textContent.trim().toLowerCase();
-                const mapping = buttonMappings.find(m => m.text.toLowerCase() === text);
+                const text = normalizeButtonText(btn.textContent);
+                const mapping = buttonMappings.find((m) => {
+                  const targetText = normalizeButtonText(m.text);
+                  return text === targetText || text.includes(targetText);
+                });
                 if (mapping) {
                   btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     window.location.href = '/' + domainSlug + '/' + mapping.target + '/';
                   });
                 }
+              }
+
+              if (autoTransition?.target && !frame.dataset.autoTransitionBound) {
+                frame.dataset.autoTransitionBound = 'true';
+                const delayMs = Number(autoTransition.delayMs) || 1400;
+                window.setTimeout(() => {
+                  window.location.href = '/' + domainSlug + '/' + autoTransition.target + '/';
+                }, delayMs);
               }
             }
 
@@ -531,10 +891,11 @@ function renderSidebarNav(domain, domainPages, currentPage, navigationHierarchy)
   return sections
     .map((section) => {
       const links = section.items
-        .filter((item) => item.isParent || !item.parent)
+        .filter((item) => domain.slug === "nexus" ? true : item.isParent || !item.parent)
         .map((item) => {
           const active = item.slug === currentPage.slug ? "active" : "";
-          return `<a class="${active}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
+          const childClass = item.parent ? "page-link-child" : "";
+          return `<a class="${[active, childClass].filter(Boolean).join(" ")}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
         })
         .join("\n");
 
@@ -555,6 +916,20 @@ function routeTemplate({ page, domain, domainPages }) {
   const domainConfig = (typeof navigationHierarchy !== "undefined" ? navigationHierarchy : []).find((d) => d.domain === domain.slug);
   const section = domainConfig?.sections.find(s => s.pages.some(p => p.slug === page.slug));
   const buttonMappings = section?.buttonMappings?.[page.slug] || [];
+  const autoTransition = section?.autoTransitions?.[page.slug] || null;
+  const nexusCommandDeck = domain.slug === "nexus"
+    ? `<section class="nexus-command-deck" data-nexus-command-deck data-page-slug="${escapeHtml(page.slug)}">
+          <div class="nexus-command-grid">
+            <article class="nexus-command-card nexus-command-card-session" data-nexus-session-card></article>
+            <article class="nexus-command-card nexus-command-card-activity" data-nexus-activity-card></article>
+            <article class="nexus-command-card nexus-command-card-actions" data-nexus-actions-card></article>
+          </div>
+          <article class="nexus-handoff-panel" data-nexus-handoff-card></article>
+          ${page.slug === "aegis-protocol-documentation-portal"
+            ? `<section class="nexus-starter-catalog" data-nexus-starter-catalog></section>`
+            : ""}
+        </section>`
+    : "";
 
   const sidebarLinks = renderSidebarNav(domain, domainPages, page, typeof navigationHierarchy !== "undefined" ? navigationHierarchy : []);
 
@@ -603,7 +978,11 @@ function routeTemplate({ page, domain, domainPages }) {
               <span class="thread-badge">${escapeHtml(badge)}</span>
             </a>`;
 
-  const contentBody = workshopEntrance && workshopConsole
+  const contentBody = page.customContent
+    ? `<section class="governance-wrap">
+            ${page.customContent}
+          </section>`
+    : workshopEntrance && workshopConsole
     ? (() => {
       const isEntrancePage = page.slug === workshopEntrance.slug;
       const isWorkshopConsolePage = page.slug === workshopConsole.slug;
@@ -713,13 +1092,14 @@ function routeTemplate({ page, domain, domainPages }) {
               <div class="breadcrumb">${escapeHtml(domain.label)} / ${escapeHtml(page.slug)}</div>
             </div>
           </div>
+          ${nexusCommandDeck}
           ${contentBody}
         </main>
       </div>
     </div>
 
-    ${iframeBehaviorScript(buttonMappings, domain.slug)}
-    ${shellScriptsTemplate()}
+    ${iframeBehaviorScript(buttonMappings, domain.slug, autoTransition)}
+    ${shellScriptsTemplate({ domainSlug: domain.slug })}
   </body>
 </html>
 `;
@@ -824,7 +1204,7 @@ function domainIndexTemplate(domain, domainPages, hubByDomain) {
         </section>
       </main>
     </div>
-    ${shellScriptsTemplate()}
+    ${shellScriptsTemplate({ domainSlug: domain.slug })}
   </body>
 </html>
 `;
@@ -895,7 +1275,7 @@ function custodianOpsIndexTemplate(domain, domainPages, hubByDomain) {
         </section>
       </main>
     </div>
-    ${shellScriptsTemplate()}
+    ${shellScriptsTemplate({ domainSlug: "custodian-ui" })}
   </body>
 </html>
 `;
@@ -967,7 +1347,7 @@ function custodianStatusTemplate() {
         </section>
       </main>
     </div>
-    ${shellScriptsTemplate()}
+    ${shellScriptsTemplate({ domainSlug: "nexus" })}
   </body>
 </html>
 `;
@@ -1020,7 +1400,7 @@ function custodianSecureTemplate() {
       </main>
     </div>
     <script type="module" src="/src/custodian-secure.js"></script>
-    ${shellScriptsTemplate()}
+    ${shellScriptsTemplate({ immersive: true })}
   </body>
 </html>
 `;
@@ -1077,7 +1457,7 @@ function nexusTemplate(hubs, pages) {
         </section>
       </main>
     </div>
-    ${shellScriptsTemplate()}
+    ${shellScriptsTemplate({ domainSlug: "nexus" })}
   </body>
 </html>
 `;
@@ -1128,7 +1508,7 @@ function rootIndexTemplate(hubs, pages) {
           </a>
           <nav class="top-links">
             <a class="active" href="/nexus/">Nexus</a>
-            ${domains.map((domain) => `<a href="/${domain.slug}/">${escapeHtml(domain.label)}</a>`).join("\n")}
+            ${topLinksTemplate()}
           </nav>
         </div>
       </header>
@@ -1156,7 +1536,7 @@ function rootIndexTemplate(hubs, pages) {
       </main>
     </div>
     <script type="module" src="/src/nexus-ether.js"></script>
-    ${shellScriptsTemplate()}
+    ${shellScriptsTemplate({ immersive: true })}
   </body>
 </html>
 `;
@@ -1171,6 +1551,24 @@ const hubByDomain = new Map(hubs.map((hub) => [hub.domainSlug, hub]));
 const routeMigrations = loadRouteMigrations();
 const navigationHierarchy = loadNavigationHierarchy();
 const canonicalContract = loadCanonicalContract();
+const governancePage = {
+  domain: "nexus",
+  slug: "aegis-governance-hub",
+  title: "AEGIS Governance Hub",
+  sourcePath: "AEGIS_Docs",
+  routePath: "/nexus/aegis-governance-hub/",
+  stitchPath: "/stitch/nexus/aegis-governance-hub/",
+  customContent: governanceHubTemplate(canonicalContract),
+};
+const profilePage = {
+  domain: "nexus",
+  slug: "aegis-peer-profile",
+  title: "AEGIS Peer Profile",
+  sourcePath: "generated-profile",
+  routePath: "/nexus/aegis-peer-profile/",
+  stitchPath: "/stitch/nexus/aegis-peer-profile/",
+  customContent: profileHubTemplate(),
+};
 
 fs.rmSync(generatedRoot, { recursive: true, force: true });
 ensureDir(generatedRoot);
@@ -1281,6 +1679,26 @@ if (fs.existsSync(nexusSourceDir)) {
     });
   }
 }
+
+if (seenRoutes.has(governancePage.routePath)) {
+  throw new Error(`Duplicate route generated: ${governancePage.routePath}`);
+}
+seenRoutes.add(governancePage.routePath);
+pages.push(governancePage);
+writeFile(
+  path.join(generatedRoot, "stitch", "nexus", governancePage.slug, "index.html"),
+  governanceStitchTemplate(canonicalContract),
+);
+
+if (seenRoutes.has(profilePage.routePath)) {
+  throw new Error(`Duplicate route generated: ${profilePage.routePath}`);
+}
+seenRoutes.add(profilePage.routePath);
+pages.push(profilePage);
+writeFile(
+  path.join(generatedRoot, "stitch", "nexus", profilePage.slug, "index.html"),
+  profileStitchTemplate(),
+);
 
 pages.sort((a, b) => {
   if (a.domain === b.domain) {

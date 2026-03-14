@@ -1,4 +1,18 @@
-import * as THREE from "three";
+import {
+  AdditiveBlending,
+  BufferGeometry,
+  Clock,
+  Color,
+  DoubleSide,
+  Float32BufferAttribute,
+  FogExp2,
+  LineSegments,
+  PerspectiveCamera,
+  Scene,
+  ShaderMaterial,
+  Vector3,
+  WebGLRenderer,
+} from "three";
 
 const isWorkshop = document.body.classList.contains("domain-agent-workshop");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -8,20 +22,20 @@ if (isWorkshop) {
   canvas.id = "wire-grid-canvas";
   document.body.prepend(canvas);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
 
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x070f16, 0.03);
+  const scene = new Scene();
+  scene.fog = new FogExp2(0x070f16, 0.03);
 
-  const camera = new THREE.PerspectiveCamera(56, 1, 0.1, 120);
+  const camera = new PerspectiveCamera(56, 1, 0.1, 120);
   camera.position.set(0, 0, 26);
 
   const params = {
     size: 10,
     step: 2,
-    lineColor: new THREE.Color("#4f6f84"),
-    dotColor: new THREE.Color("#66d9ff"),
+    lineColor: new Color("#4f6f84"),
+    dotColor: new Color("#66d9ff"),
     speed: 0.14,
     dotLength: 0.18,
     dotDensity: 1.8,
@@ -36,12 +50,12 @@ if (isWorkshop) {
     if (!isInside(v)) return false;
     const s = params.step;
     const dirs = [
-      new THREE.Vector3(s, 0, 0),
-      new THREE.Vector3(-s, 0, 0),
-      new THREE.Vector3(0, s, 0),
-      new THREE.Vector3(0, -s, 0),
-      new THREE.Vector3(0, 0, s),
-      new THREE.Vector3(0, 0, -s),
+      new Vector3(s, 0, 0),
+      new Vector3(-s, 0, 0),
+      new Vector3(0, s, 0),
+      new Vector3(0, -s, 0),
+      new Vector3(0, 0, s),
+      new Vector3(0, 0, -s),
     ];
     for (const d of dirs) {
       const n = v.clone().add(d);
@@ -56,26 +70,26 @@ if (isWorkshop) {
 
   function randomSurfacePoint() {
     for (let i = 0; i < 220; i += 1) {
-      const p = new THREE.Vector3(
+      const p = new Vector3(
         snap((Math.random() - 0.5) * params.size * 2.1),
         snap((Math.random() - 0.5) * params.size * 2.1),
         snap((Math.random() - 0.5) * params.size * 2.1),
       );
       if (isSurface(p)) return p;
     }
-    return new THREE.Vector3(params.size, 0, 0);
+    return new Vector3(params.size, 0, 0);
   }
 
   function createSignalGeometry() {
     const positions = [];
     const distances = [];
     const dirs = [
-      new THREE.Vector3(params.step, 0, 0),
-      new THREE.Vector3(-params.step, 0, 0),
-      new THREE.Vector3(0, params.step, 0),
-      new THREE.Vector3(0, -params.step, 0),
-      new THREE.Vector3(0, 0, params.step),
-      new THREE.Vector3(0, 0, -params.step),
+      new Vector3(params.step, 0, 0),
+      new Vector3(-params.step, 0, 0),
+      new Vector3(0, params.step, 0),
+      new Vector3(0, -params.step, 0),
+      new Vector3(0, 0, params.step),
+      new Vector3(0, 0, -params.step),
     ];
 
     let current = randomSurfacePoint();
@@ -95,9 +109,9 @@ if (isWorkshop) {
       }
     }
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-    geometry.setAttribute("lineDistance", new THREE.Float32BufferAttribute(distances, 1));
+    const geometry = new BufferGeometry();
+    geometry.setAttribute("position", new Float32BufferAttribute(positions, 3));
+    geometry.setAttribute("lineDistance", new Float32BufferAttribute(distances, 1));
     return geometry;
   }
 
@@ -131,7 +145,7 @@ if (isWorkshop) {
     }
   `;
 
-  const material = new THREE.ShaderMaterial({
+  const material = new ShaderMaterial({
     vertexShader,
     fragmentShader,
     uniforms: {
@@ -144,12 +158,12 @@ if (isWorkshop) {
     },
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    side: THREE.DoubleSide,
+    blending: AdditiveBlending,
+    side: DoubleSide,
   });
 
   const geometry = createSignalGeometry();
-  const mesh = new THREE.LineSegments(geometry, material);
+  const mesh = new LineSegments(geometry, material);
   scene.add(mesh);
 
   const pointer = { x: 0, y: 0 };
@@ -169,7 +183,7 @@ if (isWorkshop) {
   resize();
   window.addEventListener("resize", resize);
 
-  const clock = new THREE.Clock();
+  const clock = new Clock();
   let raf = 0;
 
   function tick() {
