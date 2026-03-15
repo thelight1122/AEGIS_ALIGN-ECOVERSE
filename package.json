@@ -13,8 +13,8 @@
     "build": "node scripts/build.mjs",
     "preview": "vite preview",
     "preview:cf": "npx wrangler pages dev ./dist --compatibility-date=2026-03-12",
-    "deploy:firebase": "npm run build && firebase deploy --only hosting",
-    "deploy:firebase:staging": "npm run build && firebase hosting:channel:deploy staging"
+    "deploy:firebase": "node scripts/deploy.mjs",
+    "deploy:firebase:staging": "node scripts/deploy.mjs --staging"
   },
   "devDependencies": {
     "three": "^0.180.0",
