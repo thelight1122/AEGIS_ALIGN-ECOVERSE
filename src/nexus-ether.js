@@ -29,6 +29,7 @@ if (!canvas) {
   // Non-immersive pages do not include this canvas.
 } else {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const pointer = { x: 0, y: 0 };
 
   const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
@@ -42,6 +43,7 @@ if (!canvas) {
   const driftTarget = new Vector2(0, 0);
   let hasEntranceFocus = false;
   const isImmersiveNexus = document.body.classList.contains("immersive-root");
+  const isSectionSurface = document.body.classList.contains("domain-surface");
   const roadSigns = [];
   let lockedRoadSign = null;
   const projectionBuffer = new Vector3();
@@ -307,56 +309,58 @@ if (!canvas) {
   const billboardTextures = [];
   const billboardVideos = [];
 
-  for (let i = 0; i < activeBillboardSources.length; i += 1) {
-    const source = activeBillboardSources[i];
-    const video = document.createElement("video");
-    video.src = source;
-    video.loop = true;
-    video.muted = true;
-    video.autoplay = true;
-    video.preload = "metadata";
-    video.playsInline = true;
-    video.crossOrigin = "anonymous";
-    video.setAttribute("playsinline", "");
-    video.setAttribute("muted", "");
+  if (isImmersiveNexus) {
+    for (let i = 0; i < activeBillboardSources.length; i += 1) {
+      const source = activeBillboardSources[i];
+      const video = document.createElement("video");
+      video.src = source;
+      video.loop = true;
+      video.muted = true;
+      video.autoplay = true;
+      video.preload = "metadata";
+      video.playsInline = true;
+      video.crossOrigin = "anonymous";
+      video.setAttribute("playsinline", "");
+      video.setAttribute("muted", "");
 
-    const texture = new VideoTexture(video);
-    texture.colorSpace = SRGBColorSpace;
-    texture.minFilter = LinearFilter;
-    texture.magFilter = LinearFilter;
-    texture.generateMipmaps = false;
+      const texture = new VideoTexture(video);
+      texture.colorSpace = SRGBColorSpace;
+      texture.minFilter = LinearFilter;
+      texture.magFilter = LinearFilter;
+      texture.generateMipmaps = false;
 
-    const material = new MeshBasicMaterial({
-      map: texture,
-      side: DoubleSide,
-      transparent: true,
-      opacity: 0.78,
-      blending: AdditiveBlending,
-      depthWrite: false,
-    });
-
-    const mesh = new Mesh(billboardGeometry, material);
-    const arc = (i / activeBillboardSources.length) * Math.PI * 2;
-    mesh.position.set(Math.cos(arc) * 3.4, Math.sin(arc * 1.2) * 1.2, -4.2 - i * 1.2);
-    scene.add(mesh);
-
-    const start = video.play();
-    if (start && typeof start.catch === "function") {
-      start.catch(() => {
-        // Autoplay can be blocked until user interaction on some clients.
+      const material = new MeshBasicMaterial({
+        map: texture,
+        side: DoubleSide,
+        transparent: true,
+        opacity: 0.78,
+        blending: AdditiveBlending,
+        depthWrite: false,
       });
-    }
 
-    billboardMeshes.push({
-      mesh,
-      baseX: mesh.position.x,
-      baseY: mesh.position.y,
-      baseZ: mesh.position.z,
-      phase: Math.random() * Math.PI * 2,
-    });
-    billboardVideos.push(video);
-    billboardTextures.push(texture);
-    billboardMaterials.push(material);
+      const mesh = new Mesh(billboardGeometry, material);
+      const arc = (i / activeBillboardSources.length) * Math.PI * 2;
+      mesh.position.set(Math.cos(arc) * 3.4, Math.sin(arc * 1.2) * 1.2, -4.2 - i * 1.2);
+      scene.add(mesh);
+
+      const start = video.play();
+      if (start && typeof start.catch === "function") {
+        start.catch(() => {
+          // Autoplay can be blocked until user interaction on some clients.
+        });
+      }
+
+      billboardMeshes.push({
+        mesh,
+        baseX: mesh.position.x,
+        baseY: mesh.position.y,
+        baseZ: mesh.position.z,
+        phase: Math.random() * Math.PI * 2,
+      });
+      billboardVideos.push(video);
+      billboardTextures.push(texture);
+      billboardMaterials.push(material);
+    }
   }
 
   function resize() {
@@ -369,6 +373,12 @@ if (!canvas) {
 
   resize();
   window.addEventListener("resize", resize);
+
+  function onPointerMove(event) {
+    pointer.x = event.clientX / window.innerWidth - 0.5;
+    pointer.y = event.clientY / window.innerHeight - 0.5;
+  }
+  window.addEventListener("pointermove", onPointerMove);
 
   let raf = 0;
   const clock = new Clock();
@@ -389,7 +399,10 @@ if (!canvas) {
   function tick() {
     const t = clock.getElapsedTime();
     stars.rotation.y = t * 0.02;
+    stars.rotation.x = Math.sin(t * 0.11) * 0.05;
     stars.position.z = Math.sin(t * 0.2) * 0.15;
+    stars.position.x = pointer.x * 0.4;
+    stars.position.y = -pointer.y * 0.3;
     veil.rotation.y = -t * 0.015;
     veil.position.y = Math.sin(t * 0.33) * 0.08;
     glow.rotation.z = t * 0.12;
@@ -489,11 +502,13 @@ if (!canvas) {
         camera.position.y += (focusY - camera.position.y) * 0.04;
         camera.position.z += (5.05 - camera.position.z) * 0.025;
       } else {
-        const wanderX = Math.sin(t * 0.18) * 0.22;
-        const wanderY = Math.cos(t * 0.14) * 0.1;
+        const pointerDriftX = pointer.x * (isSectionSurface ? 0.34 : 0.22);
+        const pointerDriftY = -pointer.y * (isSectionSurface ? 0.2 : 0.12);
+        const wanderX = Math.sin(t * 0.18) * (isSectionSurface ? 0.32 : 0.22) + pointerDriftX;
+        const wanderY = Math.cos(t * 0.14) * (isSectionSurface ? 0.16 : 0.1) + pointerDriftY;
         camera.position.x += (wanderX - camera.position.x) * 0.03;
         camera.position.y += (wanderY - camera.position.y) * 0.03;
-        camera.position.z += (5.5 - camera.position.z) * 0.025;
+        camera.position.z += ((isSectionSurface ? 5.2 : 5.5) - camera.position.z) * 0.025;
       }
       if (transitPull > 0.001) {
         camera.position.z -= transitPull * 0.06;
@@ -527,6 +542,7 @@ if (!canvas) {
 
   window.addEventListener("beforeunload", () => {
     window.cancelAnimationFrame(raf);
+    window.removeEventListener("pointermove", onPointerMove);
     renderer.dispose();
     starGeometry.dispose();
     starMaterial.dispose();

@@ -128,6 +128,14 @@
         ]
       },
       {
+        "label": "Orientation & Maps",
+        "pages": [
+          { "slug": "aegis-project-tree-index", "isParent": true },
+          { "slug": "agent-communication-protocol", "parent": "aegis-project-tree-index" },
+          { "slug": "agent-mesh-visualizer", "parent": "aegis-project-tree-index" }
+        ]
+      },
+      {
         "label": "Agent Creation",
         "pages": [
           { "slug": "create-new-agent-flow", "isParent": true },
@@ -164,6 +172,15 @@
           { "slug": "recursive-logic-debugger-agentic-workshop", "parent": "active-agents-monitor-agentic-workshop" },
           { "slug": "recursive-training-progress-report", "parent": "active-agents-monitor-agentic-workshop" }
         ]
+      },
+      {
+        "label": "Deployments & Records",
+        "pages": [
+          { "slug": "detailed-agent-view-dataquad-node", "isParent": true },
+          { "slug": "bulk-export-progress-modal", "parent": "detailed-agent-view-dataquad-node" },
+          { "slug": "sssp-respawn-archive-1", "parent": "detailed-agent-view-dataquad-node" },
+          { "slug": "sssp-respawn-archive-2", "parent": "detailed-agent-view-dataquad-node" }
+        ]
       }
     ]
   },
@@ -180,7 +197,8 @@
           { "slug": "site-custodians", "parent": "aegis-protocol-dashboard" },
           { "slug": "regional-drill-down-us-east-1", "parent": "aegis-protocol-dashboard" },
           { "slug": "system-health-report-aegis-protocol", "parent": "aegis-protocol-dashboard" },
-          { "slug": "custodian-secure", "parent": "aegis-protocol-dashboard" }
+          { "slug": "status", "parent": "aegis-protocol-dashboard" },
+          { "slug": "secure", "parent": "aegis-protocol-dashboard" }
         ]
       },
       {
@@ -192,6 +210,23 @@
           { "slug": "ticket-details-aeg-4092", "parent": "security-incident-assessor-center" },
           { "slug": "proposal-discussion-details", "parent": "security-incident-assessor-center" },
           { "slug": "safety-hold-protocol-sequence", "parent": "security-incident-assessor-center" }
+        ]
+      },
+      {
+        "label": "Access & Intake",
+        "pages": [
+          { "slug": "custodian-login-portal", "isParent": true },
+          { "slug": "site-custodian-login-recruitment-hub", "parent": "custodian-login-portal" },
+          { "slug": "submission-review-interface", "parent": "custodian-login-portal" },
+          { "slug": "create-new-page-custodian-tool", "parent": "custodian-login-portal" }
+        ]
+      },
+      {
+        "label": "Governance & Publishing",
+        "pages": [
+          { "slug": "decentralized-governance-voting", "isParent": true },
+          { "slug": "api-reference-aegis-protocol", "parent": "decentralized-governance-voting" },
+          { "slug": "site-custodian-hub-gallery-update", "parent": "decentralized-governance-voting" }
         ]
       }
     ]
@@ -218,6 +253,21 @@
           { "slug": "node-management-aegis-protocol", "parent": "api-reference-aegis-protocol" },
           { "slug": "protocol-configuration-aegis-protocol", "parent": "api-reference-aegis-protocol" }
         ]
+      },
+      {
+        "label": "Analytics & Releases",
+        "pages": [
+          { "slug": "plugin-developer-analytics", "isParent": true },
+          { "slug": "protocol-isolated-confirmation", "parent": "plugin-developer-analytics" }
+        ]
+      },
+      {
+        "label": "Collaboration & Topology",
+        "pages": [
+          { "slug": "colab-creation-page-1", "isParent": true },
+          { "slug": "colab-creation-page-2", "parent": "colab-creation-page-1" },
+          { "slug": "network-topology-visualizer", "parent": "colab-creation-page-1" }
+        ]
       }
     ]
   },
@@ -237,6 +287,14 @@
         "pages": [
           { "slug": "aegis-reflective-prism-features", "isParent": true },
           { "slug": "aegis-reflective-widget-features", "parent": "aegis-reflective-prism-features" }
+        ]
+      },
+      {
+        "label": "Governance & Collaboration",
+        "pages": [
+          { "slug": "aegis-arbitor-features-1", "isParent": true },
+          { "slug": "aegis-arbitor-features-2", "parent": "aegis-arbitor-features-1" },
+          { "slug": "aegis-llm-colab-and-agentic-workshop", "parent": "aegis-arbitor-features-1" }
         ]
       }
     ]

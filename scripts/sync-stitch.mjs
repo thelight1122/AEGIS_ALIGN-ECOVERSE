@@ -623,6 +623,8 @@ function shellScriptsTemplate(options = {}) {
     "/src/ambient-signals.js",
     "/src/peer-signs.js",
     "/src/glass-frame.js",
+    "/src/surface-flight.js",
+    "/src/nexus-ether.js",
   ];
 
   if (domainSlug === "developer-depot" || domainSlug === "aegis-application-lab") {
@@ -803,6 +805,10 @@ function nexusVideoTemplate() {
   </video>`;
 }
 
+function etherCanvasTemplate() {
+  return '<canvas id="ether-canvas" aria-hidden="true"></canvas>';
+}
+
 function ethosStripTemplate(canonicalContract) {
   const ethosPrimary = canonicalContract.lockedCanon.ethos[0];
   const imperativePrimary = canonicalContract.lockedCanon.imperatives[0];
@@ -891,7 +897,6 @@ function renderSidebarNav(domain, domainPages, currentPage, navigationHierarchy)
   return sections
     .map((section) => {
       const links = section.items
-        .filter((item) => domain.slug === "nexus" ? true : item.isParent || !item.parent)
         .map((item) => {
           const active = item.slug === currentPage.slug ? "active" : "";
           const childClass = item.parent ? "page-link-child" : "";
@@ -1063,6 +1068,7 @@ function routeTemplate({ page, domain, domainPages }) {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${domainBodyClass(domain.slug)}">
+    ${etherCanvasTemplate()}
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -1116,6 +1122,7 @@ function redirectTemplate({ title, destination, label, bodyClass = "domain-surfa
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${escapeHtml(bodyClass)}">
+    ${etherCanvasTemplate()}
     <main class="panel landing-redirect">
       <div class="content-head">
         <div>
@@ -1138,11 +1145,21 @@ function redirectTemplate({ title, destination, label, bodyClass = "domain-surfa
 }
 
 function primaryLandingSlug(domainSlug) {
+  const configuredDomain = (navigationHierarchy || []).find((entry) => entry.domain === domainSlug);
+  if (configuredDomain) {
+    for (const section of configuredDomain.sections || []) {
+      const firstParent = (section.pages || []).find((page) => page.isParent);
+      if (firstParent?.slug) {
+        return firstParent.slug;
+      }
+    }
+  }
+
   const byDomain = {
     "nexus": "aegisalign-landing-page",
     "developer-depot": "developer-hub-depot",
     "custodian-ui": "aegis-protocol-dashboard",
-    "aegis-application-lab": "aegis-reflective-prism-features",
+    "aegis-application-lab": "aegis-implementation-apps",
     "agent-workshop": "agentic-workshop-entrance",
   };
 
@@ -1174,6 +1191,7 @@ function domainIndexTemplate(domain, domainPages, hubByDomain) {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${domainBodyClass(domain.slug)}">
+    ${etherCanvasTemplate()}
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -1235,6 +1253,7 @@ function custodianOpsIndexTemplate(domain, domainPages, hubByDomain) {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${domainBodyClass(domain.slug)}">
+    ${etherCanvasTemplate()}
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -1291,6 +1310,7 @@ function custodianStatusTemplate() {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${domainBodyClass("custodian-ui")}">
+    ${etherCanvasTemplate()}
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -1363,6 +1383,7 @@ function custodianSecureTemplate() {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${domainBodyClass("custodian-ui")}">
+    ${etherCanvasTemplate()}
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -1423,6 +1444,7 @@ function nexusTemplate(hubs, pages) {
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="nexus-surface with-ambient-signals">
+    ${etherCanvasTemplate()}
     ${nexusVideoTemplate()}
     <div class="layout">
       <header class="topbar">
@@ -1498,7 +1520,7 @@ function rootIndexTemplate(hubs, pages) {
   </head>
   <body class="immersive-root nexus-surface with-ambient-signals">
     ${nexusVideoTemplate()}
-    <canvas id="ether-canvas" aria-hidden="true"></canvas>
+    ${etherCanvasTemplate()}
     <div class="layout immersive-layer">
       <header class="topbar">
         <div class="topbar-inner">
@@ -1535,7 +1557,6 @@ function rootIndexTemplate(hubs, pages) {
         </section>
       </main>
     </div>
-    <script type="module" src="/src/nexus-ether.js"></script>
     ${shellScriptsTemplate({ immersive: true })}
   </body>
 </html>
@@ -1752,9 +1773,12 @@ for (const domain of domains) {
     const breadcrumb = domain.slug === "developer-depot"
       ? "Opening the primary builder surface"
       : "Opening the primary application surface";
-    const bridge = domain.slug === "developer-depot"
-      ? "Routing directly into the Developer Hub so the shared shell, grouped rail, and glass frame appear as soon as the section opens."
-      : "Routing directly into the Reflective Prism surface so the Application Lab opens inside the shared shell immediately.";
+    const bridgeByDomain = {
+      "developer-depot": "Routing directly into the Developer Hub so the shared shell, grouped rail, and glass frame appear as soon as the section opens.",
+      "aegis-application-lab": "Routing directly into the AEGIS Implementation Apps surface so the Application Lab opens on its home page inside the shared shell immediately.",
+    };
+    const bridge = bridgeByDomain[domain.slug]
+      || `Routing directly into ${landingPage.title} so ${domain.label} opens on its home page inside the shared shell immediately.`;
     writeFile(
       path.join(generatedRoot, domain.slug, "index.html"),
       redirectTemplate({

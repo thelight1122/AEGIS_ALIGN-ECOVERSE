@@ -19,6 +19,15 @@
   --domain-frame-aura: rgba(216, 247, 255, 0.16);
   --domain-badge-border: rgba(111, 193, 255, 0.3);
   --domain-badge-bg: rgba(10, 28, 45, 0.72);
+  --scene-pan-x: 0px;
+  --scene-pan-y: 0px;
+  --scene-pan-soft-x: 0px;
+  --scene-pan-soft-y: 0px;
+  --scene-pan-shell-x: 0px;
+  --scene-pan-shell-y: 0px;
+  --scene-tilt-x: 0deg;
+  --scene-tilt-y: 0deg;
+  --scene-tilt-soft-y: 0deg;
 }
 
 * {
@@ -209,6 +218,8 @@ a {
   width: 100%;
   height: 100%;
   z-index: 0;
+  opacity: 0.92;
+  pointer-events: none;
 }
 
 .ether-video {
@@ -306,7 +317,25 @@ a {
   grid-template-rows: auto 1fr;
   position: relative;
   z-index: 1;
+  isolation: isolate;
+  padding-top: 72px;
   padding-bottom: 96px;
+  perspective: 1600px;
+  transform-style: preserve-3d;
+}
+
+.layout::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(111, 195, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 84% 14%, rgba(126, 255, 214, 0.08), transparent 30%),
+    radial-gradient(circle at 50% 110%, rgba(90, 135, 255, 0.08), transparent 34%);
+  opacity: 0.9;
+  transform: translate3d(var(--scene-pan-soft-x), var(--scene-pan-soft-y), 0);
 }
 
 #wire-grid-canvas {
@@ -330,12 +359,18 @@ a {
 }
 
 .topbar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 20;
+  left: 0;
+  right: 0;
+  z-index: 140;
+  isolation: isolate;
   border-bottom: 1px solid var(--border);
   background: rgba(8, 12, 21, 0.92);
   backdrop-filter: blur(8px);
+  transition:
+    border-color 320ms ease,
+    background 320ms ease;
 }
 
 .topbar-inner {
@@ -346,6 +381,7 @@ a {
   align-items: center;
   gap: 16px;
   justify-content: space-between;
+  transform-style: preserve-3d;
 }
 
 .top-link-governance {
@@ -482,16 +518,26 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
+  transform-style: preserve-3d;
 }
 
 .portal-card {
+  --portal-base-depth: 18px;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px;
   background: radial-gradient(circle at 20% 20%, rgba(89, 176, 255, 0.18), rgba(13, 20, 35, 0.95));
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 32px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(110, 203, 255, 0.05);
+  position: relative;
+  overflow: hidden;
   transform-style: preserve-3d;
-  animation: floaty 7s ease-in-out infinite;
+  transform:
+    translate3d(var(--flight-shift-x, 0px), var(--flight-shift-y, 0px), calc(var(--portal-base-depth) + var(--flight-depth, 0px)))
+    rotateX(calc(3deg + var(--scene-tilt-x)))
+    rotateY(calc(var(--flight-rotate, 0deg) + var(--scene-tilt-y)));
   transition:
     transform 460ms cubic-bezier(0.2, 0.7, 0.15, 1),
     box-shadow 460ms ease,
@@ -500,14 +546,56 @@ a {
     filter 360ms ease;
 }
 
+.portal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(164, 226, 255, 0.18), transparent 34%),
+    linear-gradient(120deg, transparent 12%, rgba(159, 244, 223, 0.1) 50%, transparent 88%);
+  opacity: 0.86;
+  pointer-events: none;
+}
+
+.portal-card::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--domain-accent-2) 68%, white), transparent);
+  opacity: 0.6;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--domain-accent) 36%, transparent);
+  pointer-events: none;
+}
+
+.portal-grid .portal-card:nth-child(2n) {
+  --portal-base-depth: 28px;
+}
+
+.portal-grid .portal-card:nth-child(3n) {
+  --portal-base-depth: 36px;
+}
+
 .portal-card.live {
   cursor: pointer;
   border-color: #3b75cf;
 }
 
 .portal-card.live:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform:
+    translate3d(var(--flight-shift-x, 0px), calc(var(--flight-shift-y, 0px) - 8px), calc(var(--portal-base-depth) + var(--flight-depth, 0px) + 28px))
+    rotateX(calc(1.6deg + var(--scene-tilt-x)))
+    rotateY(calc(var(--flight-rotate, 0deg) + var(--scene-tilt-y)))
+    scale(1.02);
   background: radial-gradient(circle at 20% 20%, rgba(110, 241, 208, 0.22), rgba(13, 20, 35, 0.95));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 28px 44px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(126, 255, 214, 0.12);
 }
 
 .portal-card.pending {
@@ -637,6 +725,7 @@ body.portal-transit-active #portal-transit-overlay {
 }
 
 .phase-link {
+  --phase-base-depth: 12px;
   display: inline-flex;
   align-items: center;
   border-radius: 10px;
@@ -645,6 +734,13 @@ body.portal-transit-active #portal-transit-overlay {
   font-weight: 600;
   font-size: 14px;
   background: #102645;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 22px rgba(0, 0, 0, 0.22);
+  transform:
+    translate3d(var(--flight-shift-x, 0px), var(--flight-shift-y, 0px), calc(var(--phase-base-depth) + var(--flight-depth, 0px)))
+    rotateX(calc(1.2deg + var(--scene-tilt-x)))
+    rotateY(calc(var(--flight-rotate, 0deg) + var(--scene-tilt-y)));
   transition:
     transform 460ms cubic-bezier(0.2, 0.7, 0.15, 1),
     box-shadow 460ms ease,
@@ -655,6 +751,10 @@ body.portal-transit-active #portal-transit-overlay {
 
 .phase-link:hover {
   background: #15305a;
+  transform:
+    translate3d(var(--flight-shift-x, 0px), calc(var(--flight-shift-y, 0px) - 4px), calc(var(--phase-base-depth) + var(--flight-depth, 0px) + 14px))
+    rotateX(calc(0.8deg + var(--scene-tilt-x)))
+    rotateY(calc(var(--flight-rotate, 0deg) + var(--scene-tilt-y)));
 }
 
 .entrance-anchor {
@@ -709,8 +809,14 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
 
 .panel {
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(16, 25, 42, 0.94), rgba(12, 18, 31, 0.94));
-  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(16, 25, 42, 0.84), rgba(12, 18, 31, 0.78)),
+    radial-gradient(circle at 50% 0%, rgba(135, 206, 255, 0.06), transparent 42%);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 26px 44px rgba(1, 6, 16, 0.3);
+  transform-style: preserve-3d;
 }
 
 .sidebar {
@@ -727,6 +833,11 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 18px 34px rgba(0, 0, 0, 0.26);
+  transform:
+    translate3d(calc(var(--flight-shift-x, 0px) + var(--scene-pan-shell-x)), calc(-2px + var(--flight-shift-y, 0px)), calc(14px + var(--flight-depth, 0px)))
+    rotateX(calc(1.8deg + var(--scene-tilt-x)))
+    rotateY(var(--scene-tilt-soft-y));
+  transition: transform 520ms cubic-bezier(0.2, 0.7, 0.15, 1), box-shadow 360ms ease;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -806,6 +917,7 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
     color 180ms ease,
     box-shadow 180ms ease,
     background 180ms ease;
+  transform: translateZ(0);
 }
 
 body.domain-surface.domain-developer-depot .page-list a {
@@ -882,7 +994,7 @@ body.domain-surface.domain-aegis-application-lab .page-list a.active {
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 12px 24px rgba(0, 0, 0, 0.24),
     0 0 0 1px var(--domain-panel-glow);
-  transform: translateX(3px);
+  transform: translate3d(4px, -1px, 14px);
 }
 
 .page-list a.active {
@@ -934,6 +1046,11 @@ body.domain-surface.domain-nexus .page-list a.page-link-child.active {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 22px 48px rgba(1, 5, 13, 0.38);
+  transform:
+    translate3d(calc(var(--flight-shift-x, 0px) + var(--scene-pan-shell-x)), calc(var(--flight-shift-y, 0px) + var(--scene-pan-shell-y)), calc(22px + var(--flight-depth, 0px)))
+    rotateX(calc(1.2deg + var(--scene-tilt-x)))
+    rotateY(var(--scene-tilt-soft-y));
+  transition: transform 540ms cubic-bezier(0.2, 0.7, 0.15, 1), box-shadow 360ms ease;
 }
 
 .governance-wrap {
@@ -1225,6 +1342,11 @@ body.domain-surface.domain-nexus .page-list a.page-link-child.active {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 18px 34px rgba(0, 0, 0, 0.24);
+  transform:
+    translate3d(var(--flight-shift-x, 0px), var(--flight-shift-y, 0px), calc(18px + var(--flight-depth, 0px)))
+    rotateX(calc(1.4deg + var(--scene-tilt-x)))
+    rotateY(calc(var(--flight-rotate, 0deg) + var(--scene-tilt-soft-y)));
+  transition: transform 520ms cubic-bezier(0.2, 0.7, 0.15, 1), box-shadow 360ms ease, border-color 360ms ease;
 }
 
 .thread-card-with-return {
@@ -1334,6 +1456,13 @@ body.domain-surface.domain-nexus .page-list a.page-link-child.active {
     0 0 0 1px rgba(110, 203, 255, 0.06);
 }
 
+.thread-card-current:hover {
+  transform:
+    translate3d(var(--flight-shift-x, 0px), calc(var(--flight-shift-y, 0px) - 3px), calc(18px + var(--flight-depth, 0px) + 20px))
+    rotateX(calc(0.8deg + var(--scene-tilt-x)))
+    rotateY(calc(var(--flight-rotate, 0deg) + var(--scene-tilt-soft-y)));
+}
+
 .thread-meta {
   display: flex;
   align-items: center;
@@ -1408,6 +1537,20 @@ body.domain-surface.domain-nexus .page-list a.page-link-child.active {
 
 .thread-card-entrance .iframe-wrap {
   padding: 24px;
+}
+
+.flight-surface {
+  will-change: transform, opacity, filter;
+}
+
+body.surface-flight-booting .flight-surface {
+  opacity: 0;
+  filter: blur(14px) saturate(0.74);
+}
+
+body.surface-flight-ready .flight-surface {
+  animation: surfaceReveal 920ms cubic-bezier(0.14, 0.74, 0.2, 1) both;
+  animation-delay: var(--flight-delay, 0ms);
 }
 
 .content-head {
@@ -1960,7 +2103,7 @@ body.domain-surface.domain-nexus .page-list a.page-link-child.active {
     perspective(2200px)
     rotateX(var(--glass-rotate-x))
     rotateY(var(--glass-rotate-y))
-    translateZ(0);
+    translateZ(30px);
   transform-style: preserve-3d;
   transition:
     border-color 220ms ease,
@@ -2156,6 +2299,23 @@ body.domain-surface.domain-nexus .page-list a.page-link-child.active {
   100% {
     transform: translateY(0px);
     opacity: 0.65;
+  }
+}
+
+@keyframes surfaceReveal {
+  0% {
+    opacity: 0;
+    filter: blur(14px) saturate(0.72);
+  }
+
+  45% {
+    opacity: 0.7;
+    filter: blur(4px) saturate(0.94);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0) saturate(1);
   }
 }
 

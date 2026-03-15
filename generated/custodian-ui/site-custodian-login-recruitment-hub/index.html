@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="domain-surface domain-custodian-ui">
+    <canvas id="ether-canvas" aria-hidden="true"></canvas>
     <div class="layout">
       <header class="topbar">
         <div class="topbar-inner">
@@ -45,24 +46,40 @@
                 <h3>Operations</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/custodian-ui/aegis-protocol-dashboard/">AEGIS Protocol - Mission Guidance</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/custodian-cockpit-hud-1/">Custodian Coordination Cockpit - AEGIS Protocol</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/custodian-cockpit-hud-2/">Custodian Coordination Cockpit - AEGIS Protocol</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/custodian-hub-operations-gallery/">Custodian Hub Operations Gallery</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/site-custodians/">Site Custodians</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/regional-drill-down-us-east-1/">AEGIS Protocol - US-EAST-1 Regional Drill-down</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/system-health-report-aegis-protocol/">AegisAlign | System Health Report</a>
                 </nav>
               </section>
 <section class="page-list-section">
                 <h3>Security &amp; Review</h3>
                 <nav class="page-list">
                   <a class="" data-page-link href="/custodian-ui/security-incident-assessor-center/">AEGIS Protocol | Incident Coordination Center</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/security-logs-aegis-protocol/">AEGIS Protocol | Security Logs</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/incident-report-aeg-2023-08/">AegisAlign Incident Report | AEG-2023-08</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/ticket-details-aeg-4092/">AegisAlign | Support Ticket #AEG-4092</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/proposal-discussion-details/">AEGIS Governance | AIP-154 Discussion</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/safety-hold-protocol-sequence/">AEGIS Custodian - Safety hold Protocol</a>
                 </nav>
               </section>
 <section class="page-list-section">
-                <h3>Other Pages</h3>
+                <h3>Access &amp; Intake</h3>
                 <nav class="page-list">
-                  <a class="" data-page-link href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
-<a class="" data-page-link href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
-<a class="" data-page-link href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
-<a class="" data-page-link href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
-<a class="" data-page-link href="/custodian-ui/site-custodian-hub-gallery-update/">Site Custodian Hub Gallery Update</a>
-<a class="active" data-page-link href="/custodian-ui/site-custodian-login-recruitment-hub/">Site Custodian Login Recruitment Hub</a>
-<a class="" data-page-link href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
+                  <a class="" data-page-link href="/custodian-ui/custodian-login-portal/">AEGIS Protocol | Custodian Login</a>
+<a class="active page-link-child" data-page-link href="/custodian-ui/site-custodian-login-recruitment-hub/">Site Custodian Login Recruitment Hub</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/submission-review-interface/">Submission Review Interface</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/create-new-page-custodian-tool/">AegisAlign | Create New Page</a>
+                </nav>
+              </section>
+<section class="page-list-section">
+                <h3>Governance &amp; Publishing</h3>
+                <nav class="page-list">
+                  <a class="" data-page-link href="/custodian-ui/decentralized-governance-voting/">AEGIS Protocol | Governance Dashboard</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/api-reference-aegis-protocol/">AEGIS Protocol API Reference</a>
+<a class="page-link-child" data-page-link href="/custodian-ui/site-custodian-hub-gallery-update/">Site Custodian Hub Gallery Update</a>
                 </nav>
               </section>
           </div>
@@ -226,5 +243,7 @@
     <script type="module" src="/src/ambient-signals.js"></script>
     <script type="module" src="/src/peer-signs.js"></script>
     <script type="module" src="/src/glass-frame.js"></script>
+    <script type="module" src="/src/surface-flight.js"></script>
+    <script type="module" src="/src/nexus-ether.js"></script>
   </body>
 </html>
