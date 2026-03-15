@@ -98,6 +98,14 @@ This repo now includes:
 
 These are set up for static hosting from `dist/`.
 
+### Current Studio Project
+
+The current Firebase project wired to this repo is:
+
+- `studio-7318266550-8ad26`
+
+The local `.firebaserc` already points to that project.
+
 ### One-time setup
 
 1. Create or choose a Google Cloud project.
@@ -129,6 +137,24 @@ firebase deploy --only hosting
 npm run build
 firebase hosting:channel:deploy staging
 ```
+
+## Firebase Studio Repo Import
+
+Firebase Hosting deploys do not require Firebase Studio to mirror the repo, but if you want the code visible inside Studio you need to import it separately.
+
+Use this path in Firebase Studio:
+
+1. Open the Studio workspace tied to the Firebase project.
+2. Choose `Import repository` or `Clone from Git`.
+3. Select the actual EcoVerse repository.
+4. Point the import at the repo root.
+5. Do not scaffold a new React app or template on top of it.
+
+Important:
+
+- Studio repo import is optional for Hosting.
+- Local CLI deploys from `I:\AEGIS_ALIGN-ECOVERSE` are already valid.
+- If Studio asks whether to initialize Hosting again, keep the existing repo config and do not overwrite `firebase.json`.
 
 ## What Not To Do Yet
 
