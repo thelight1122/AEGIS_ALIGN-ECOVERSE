@@ -866,6 +866,7 @@ function groupPagesForSidebar(domain, domainPages, navigationHierarchy) {
       if (page) {
         sectionPages.push({
           ...page,
+          navLabel: pageConfig.navLabel || page.title,
           isParent: pageConfig.isParent,
           parent: pageConfig.parent
         });
@@ -900,7 +901,7 @@ function renderSidebarNav(domain, domainPages, currentPage, navigationHierarchy)
         .map((item) => {
           const active = item.slug === currentPage.slug ? "active" : "";
           const childClass = item.parent ? "page-link-child" : "";
-          return `<a class="${[active, childClass].filter(Boolean).join(" ")}" data-page-link href="${item.routePath}">${escapeHtml(item.title)}</a>`;
+          return `<a class="${[active, childClass].filter(Boolean).join(" ")}" data-page-link href="${item.routePath}">${escapeHtml(item.navLabel || item.title)}</a>`;
         })
         .join("\n");
 

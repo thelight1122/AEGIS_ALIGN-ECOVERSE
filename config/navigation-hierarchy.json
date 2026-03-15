@@ -191,14 +191,14 @@
         "label": "Operations",
         "pages": [
           { "slug": "aegis-protocol-dashboard", "isParent": true },
-          { "slug": "custodian-cockpit-hud-1", "parent": "aegis-protocol-dashboard" },
-          { "slug": "custodian-cockpit-hud-2", "parent": "aegis-protocol-dashboard" },
+          { "slug": "custodian-cockpit-hud-1", "parent": "aegis-protocol-dashboard", "navLabel": "Custodian Cockpit I" },
+          { "slug": "custodian-cockpit-hud-2", "parent": "aegis-protocol-dashboard", "navLabel": "Custodian Cockpit II" },
           { "slug": "custodian-hub-operations-gallery", "parent": "aegis-protocol-dashboard" },
           { "slug": "site-custodians", "parent": "aegis-protocol-dashboard" },
           { "slug": "regional-drill-down-us-east-1", "parent": "aegis-protocol-dashboard" },
           { "slug": "system-health-report-aegis-protocol", "parent": "aegis-protocol-dashboard" },
-          { "slug": "status", "parent": "aegis-protocol-dashboard" },
-          { "slug": "secure", "parent": "aegis-protocol-dashboard" }
+          { "slug": "status", "parent": "aegis-protocol-dashboard", "navLabel": "Status Board" },
+          { "slug": "secure", "parent": "aegis-protocol-dashboard", "navLabel": "Secure Gateway" }
         ]
       },
       {
@@ -258,14 +258,14 @@
         "label": "Analytics & Releases",
         "pages": [
           { "slug": "plugin-developer-analytics", "isParent": true },
-          { "slug": "protocol-isolated-confirmation", "parent": "plugin-developer-analytics" }
+          { "slug": "protocol-isolated-confirmation", "parent": "plugin-developer-analytics", "navLabel": "Isolated Confirmation" }
         ]
       },
       {
         "label": "Collaboration & Topology",
         "pages": [
-          { "slug": "colab-creation-page-1", "isParent": true },
-          { "slug": "colab-creation-page-2", "parent": "colab-creation-page-1" },
+          { "slug": "colab-creation-page-1", "isParent": true, "navLabel": "Collab Hub Alpha" },
+          { "slug": "colab-creation-page-2", "parent": "colab-creation-page-1", "navLabel": "Collab Hub Beta" },
           { "slug": "network-topology-visualizer", "parent": "colab-creation-page-1" }
         ]
       }
@@ -292,9 +292,9 @@
       {
         "label": "Governance & Collaboration",
         "pages": [
-          { "slug": "aegis-arbitor-features-1", "isParent": true },
-          { "slug": "aegis-arbitor-features-2", "parent": "aegis-arbitor-features-1" },
-          { "slug": "aegis-llm-colab-and-agentic-workshop", "parent": "aegis-arbitor-features-1" }
+          { "slug": "aegis-arbitor-features-1", "isParent": true, "navLabel": "Arbitor Overview" },
+          { "slug": "aegis-arbitor-features-2", "parent": "aegis-arbitor-features-1", "navLabel": "Arbitor Consensus" },
+          { "slug": "aegis-llm-colab-and-agentic-workshop", "parent": "aegis-arbitor-features-1", "navLabel": "LLM Colab Workshop" }
         ]
       }
     ]

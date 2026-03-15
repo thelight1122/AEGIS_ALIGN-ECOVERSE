@@ -11,6 +11,8 @@ Vite multipage integration for Stitch-exported AegisAlign UI pages.
 - `npm run build`: sync, validate, and produce static build in `dist/`.
 - `npm run preview`: preview the production build.
 - `npm run preview:cf`: preview `dist/` with Cloudflare Pages routing (`_redirects` + `_headers`) applied.
+- `npm run deploy:firebase:staging`: build and deploy a Firebase Hosting preview channel named `staging`.
+- `npm run deploy:firebase`: build and deploy the production Firebase Hosting site.
 
 ## Local 404 Note
 
@@ -41,3 +43,8 @@ Use canonical paths with trailing slash (for example, `/nexus/`) or run `npm run
 
 - Pages config: [wrangler.jsonc](./wrangler.jsonc)
 - Deployment steps: [docs/cloudflare-pages.md](./docs/cloudflare-pages.md)
+
+## Google / Firebase
+
+- Firebase Hosting config: [firebase.json](./firebase.json)
+- Launch architecture and rollout steps: [docs/google-firebase-launch.md](./docs/google-firebase-launch.md)
