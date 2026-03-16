@@ -1,13 +1,88 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><title>Access Gateway</title>
-<link rel="stylesheet" href="../custodian-ops.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head><body>
-<div class="glass-panel">
-  <h1 style="color:var(--ops-cyan); font-weight:800; margin-top:0;">Access Gateway</h1>
-  <p style="color:rgba(255,255,255,0.6);">Precise operational diagnostics setup benchmarks triggers.</p>
-  <div class="dashboard-grid">
-    <div class="glass-panel"><h3><i class="fa-solid fa-gauge"></i> Telemetry</h3><p>Operational sync load metrics 98.4% diagnostics</p></div>
-    <div class="glass-panel"><h3><i class="fa-solid fa-bell"></i> Alerts</h3><p>0 Critical | 2 Warnings triggers loaded</p></div>
-  </div>
-</div></body></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access Gateway | Custodian Ops</title>
+    <link rel="stylesheet" href="../custodian-ops.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="ops-theme">
+    <div class="dashboard-shell">
+        <div class="secure-access-container">
+            <div class="glass-panel secure-checkpoint">
+                <div class="panel-header text-center">
+                    <h3><i class="fa-solid fa-shield-halved panel-icon"></i> Access Verification</h3>
+                    <span class="badge badge-success">Standby</span>
+                </div>
+                <div class="panel-content text-center">
+                    <!-- Verification Visual -->
+                    <div class="verification-visual">
+                        <i class="fa-solid fa-lock ops-cyan" style="font-size: 3.5rem; margin: 20px 0;"></i>
+                        <div class="scanning-beam"></div>
+                    </div>
+                    
+                    <h2 class="access-title">Credential Roll Verification</h2>
+                    <p class="panel-desc">AegisAlign Multi-Factor Authorization required for elevated Custodian privileges.</p>
+
+                    <div class="checklist">
+                        <div class="checklist-item valid">
+                            <i class="fa-solid fa-circle-check"></i> <span>Session Token Active (GW-9122)</span>
+                        </div>
+                        <div class="checklist-item valid">
+                            <i class="fa-solid fa-circle-check"></i> <span>Source Mesh Identified</span>
+                        </div>
+                        <div class="checklist-item pending">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i> <span>Awaiting Biometric Lock Confirmation</span>
+                        </div>
+                    </div>
+
+                    <div class="workspace-actions justify-center" style="margin-top: 25px;">
+                        <button class="ops-btn ops-btn-primary ops-btn-lg"><i class="fa-solid fa-fingerprint"></i> Verify Identity</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Access Log -->
+            <div class="glass-panel recent-logs" style="margin-top: 20px;">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-clock-rotate-left panel-icon"></i> Recent Gateway Log</h3>
+                    <span class="badge badge-info">Live</span>
+                </div>
+                <div class="panel-content">
+                    <table class="ops-table ops-table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Identity</th>
+                                <th>Action</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>02s ago</td>
+                                <td>Custodian #4</td>
+                                <td>Privileged Escalate</td>
+                                <td><span class="badge badge-success">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td>15s ago</td>
+                                <td>Peer #912</td>
+                                <td>Query Directory</td>
+                                <td><span class="badge badge-success">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td>1m ago</td>
+                                <td>Unknown Node</td>
+                                <td>Handshake Request</td>
+                                <td><span class="badge badge-warning">Denied</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

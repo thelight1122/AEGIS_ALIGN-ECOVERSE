@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starter Downloads | Application Lab</title>
+    <link rel="stylesheet" href="../application-lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="lab-theme">
+    <div class="dashboard-shell">
+        <header class="ops-header">
+            <div class="header-main">
+                <h1 class="header-title">Starter Downloads</h1>
+                <p class="header-subtitle">Config files and binaries to unblock local node development.</p>
+            </div>
+            <div class="header-actions">
+                <button class="ops-btn ops-btn-outline"><i class="fa-solid fa-arrow-left"></i> Back to Lab</button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Asset Lists -->
+            <div class="glass-panel grid-span-12">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-download panel-icon"></i> Config Bundles</h3>
+                    <span class="badge badge-info">3 Assets</span>
+                </div>
+                <div class="panel-content">
+                    <ul class="detail-list" style="padding: 0; list-style: none;">
+                        
+                        <!-- Asset 1 -->
+                        <li style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #FFF;">Core Mesh Configuration</h4>
+                                <p style="margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.4);">`aegis-mesh-starter.yaml` | 42 KB | Node Defaults</p>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="ops-btn ops-btn-sm"><i class="fa-solid fa-copy"></i> Copy YAML</button>
+                                <button class="ops-btn ops-btn-primary ops-btn-sm"><i class="fa-solid fa-download"></i></button>
+                            </div>
+                        </li>
+
+                        <!-- Asset 2 -->
+                        <li style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #FFF;">Audit Log Parser Snippet</h4>
+                                <p style="margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.4);">`parser.js` | 14 KB | JS Utility</p>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="ops-btn ops-btn-sm"><i class="fa-solid fa-copy"></i> Copy code</button>
+                                <button class="ops-btn ops-btn-primary ops-btn-sm"><i class="fa-solid fa-download"></i></button>
+                            </div>
+                        </li>
+
+                        <!-- Asset 3 -->
+                        <li style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #FFF;">Sovereign Node Docker Image</h4>
+                                <p style="margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.4);">`aegis-node:latest` | 142 MB | container</p>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="ops-btn ops-btn-sm"><i class="fa-solid fa-terminal"></i> docker pull</button>
+                                <button class="ops-btn ops-btn-primary ops-btn-sm"><i class="fa-solid fa-download"></i></button>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Start Terminal Snippet -->
+            <div class="glass-panel grid-span-12" style="margin-top: 20px;">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-terminal panel-icon"></i> Local Node Setup</h3>
+                </div>
+                <div class="panel-content" style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; font-family: monospace; font-size: 0.85rem; color: rgba(255,255,255,0.8); position: relative;">
+                    <div style="position: absolute; right: 15px; top: 15px;"><button class="ops-btn ops-btn-sm"><i class="fa-solid fa-copy"></i></button></div>
+                    <span style="color: var(--lab-cyan);"># 1. Download mesh configuration</span><br>
+                    curl -sSL https://aegis-mesh.io/starter.yaml > aegis-mesh-starter.yaml<br><br>
+                    <span style="color: var(--lab-cyan);"># 2. Boot simulated node</span><br>
+                    aegis-node up --config ./aegis-mesh-starter.yaml<br><br>
+                    <span style="color: #00E676;">[Success] Node online. Mesh sync locked.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

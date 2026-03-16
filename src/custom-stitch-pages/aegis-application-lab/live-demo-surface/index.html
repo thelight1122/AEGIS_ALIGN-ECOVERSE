@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Demo Surface | Application Lab</title>
+    <link rel="stylesheet" href="../application-lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Specific page overrides for demo dashboard */
+        .demo-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 20px;
+            height: calc(100vh - 120px);
+        }
+        @media (max-width: 1200px) {
+            .demo-layout { grid-template-columns: 1fr; height: auto; }
+        }
+        .viewport-canvas {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--lab-border);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .canvas-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(138, 43, 226, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
+        }
+        .control-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .control-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="lab-theme">
+    <div class="dashboard-shell">
+        <header class="ops-header">
+            <div class="header-main">
+                <h1 class="header-title">Live Demo: Consensus Matrix v2</h1>
+                <p class="header-subtitle">Status: <span class="ops-cyan">Operational</span> | Epoch: <span class="ops-cyan">#422-C</span></p>
+            </div>
+            <div class="header-actions">
+                <button class="ops-btn ops-btn-outline ops-danger"><i class="fa-solid fa-stop"></i> Terminate</button>
+                <button class="ops-btn ops-btn-primary"><i class="fa-solid fa-rotate"></i> Restart</button>
+            </div>
+        </header>
+
+        <div class="demo-layout">
+            <!-- Left Sidebar: Controls -->
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-sliders panel-icon"></i> Controls</h3>
+                </div>
+                <div class="panel-content control-list">
+                    <div class="control-item">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Simulate Latency</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">Inject mesh lag index</div>
+                        </div>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                    <div class="control-item">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Force Consensus</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">Override voter buffer</div>
+                        </div>
+                        <button class="ops-btn ops-btn-sm">Trigger</button>
+                    </div>
+                    <div class="control-item">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Load Factor</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">Scale auxiliary weight</div>
+                        </div>
+                        <input type="range" style="width: 80px;" min="0" max="100" value="45">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center: Viewport -->
+            <div class="viewport-canvas">
+                <div class="canvas-grid"></div>
+                <!-- Mock Matrix Node Visual -->
+                <div style="text-align: center; z-index: 1; pointer-events: none;">
+                    <i class="fa-solid fa-network-wired" style="font-size: 5rem; color: var(--lab-prism); animation: pulse 2s infinite;"></i>
+                    <h3 style="margin: 15px 0 5px 0; color: #FFF;">Simulated Mesh Topology</h3>
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Rendering 12 Adaptive Nodes...</p>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Diagnostics -->
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-terminal panel-icon"></i> Diagnostic Log</h3>
+                    <span class="badge badge-info">Stream</span>
+                </div>
+                <div class="panel-content" style="font-family: monospace; font-size: 0.8rem; color: rgba(255,255,255,0.7); overflow-y: auto; height: 100%;">
+                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-cyan);">[03:12:01]</span> Node #91 VPC handshake starting...</div>
+                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-cyan);">[03:12:01]</span> Fetching auth certs from buffer...</div>
+                    <div style="margin-bottom: 5px;"><span style="color: #00E676;">[03:12:02]</span> Certs verified. Shard load 12%.</div>
+                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-cyan);">[03:12:05]</span> Propagating consensus weight...</div>
+                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-prism);">[03:12:08]</span> Matrix sync locked.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Small styling for switch since it is not in application-lab.css */
+        .switch { position: relative; inline-size: 34px; block-size: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: .4s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--lab-prism); }
+        input:checked + .slider:before { transform: translateX(14px); }
+        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; transform: scale(1.05); } 100% { opacity: 0.7; } }
+    </style>
+</body>
+</html>

@@ -1,0 +1,175 @@
+:root {
+  --lab-bg: #03040B;
+  --lab-panel: rgba(10, 15, 30, 0.4);
+  --lab-border: rgba(138, 43, 226, 0.15);
+  --lab-glow: #8A2BE2;
+  --lab-prism: #E040FB;
+  --lab-cyan: #00E5FF;
+}
+
+body.lab-theme {
+  background: var(--lab-bg);
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(138, 43, 226, 0.05) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(0, 229, 255, 0.05) 0px, transparent 50%);
+  color: #E2E8F0;
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.dashboard-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.ops-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.header-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #FFF 30%, var(--lab-prism));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.header-subtitle {
+  margin: 5px 0 0 0;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--lab-panel);
+  border: 1px solid var(--lab-border);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.glass-panel:hover {
+  border-color: rgba(138, 43, 226, 0.3);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* Utility span classes */
+.grid-span-4 { grid-column: span 4; }
+.grid-span-6 { grid-column: span 6; }
+.grid-span-8 { grid-column: span 8; }
+.grid-span-12 { grid-column: span 12; }
+
+@media (max-width: 1024px) {
+  .grid-span-4, .grid-span-6, .grid-span-8 { grid-column: span 12; }
+}
+
+/* Panel Header */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel-icon {
+  color: var(--lab-prism);
+}
+
+/* Buttons */
+.ops-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #E2E8F0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.ops-btn:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-1px);
+}
+.ops-btn-primary {
+  background: var(--lab-prism);
+  border-color: var(--lab-prism);
+  color: #FFF;
+  font-weight: 600;
+}
+.ops-btn-primary:hover {
+  background: #D500F9;
+  box-shadow: 0 0 15px rgba(224, 64, 251, 0.4);
+}
+.ops-btn-outline {
+  background: transparent;
+  border-color: var(--lab-prism);
+  color: var(--lab-prism);
+}
+.ops-btn-outline:hover {
+  background: rgba(224, 64, 251, 0.1);
+}
+
+/* App Cards */
+.app-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 15px;
+  transition: all 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.app-card:hover {
+  background: rgba(138, 43, 226, 0.05);
+  border-color: var(--lab-prism);
+  transform: translateY(-3px);
+}
+.app-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 5px 0; color: #FFF; }
+.app-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin: 0 0 15px 0; }
+
+/* Badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.badge-lab { background: rgba(224,64,251,0.15); color: var(--lab-prism); border: 1px solid rgba(224,64,251,0.3); }
+.badge-alpha { background: rgba(0,229,255,0.15); color: var(--lab-cyan); border: 1px solid rgba(0,229,255,0.3); }
+
+/* Grid node statuses similar to Ops */
+.node-status { width: 8px; height: 8px; border-radius: 50%; }
+.status-online { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.status-warning { background: #FFEA00; box-shadow: 0 0 8px #FFEA00; }

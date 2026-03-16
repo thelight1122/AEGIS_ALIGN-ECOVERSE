@@ -1,0 +1,21 @@
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 215 modules transformed.
+Γ£ù Build failed in 896ms
+error during build:
+[vite:build-html] src/developer-depot-activation.js (1284:4): Expected ',', got ';'
+file: I:/AEGIS_ALIGN-ECOVERSE/src/developer-depot-activation.js:1284:4 (I:/AEGIS_ALIGN-ECOVERSE/generated/developer-depot/api-reference-aegis-protocol/index.html)
+
+1282:     renderWebhooks();
+1283:     endpointUrl?.scrollIntoView({ behavior: "smooth", block: "center" });
+1284:   });
+          ^
+1285:   deleteButtons.forEach((button) => bindManagedClick(button, () => {
+1286:     const heading = button.closest("div")?.parentElement?.querySelector("h3");
+
+    at getRollupError (file:///I:/AEGIS_ALIGN-ECOVERSE/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at ParseError.initialise (file:///I:/AEGIS_ALIGN-ECOVERSE/node_modules/rollup/dist/es/shared/node-entry.js:14465:28)
+    at convertNode (file:///I:/AEGIS_ALIGN-ECOVERSE/node_modules/rollup/dist/es/shared/node-entry.js:16437:10)
+    at convertProgram (file:///I:/AEGIS_ALIGN-ECOVERSE/node_modules/rollup/dist/es/shared/node-entry.js:15677:12)
+    at Module.setSource (file:///I:/AEGIS_ALIGN-ECOVERSE/node_modules/rollup/dist/es/shared/node-entry.js:17392:24)
+    at async ModuleLoader.addModuleSource (file:///I:/AEGIS_ALIGN-ECOVERSE/node_modules/rollup/dist/es/shared/node-entry.js:21497:13)

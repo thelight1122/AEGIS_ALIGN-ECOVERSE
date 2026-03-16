@@ -1160,8 +1160,11 @@ function enhanceWebhooks(doc) {
 
   const addEndpointTop = findButton(doc, "Add New Endpoint");
   const endpointUrl = doc.querySelector('input[placeholder*="https://your-api.com/webhooks"]');
-  const description = doc.querySelector('input[placeholder*="Identify this webhook"]');
-  const eventCheckboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter((node) => node.getAttribute("aria-label"));
+  const description = doc.querySelector('textarea, input[placeholder*="Identify this webhook"]');
+  const eventCheckboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter((node) => {
+    const label = normalizeText(node.closest("label, div")?.textContent || "");
+    return ["node.online", "node.offline", "shield.breach", "auth.failure", "quota.warning", "billing.alert"].some((item) => label.includes(item));
+  });
   const cancelButton = findButton(doc, "Cancel");
   const createButton = findButton(doc, "Create Endpoint");
   const viewAllLogs = findButton(doc, "View All Logs");
@@ -1175,7 +1178,10 @@ function enhanceWebhooks(doc) {
 
   const syncWebhookDraft = () => {
     const current = readState();
-    const selectedEvents = eventCheckboxes.filter((node) => node.checked).map((node) => node.getAttribute("aria-label"));
+    const selectedEvents = eventCheckboxes.filter((node) => node.checked).map((node) => {
+      const label = node.closest("label, div");
+      return (label?.textContent || "").split(/\s+/).find((item) => item.includes(".")) || "";
+    }).filter(Boolean);
     patchState({
       webhooks: {
         ...current.webhooks,
@@ -1259,17 +1265,17 @@ function enhanceWebhooks(doc) {
   });
   bindManagedClick(viewAllLogs, () => navigateTo("/developer-depot/api-usage-report-aegis-protocol/"));
   visibilityButtons.forEach((button) => bindManagedClick(button, () => {
-    const heading = button.closest("div")?.parentElement?.querySelector("h3");
+    const headingText = resolveDepotCardHeading(button);
     const current = readState();
-    const item = current.webhooksList.find((entry) => entry.url === heading?.textContent?.trim());
+    const item = current.webhooksList.find((entry) => entry.url === headingText);
     if (!item) return;
     patchState({ webhooks: { ...current.webhooks, selectedEndpointId: current.webhooks.selectedEndpointId === item.id ? "" : item.id } });
     renderWebhooks();
   }));
   editButtons.forEach((button) => bindManagedClick(button, () => {
-    const heading = button.closest("div")?.parentElement?.querySelector("h3");
+    const headingText = resolveDepotCardHeading(button);
     const current = readState();
-    const item = current.webhooksList.find((entry) => entry.url === heading?.textContent?.trim());
+    const item = current.webhooksList.find((entry) => entry.url === headingText);
     if (!item) return;
     patchState({
       webhooks: {
@@ -1281,11 +1287,11 @@ function enhanceWebhooks(doc) {
     });
     renderWebhooks();
     endpointUrl?.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
+  }));
   deleteButtons.forEach((button) => bindManagedClick(button, () => {
-    const heading = button.closest("div")?.parentElement?.querySelector("h3");
+    const headingText = resolveDepotCardHeading(button);
     const current = readState();
-    patchState({ webhooksList: current.webhooksList.filter((entry) => entry.url !== heading?.textContent?.trim()) });
+    patchState({ webhooksList: current.webhooksList.filter((entry) => entry.url !== headingText) });
     renderWebhooks();
     showToast(doc, "Webhook endpoint removed from the local mesh.");
   }));
@@ -1437,12 +1443,122 @@ function enhanceNodeManagement(doc) {
   renderNodes();
 }
 
+function enhanceProtocolConfiguration(doc) {
+  if (doc.body.dataset.aegisDepotProtocolConfig === "true") return;
+  doc.body.dataset.aegisDepotProtocolConfig = "true";
+  injectStyles(doc);
+
+  const viewLogs = findButton(doc, "View Logs");
+  const syncSlider = doc.querySelector('input[type="range"]');
+  const selects = Array.from(doc.querySelectorAll("select"));
+  const autoDiscovery = Array.from(doc.querySelectorAll('input[type="checkbox"]')).find((node) => node.getAttribute("aria-label") === "Automatic");
+  const vpcTunnel = Array.from(doc.querySelectorAll('input[type="checkbox"]')).find((node) => node !== autoDiscovery);
+  const minNodes = doc.querySelector('input[type="number"]');
+  const resetButton = findButton(doc, "Reset to Defaults");
+  const applyButton = findButton(doc, "Apply Changes");
+  const modifiedLabel = Array.from(doc.querySelectorAll("div, p")).find((node) => normalizeText(node.textContent).includes("local changes"));
+  const preview = Array.from(doc.querySelectorAll("div")).find((node) => normalizeText(node.textContent).includes("aegis_protocol_v4"));
+
+  const [consensusSelect, encryptionSelect, rotationSelect] = selects;
+
+  const updateModifiedCount = (nextConfig) => {
+    let count = 0;
+    const base = DEFAULT_STATE.protocolConfig;
+    Object.keys(base).forEach((key) => {
+      if (key === "modifiedCount") return;
+      if (String(base[key]) !== String(nextConfig[key])) count += 1;
+    });
+    return count;
+  };
+
+  const renderConfig = () => {
+    const state = readState();
+    const config = state.protocolConfig;
+    if (syncSlider) syncSlider.value = String(config.syncInterval);
+    if (consensusSelect) consensusSelect.value = config.consensus;
+    if (encryptionSelect) encryptionSelect.value = config.encryption;
+    if (rotationSelect) rotationSelect.value = config.rotation;
+    if (autoDiscovery) autoDiscovery.checked = Boolean(config.autoDiscovery);
+    if (vpcTunnel) vpcTunnel.checked = Boolean(config.vpcTunnel);
+    if (minNodes) minNodes.value = String(config.minNodes);
+
+    const syncValue = Array.from(doc.querySelectorAll("div")).find((node) => /ms$/.test((node.textContent || "").trim()) && node.textContent.includes("100ms"));
+    if (syncValue) syncValue.textContent = `${config.syncInterval}ms`;
+    const previewText = `aegis_protocol_v4:
+sync:
+  ${config.syncInterval}ms
+consensus:
+  ${slugify(config.consensus).replace(/-/g, "_")}
+discovery:
+  ${config.autoDiscovery ? "auto" : "manual"}
+security:
+  encryption:
+    ${config.encryption.includes("Quantum") ? "quantum_res" : config.encryption.includes("High") ? "high_fidelity" : "aes_256"}
+  key_rotation:
+    ${config.rotation.toLowerCase().replace(/\s+/g, "_")}
+  vpc_tunnel:
+    ${config.vpcTunnel}
+governance:
+  min_nodes:
+    ${config.minNodes}
+  rep_weight:
+    uptime:
+      ${config.uptimeWeight}
+    latency:
+      ${config.latencyWeight}`;
+    if (preview) preview.textContent = previewText;
+    if (modifiedLabel) modifiedLabel.textContent = `Local Changes: ${config.modifiedCount} modified parameters`;
+  };
+
+  const persistConfig = (partial) => {
+    const current = readState();
+    const nextConfig = { ...current.protocolConfig, ...partial };
+    nextConfig.modifiedCount = updateModifiedCount(nextConfig);
+    patchState({ protocolConfig: nextConfig });
+    renderConfig();
+  };
+
+  syncSlider?.addEventListener("input", () => persistConfig({ syncInterval: Number(syncSlider.value) }));
+  consensusSelect?.addEventListener("change", () => persistConfig({ consensus: consensusSelect.value }));
+  encryptionSelect?.addEventListener("change", () => persistConfig({ encryption: encryptionSelect.value }));
+  rotationSelect?.addEventListener("change", () => persistConfig({ rotation: rotationSelect.value }));
+  autoDiscovery?.addEventListener("change", () => persistConfig({ autoDiscovery: autoDiscovery.checked }));
+  vpcTunnel?.addEventListener("change", () => persistConfig({ vpcTunnel: vpcTunnel.checked }));
+  minNodes?.addEventListener("input", () => persistConfig({ minNodes: Number(minNodes.value || 0) }));
+
+  bindManagedClick(viewLogs, () => navigateTo("/developer-depot/api-usage-report-aegis-protocol/"));
+  bindManagedClick(resetButton, () => {
+    patchState({ protocolConfig: { ...DEFAULT_STATE.protocolConfig } });
+    renderConfig();
+    showToast(doc, "Protocol configuration reset to defaults.");
+  });
+  bindManagedClick(applyButton, () => {
+    const current = readState();
+    patchState({
+      protocolConfig: { ...current.protocolConfig, modifiedCount: 0 },
+      requestLog: [
+        `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] PATCH /v2/node/config 200 OK 91ms`,
+        ...current.requestLog,
+      ].slice(0, 12),
+    });
+    renderConfig();
+    showToast(doc, "Protocol configuration applied to the local AEGIS session.");
+  });
+
+  renderConfig();
+}
+
 const pageEnhancers = {
   "developer-hub-depot": enhanceDeveloperHub,
   "api-reference-aegis-protocol": enhanceApiReference,
   "submit-plugin-to-depot": enhanceSubmitPlugin,
   "my-submissions-dashboard": enhanceMySubmissions,
   "plugin-developer-analytics": enhanceAnalytics,
+  "developer-console-aegis-protocol": enhanceDeveloperConsole,
+  "api-usage-report-aegis-protocol": enhanceUsageReport,
+  "webhooks-configuration-aegis-protocol": enhanceWebhooks,
+  "node-management-aegis-protocol": enhanceNodeManagement,
+  "protocol-configuration-aegis-protocol": enhanceProtocolConfiguration,
 };
 
 function enhanceFrame(frame) {

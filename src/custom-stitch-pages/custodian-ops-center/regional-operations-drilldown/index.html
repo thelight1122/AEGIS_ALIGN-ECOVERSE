@@ -1,13 +1,111 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><title>Regional Operations</title>
-<link rel="stylesheet" href="../custodian-ops.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head><body>
-<div class="glass-panel">
-  <h1 style="color:var(--ops-cyan); font-weight:800; margin-top:0;">Regional Operations</h1>
-  <p style="color:rgba(255,255,255,0.6);">Precise operational diagnostics setup benchmarks triggers.</p>
-  <div class="dashboard-grid">
-    <div class="glass-panel"><h3><i class="fa-solid fa-gauge"></i> Telemetry</h3><p>Operational sync load metrics 98.4% diagnostics</p></div>
-    <div class="glass-panel"><h3><i class="fa-solid fa-bell"></i> Alerts</h3><p>0 Critical | 2 Warnings triggers loaded</p></div>
-  </div>
-</div></body></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regional Operations Drilldown | Custodian Ops</title>
+    <link rel="stylesheet" href="../custodian-ops.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="ops-theme">
+    <div class="dashboard-shell">
+        <header class="ops-header">
+            <div class="header-main">
+                <h1 class="header-title">Regional Operations Drilldown</h1>
+                <p class="header-subtitle">Monitoring <span class="ops-cyan">4 Regions</span> | <span class="ops-cyan">12 Active Nodes</span></p>
+            </div>
+            <div class="header-actions">
+                <button class="ops-btn ops-btn-outline"><i class="fa-solid fa-earth-americas"></i> Map View</button>
+                <button class="ops-btn ops-btn-primary"><i class="fa-solid fa-plus"></i> Provision Node</button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Region 1: US-WEST-2 -->
+            <div class="glass-panel grid-span-6">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-server panel-icon"></i> US-WEST-2 (Oregon)</h3>
+                    <span class="badge badge-success">Healthy</span>
+                </div>
+                <div class="panel-content">
+                    <div class="node-grid">
+                        <div class="node-card">
+                            <div class="node-status status-online"></div>
+                            <div class="node-info">
+                                <h4>Node #91-VPC</h4>
+                                <p>CPU 12% | Latency 12ms</p>
+                            </div>
+                        </div>
+                        <div class="node-card">
+                            <div class="node-status status-online"></div>
+                            <div class="node-info">
+                                <h4>Node #92-AZ</h4>
+                                <p>CPU 8% | Latency 15ms</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Region 2: EU-CENTRAL-1 -->
+            <div class="glass-panel grid-span-6">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-server panel-icon"></i> EU-CENTRAL-1 (Frankfurt)</h3>
+                    <span class="badge badge-success">Healthy</span>
+                </div>
+                <div class="panel-content">
+                    <div class="node-grid">
+                        <div class="node-card">
+                            <div class="node-status status-online"></div>
+                            <div class="node-info">
+                                <h4>Node #44-E</h4>
+                                <p>CPU 25% | Latency 42ms</p>
+                            </div>
+                        </div>
+                        <div class="node-card">
+                            <div class="node-status status-online"></div>
+                            <div class="node-info">
+                                <h4>Node #45-E</h4>
+                                <p>CPU 18% | Latency 44ms</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Region 3: AP-SOUTHEAST-1 -->
+            <div class="glass-panel grid-span-12">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-triangle-exclamation panel-icon"></i> AP-SOUTHEAST-1 (Singapore)</h3>
+                    <span class="badge badge-warning">High Latency</span>
+                </div>
+                <div class="panel-content">
+                    <div class="node-grid">
+                        <div class="node-card">
+                            <div class="node-status status-warning"></div>
+                            <div class="node-info">
+                                <h4>Node #22-AZ</h4>
+                                <p>CPU 64% | Latency 112ms</p>
+                            </div>
+                        </div>
+                        <div class="node-card">
+                            <div class="node-status status-online"></div>
+                            <div class="node-info">
+                                <h4>Node #23-AZ</h4>
+                                <p>CPU 12% | Latency 115ms</p>
+                            </div>
+                        </div>
+                        <div class="node-card">
+                            <div class="node-status status-online"></div>
+                            <div class="node-info">
+                                <h4>Node #24-AZ</h4>
+                                <p>CPU 9% | Latency 110ms</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
