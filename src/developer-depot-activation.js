@@ -432,6 +432,12 @@ function formatCompactNumber(value) {
   return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(value);
 }
 
+function resolveWebhookEventName(node) {
+  const label = normalizeText(node?.closest("label, div")?.textContent || "");
+  return ["node.online", "node.offline", "shield.breach", "auth.failure", "quota.warning", "billing.alert"]
+    .find((item) => label.includes(item)) || "";
+}
+
 function resolveDepotCardHeading(node) {
   let cursor = node;
   while (cursor && cursor !== cursor.ownerDocument.body) {
@@ -1162,8 +1168,7 @@ function enhanceWebhooks(doc) {
   const endpointUrl = doc.querySelector('input[placeholder*="https://your-api.com/webhooks"]');
   const description = doc.querySelector('textarea, input[placeholder*="Identify this webhook"]');
   const eventCheckboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter((node) => {
-    const label = normalizeText(node.closest("label, div")?.textContent || "");
-    return ["node.online", "node.offline", "shield.breach", "auth.failure", "quota.warning", "billing.alert"].some((item) => label.includes(item));
+    return Boolean(resolveWebhookEventName(node));
   });
   const cancelButton = findButton(doc, "Cancel");
   const createButton = findButton(doc, "Create Endpoint");
@@ -1178,10 +1183,7 @@ function enhanceWebhooks(doc) {
 
   const syncWebhookDraft = () => {
     const current = readState();
-    const selectedEvents = eventCheckboxes.filter((node) => node.checked).map((node) => {
-      const label = node.closest("label, div");
-      return (label?.textContent || "").split(/\s+/).find((item) => item.includes(".")) || "";
-    }).filter(Boolean);
+    const selectedEvents = eventCheckboxes.filter((node) => node.checked).map((node) => resolveWebhookEventName(node)).filter(Boolean);
     patchState({
       webhooks: {
         ...current.webhooks,
@@ -1197,7 +1199,7 @@ function enhanceWebhooks(doc) {
     if (endpointUrl) endpointUrl.value = state.webhooks.endpointUrl || "";
     if (description) description.value = state.webhooks.description || "";
     eventCheckboxes.forEach((node) => {
-      node.checked = state.webhooks.filters.includes(node.getAttribute("aria-label"));
+      node.checked = state.webhooks.filters.includes(resolveWebhookEventName(node));
     });
     endpointHeadings.forEach((heading, index) => {
       const item = state.webhooksList[index];
@@ -1451,13 +1453,21 @@ function enhanceProtocolConfiguration(doc) {
   const viewLogs = findButton(doc, "View Logs");
   const syncSlider = doc.querySelector('input[type="range"]');
   const selects = Array.from(doc.querySelectorAll("select"));
-  const autoDiscovery = Array.from(doc.querySelectorAll('input[type="checkbox"]')).find((node) => node.getAttribute("aria-label") === "Automatic");
-  const vpcTunnel = Array.from(doc.querySelectorAll('input[type="checkbox"]')).find((node) => node !== autoDiscovery);
+  const protocolCheckboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]'));
+  const autoDiscovery = protocolCheckboxes[0] || null;
+  const vpcTunnel = protocolCheckboxes[1] || null;
   const minNodes = doc.querySelector('input[type="number"]');
   const resetButton = findButton(doc, "Reset to Defaults");
   const applyButton = findButton(doc, "Apply Changes");
-  const modifiedLabel = Array.from(doc.querySelectorAll("div, p")).find((node) => normalizeText(node.textContent).includes("local changes"));
-  const preview = Array.from(doc.querySelectorAll("div")).find((node) => normalizeText(node.textContent).includes("aegis_protocol_v4"));
+  const footer = doc.querySelector("footer");
+  const modifiedLabel = footer
+    ? Array.from(footer.querySelectorAll("div, p")).find((node) => normalizeText(node.textContent).includes("local changes"))
+    : null;
+  const preview = doc.querySelector("pre");
+  const syncValue = syncSlider
+    ?.closest("div")
+    ?.previousElementSibling
+    ?.querySelector(".font-mono");
 
   const [consensusSelect, encryptionSelect, rotationSelect] = selects;
 
@@ -1482,7 +1492,6 @@ function enhanceProtocolConfiguration(doc) {
     if (vpcTunnel) vpcTunnel.checked = Boolean(config.vpcTunnel);
     if (minNodes) minNodes.value = String(config.minNodes);
 
-    const syncValue = Array.from(doc.querySelectorAll("div")).find((node) => /ms$/.test((node.textContent || "").trim()) && node.textContent.includes("100ms"));
     if (syncValue) syncValue.textContent = `${config.syncInterval}ms`;
     const previewText = `aegis_protocol_v4:
 sync:
@@ -1507,7 +1516,9 @@ governance:
     latency:
       ${config.latencyWeight}`;
     if (preview) preview.textContent = previewText;
-    if (modifiedLabel) modifiedLabel.textContent = `Local Changes: ${config.modifiedCount} modified parameters`;
+    if (modifiedLabel) {
+      modifiedLabel.innerHTML = `<span class="font-bold text-slate-800 dark:text-slate-200">Local Changes:</span> ${config.modifiedCount} modified parameters`;
+    }
   };
 
   const persistConfig = (partial) => {
