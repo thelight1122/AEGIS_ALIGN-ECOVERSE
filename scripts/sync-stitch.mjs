@@ -645,6 +645,10 @@ function shellScriptsTemplate(options = {}) {
     scripts.push("/src/developer-depot-activation.js");
   }
 
+  if (domainSlug === "custodian-ui") {
+    scripts.push("/src/custodian-activation.js");
+  }
+
   if (immersive) {
     scripts.push("/src/nexus-drift-mode.js");
   }

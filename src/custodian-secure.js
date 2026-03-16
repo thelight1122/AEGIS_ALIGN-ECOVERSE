@@ -38,10 +38,26 @@ function renderRole(role) {
   output.innerHTML = `<h2>${data.title}</h2><ul>${listItems}</ul>`;
 }
 
+const roleRoutes = {
+  operator: "/custodian-ui/custodian-hub-operations-gallery/",
+  incident: "/custodian-ui/security-incident-assessor-center/",
+  governance: "/custodian-ui/decentralized-governance-voting/",
+};
+
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     buttons.forEach((item) => item.classList.remove("active"));
     button.classList.add("active");
     renderRole(button.dataset.role);
+    const route = roleRoutes[button.dataset.role];
+    if (route) {
+      window.setTimeout(() => {
+        if (typeof window.aegisTransit === "function") {
+          window.aegisTransit(route);
+        } else {
+          window.location.href = route;
+        }
+      }, 220);
+    }
   });
 });
