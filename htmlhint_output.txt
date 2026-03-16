@@ -1,0 +1,40 @@
+
+   I:\AEGIS_ALIGN-ECOVERSE\src\custom-stitch-pages\custodian-ops-center\secure-access-gateway\index.html
+[37m      L21 |[90m...    <i class="fa-solid fa-lock ops-cyan" class="ops-icon-hero"></i>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L40 |[90m...class="workspace-actions justify-center" class="margin-top-25">[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L47 |[90m...    <div class="glass-panel recent-logs" class="margin-top-20">[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+
+   I:\AEGIS_ALIGN-ECOVERSE\src\custom-stitch-pages\custodian-ops-center\security-incident-detail\index.html
+[37m      L41 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w72-warning"></div></div>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+
+   I:\AEGIS_ALIGN-ECOVERSE\src\custom-stitch-pages\custodian-ops-center\home\index.html
+[37m      L35 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w99_98-cyan"></div></div>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L40 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w42-teal"></div></div>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L45 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w100-cyan"></div></div>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+
+   I:\AEGIS_ALIGN-ECOVERSE\src\custom-stitch-pages\custodian-ops-center\governance-proposal-review\index.html
+[37m      L38 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w68_4-cyan"></div></div>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L43 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w12_1-color-EF5350"></div></div...[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L48 |[90m..."meter-bar"><div class="meter-bar-inner" class="meter-bar-inner meter-w19_5-rgba(255,255,255,0.2"></d...[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+
+   I:\AEGIS_ALIGN-ECOVERSE\src\custom-stitch-pages\custodian-ops-center\custodian-profile-role-surface\index.html
+[37m      L32 |[90m...class="fa-solid fa-user-shield ops-cyan" class="ops-profile-icon"></i>[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+
+   I:\AEGIS_ALIGN-ECOVERSE\src\custom-stitch-pages\aegis-application-lab\starter-download-surface\index.html
+[37m      L73 |[90m...   <div class="glass-panel grid-span-12" class="margin-top-20">[39m
+[37m                                                      ^ [31mDuplicate of attribute name [ class ] was found. (attr-no-duplication)[39m
+[37m      L80 |[90m...-sSL https://aegis-mesh.io/starter.yaml > aegis-mesh-starter.yaml<br><br>[39m
+[37m                                                      ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+
+Scanned 22 files, found 13 errors in 6 files (47 ms)

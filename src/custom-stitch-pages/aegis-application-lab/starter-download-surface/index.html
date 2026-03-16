@@ -70,14 +70,14 @@
             </div>
 
             <!-- Quick Start Terminal Snippet -->
-            <div class="glass-panel grid-span-12" class="margin-top-20">
+            <div class="glass-panel grid-span-12 margin-top-20">
                 <div class="panel-header">
                     <h3><i class="fa-solid fa-terminal panel-icon"></i> Local Node Setup</h3>
                 </div>
                 <div class="panel-content u-fx-ff5rfp" >
                     <div class="u-fx-6m2kfw"><button class="ops-btn ops-btn-sm" aria-label="Copy Code"><i class="fa-solid fa-copy"></i></button></div>
                     <span class="u-fx-pd6s9r"># 1. Download mesh configuration</span><br>
-                    curl -sSL https://aegis-mesh.io/starter.yaml > aegis-mesh-starter.yaml<br><br>
+                    curl -sSL https://aegis-mesh.io/starter.yaml &gt; aegis-mesh-starter.yaml<br><br>
                     <span class="u-fx-pd6s9r"># 2. Boot simulated node</span><br>
                     aegis-node up --config ./aegis-mesh-starter.yaml<br><br>
                     <span class="u-fx-k0cehd">[Success] Node online. Mesh sync locked.</span>
