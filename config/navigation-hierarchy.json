@@ -190,15 +190,14 @@
       {
         "label": "Operations",
         "pages": [
-          { "slug": "aegis-protocol-dashboard", "isParent": true },
-          { "slug": "custodian-cockpit-hud-1", "parent": "aegis-protocol-dashboard", "navLabel": "Custodian Cockpit I" },
-          { "slug": "custodian-cockpit-hud-2", "parent": "aegis-protocol-dashboard", "navLabel": "Custodian Cockpit II" },
-          { "slug": "custodian-hub-operations-gallery", "parent": "aegis-protocol-dashboard" },
-          { "slug": "site-custodians", "parent": "aegis-protocol-dashboard" },
-          { "slug": "regional-drill-down-us-east-1", "parent": "aegis-protocol-dashboard" },
-          { "slug": "system-health-report-aegis-protocol", "parent": "aegis-protocol-dashboard" },
-          { "slug": "status", "parent": "aegis-protocol-dashboard", "navLabel": "Status Board" },
-          { "slug": "secure", "parent": "aegis-protocol-dashboard", "navLabel": "Secure Gateway" }
+          { "slug": "custodian-hub-operations-gallery", "isParent": true },
+          { "slug": "aegis-protocol-dashboard", "parent": "custodian-hub-operations-gallery" },
+          { "slug": "custodian-cockpit-hud-1", "parent": "custodian-hub-operations-gallery", "navLabel": "Custodian Cockpit I" },
+          { "slug": "site-custodians", "parent": "custodian-hub-operations-gallery" },
+          { "slug": "regional-drill-down-us-east-1", "parent": "custodian-hub-operations-gallery" },
+          { "slug": "system-health-report-aegis-protocol", "parent": "custodian-hub-operations-gallery" },
+          { "slug": "status", "parent": "custodian-hub-operations-gallery", "navLabel": "Status Board" },
+          { "slug": "secure", "parent": "custodian-hub-operations-gallery", "navLabel": "Secure Gateway" }
         ]
       },
       {

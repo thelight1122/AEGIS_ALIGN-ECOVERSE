@@ -2578,3 +2578,28 @@ body.surface-flight-ready .flight-surface {
     transform: none;
   }
 }
+
+/* Base Stitch Iframe Styles - OVERRIDE */
+.iframe-wrap {
+  position: relative;
+  width: 100% !important;
+  border-radius: 12px;
+  overflow: hidden;
+  background: transparent;
+  border: none !important;
+}
+
+.iframe-wrap::before, .iframe-wrap::after {
+  content: none !important;
+  border: none !important;
+  display: none !important;
+}
+
+.stitch-frame {
+  width: 100% !important;
+  border: none !important;
+  background: transparent;
+  display: block;
+}
+
+

@@ -196,8 +196,20 @@
             const maxHeight = role === 'entrance'
               ? Math.round(window.innerHeight * 0.7)
               : Number.POSITIVE_INFINITY;
-            const height = Math.min(Math.max(contentHeight, minHeight), maxHeight);
-            frame.style.height = String(height) + 'px';
+            const nextHeight = Math.min(Math.max(contentHeight, minHeight), maxHeight);
+            const currentHeight = Number.parseFloat(frame.style.height || '0') || frame.getBoundingClientRect().height || 0;
+            const lastMeasured = Number.parseFloat(frame.dataset.lastMeasuredHeight || '0') || 0;
+            const delta = Math.abs(nextHeight - currentHeight);
+            const measuredDelta = Math.abs(contentHeight - lastMeasured);
+            const shouldForceInitial = currentHeight <= 0;
+            const shouldResize = shouldForceInitial
+              || delta >= 24
+              || measuredDelta >= 32;
+
+            if (shouldResize) {
+              frame.style.height = String(nextHeight) + 'px';
+              frame.dataset.lastMeasuredHeight = String(contentHeight);
+            }
           } catch {
             frame.style.minHeight = frame.dataset.frameRole === 'entrance'
               ? '46vh'
