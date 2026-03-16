@@ -18,9 +18,13 @@ They are function indicators that keep collaboration coherent.
 All agents must honor:
 
 - POSTURE_PARAMETERS.md
+- ACTIVATION_PROTOCOL.md
+- README.md
+
+Planned but not yet formalized in this folder:
+
 - ARCHITECTURE_MAP.md
 - CYCLE_0_SCOPE.md
-- README.md (once updated)
 
 Shared constraints (all agents)
 
@@ -29,7 +33,7 @@ Shared constraints (all agents)
 - No silent changes
 - No overwriting append-only ledgers
 - No “big refactors” unless explicitly requested
-- If you change a file, output the FULL file contents (no snippets)
+- Document changes precisely; provide full files only when explicitly requested or when required by the active workflow
 
 Work partitioning
 
@@ -76,7 +80,7 @@ Mission
 
 Allowed actions
 
-- Create/modify files listed in CYCLE_0_SCOPE.md
+- Create/modify files required by the active EcoVerse scope and the current user request
 - Add minimal scripts/config needed for build/run
 - Fix broken imports, module formats, workspace wiring
 
@@ -97,7 +101,7 @@ Implementation constraints
 Output format (DEV)
 
 - List files changed
-- Provide FULL contents for each changed file
+- Provide precise diffs or full file contents when explicitly requested
 - Include exact commands to build and run
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

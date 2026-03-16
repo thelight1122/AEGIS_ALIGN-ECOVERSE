@@ -12,16 +12,17 @@ The AEGIS system operates on a **non-force governance** basis. Activation of any
 
 The NCT serves as the system's "memory-of-meaning." It stores high-level summaries, experiential groupings, and historical context. It is the narrative substrate that justifies pattern recognition.
 
-### 1.2 SPINE (Stabilized Patterned Interpretive Nexus)
+### 1.2 SPINE (Sovereign Persistent Identity & Narrative Embodiment)
 
-The SPINE represents the stabilized "skeleton" of the system's understanding. It stores invariants, structural relationships, and slow-earned patterns. An entry in the SPINE indicates that a pattern has reached a threshold of stability.
+The SPINE represents the longitudinal continuity layer of the system. It stores stabilized identity-significant patterns, narrative continuity, structural invariants, and slow-earned relational coherence. An entry in the SPINE indicates that a pattern has reached a threshold of stability without overriding participant sovereignty.
 
 ## 2. Protocol for Activation
 
 ### 2.1 Consent & Sovereignty
 
-- No activation logic may be executed without explicit, auditable consent recorded in the **PCT (Persistent Context Tensor)**.
+- Production-grade activation may not execute without explicit, auditable consent recorded in the **PCT (Persistent Context Tensor)** or its successor append-only consent ledger.
 - Humans retain absolute sovereignty; any system-suggested posture or automation can be toggled OFF or reversed instantly.
+- Current browser-side prototype activators in this repository are transitional UX scaffolds only. They are not yet equivalent to a production AEGIS activation pipeline and should not be represented as satisfying the full consent standard above.
 
 ### 2.2 Threshold of Evidence
 
@@ -30,8 +31,9 @@ The SPINE represents the stabilized "skeleton" of the system's understanding. It
 
 ### 2.3 Visibility Requirements
 
-- Every activated action must log a transition to the **Boundary Ledger (`boundary.jsonl`)** via the Runtime Witness.
+- Every production activated action must log a transition to the **Boundary Ledger (`boundary.jsonl`)** via the Runtime Witness.
 - The system must provide a human-legible "Why" (referencing NCT/SPINE) for every automated suggestion.
+- Any temporary client-side prototype state that does not yet emit ledger-backed witness records must be treated as pre-production and clearly disclosed as such.
 
 ### 2.4 Reversibility
 

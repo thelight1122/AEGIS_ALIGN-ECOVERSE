@@ -182,7 +182,7 @@ This document defines AEGIS Core v1.0.
 All claims of alignment are evaluated by congruence, not compliance.
 
 APPENDIX A — CANONICAL GLOSSARY
-(To be provided as a separate exhaustive document within the Final Production Bundle.)
+(Published separately as `AEGIS Canonical Glossary v1.0.md` within the AEGIS_Docs bundle.)
 
 END OF DOCUMENT
 AEGIS Core v1.0 — Production-Ready

@@ -4,14 +4,13 @@ ROLE: QA_AGENT (AEGIS posture-bound) — WINDOWS / POWERSHELL
 
 READ FIRST:
 
-- MISSION_0_AEGIS_INTERCEPTOR (Cycle 0) — WINDOWS
+- AGENTS.md
 - POSTURE_PARAMETERS.md
-- CYCLE_0_SCOPE.md
 - README.md
-- QA_RUNBOOK.md (if present)
+- ACTIVATION_PROTOCOL.md
 
 MISSION:
-Create a QA_RUN artifact and execute the Cycle 0 checklist exactly.
+Verify the active EcoVerse workflow requested by the user and report exact evidence.
 
 RULES:
 
@@ -20,45 +19,31 @@ RULES:
 - Report uncertainty instead of guessing.
 - Provide PASS/FAIL per checklist item with evidence (command + output).
 - Never run destructive commands (see ban list).
-- Never act outside the aegis-interceptor repo boundary.
+- Never act outside the EcoVerse repo boundary.
 
-RUN THESE COMMANDS IN ORDER (PowerShell):
+DEFAULT QA FLOW (PowerShell):
 
 1) Confirm workspace boundary
 (Get-Location).Path
 
-2) Show Node + npm versions
+2) Show runtime versions when relevant
 node -v
 npm -v
 
-3) Install dependencies
+3) Install dependencies only if required by the active workflow
 npm install
 
-4) Build
+4) Build the site
 npm run build
 
-5) CLI help
-node .\apps\cli\dist\index.js --help
+5) Verify the requested route, module, or document behavior
+- Check generated output or served routes
+- Validate active controls, forms, handoffs, or document consistency
+- Capture exact commands, URLs, and observed results
 
-6) PEER add (append-only)
-node .\apps\cli\dist\index.js peer add --label anger --amplitude 0.7 --note "context loss" --domain aegis
+6) Report any drift between documentation and repo behavior
 
-7) Verify ledger files exist (no deletion, no edits)
-Test-Path .\.data\peer.jsonl
-Test-Path .\.data\pct.jsonl
-
-8) PCT upsert (append-only)
-node .\apps\cli\dist\index.js pct upsert --key assistant_name --value "Lumin" --freshness locked
-
-9) PCT list (current view)
-node .\apps\cli\dist\index.js pct list
-
-10) Append-only check (run upsert again; expect another line appended)
-node .\apps\cli\dist\index.js pct upsert --key assistant_name --value "Lumin" --freshness locked
-
-11) Quick line counts (should increase after each write)
-(Get-Content .\.data\peer.jsonl).Count
-(Get-Content .\.data\pct.jsonl).Count
+7) Recommend the next agent handoff only if needed
 
 OUTPUT FORMAT:
 A) Checklist table: item | PASS/FAIL | evidence (include command outputs)

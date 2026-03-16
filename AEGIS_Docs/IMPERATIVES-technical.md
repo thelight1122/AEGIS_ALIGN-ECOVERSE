@@ -1,5 +1,8 @@
 # AEGIS Technical Implementation Imperatives
 
+Repository-state note:
+This document is a normative technical target aligned with Canon v1.0. It does not describe a fully implemented gate stack in the current EcoVerse repository. Where concrete file names are mentioned below, they refer to planned or reference implementation components, not files presently shipped in this repo.
+
 ## Core Technical Constraints (Aligned with Canon v1.0)
 
 ### Constraint 1: Append-Only Reality
@@ -13,7 +16,7 @@
 - Return packets preserve complete history
 - Code comments document evolution via appended notes
 
-**Implementation**: `gate-logger.ts` uses `fs.appendFileSync()` exclusively
+**Target implementation**: an append-only gate logger should use append-only write semantics exclusively.
 
 ---
 
@@ -26,7 +29,7 @@
 - Tolerance band allows near-perfect scores to pass
 - User agency never blocked, only paused for observation
 
-**Implementation**: `discernment-gate.ts` lines 77-80
+**Target implementation**: the discernment gate should default to permissive passage unless explicit fracture is observed.
 
 ---
 
@@ -39,7 +42,7 @@
 - Always: "fracture noted", "resonance not achieved", "optional realignment"
 - Virtue scorers detect coercion, not enforce absence of it
 
-**Implementation**: All `virtue-scoring-*.ts` files, return packet messages
+**Target implementation**: all virtue-scoring modules and return-packet messages should remain descriptive rather than prescriptive.
 
 ---
 
@@ -59,7 +62,7 @@ If ANY virtue < 1.0 (after tolerance): Integrity = 0
 - Contagion model: one fracture compromises whole system
 - Tolerance band (10%) allows contextual flexibility before fracture
 
-**Implementation**: `discernment-gate.ts` line 76
+**Target implementation**: the discernment gate should compute integrity as a binary whole-system state.
 
 ---
 
@@ -72,7 +75,7 @@ If ANY virtue < 1.0 (after tolerance): Integrity = 0
 - Final virtue score = `Math.min()` across all units
 - Locates exact fracture point for user review
 
-**Implementation**: `discernment-gate.ts` lines 59-67
+**Target implementation**: each virtue should be derived from the weakest relevant unit rather than an average.
 
 ---
 
@@ -85,7 +88,7 @@ If ANY virtue < 1.0 (after tolerance): Integrity = 0
 - Return packet offers "optional realignment", not corrections
 - IDS suggestions are pathways, not directives
 
-**Implementation**: `discernment-gate.ts` return packet structure, `ids-processor.ts` suggest phase
+**Target implementation**: return packets and IDS suggestion layers should preserve agency and avoid mandatory pathways.
 
 ---
 
@@ -101,7 +104,7 @@ If ANY virtue < 1.0 (after tolerance): Integrity = 0
 6. **Trust** – reliability and safety
 7. **Communication** – clarity and openness
 
-**Implementation**: `VirtueScores` interface, seven `virtue-scoring-*.ts` modules
+**Target implementation**: a `VirtueScores` model and seven aligned virtue modules should be used if and when this gate stack is implemented here.
 
 ---
 
