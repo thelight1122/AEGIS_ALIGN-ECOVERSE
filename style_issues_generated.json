@@ -1,0 +1,188 @@
+[
+  {
+    "file": "/stitch/aegis-application-lab/aegis-interceptor-features-v2/index.html",
+    "styles": [
+      "style=\"background-image: radial-gradient(circle at 2px 2px, #1152d4 1px, transparent 0); background-size: 40px 40px;\"",
+      "style=\"width: 85%\"",
+      "style=\"width: 42%\"",
+      "style=\"width: 14%\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/active-agents-monitor-agentic-workshop/index.html",
+    "styles": [
+      "style=\"box-shadow: 0 0 10px #1152d4;\"",
+      "style=\"box-shadow: 0 0 10px #1152d4;\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/agent-mesh-visualizer/index.html",
+    "styles": [
+      "style=\"width: 88%\"",
+      "style=\"width: 94%\"",
+      "style=\"width: 62%\"",
+      "style=\"width: 25%\"",
+      "style=\"background-image: url('"
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/agentic-workshop-entrance/index.html",
+    "styles": [
+      "style=\"writing-mode: vertical-rl;\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/agentic-workshop-main-console/index.html",
+    "styles": [
+      "style=\"width: 88%\"",
+      "style=\"background-image: radial-gradient(circle, #1152d4 1px, transparent 1px); background-size: 24px 24px;\"",
+      "style=\"filter: blur(1px)\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/anomaly-analysis-detail/index.html",
+    "styles": [
+      "style=\"background-image: linear-gradient(#1152d4 1px, transparent 1px), linear-gradient(90deg, #1152d4 1px, transparent 1px); background-size: 20px 20px;\"",
+      "style=\"stop-color:rgba(17, 82, 212, 0.4);stop-opacity:1\"",
+      "style=\"stop-color:rgba(17, 82, 212, 0);stop-opacity:1\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/bulk-export-progress-modal/index.html",
+    "styles": [
+      "style=\"width: 64%;\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/detailed-agent-view-dataquad-node/index.html",
+    "styles": [
+      "style=\"stop-color:var(--primary);stop-opacity:1\"",
+      "style=\"stop-color:transparent;stop-opacity:0\""
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/global-anomaly-heatmap/index.html",
+    "styles": [
+      "style=\"background-image: url('"
+    ]
+  },
+  {
+    "file": "/stitch/agent-workshop/model-deployment-flow/index.html",
+    "styles": [
+      "style='background-image: url(\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/custodian-hub-operations-gallery/index.html",
+    "styles": [
+      "style=\"background-image: linear-gradient(rgba(16, 22, 34, 0.85) 0%, rgba(16, 22, 34, 0.98) 100%), url('",
+      "style=\"background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/proposal-discussion-details/index.html",
+    "styles": [
+      "style=\"width: 70%\"",
+      "style=\"width: 20%\"",
+      "style=\"width: 10%\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/safety-hold-protocol-sequence/index.html",
+    "styles": [
+      "style='background-image: url(\"",
+      "style=\"width: 45%;\"",
+      "style=\"width: 75%;\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/security-logs-aegis-protocol/index.html",
+    "styles": [
+      "style=\"background-image: url('"
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/site-custodian-hub-gallery-update/index.html",
+    "styles": [
+      "style=\"background-image: linear-gradient(rgba(16, 22, 34, 0.85) 0%, rgba(16, 22, 34, 0.98) 100%), url('",
+      "style=\"background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/site-custodian-login-recruitment-hub/index.html",
+    "styles": [
+      "style=\"background-image: linear-gradient(rgba(16, 22, 34, 0.85) 0%, rgba(16, 22, 34, 0.98) 100%), url('",
+      "style=\"background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/site-custodians/index.html",
+    "styles": [
+      "style=\"background-image: linear-gradient(rgba(16, 22, 34, 0.8) 0%, rgba(16, 22, 34, 0.95) 100%), url('",
+      "style=\"background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);\""
+    ]
+  },
+  {
+    "file": "/stitch/custodian-ui/system-health-report-aegis-protocol/index.html",
+    "styles": [
+      "style=\"background-image: url('"
+    ]
+  },
+  {
+    "file": "/stitch/developer-depot/developer-console-aegis-protocol/index.html",
+    "styles": [
+      "style=\"width: 65%;\""
+    ]
+  },
+  {
+    "file": "/stitch/developer-depot/network-topology-visualizer/index.html",
+    "styles": [
+      "style=\"width: 42%\"",
+      "style=\"width: 45%\""
+    ]
+  },
+  {
+    "file": "/stitch/developer-depot/node-management-aegis-protocol/index.html",
+    "styles": [
+      "style=\"width: 12%\"",
+      "style=\"width: 88%\"",
+      "style=\"width: 24%\"",
+      "style=\"width: 100%\""
+    ]
+  },
+  {
+    "file": "/stitch/developer-depot/protocol-isolated-confirmation/index.html",
+    "styles": [
+      "style=\"width: 100%;\""
+    ]
+  },
+  {
+    "file": "/stitch/developer-depot/web3-portal/index.html",
+    "styles": [
+      "style=\"background-image: radial-gradient(circle at 50% 50%, #1152d4 0%, transparent 70%);\"",
+      "style=\"width: 70%\"",
+      "style=\"background: linear-gradient(45deg, #1152d4 0%, #000 100%);\"",
+      "style=\"background: linear-gradient(225deg, #1152d4 0%, #000 100%);\"",
+      "style=\"width: 82%\"",
+      "style=\"width: 45%\""
+    ]
+  },
+  {
+    "file": "/stitch/nexus/aegisalign-settings/index.html",
+    "styles": [
+      "style=\"background-image: url('"
+    ]
+  },
+  {
+    "file": "/stitch/nexus/login-aegisalign/index.html",
+    "styles": [
+      "style=\"background-image: radial-gradient(circle at 2px 2px, #1152d4 1px, transparent 0); background-size: 40px 40px;\""
+    ]
+  },
+  {
+    "file": "/stitch/nexus/login-success-transition/index.html",
+    "styles": [
+      "style=\"width: 82%;\""
+    ]
+  }
+]

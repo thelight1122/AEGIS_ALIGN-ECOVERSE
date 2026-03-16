@@ -1210,6 +1210,9 @@ function domainIndexTemplate(domain, domainPages, hubByDomain) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${escapeHtml(domain.label)} | AegisAlign EcoVerse</title>
     <link rel="stylesheet" href="/src/shell.css" />
+    <style>
+      .panel-container { margin: 18px auto; width: min(1400px, calc(100% - 36px)); }
+    </style>
   </head>
   <body class="${domainBodyClass(domain.slug)}">
     ${etherCanvasTemplate()}
@@ -1227,7 +1230,7 @@ function domainIndexTemplate(domain, domainPages, hubByDomain) {
       </header>
       ${ethosStripTemplate(canonicalContract)}
 
-      <main class="panel" style="margin: 18px auto; width: min(1400px, calc(100% - 36px));">
+      <main class="panel panel-container">
         <div class="content-head">
           <div>
             <h1>${escapeHtml(domain.label)}</h1>
@@ -1272,6 +1275,9 @@ function custodianOpsIndexTemplate(domain, domainPages, hubByDomain) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${escapeHtml(domain.label)} | AegisAlign EcoVerse</title>
     <link rel="stylesheet" href="/src/shell.css" />
+    <style>
+      .panel-container { margin: 18px auto; width: min(1400px, calc(100% - 36px)); }
+    </style>
   </head>
   <body class="${domainBodyClass(domain.slug)}">
     ${etherCanvasTemplate()}
@@ -1289,7 +1295,7 @@ function custodianOpsIndexTemplate(domain, domainPages, hubByDomain) {
       </header>
       ${ethosStripTemplate(canonicalContract)}
 
-      <main class="panel" style="margin: 18px auto; width: min(1400px, calc(100% - 36px));">
+      <main class="panel panel-container">
         <div class="content-head">
           <div>
             <h1>${escapeHtml(domain.label)}</h1>
@@ -1329,6 +1335,9 @@ function custodianStatusTemplate() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Custodian Public Status | AegisAlign EcoVerse</title>
     <link rel="stylesheet" href="/src/shell.css" />
+    <style>
+      .panel-container-status { margin: 18px auto; width: min(1280px, calc(100% - 36px)); }
+    </style>
   </head>
   <body class="${domainBodyClass("custodian-ui")}">
     ${etherCanvasTemplate()}
@@ -1346,7 +1355,7 @@ function custodianStatusTemplate() {
       </header>
       ${ethosStripTemplate(canonicalContract)}
 
-      <main class="panel" style="margin: 18px auto; width: min(1280px, calc(100% - 36px));">
+      <main class="panel panel-container-status">
         <div class="content-head">
           <div>
             <h1>Custodian Public Operations Status</h1>

@@ -9,6 +9,11 @@
     <style>
       .page-link-child i { margin-right: 8px; font-size: 0.9rem; opacity: 0.8; }
       .page-link-child { display: flex !important; align-items: center; }
+      .brand-pill { background: #00f0ff; }
+      .ethos-strip { background: rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.1); }
+      .page-title { color: #00f0ff; }
+      .iframe-wrap { height: calc(100vh - 180px); }
+      .stitch-frame { border: none; width: 100%; height: 100%; }
     </style>
   </head>
   <body class="domain-surface domain-custodian-ui">
@@ -17,7 +22,7 @@
       <header class="topbar">
         <div class="topbar-inner">
           <a class="brand" href="/">
-            <span class="brand-pill" style="background: #00f0ff;"></span>
+            <span class="brand-pill"></span>
             <span>AegisAlign EcoVerse</span>
           </a>
           <nav class="top-links">
@@ -30,7 +35,7 @@
         </div>
       </header>
       
-      <div class="ethos-strip" style="background: rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.1);">
+      <div class="ethos-strip">
         <span>Sovereignty is preserved at all times</span>
         <span>Do no harm through force</span>
         <span>Ice-Glaze Overwatch is active</span>
@@ -47,14 +52,14 @@
                   
                     <a class="page-link-child active" 
                        href="/custodian-ops-center/home/">
-                      <i class="fa-solid fa-gauge-high"></i>
-                      <span>Ops Overview</span>
+                       <i class="fa-solid fa-gauge-high"></i>
+                       <span>Ops Overview</span>
                     </a>
                   
                     <a class="page-link-child " 
                        href="/custodian-ops-center/regional-operations-drilldown/">
-                      <i class="fa-solid fa-earth-americas"></i>
-                      <span>Regional Drilldown</span>
+                       <i class="fa-solid fa-earth-americas"></i>
+                       <span>Regional Drilldown</span>
                     </a>
                   
                 </nav>
@@ -66,14 +71,14 @@
                   
                     <a class="page-link-child " 
                        href="/custodian-ops-center/incident-review-queue/">
-                      <i class="fa-solid fa-list-check"></i>
-                      <span>Incident Queue</span>
+                       <i class="fa-solid fa-list-check"></i>
+                       <span>Incident Queue</span>
                     </a>
                   
                     <a class="page-link-child " 
                        href="/custodian-ops-center/security-incident-detail/">
-                      <i class="fa-solid fa-shield-halved"></i>
-                      <span>Incident Deep Dive</span>
+                       <i class="fa-solid fa-shield-halved"></i>
+                       <span>Incident Deep Dive</span>
                     </a>
                   
                 </nav>
@@ -85,14 +90,14 @@
                   
                     <a class="page-link-child " 
                        href="/custodian-ops-center/governance-proposal-review/">
-                      <i class="fa-solid fa-check-to-slot"></i>
-                      <span>Proposal Review</span>
+                       <i class="fa-solid fa-check-to-slot"></i>
+                       <span>Proposal Review</span>
                     </a>
                   
                     <a class="page-link-child " 
                        href="/custodian-ops-center/secure-access-gateway/">
-                      <i class="fa-solid fa-key"></i>
-                      <span>Access Gateway</span>
+                       <i class="fa-solid fa-key"></i>
+                       <span>Access Gateway</span>
                     </a>
                   
                 </nav>
@@ -104,8 +109,8 @@
                   
                     <a class="page-link-child " 
                        href="/custodian-ops-center/custodian-profile-role-surface/">
-                      <i class="fa-solid fa-user-shield"></i>
-                      <span>Profile & Role</span>
+                       <i class="fa-solid fa-user-shield"></i>
+                       <span>Profile & Role</span>
                     </a>
                   
                 </nav>
@@ -117,13 +122,13 @@
         <main class="panel content-wrap">
           <div class="content-head">
             <div>
-              <h1 style="color: #00f0ff;">Ops Overview</h1>
+              <h1 class="page-title">Ops Overview</h1>
               <div class="breadcrumb">Custodian Ops / home</div>
             </div>
           </div>
           
-          <div class="iframe-wrap" style="height: calc(100vh - 180px);">
-            <iframe class="stitch-frame" data-frame-role="active" title="Ops Overview" src="/stitch/custodian-ops-center/home/" style="border:none; width:100%; height:100%;" loading="lazy"></iframe>
+          <div class="iframe-wrap">
+            <iframe class="stitch-frame" data-frame-role="active" title="Ops Overview" src="/stitch/custodian-ops-center/home/" loading="lazy"></iframe>
           </div>
         </main>
       </div>

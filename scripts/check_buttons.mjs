@@ -1,19 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-const rootDir = 'i:\\AEGIS_ALIGN-ECOVERSE\\src\\custom-stitch-pages';
+const dir = 'i:\\AEGIS_ALIGN-ECOVERSE\\src\\custom-stitch-pages';
 
-function walk(dir, ext = '.html') {
+function walk(dir) {
     let results = [];
-    if (!fs.existsSync(dir)) return results;
     let list = fs.readdirSync(dir);
     list.forEach(function(file) {
         file = dir + '/' + file;
         let stat = fs.statSync(file);
         if (stat && stat.isDirectory()) { 
-            results = results.concat(walk(file, ext));
+            results = results.concat(walk(file));
         } else { 
-            if (file.endsWith(ext)) {
+            if (file.endsWith('.html')) {
                 results.push(file);
             }
         }
@@ -21,34 +20,31 @@ function walk(dir, ext = '.html') {
     return results;
 }
 
-const files = walk(rootDir);
+const htmlFiles = walk(dir);
 const issues = [];
 
-files.forEach(file => {
-    const content = fs.readFileSync(file, 'utf8');
-    // Regex to match buttons
-    let buttonRegex = /<button([^>]+)>(.*?)<\/button>/gs;
+htmlFiles.forEach(file => {
+    const content = fs.readFileSync(file, 'utf-8');
+    // Match buttons
+    const buttonRegex = /<button([^>]+)>(.*?)<\/button>/gs;
     let match;
     while ((match = buttonRegex.exec(content)) !== null) {
         const attrs = match[1];
-        const innerHTML = match[2].trim();
+        const innerHTML = match[2];
         
-        // Check if button has aria-label or title
-        const hasAria = /aria-label=/i.test(attrs);
-        const hasTitle = /title=/i.test(attrs);
+        // Check if button has text inside (not just icon or whitespace)
+        const textContent = innerHTML.replace(/<[^>]+>/g, '').trim();
+        const hasAriaLabel = attrs.includes('aria-label=') || attrs.includes('title=');
         
-        // If it has text content, it's usually fine (unless it's just spaces)
-        // Check if innerHTML is just an icon tag or empty
-        const isIconOnly = /^<i\s+class="[^"]+"><\/i>$/i.test(innerHTML) || innerHTML === '';
-        
-        if (isIconOnly && !hasAria && !hasTitle) {
+        if (textContent === '' && !hasAriaLabel) {
             issues.push({
-                file: file.replace(rootDir, ''),
-                innerHTML: innerHTML,
+                file: file.replace('i:\\AEGIS_ALIGN-ECOVERSE\\src\\custom-stitch-pages', ''),
+                innerHTML: innerHTML.trim(),
                 attrs: attrs.trim()
             });
         }
     }
 });
 
-console.log(JSON.stringify(issues, null, 2));
+fs.writeFileSync('i:\\AEGIS_ALIGN-ECOVERSE\\button_issues_current.json', JSON.stringify(issues, null, 2));
+console.log(`Found ${issues.length} issues. Saved to button_issues_current.json`);

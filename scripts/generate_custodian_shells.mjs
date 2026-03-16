@@ -76,6 +76,11 @@ function generateShell() {
     <style>
       .page-link-child i { margin-right: 8px; font-size: 0.9rem; opacity: 0.8; }
       .page-link-child { display: flex !important; align-items: center; }
+      .brand-pill { background: #00f0ff; }
+      .ethos-strip { background: rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.1); }
+      .page-title { color: #00f0ff; }
+      .iframe-wrap { height: calc(100vh - 180px); }
+      .stitch-frame { border: none; width: 100%; height: 100%; }
     </style>
   </head>
   <body class="domain-surface domain-custodian-ui">
@@ -84,7 +89,7 @@ function generateShell() {
       <header class="topbar">
         <div class="topbar-inner">
           <a class="brand" href="/">
-            <span class="brand-pill" style="background: #00f0ff;"></span>
+            <span class="brand-pill"></span>
             <span>AegisAlign EcoVerse</span>
           </a>
           <nav class="top-links">
@@ -97,7 +102,7 @@ function generateShell() {
         </div>
       </header>
       
-      <div class="ethos-strip" style="background: rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.1);">
+      <div class="ethos-strip">
         <span>Sovereignty is preserved at all times</span>
         <span>Do no harm through force</span>
         <span>Ice-Glaze Overwatch is active</span>
@@ -114,8 +119,8 @@ function generateShell() {
                   ${group.links.map(link => `
                     <a class="page-link-child ${link.slug === slug ? 'active' : ''}" 
                        href="/custodian-ops-center/${link.slug}/">
-                      <i class="fa-solid ${link.icon}"></i>
-                      <span>${link.title}</span>
+                       <i class="fa-solid ${link.icon}"></i>
+                       <span>${link.title}</span>
                     </a>
                   `).join('')}
                 </nav>
@@ -127,13 +132,13 @@ function generateShell() {
         <main class="panel content-wrap">
           <div class="content-head">
             <div>
-              <h1 style="color: #00f0ff;">${pageTitle}</h1>
+              <h1 class="page-title">${pageTitle}</h1>
               <div class="breadcrumb">Custodian Ops / ${slug}</div>
             </div>
           </div>
           
-          <div class="iframe-wrap" style="height: calc(100vh - 180px);">
-            <iframe class="stitch-frame" data-frame-role="active" title="${pageTitle}" src="/stitch/custodian-ops-center/${slug}/" style="border:none; width:100%; height:100%;" loading="lazy"></iframe>
+          <div class="iframe-wrap">
+            <iframe class="stitch-frame" data-frame-role="active" title="${pageTitle}" src="/stitch/custodian-ops-center/${slug}/" loading="lazy"></iframe>
           </div>
         </main>
       </div>

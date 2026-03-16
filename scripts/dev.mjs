@@ -16,5 +16,9 @@ if (sync.status !== 0) {
   process.exit(sync.status ?? 1);
 }
 
+spawnSync(process.execPath, [path.join(repoRoot, "scripts", "generate_upgraded_shells.mjs")], { stdio: "inherit" });
+spawnSync(process.execPath, [path.join(repoRoot, "scripts", "generate_custodian_shells.mjs")], { stdio: "inherit" });
+spawnSync(process.execPath, [path.join(repoRoot, "scripts", "generate_profile_shells.mjs")], { stdio: "inherit" });
+
 const dev = spawn(process.execPath, [viteCli], { stdio: "inherit" });
 dev.on("exit", (code) => process.exit(code ?? 0));
