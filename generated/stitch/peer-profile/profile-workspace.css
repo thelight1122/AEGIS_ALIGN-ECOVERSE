@@ -1,0 +1,25 @@
+
+:root {
+  --profile-bg: #0A0C14;
+  --profile-panel: rgba(13, 16, 26, 0.8);
+  --profile-border: rgba(186, 104, 200, 0.15);
+  --accent-purple: #BA68C8;
+  --accent-amber: #FFCA28;
+}
+body {
+  background: var(--profile-bg);
+  background-image: radial-gradient(circle at 90% 10%, rgba(186, 104, 200, 0.08), transparent 40%);
+  color: #ECEFF1;
+  font-family: system-ui, sans-serif;
+  margin: 0; padding: 1.5rem;
+}
+.glass-panel {
+  background: var(--profile-panel);
+  border: 1px solid var(--profile-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+.dashboard-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;
+}

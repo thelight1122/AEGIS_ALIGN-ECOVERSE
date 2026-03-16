@@ -28,6 +28,152 @@ const DEFAULT_STATE = {
     range: "30D",
     selectedSubmissionId: "aegisguard-pro",
   },
+  console: {
+    range: "Last 24 Hours",
+    logFilter: "",
+    notices: 2,
+    activeApiKeyId: "production-master",
+  },
+  usageReport: {
+    range: "Last 7 Days",
+  },
+  webhooks: {
+    endpointUrl: "",
+    description: "",
+    filters: [],
+    selectedEndpointId: "",
+  },
+  protocolConfig: {
+    syncInterval: 100,
+    consensus: "Arbitor Mesh",
+    autoDiscovery: true,
+    encryption: "Standard (AES-256)",
+    rotation: "24h Rotation",
+    vpcTunnel: false,
+    minNodes: 3,
+    uptimeWeight: 0.6,
+    latencyWeight: 0.4,
+    modifiedCount: 4,
+  },
+  nodes: {
+    search: "",
+    filter: "All Nodes",
+  },
+  apiKeys: [
+    {
+      id: "production-master",
+      name: "Production Master",
+      token: "ae_live_8293....9x2a",
+      permissions: "Full Access",
+      lastRolledLabel: "Live in gateway cluster",
+    },
+    {
+      id: "frontend-analytics",
+      name: "Frontend Analytics",
+      token: "ae_pk_1102....j8w1",
+      permissions: "Read Only",
+      lastRolledLabel: "Scoped to client telemetry",
+    },
+  ],
+  webhooksList: [
+    {
+      id: "acme-primary",
+      url: "https://api.acme.co/webhooks/aegis",
+      enabled: true,
+      secret: "whsec_6B9zN3r9K2lP8q5V1mX7jC4...",
+      events: ["shield.breach", "node.offline"],
+    },
+    {
+      id: "slack-ops",
+      url: "https://hooks.slack.com/services/T000/B000...",
+      enabled: true,
+      secret: "whsec_vA8xM2q4P9L1k0R6fG3yH...",
+      events: ["system.alert", "user.login", "security.auth_fail"],
+    },
+  ],
+  webhookDeliveries: [
+    {
+      id: "delivery-1",
+      timestampDate: "2023-11-24",
+      timestampTime: "14:22:31 UTC",
+      event: "shield.breach",
+      endpoint: "api.acme.co/webhooks...",
+      status: "200 OK",
+      responseTime: "124ms",
+    },
+    {
+      id: "delivery-2",
+      timestampDate: "2023-11-24",
+      timestampTime: "14:18:05 UTC",
+      event: "node.offline",
+      endpoint: "api.acme.co/webhooks...",
+      status: "500 Error",
+      responseTime: "2150ms",
+    },
+    {
+      id: "delivery-3",
+      timestampDate: "2023-11-24",
+      timestampTime: "13:55:12 UTC",
+      event: "user.login",
+      endpoint: "hooks.slack.com/...",
+      status: "200 OK",
+      responseTime: "89ms",
+    },
+  ],
+  nodesList: [
+    {
+      id: "#7721-DELTA-ORION",
+      region: "US-EAST-1 • North Virginia",
+      status: "ONLINE",
+      cpu: "CPU 12%",
+      latency: "24ms",
+      uptime: "42d 12h 05m",
+      version: "v2.4.1",
+      alertLabel: "",
+    },
+    {
+      id: "#8902-SIGMA-LYRA",
+      region: "EU-WEST-2 • London",
+      status: "Synchronizing",
+      cpu: "CPU 88%",
+      latency: "142ms",
+      uptime: "0d 04h 22m",
+      version: "v2.4.1",
+      alertLabel: "High sync latency",
+    },
+    {
+      id: "#1029-KAPPA-CYGNUS",
+      region: "AP-SOUTH-1 • Mumbai",
+      status: "ONLINE",
+      cpu: "CPU 24%",
+      latency: "62ms",
+      uptime: "15d 10h 31m",
+      version: "v2.4.0",
+      alertLabel: "",
+    },
+    {
+      id: "#5512-ZETA-RETI",
+      region: "SA-EAST-1 • Sao Paulo",
+      status: "Error",
+      cpu: "N/A",
+      latency: "TIMEOUT",
+      uptime: "—",
+      version: "v2.3.9",
+      alertLabel: "Disconnected unexpectedly",
+    },
+  ],
+  requestLog: [
+    "[14:22:01] POST /v2/protocol/handshake 200 OK 42ms",
+    "[14:22:03] GET /v2/metrics/realtime 200 OK 12ms",
+    "[14:22:05] POST /v2/auth/validate 401 Unauthorized 21ms",
+    "[14:22:08] PATCH /v2/node/config 200 OK 156ms",
+    "[14:22:12] POST /v2/protocol/handshake 200 OK 38ms",
+    "[14:22:15] GET /v2/user/session 200 OK 8ms",
+    "[14:22:19] POST /v2/protocol/handshake 200 OK 40ms",
+    "[14:22:21] # System: Garbage collection completed",
+    "[14:22:24] GET /v2/node/health 200 OK 5ms",
+    "[14:22:25] POST /v2/protocol/handshake 200 OK 45ms",
+  ],
   submissions: [
     {
       id: "aegisguard-pro",
@@ -116,6 +262,16 @@ function mergeState(base, stored) {
     api: { ...base.api, ...(stored?.api || {}) },
     submissionDraft: { ...base.submissionDraft, ...(stored?.submissionDraft || {}) },
     analytics: { ...base.analytics, ...(stored?.analytics || {}) },
+    console: { ...base.console, ...(stored?.console || {}) },
+    usageReport: { ...base.usageReport, ...(stored?.usageReport || {}) },
+    webhooks: { ...base.webhooks, ...(stored?.webhooks || {}) },
+    protocolConfig: { ...base.protocolConfig, ...(stored?.protocolConfig || {}) },
+    nodes: { ...base.nodes, ...(stored?.nodes || {}) },
+    apiKeys: Array.isArray(stored?.apiKeys) && stored.apiKeys.length ? stored.apiKeys : base.apiKeys,
+    webhooksList: Array.isArray(stored?.webhooksList) && stored.webhooksList.length ? stored.webhooksList : base.webhooksList,
+    webhookDeliveries: Array.isArray(stored?.webhookDeliveries) && stored.webhookDeliveries.length ? stored.webhookDeliveries : base.webhookDeliveries,
+    nodesList: Array.isArray(stored?.nodesList) && stored.nodesList.length ? stored.nodesList : base.nodesList,
+    requestLog: Array.isArray(stored?.requestLog) && stored.requestLog.length ? stored.requestLog : base.requestLog,
     submissions: Array.isArray(stored?.submissions) && stored.submissions.length ? stored.submissions : base.submissions,
   };
 }
@@ -270,6 +426,10 @@ function findButton(doc, text) {
 
 function slugify(value) {
   return normalizeText(value).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function formatCompactNumber(value) {
+  return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(value);
 }
 
 function resolveDepotCardHeading(node) {
@@ -798,6 +958,483 @@ function enhanceAnalytics(doc) {
   bindManagedClick(readDocs, () => navigateTo("/developer-depot/api-reference-aegis-protocol/"));
   bindManagedClick(back, () => navigateTo("/developer-depot/my-submissions-dashboard/"));
   rangeButtons.forEach((button) => bindManagedClick(button, () => renderRange(button.textContent.trim())));
+}
+
+function enhanceDeveloperConsole(doc) {
+  if (doc.body.dataset.aegisDepotConsole === "true") return;
+  doc.body.dataset.aegisDepotConsole = "true";
+  injectStyles(doc);
+
+  const navLinks = Array.from(doc.querySelectorAll("nav a"));
+  const newProject = findButton(doc, "New Project");
+  const copyButton = findButton(doc, "content_copy");
+  const rangeSelect = doc.querySelector("select");
+  const generateKey = findButton(doc, "Generate New Key");
+  const rollButtons = Array.from(doc.querySelectorAll("button")).filter((node) => normalizeText(node.textContent) === "roll key");
+  const logInput = doc.querySelector('input[placeholder*="Filter logs"]');
+  const notifications = Array.from(doc.querySelectorAll("button, div")).find((node) => normalizeText(node.textContent) === "notifications");
+  const stats = Array.from(doc.querySelectorAll("p")).filter((node) =>
+    ["Total Requests (24h)", "Avg. Latency", "Error Rate", "Active Webhooks"].includes(node.textContent?.trim()));
+  const logs = Array.from(doc.querySelectorAll("main div")).filter((node) => /^\[\d{2}:\d{2}:\d{2}\]/.test((node.textContent || "").trim()));
+  const apiKeyCards = Array.from(doc.querySelectorAll("p")).filter((node) => ["Production Master", "Frontend Analytics"].includes(node.textContent?.trim()));
+
+  const renderConsole = () => {
+    const state = readState();
+    const range = state.console.range || "Last 24 Hours";
+    const statMap = {
+      "Last 24 Hours": [
+        { value: "1,245,892", delta: "+12.4%" },
+        { value: "42.8ms", delta: "-2.1ms" },
+        { value: "0.04%", delta: "Stable" },
+        { value: String(state.webhooksList.filter((item) => item.enabled).length), delta: "Healthy" },
+      ],
+      "Last 7 Days": [
+        { value: "8,904,220", delta: "+8.9%" },
+        { value: "48.2ms", delta: "+3.4ms" },
+        { value: "0.06%", delta: "Monitored" },
+        { value: String(state.webhooksList.filter((item) => item.enabled).length), delta: "Healthy" },
+      ],
+    };
+    const selected = statMap[range] || statMap["Last 24 Hours"];
+    stats.forEach((label, index) => {
+      const card = label.closest("div");
+      const metric = card?.querySelector("h4");
+      const delta = card?.querySelectorAll("div")[2];
+      if (metric) metric.textContent = selected[index].value;
+      if (delta) delta.textContent = selected[index].delta;
+    });
+
+    if (rangeSelect) rangeSelect.value = range;
+
+    const filteredLogs = state.requestLog.filter((entry) => !state.console.logFilter || normalizeText(entry).includes(normalizeText(state.console.logFilter)));
+    logs.forEach((node, index) => {
+      node.textContent = filteredLogs[index] || state.requestLog[index] || "";
+      node.classList.toggle("aegis-hidden", !node.textContent);
+    });
+
+    apiKeyCards.forEach((label) => {
+      const key = state.apiKeys.find((item) => item.name === label.textContent?.trim());
+      if (!key) return;
+      const card = label.closest("div");
+      const token = Array.from(card?.querySelectorAll("p") || []).find((node) => node !== label && /^ae_/.test(node.textContent || ""));
+      const permissionValue = Array.from(card?.querySelectorAll("p") || []).find((node) =>
+        ["Full Access", "Read Only", "Scoped Access"].includes(node.textContent?.trim()));
+      if (token) token.textContent = key.token;
+      if (permissionValue) permissionValue.textContent = key.permissions;
+    });
+  };
+
+  navLinks.forEach((link) => bindManagedClick(link, () => {
+    const label = normalizeText(link.textContent);
+    if (label.includes("overview")) navigateTo("/developer-depot/developer-console-aegis-protocol/");
+    else if (label.includes("api keys")) {
+      const keySection = Array.from(doc.querySelectorAll("h3")).find((node) => normalizeText(node.textContent).includes("active api keys"));
+      keySection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (label.includes("webhooks")) navigateTo("/developer-depot/webhooks-configuration-aegis-protocol/");
+    else if (label.includes("usage metrics")) navigateTo("/developer-depot/api-usage-report-aegis-protocol/");
+    else if (label.includes("cli access")) {
+      logInput?.focus();
+      showToast(doc, "CLI coordination ready. Type a filter or command pattern.");
+    }
+  }));
+
+  bindManagedClick(newProject, () => {
+    showToast(doc, "New protocol workspace scaffolded in your local Developer Depot session.");
+  });
+  bindManagedClick(copyButton, async () => {
+    const snippet = Array.from(doc.querySelectorAll("div")).find((node) => /^\$ curl -sSL/.test((node.textContent || "").trim()))?.textContent?.trim() || "";
+    try {
+      await navigator.clipboard.writeText(snippet);
+      showToast(doc, "Quick-start command copied.");
+    } catch {
+      showToast(doc, "Copy unavailable here, but the command is ready.");
+    }
+  });
+  rangeSelect?.addEventListener("change", () => {
+    const current = readState();
+    patchState({ console: { ...current.console, range: rangeSelect.value } });
+    renderConsole();
+  });
+  bindManagedClick(generateKey, () => {
+    const current = readState();
+    const nextIndex = current.apiKeys.length + 1;
+    patchState({
+      apiKeys: [
+        {
+          id: `generated-${Date.now()}`,
+          name: `Scoped Worker ${nextIndex}`,
+          token: `ae_scoped_${Math.random().toString(36).slice(2, 6)}....${Math.random().toString(36).slice(2, 6)}`,
+          permissions: "Scoped Access",
+          lastRolledLabel: "Generated just now",
+        },
+        ...current.apiKeys,
+      ],
+    });
+    showToast(doc, "New scoped API key generated and stored locally.");
+    renderConsole();
+  });
+  rollButtons.forEach((button) => bindManagedClick(button, () => {
+    const label = Array.from(button.closest("div")?.querySelectorAll("p") || []).find((node) => !/^Permissions$/i.test(node.textContent || "") && !["Full Access", "Read Only", "Scoped Access"].includes(node.textContent?.trim()));
+    const current = readState();
+    const target = current.apiKeys.find((item) => item.name === label?.textContent?.trim());
+    if (!target) return;
+    patchState({
+      apiKeys: current.apiKeys.map((item) => item.id === target.id
+        ? { ...item, token: `${item.token.slice(0, 9)}${Math.random().toString(36).slice(2, 6)}....${Math.random().toString(36).slice(2, 6)}` }
+        : item),
+    });
+    showToast(doc, `${target.name} rotated and reflected in local state.`);
+    renderConsole();
+  }));
+  logInput?.addEventListener("input", () => {
+    const current = readState();
+    patchState({ console: { ...current.console, logFilter: logInput.value } });
+    renderConsole();
+  });
+  bindManagedClick(notifications, () => {
+    const current = readState();
+    const nextCount = Math.max(0, (current.console.notices || 0) - 1);
+    patchState({ console: { ...current.console, notices: nextCount } });
+    showToast(doc, nextCount ? `${nextCount} protocol notices still need review.` : "All protocol notices reviewed.");
+  });
+
+  renderConsole();
+}
+
+function enhanceUsageReport(doc) {
+  if (doc.body.dataset.aegisDepotUsage === "true") return;
+  doc.body.dataset.aegisDepotUsage = "true";
+  injectStyles(doc);
+
+  const rangeButton = Array.from(doc.querySelectorAll("div, button")).find((node) => normalizeText(node.textContent).includes("last 7 days"));
+  const exportPdf = findButton(doc, "Export PDF");
+  const heatmap = findButton(doc, "View Global Heatmap");
+  const footerStatus = findButton(doc, "API Status");
+  const footerDocs = findButton(doc, "Documentation");
+  const footerSecurity = findButton(doc, "Security");
+  const totalRequestsLabel = Array.from(doc.querySelectorAll("p")).find((node) => node.textContent?.trim() === "Total Requests");
+  const dataTransferredLabel = Array.from(doc.querySelectorAll("p")).find((node) => node.textContent?.trim() === "Data Transferred");
+  const endpointRows = Array.from(doc.querySelectorAll("tbody tr"));
+
+  const renderUsage = () => {
+    const state = readState();
+    const range = state.usageReport.range || "Last 7 Days";
+    const stats = {
+      "Last 24 Hours": { requests: "1.8M", transferred: "124.6 GB" },
+      "Last 7 Days": { requests: "12.4M", transferred: "856.2 GB" },
+      "Last 30 Days": { requests: "48.9M", transferred: "3.2 TB" },
+    };
+    const selected = stats[range] || stats["Last 7 Days"];
+    const requestMetric = totalRequestsLabel?.parentElement?.querySelector("h3");
+    const transferMetric = dataTransferredLabel?.parentElement?.querySelector("h3");
+    if (requestMetric) requestMetric.textContent = selected.requests;
+    if (transferMetric) transferMetric.textContent = selected.transferred;
+    if (rangeButton) {
+      const labelNode = Array.from(rangeButton.querySelectorAll("*")).find((node) => ["Last 24 Hours", "Last 7 Days", "Last 30 Days"].includes(node.textContent?.trim()));
+      if (labelNode) labelNode.textContent = range;
+    }
+    endpointRows.forEach((row, index) => row.classList.toggle("aegis-hidden", range === "Last 24 Hours" && index > 2));
+  };
+
+  bindManagedClick(rangeButton, () => {
+    const current = readState();
+    const order = ["Last 24 Hours", "Last 7 Days", "Last 30 Days"];
+    const index = order.indexOf(current.usageReport.range || "Last 7 Days");
+    patchState({ usageReport: { range: order[(index + 1) % order.length] } });
+    renderUsage();
+    showToast(doc, `Usage report window: ${readState().usageReport.range}.`);
+  });
+  bindManagedClick(exportPdf, () => showToast(doc, "Usage report export staged as a local PDF artifact."));
+  bindManagedClick(heatmap, () => navigateTo("/developer-depot/node-management-aegis-protocol/"));
+  bindManagedClick(footerStatus, () => navigateTo("/developer-depot/developer-console-aegis-protocol/"));
+  bindManagedClick(footerDocs, () => navigateTo("/developer-depot/api-reference-aegis-protocol/"));
+  bindManagedClick(footerSecurity, () => navigateTo("/developer-depot/protocol-configuration-aegis-protocol/"));
+
+  renderUsage();
+}
+
+function enhanceWebhooks(doc) {
+  if (doc.body.dataset.aegisDepotWebhooks === "true") return;
+  doc.body.dataset.aegisDepotWebhooks = "true";
+  injectStyles(doc);
+
+  const addEndpointTop = findButton(doc, "Add New Endpoint");
+  const endpointUrl = doc.querySelector('input[placeholder*="https://your-api.com/webhooks"]');
+  const description = doc.querySelector('input[placeholder*="Identify this webhook"]');
+  const eventCheckboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter((node) => node.getAttribute("aria-label"));
+  const cancelButton = findButton(doc, "Cancel");
+  const createButton = findButton(doc, "Create Endpoint");
+  const viewAllLogs = findButton(doc, "View All Logs");
+  const editButtons = Array.from(doc.querySelectorAll("button")).filter((node) => normalizeText(node.textContent) === "edit");
+  const deleteButtons = Array.from(doc.querySelectorAll("button")).filter((node) => normalizeText(node.textContent) === "delete");
+  const visibilityButtons = Array.from(doc.querySelectorAll("button")).filter((node) => normalizeText(node.textContent) === "visibility");
+  const enabledCheckboxes = Array.from(doc.querySelectorAll('input[type="checkbox"]')).filter((node) => !node.getAttribute("aria-label"));
+  const endpointHeadings = Array.from(doc.querySelectorAll("h3")).filter((node) => /^https?:\/\//.test(node.textContent || ""));
+  const deliveriesHeading = Array.from(doc.querySelectorAll("h3")).find((node) => normalizeText(node.textContent).includes("recent deliveries"));
+  const deliveriesBody = deliveriesHeading?.closest("div")?.querySelector("tbody");
+
+  const syncWebhookDraft = () => {
+    const current = readState();
+    const selectedEvents = eventCheckboxes.filter((node) => node.checked).map((node) => node.getAttribute("aria-label"));
+    patchState({
+      webhooks: {
+        ...current.webhooks,
+        endpointUrl: endpointUrl?.value || "",
+        description: description?.value || "",
+        filters: selectedEvents,
+      },
+    });
+  };
+
+  const renderWebhooks = () => {
+    const state = readState();
+    if (endpointUrl) endpointUrl.value = state.webhooks.endpointUrl || "";
+    if (description) description.value = state.webhooks.description || "";
+    eventCheckboxes.forEach((node) => {
+      node.checked = state.webhooks.filters.includes(node.getAttribute("aria-label"));
+    });
+    endpointHeadings.forEach((heading, index) => {
+      const item = state.webhooksList[index];
+      if (!item) return;
+      heading.textContent = item.url;
+      const card = heading.closest("div");
+      const enabledText = Array.from(card?.querySelectorAll("div, p") || []).find((node) => /Enabled|Paused/i.test(node.textContent || ""));
+      if (enabledText) enabledText.textContent = item.enabled ? "Enabled" : "Paused";
+      const secretText = Array.from(card?.querySelectorAll("div") || []).find((node) => /^whsec_/.test(node.textContent || ""));
+      if (secretText) secretText.textContent = state.webhooks.selectedEndpointId === item.id ? item.secret : `${item.secret.slice(0, 20)}...`;
+    });
+
+    if (deliveriesBody) {
+      deliveriesBody.innerHTML = state.webhookDeliveries.map((item) => `
+        <tr>
+          <td><div><div>${item.timestampDate}</div><div>${item.timestampTime}</div></div></td>
+          <td>${item.event}</td>
+          <td><div>${item.endpoint}</div></td>
+          <td><div>${item.status}</div></td>
+          <td>${item.responseTime}</td>
+        </tr>
+      `).join("");
+    }
+  };
+
+  [endpointUrl, description].forEach((node) => node?.addEventListener("input", syncWebhookDraft));
+  eventCheckboxes.forEach((node) => node.addEventListener("change", syncWebhookDraft));
+
+  bindManagedClick(addEndpointTop, () => {
+    endpointUrl?.focus();
+    showToast(doc, "Webhook draft ready. Add an endpoint and subscribed events.");
+  });
+  bindManagedClick(cancelButton, () => {
+    patchState({ webhooks: { endpointUrl: "", description: "", filters: [], selectedEndpointId: "" } });
+    renderWebhooks();
+    showToast(doc, "Webhook draft cleared.");
+  });
+  bindManagedClick(createButton, () => {
+    syncWebhookDraft();
+    const current = readState();
+    if (!current.webhooks.endpointUrl.trim()) {
+      showToast(doc, "Add an endpoint URL before creating the webhook.");
+      endpointUrl?.focus();
+      return;
+    }
+    if (!current.webhooks.filters.length) {
+      showToast(doc, "Choose at least one event for the webhook subscription.");
+      return;
+    }
+    patchState({
+      webhooksList: [
+        {
+          id: slugify(current.webhooks.endpointUrl),
+          url: current.webhooks.endpointUrl,
+          enabled: true,
+          secret: `whsec_${Math.random().toString(36).slice(2, 12)}...`,
+          events: current.webhooks.filters,
+        },
+        ...current.webhooksList,
+      ],
+      webhooks: { endpointUrl: "", description: "", filters: [], selectedEndpointId: "" },
+    });
+    renderWebhooks();
+    showToast(doc, "Webhook endpoint created and added to the local delivery mesh.");
+  });
+  bindManagedClick(viewAllLogs, () => navigateTo("/developer-depot/api-usage-report-aegis-protocol/"));
+  visibilityButtons.forEach((button) => bindManagedClick(button, () => {
+    const heading = button.closest("div")?.parentElement?.querySelector("h3");
+    const current = readState();
+    const item = current.webhooksList.find((entry) => entry.url === heading?.textContent?.trim());
+    if (!item) return;
+    patchState({ webhooks: { ...current.webhooks, selectedEndpointId: current.webhooks.selectedEndpointId === item.id ? "" : item.id } });
+    renderWebhooks();
+  }));
+  editButtons.forEach((button) => bindManagedClick(button, () => {
+    const heading = button.closest("div")?.parentElement?.querySelector("h3");
+    const current = readState();
+    const item = current.webhooksList.find((entry) => entry.url === heading?.textContent?.trim());
+    if (!item) return;
+    patchState({
+      webhooks: {
+        endpointUrl: item.url,
+        description: `Editing ${item.url}`,
+        filters: item.events,
+        selectedEndpointId: item.id,
+      },
+    });
+    renderWebhooks();
+    endpointUrl?.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  deleteButtons.forEach((button) => bindManagedClick(button, () => {
+    const heading = button.closest("div")?.parentElement?.querySelector("h3");
+    const current = readState();
+    patchState({ webhooksList: current.webhooksList.filter((entry) => entry.url !== heading?.textContent?.trim()) });
+    renderWebhooks();
+    showToast(doc, "Webhook endpoint removed from the local mesh.");
+  }));
+  enabledCheckboxes.forEach((checkbox, index) => {
+    if (checkbox.dataset.aegisManaged === "true") return;
+    checkbox.dataset.aegisManaged = "true";
+    checkbox.addEventListener("change", () => {
+      const current = readState();
+      const item = current.webhooksList[index];
+      if (!item) return;
+      patchState({
+        webhooksList: current.webhooksList.map((entry) => entry.id === item.id ? { ...entry, enabled: checkbox.checked } : entry),
+      });
+      renderWebhooks();
+      showToast(doc, `${item.url} is now ${checkbox.checked ? "enabled" : "paused"}.`);
+    });
+  });
+
+  renderWebhooks();
+}
+
+function enhanceNodeManagement(doc) {
+  if (doc.body.dataset.aegisDepotNodes === "true") return;
+  doc.body.dataset.aegisDepotNodes = "true";
+  injectStyles(doc);
+
+  const navLinks = Array.from(doc.querySelectorAll("header nav a"));
+  const search = doc.querySelector('input[placeholder*="Quick search"]');
+  const filterButtons = ["All Nodes", "Online", "Issues"].map((label) => findButton(doc, label)).filter(Boolean);
+  const filterButton = findButton(doc, "Filter");
+  const provisionButton = findButton(doc, "Provision Node");
+  const alertButton = findButton(doc, "View all security alerts");
+  const nodeRows = Array.from(doc.querySelectorAll("tbody tr"));
+  const actionButtons = Array.from(doc.querySelectorAll("tbody button"));
+
+  const renderNodes = () => {
+    const state = readState();
+    const query = normalizeText(state.nodes.search);
+    const filteredNodes = state.nodesList.filter((node) => {
+      const matchesQuery = !query || normalizeText(`${node.id} ${node.region} ${node.status} ${node.alertLabel}`).includes(query);
+      const mode = state.nodes.filter || "All Nodes";
+      const matchesMode = mode === "All Nodes"
+        || (mode === "Online" && normalizeText(node.status) === "online")
+        || (mode === "Issues" && normalizeText(node.status) !== "online");
+      return matchesQuery && matchesMode;
+    });
+
+    nodeRows.forEach((row, index) => {
+      const item = filteredNodes[index];
+      row.classList.toggle("aegis-hidden", !item);
+      if (!item) return;
+      const cells = row.querySelectorAll("td");
+      const titles = row.querySelectorAll("td div div");
+      if (titles[0]) titles[0].textContent = item.id;
+      if (titles[1]) titles[1].textContent = item.region;
+      if (cells[1]) cells[1].textContent = item.status;
+      if (cells[2]) cells[2].textContent = `${item.cpu} ${item.latency}`;
+      if (cells[3]) cells[3].textContent = item.uptime;
+      if (cells[4]) cells[4].textContent = item.version;
+    });
+
+    filterButtons.forEach((button) => button.classList.toggle("aegis-active-anchor", normalizeText(button.textContent) === normalizeText(state.nodes.filter)));
+    if (search) search.value = state.nodes.search;
+  };
+
+  navLinks.forEach((link) => bindManagedClick(link, () => {
+    const label = normalizeText(link.textContent);
+    if (label.includes("dashboard")) navigateTo("/developer-depot/developer-console-aegis-protocol/");
+    else if (label.includes("nodes")) navigateTo("/developer-depot/node-management-aegis-protocol/");
+    else if (label.includes("security")) navigateTo("/developer-depot/protocol-configuration-aegis-protocol/");
+    else if (label.includes("logs")) navigateTo("/developer-depot/api-usage-report-aegis-protocol/");
+  }));
+  search?.addEventListener("input", () => {
+    const current = readState();
+    patchState({ nodes: { ...current.nodes, search: search.value } });
+    renderNodes();
+  });
+  filterButtons.forEach((button) => bindManagedClick(button, () => {
+    const current = readState();
+    patchState({ nodes: { ...current.nodes, filter: button.textContent.trim() } });
+    renderNodes();
+  }));
+  bindManagedClick(filterButton, () => {
+    const current = readState();
+    const order = ["All Nodes", "Online", "Issues"];
+    const index = order.indexOf(current.nodes.filter || "All Nodes");
+    patchState({ nodes: { ...current.nodes, filter: order[(index + 1) % order.length] } });
+    renderNodes();
+    showToast(doc, `Node view: ${readState().nodes.filter}.`);
+  });
+  bindManagedClick(provisionButton, () => {
+    const current = readState();
+    const id = `#${Math.floor(Math.random() * 9000) + 1000}-NEW-MESH`;
+    patchState({
+      nodesList: [
+        {
+          id,
+          region: "US-WEST-2 • Phoenix",
+          status: "Synchronizing",
+          cpu: "CPU 9%",
+          latency: "31ms",
+          uptime: "0d 00h 02m",
+          version: "v2.4.1",
+          alertLabel: "Provisioning in progress",
+        },
+        ...current.nodesList,
+      ],
+    });
+    renderNodes();
+    showToast(doc, `${id} provisioned into the local mesh roster.`);
+  });
+  bindManagedClick(alertButton, () => navigateTo("/custodian-ui/security-incident-assessor-center/"));
+  actionButtons.forEach((button) => bindManagedClick(button, () => {
+    const row = button.closest("tr");
+    const nodeId = row?.querySelector("td div div")?.textContent?.trim();
+    const current = readState();
+    const item = current.nodesList.find((entry) => entry.id === nodeId);
+    if (!item) return;
+    const icon = normalizeText(button.textContent);
+    if (icon.includes("list_alt")) {
+      showToast(doc, `${item.id} detail view opened in the local operator layer.`);
+      return;
+    }
+    if (icon.includes("analytics")) {
+      navigateTo("/developer-depot/api-usage-report-aegis-protocol/");
+      return;
+    }
+    if (icon.includes("restart_alt")) {
+      patchState({
+        nodesList: current.nodesList.map((entry) => entry.id === item.id
+          ? { ...entry, status: "Synchronizing", alertLabel: "Restart sequence initiated" }
+          : entry),
+      });
+      renderNodes();
+      showToast(doc, `${item.id} restart sequence initiated.`);
+      return;
+    }
+    if (icon.includes("bolt")) {
+      patchState({
+        nodesList: current.nodesList.map((entry) => entry.id === item.id
+          ? { ...entry, status: "ONLINE", cpu: "CPU 22%", latency: "61ms", uptime: "0d 00h 01m", alertLabel: "" }
+          : entry),
+      });
+      renderNodes();
+      showToast(doc, `${item.id} recovered and returned to service.`);
+    }
+  }));
+
+  renderNodes();
 }
 
 const pageEnhancers = {

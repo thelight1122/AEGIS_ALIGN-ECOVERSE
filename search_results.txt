@@ -1,0 +1,32 @@
+10: const stitchRoot = path.join(repoRoot, "Stitch-UIs-for-AegisAlign");
+11: const generatedRoot = path.join(repoRoot, "generated");
+22: const domains = [
+295: ...domains.map((domain) => `<a href="/${domain.slug}/">${escapeHtml(domain.label)}</a>`),
+1482: <p>Start with clarity and move with intent: orient quickly, then inspect canonical domains and integrated UI surfaces.</p>
+1589: if (!fs.existsSync(stitchRoot)) {
+1590: throw new Error(`Missing source directory: ${stitchRoot}`);
+1617: fs.rmSync(generatedRoot, { recursive: true, force: true });
+1618: ensureDir(generatedRoot);
+1635: for (const domain of domains) {
+1636: const sourceDomainDir = path.join(stitchRoot, domain.source);
+1677: const stitchOutDir = path.join(generatedRoot, "stitch", domain.slug, slug);
+1691: const nexusSourceDir = path.join(stitchRoot, nexusDomain.source);
+1713: const stitchOutDir = path.join(generatedRoot, "stitch", nexusDomain.slug, sourceSlug);
+1733: path.join(generatedRoot, "stitch", "nexus", governancePage.slug, "index.html"),
+1743: path.join(generatedRoot, "stitch", "nexus", profilePage.slug, "index.html"),
+1754: for (const domain of domains) {
+1763: path.join(generatedRoot, domain.slug, "index.html"),
+1773: writeFile(path.join(generatedRoot, domain.slug, "status", "index.html"), custodianStatusTemplate());
+1774: writeFile(path.join(generatedRoot, domain.slug, "secure", "index.html"), custodianSecureTemplate());
+1781: path.join(generatedRoot, domain.slug, "index.html"),
+1806: path.join(generatedRoot, domain.slug, "index.html"),
+1820: writeFile(path.join(generatedRoot, domain.slug, page.slug, "index.html"), wrapper);
+1832: path.join(generatedRoot, nexusDomain.slug, "index.html"),
+1845: writeFile(path.join(generatedRoot, nexusDomain.slug, page.slug, "index.html"), wrapper);
+1849: writeFile(path.join(generatedRoot, "index.html"), rootIndexTemplate(hubs, pages));
+1851: writeFile(path.join(generatedRoot, "nexus", "index.html"), nexusTemplate(hubs, pages));
+1853: writeFile(path.join(generatedRoot, "nexus", "orientation", "index.html"), nexusTemplate(hubs, pages));
+1865: for (const domain of domains) {
+1883: writeFile(path.join(generatedRoot, "route-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+1885: writeFile(path.join(generatedRoot, "hubs-manifest.json"), `${JSON.stringify(hubs, null, 2)}\n`);
+1889: const totalsByDomain = domains.map((domain) => {
