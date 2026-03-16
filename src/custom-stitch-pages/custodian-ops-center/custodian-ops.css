@@ -20,6 +20,7 @@ body {
   border: 1px solid var(--ops-border);
   border-radius: 8px;
   padding: 1.5rem;
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }

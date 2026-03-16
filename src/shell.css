@@ -180,6 +180,7 @@ body.domain-surface.domain-agent-workshop {
 
 body.domain-surface .panel,
 body.nexus-surface .panel {
+  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
 }
 
@@ -287,6 +288,7 @@ a {
   color: #d5e7ff;
   background: rgba(7, 13, 24, 0.58);
   text-shadow: 0 0 10px rgba(93, 177, 255, 0.32);
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.24);
   animation: peerSignFloat 9s ease-in-out infinite;
@@ -311,6 +313,7 @@ a {
   color: #d7eeff;
   background: rgba(6, 12, 22, 0.72);
   box-shadow: 0 10px 28px rgba(12, 62, 112, 0.35);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   pointer-events: none;
 }
@@ -371,6 +374,7 @@ a {
   isolation: isolate;
   border-bottom: 1px solid var(--border);
   background: rgba(8, 12, 21, 0.92);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   transition:
     border-color 320ms ease,
@@ -897,6 +901,7 @@ body.entrance-focus-active .entrance-anchor.is-entrance-focus {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 20px 42px rgba(0, 0, 0, 0.34);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
