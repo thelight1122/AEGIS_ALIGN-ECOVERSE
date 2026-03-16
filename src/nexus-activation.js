@@ -1030,10 +1030,145 @@ function enhanceProtocolFeatures(doc) {
   });
 }
 
+function enhanceLanding(doc) {
+  if (doc.body.dataset.aegisEnhancedLanding === "true") return;
+  doc.body.dataset.aegisEnhancedLanding = "true";
+  injectStyles(doc);
+
+  const login = findButton(doc, "Login");
+  const getStarted = findButton(doc, "Get Started");
+  const deployNow = findButton(doc, "Deploy Now");
+  const watchDemo = findButton(doc, "Watch Demo");
+  const getStartedFree = findButton(doc, "Get Started Free");
+  const talkToSales = findButton(doc, "Talk to Sales");
+  const protocolLink = findButton(doc, "AEGIS Protocol");
+  const docsLink = findButton(doc, "Documentation");
+  const principleCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, .group")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("unified security") || text.includes("precision alignment") || text.includes("elite performance");
+  });
+  const processCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, .group")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("ingest") || text.includes("analyze") || text.includes("align") || text.includes("secure");
+  });
+
+  bindManagedClick(login, () => navigateTo("/nexus/login-aegisalign/"));
+  bindManagedClick(getStarted, () => navigateTo("/nexus/signup-aegisalign/"));
+  bindManagedClick(deployNow, () => {
+    patchState({
+      upgradeInterest: true,
+      lastRoute: "aegisalign-landing-page",
+      lastSeenAt: new Date().toISOString(),
+    });
+    navigateTo("/nexus/aegisalign-pricing-plans/");
+  });
+  bindManagedClick(watchDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+  bindManagedClick(getStartedFree, () => navigateTo("/nexus/signup-aegisalign/"));
+  bindManagedClick(talkToSales, () => navigateTo("/nexus/aegisalign-pricing-plans/"));
+  bindManagedClick(protocolLink, () => navigateTo("/nexus/aegis-protocol-features/"));
+  bindManagedClick(docsLink, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+
+  principleCards.forEach((card) => {
+    const text = normalizeText(card.textContent);
+    const route = text.includes("unified security")
+      ? "/nexus/aegis-protocol-features/"
+      : text.includes("precision alignment")
+        ? "/nexus/aegis-protocol-dashboard/"
+        : "/nexus/aegisalign-pricing-plans/";
+    card.style.cursor = "pointer";
+    bindManagedClick(card, () => {
+      patchState({
+        lastRoute: "aegisalign-landing-page",
+        lastSeenAt: new Date().toISOString(),
+      });
+      navigateTo(route);
+    });
+  });
+
+  processCards.forEach((card) => {
+    const text = normalizeText(card.textContent);
+    bindManagedClick(card, () => {
+      card.classList.add("aegis-highlight-ring");
+      window.setTimeout(() => card.classList.remove("aegis-highlight-ring"), 1000);
+      const message = text.includes("ingest")
+        ? "Ingest is the bridge from the public hub into starter systems and onboarding."
+        : text.includes("analyze")
+          ? "Analyze aligns the demo and dashboard surfaces around live protocol visibility."
+          : text.includes("align")
+            ? "Align connects governance, settings, and subscriber trust posture."
+            : "Secure carries Peers into the fully governed AEGIS workspace.";
+      showToast(doc, message);
+    });
+  });
+}
+
+function enhanceLoginSuccess(doc) {
+  if (doc.body.dataset.aegisEnhancedLoginSuccess === "true") return;
+  doc.body.dataset.aegisEnhancedLoginSuccess = "true";
+  injectStyles(doc);
+
+  const statusRows = Array.from(doc.querySelectorAll("div")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("decrypting workspace partition")
+      || text.includes("verifying node connection")
+      || text.includes("synchronizing encrypted keychains")
+      || text.includes("mounting secure filesystems");
+  });
+  const progressLabel = Array.from(doc.querySelectorAll("div")).find((node) => /^\d+%$/.test((node.textContent || "").trim()));
+  const headline = Array.from(doc.querySelectorAll("h1")).find((node) => normalizeText(node.textContent).includes("secure session initializing"));
+  const subline = Array.from(doc.querySelectorAll("p")).find((node) => normalizeText(node.textContent).includes("biometric signature verified"));
+
+  patchState({
+    signedIn: true,
+    onboardingStage: "active",
+    peerLabel: readState().peerLabel === "Guest Peer" ? "Authenticated Peer" : readState().peerLabel,
+    lastRoute: "login-success-transition",
+    lastSeenAt: new Date().toISOString(),
+  });
+
+  if (headline) headline.textContent = "Secure Session Handoff";
+  if (subline) subline.textContent = "Identity confirmed. Initializing the governed AEGIS workspace.";
+
+  const rowStates = [
+    { match: "decrypting workspace partition", final: "READY", icon: "check_circle" },
+    { match: "verifying node connection", final: "CONNECTED", icon: "check_circle" },
+    { match: "synchronizing encrypted keychains", final: "SYNCED", icon: "check_circle" },
+    { match: "mounting secure filesystems", final: "MOUNTED", icon: "check_circle" },
+  ];
+
+  let currentProgress = Number((progressLabel?.textContent || "82").replace(/[^\d]/g, "")) || 82;
+  const progressTimer = window.setInterval(() => {
+    currentProgress += currentProgress < 94 ? 4 : 2;
+    if (progressLabel) progressLabel.textContent = `${Math.min(currentProgress, 100)}%`;
+
+    rowStates.forEach((state, index) => {
+      if (currentProgress >= 86 + (index * 4)) {
+        const row = statusRows.find((node) => normalizeText(node.textContent).includes(state.match));
+        if (!row) return;
+        const parts = Array.from(row.querySelectorAll("div, span"));
+        const iconNode = parts.find((node) => ["sync", "radio_button_unchecked", "check_circle"].includes((node.textContent || "").trim()));
+        const statusNode = parts.find((node) => {
+          const text = normalizeText(node.textContent);
+          return text === "pending" || text === "connected" || text === "0.02ms" || text === "mounted" || text === "ready" || text === "synced";
+        });
+        if (iconNode) iconNode.textContent = state.icon;
+        if (statusNode) statusNode.textContent = state.final;
+      }
+    });
+
+    if (currentProgress >= 100) {
+      window.clearInterval(progressTimer);
+      showToast(doc, "Secure session initialized. Opening the live protocol surface.");
+    }
+  }, 220);
+}
+
 const pageEnhancers = {
+  "aegisalign-landing-page": enhanceLanding,
   "login-aegisalign": enhanceLogin,
   "signup-aegisalign": enhanceSignup,
   "multi-factor-authentication": enhanceMfa,
+  "login-success-transition": enhanceLoginSuccess,
   "aegis-protocol-dashboard": enhanceDashboard,
   "aegis-protocol-documentation-portal": enhanceDocs,
   "aegisalign-settings": enhanceSettings,

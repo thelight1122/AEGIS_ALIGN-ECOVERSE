@@ -53,6 +53,10 @@ const PAGE_META = {
     focus: "Peer profile",
     detail: "Identity, subscription posture, and the gateway into premium AEGIS tools."
   },
+  "aegis-governance-hub": {
+    focus: "Governance canon",
+    detail: "Canonical axioms, ethos, imperatives, and glossary guidance for the EcoVerse."
+  },
   "aegisalign-settings": {
     focus: "Profile and access",
     detail: "Subscriber preferences, trusted access, and account state."
@@ -83,6 +87,24 @@ const HANDOFF_META = {
     title: "Make Profile the clean handoff into access, continuity, and subscriber capability.",
     body: "The Profile surface should help a Peer understand who they are in the EcoVerse, what they can access now, and which premium workspaces become available next.",
     bullets: ["Identity and continuity", "Trusted settings", "Premium workspace gateway"],
+  },
+  "aegis-governance-hub": {
+    kicker: "Canon Reference",
+    title: "Keep the governing principles easy to study without losing the path back into demos and tools.",
+    body: "The governance hub should help Peers move from ethos and canon into product behavior, starter systems, and operational exploration.",
+    bullets: ["Canonical axioms", "Impartial ethos", "Demo and docs handoffs"],
+  },
+  "aegis-protocol-features": {
+    kicker: "Protocol Narrative",
+    title: "Translate product language into the next concrete move: demo, docs, or subscriber activation.",
+    body: "The features surface works best when each major promise routes directly into proof, implementation guidance, or the premium path.",
+    bullets: ["Capability narrative", "Demo proof", "Subscriber handoff"],
+  },
+  "login-success-transition": {
+    kicker: "Secure Session Handoff",
+    title: "Use the authenticated transition to confirm access, orient the Peer, and then move cleanly into the demo layer.",
+    body: "The handoff surface should feel like a secure initialization corridor rather than a silent redirect, reinforcing continuity and trust before the main dashboard opens.",
+    bullets: ["Session verification", "Demo launch", "Profile continuity"],
   },
   "aegis-protocol-dashboard": {
     kicker: "Live Demo Surface",
@@ -225,6 +247,17 @@ function buttonLabelSet(slug, state) {
         { id: "auth", label: "Open Access Flow", href: "/nexus/login-aegisalign/" },
         { id: "starter", label: "Starter Systems", href: "/nexus/aegis-protocol-documentation-portal/" },
         { id: "upgrade", label: "Subscriber Path", href: "/nexus/aegisalign-pricing-plans/" },
+      ]
+    };
+  }
+
+  if (slug === "login-success-transition") {
+    return {
+      lead: "This secure handoff can open the demo, return to profile, or queue the starter path without losing the authenticated session.",
+      actions: [
+        { id: "demo", label: "Open Demo Surface", href: "/nexus/aegis-protocol-dashboard/" },
+        { id: "auth", label: "Open Peer Profile", href: "/nexus/aegis-peer-profile/" },
+        { id: "starter", label: "Queue Starter Kit", href: "/nexus/aegis-protocol-documentation-portal/" },
       ]
     };
   }

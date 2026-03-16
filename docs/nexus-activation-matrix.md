@@ -14,14 +14,14 @@ This matrix is the working activation plan for the Nexus section. It separates p
 
 | Page | Current Role | Primary Controls | Activation Status | Notes |
 | --- | --- | --- | --- | --- |
-| `aegisalign-landing-page` | Public Nexus hub | CTA buttons, immersive Ether entry | `Partial` | CTA routing is live; immersive portal travel is live; deeper content widgets can come later. |
+| `aegisalign-landing-page` | Public Nexus hub | CTA buttons, immersive Ether entry, principle cards, process cards | `Live` in third slice | CTA routing, immersive portal travel, principle-card handoffs, and process-card focus behavior are active. |
 | `aegis-protocol-features` | Product narrative | Hero CTA buttons, footer links, feature panels | `Live` in second slice | CTA routing, docs/demo/pricing handoffs, and feature-panel focus behavior are activated. |
 | `aegis-protocol-documentation-portal` | Docs and starter handoff | Search, code copy, left-nav, helpfulness buttons, session CTA | `Live` in first slice | Search/filter, copy, feedback, and session CTA are activated via shared Nexus enhancement. |
 | `aegis-protocol-dashboard` | Main demo surface | Search, quick actions, gateway list, filters, faux tabs | `Live` in first slice | Dashboard now behaves like an explorable live surface with local status/state. |
 | `login-aegisalign` | Login gateway | Email, password, remember device, password visibility | `Live` in first slice | Validates, persists identity state, and routes through authenticated handoff. |
 | `signup-aegisalign` | Onboarding | Name, email, company, password | `Live` in first slice | Validates and persists onboarding draft into Nexus state. |
 | `multi-factor-authentication` | MFA checkpoint | 6-digit OTP, paste, SMS fallback, recovery fallback | `Live` in first slice | Auto-advance, paste handling, and verified route handoff are active. |
-| `login-success-transition` | Session handoff | Auto progress surface | `Partial` | Already auto-transitions correctly; could gain richer progress simulation later. |
+| `login-success-transition` | Session handoff | Secure session progress, staged statuses, dashboard handoff | `Live` in third slice | The secure handoff now simulates real session initialization before routing into the dashboard. |
 | `aegis-peer-profile` | Identity hub | Access links, subscriber handoffs, demo/settings routes | `Live` in second slice | Profile now acts like a real subscriber hub with docs, pricing, settings, and access-flow routing. |
 | `aegisalign-pricing-plans` | Upgrade path | Plan selection CTA buttons, plan cards | `Live` in second slice | Upgrade intent and starter/demo/signup routing now persist into shared Nexus state. |
 | `aegisalign-settings` | Account and preferences | Profile inputs, toggles, API keys, save/discard, search | `Live` in first slice | Now persists local preferences, notification choices, and generated API keys. |
@@ -74,8 +74,8 @@ The second implementation batch extends the Nexus into a fuller hub:
 
 ## Next Nexus Slice
 
-After this second slice is stable, the next most valuable Nexus work is:
+After this third slice is stable, the next most valuable Nexus work is:
 
-1. Deepen `aegisalign-landing-page` widgets beyond routing and Drift travel
-2. Add richer progress simulation to `login-success-transition`
-3. Expand subscriber continuity between Nexus and future `Peer Profile / Subscriber Workspace`
+1. Expand subscriber continuity between Nexus and future `Peer Profile / Subscriber Workspace`
+2. Connect landing-page content widgets to real live metrics instead of local-only behavior
+3. Deepen cross-section handoffs from Nexus into Developer Depot, Custodian Ops, and Application Lab

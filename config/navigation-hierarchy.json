@@ -79,7 +79,7 @@
         "autoTransitions": {
           "login-success-transition": {
             "target": "aegis-protocol-dashboard",
-            "delayMs": 1400
+            "delayMs": 2600
           }
         }
       },
