@@ -872,12 +872,17 @@ function voiceByDomain(domainSlug) {
 
 function groupPagesForSidebar(domain, domainPages, navigationHierarchy) {
   const domainConfig = (navigationHierarchy || []).find((d) => d.domain === domain.slug);
+  const sidebarHiddenSlugs = new Set([
+    "custodian-cockpit-hud-2",
+  ]);
+  const visibleDomainPages = domainPages.filter((page) => !sidebarHiddenSlugs.has(page.slug));
+
   if (!domainConfig) {
-    return [{ label: `${domain.label} Pages`, items: domainPages }];
+    return [{ label: `${domain.label} Pages`, items: visibleDomainPages }];
   }
 
   const sections = [];
-  const remaining = [...domainPages];
+  const remaining = [...visibleDomainPages];
 
   for (const section of domainConfig.sections) {
     const sectionPages = [];

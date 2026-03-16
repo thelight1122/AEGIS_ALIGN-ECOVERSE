@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full System Upgrade | Application Lab</title>
+    <link rel="stylesheet" href="../application-lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Specific page overrides for upgrade dashboard */
+        .tier-picker {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        @media (max-width: 900px) {
+            .tier-picker { grid-template-columns: 1fr; }
+        }
+        .tier-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .tier-card:hover {
+            border-color: var(--lab-prism);
+            background: rgba(138, 43, 226, 0.05);
+            transform: translateY(-5px);
+        }
+        .tier-card.selected {
+            border-color: var(--lab-cyan);
+            background: rgba(0, 229, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+        .tier-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #FFF;
+            margin: 0 0 5px 0;
+        }
+        .tier-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: #FFF;
+        }
+        .tier-perks {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .tier-perks li i {
+            color: var(--lab-cyan);
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body class="lab-theme">
+    <div class="dashboard-shell">
+        <header class="ops-header">
+            <div class="header-main">
+                <h1 class="header-title">Full System Upgrade</h1>
+                <p class="header-subtitle">Elevate your node credentials and unlock core mesh features.</p>
+            </div>
+            <div class="header-actions">
+                <button class="ops-btn ops-btn-outline"><i class="fa-solid fa-arrow-left"></i> Back to Lab</button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Left Side: Selection -->
+            <div class="grid-span-8">
+                <h3 class="u-fx-1rz051">Select Upgrade Path</h3>
+                <div class="tier-picker">
+                    <!-- Tier 1 -->
+                    <div class="tier-card selected">
+                        <div class="u-fx-6m2kfw"><span class="badge badge-lab">Recommended</span></div>
+                        <h4 class="tier-title">Sovereign Core</h4>
+                        <p class="u-fx-5faiuq">For active Peers running local clusters.</p>
+                        <div class="tier-price">124 AEGIS <span class="u-fx-d4zxrt">/ epoch</span></div>
+                        <ul class="tier-perks">
+                            <li><i class="fa-solid fa-circle-check"></i> Unlock 12 Shard Nodes</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Standard Governance Consensus</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Predictive Buffer Resync</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Level 2 Auth Clearance</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tier 2 -->
+                    <div class="tier-card">
+                        <h4 class="tier-title">Distributed Multi-Agent</h4>
+                        <p class="u-fx-5faiuq">For Administrators orchestrating mesh simulation.</p>
+                        <div class="tier-price">249 AEGIS <span class="u-fx-d4zxrt">/ epoch</span></div>
+                        <ul class="tier-perks">
+                            <li><i class="fa-solid fa-circle-check"></i> Unlimited Shard Nodes</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Advanced Multi-Agent Matrix</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Adaptive Load Factor Balancer</li>
+                            <li><i class="fa-solid fa-circle-check"></i> SLA Latency Guarantee</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Order Summary -->
+            <div class="glass-panel grid-span-4 u-fx-5pp2td" >
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-credit-card panel-icon"></i> Order Summary</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="u-fx-s6drsn">
+                        <span>Option</span>
+                        <span class="u-fx-ol4nan">Sovereign Core</span>
+                    </div>
+                    <div class="u-fx-ta9yjc">
+                        <span>Duration</span>
+                        <span class="u-fx-ol4nan">1 Epoch (30 Days)</span>
+                    </div>
+                    <hr class="u-fx-sdh9zk">
+                    <div class="u-fx-mpu8pb">
+                        <span>Total Due</span>
+                        <span class="ops-cyan-text u-fx-pd6s9r" >124 AEGIS</span>
+                    </div>
+                    <button class="ops-btn ops-btn-primary u-fx-36qpnt" ><i class="fa-solid fa-arrow-up-right-dots"></i> Process Upgrade</button>
+                    <p class="u-fx-lkgqg3">Transactions are signed with continuous auth keys.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

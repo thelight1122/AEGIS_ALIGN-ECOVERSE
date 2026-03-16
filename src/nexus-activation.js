@@ -780,6 +780,256 @@ function enhanceSettings(doc) {
   });
 }
 
+function enhancePeerProfile(doc) {
+  if (doc.body.dataset.aegisEnhancedPeerProfile === "true") return;
+  doc.body.dataset.aegisEnhancedPeerProfile = "true";
+  injectStyles(doc);
+
+  const state = readState();
+  const openAccess = findButton(doc, "Open Access Flow");
+  const starterSystems = findButton(doc, "Starter Systems");
+  const subscriberPath = findButton(doc, "Subscriber Path");
+  const trustedSettings = findButton(doc, "Trusted Settings");
+  const viewPlans = findButton(doc, "View Plans");
+  const openDemo = findButton(doc, "Open Demo");
+  const identityCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl"));
+  const profileHero = identityCards.find((node) => normalizeText(node.textContent).includes("peer profile"))
+    || doc.querySelector("main section")
+    || doc.body;
+
+  const syncCopy = () => {
+    const latest = readState();
+    Array.from(doc.querySelectorAll("h1, h2, h3, p, span, div")).forEach((node) => {
+      if (!node.children.length && normalizeText(node.textContent).includes("guest peer")) {
+        node.textContent = node.textContent.replace(/Guest Peer/gi, latest.peerLabel || "Guest Peer");
+      }
+      if (!node.children.length && normalizeText(node.textContent).includes("explorer")) {
+        node.textContent = node.textContent.replace(/Explorer/gi, latest.subscription || "Explorer");
+      }
+    });
+  };
+
+  syncCopy();
+
+  bindManagedClick(openAccess, () => {
+    patchState({
+      lastRoute: "aegis-peer-profile",
+      lastSeenAt: new Date().toISOString(),
+    });
+    navigateTo("/nexus/login-aegisalign/");
+  });
+  bindManagedClick(starterSystems, () => {
+    patchState({
+      starterQueued: true,
+      lastRoute: "aegis-peer-profile",
+      lastSeenAt: new Date().toISOString(),
+    });
+    showToast(doc, "Starter systems queued in the Peer workspace. Opening the documentation handoff.");
+    window.setTimeout(() => navigateTo("/nexus/aegis-protocol-documentation-portal/"), 180);
+  });
+  bindManagedClick(subscriberPath, () => navigateTo("/nexus/aegisalign-pricing-plans/"));
+  bindManagedClick(viewPlans, () => navigateTo("/nexus/aegisalign-pricing-plans/"));
+  bindManagedClick(trustedSettings, () => navigateTo("/nexus/aegisalign-settings/"));
+  bindManagedClick(openDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+
+  const includedCards = identityCards.filter((node) => normalizeText(node.textContent).includes("included"));
+  includedCards.forEach((card) => {
+    card.classList.add("aegis-highlight-ring");
+    window.setTimeout(() => card.classList.remove("aegis-highlight-ring"), 900);
+  });
+  profileHero?.classList.add("aegis-highlight-ring");
+  window.setTimeout(() => profileHero?.classList.remove("aegis-highlight-ring"), 1000);
+}
+
+function enhancePricing(doc) {
+  if (doc.body.dataset.aegisEnhancedPricing === "true") return;
+  doc.body.dataset.aegisEnhancedPricing = "true";
+  injectStyles(doc);
+
+  const signupButtons = [
+    findButton(doc, "Sign Up"),
+    findButton(doc, "Start Free Trial"),
+    findButton(doc, "Get Started"),
+    findButton(doc, "Get Started Now"),
+  ].filter(Boolean);
+  const login = findButton(doc, "Login");
+  const contactSales = findButton(doc, "Contact Sales");
+  const scheduleDemo = findButton(doc, "Schedule Demo");
+  const activateSubscriber = findButton(doc, "Activate Subscriber");
+  const openLiveDemo = findButton(doc, "Open Live Demo");
+  const queueStarter = findButton(doc, "Queue Starter Kit");
+  const planCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, [class*='plan'], [class*='pricing']"));
+
+  const setUpgradeIntent = (planLabel = "Subscriber") => {
+    patchState({
+      subscription: planLabel,
+      upgradeInterest: true,
+      lastRoute: "aegisalign-pricing-plans",
+      lastSeenAt: new Date().toISOString(),
+    });
+  };
+
+  signupButtons.forEach((button) => bindManagedClick(button, () => {
+    const label = normalizeText(button.textContent);
+    const planLabel = label.includes("trial") ? "Explorer Trial" : "Subscriber";
+    setUpgradeIntent(planLabel);
+    navigateTo("/nexus/signup-aegisalign/");
+  }));
+  bindManagedClick(login, () => navigateTo("/nexus/login-aegisalign/"));
+  bindManagedClick(contactSales, () => {
+    setUpgradeIntent("Enterprise");
+    showToast(doc, "Enterprise interest captured in local Nexus state. Routing to the docs handoff.");
+    window.setTimeout(() => navigateTo("/nexus/aegis-protocol-documentation-portal/"), 180);
+  });
+  bindManagedClick(scheduleDemo, () => {
+    setUpgradeIntent("Guided Demo");
+    navigateTo("/nexus/aegis-protocol-dashboard/");
+  });
+  bindManagedClick(activateSubscriber, () => {
+    setUpgradeIntent("Subscriber");
+    const state = readState();
+    navigateTo(state.signedIn ? "/nexus/aegis-peer-profile/" : "/nexus/signup-aegisalign/");
+  });
+  bindManagedClick(openLiveDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+  bindManagedClick(queueStarter, () => {
+    patchState({
+      starterQueued: true,
+      lastRoute: "aegisalign-pricing-plans",
+      lastSeenAt: new Date().toISOString(),
+    });
+    showToast(doc, "Starter kit queued. Opening the documentation portal.");
+    window.setTimeout(() => navigateTo("/nexus/aegis-protocol-documentation-portal/"), 180);
+  });
+
+  planCards.forEach((card) => {
+    const label = normalizeText(card.textContent);
+    if (label.includes("subscriber") || label.includes("enterprise") || label.includes("starter")) {
+      card.style.cursor = "pointer";
+      bindManagedClick(card, () => {
+        const planLabel = label.includes("enterprise")
+          ? "Enterprise"
+          : label.includes("subscriber")
+            ? "Subscriber"
+            : "Starter";
+        setUpgradeIntent(planLabel);
+        showToast(doc, `${planLabel} path selected for this Peer.`);
+      });
+    }
+  });
+}
+
+function enhanceGovernanceHub(doc) {
+  if (doc.body.dataset.aegisEnhancedGovernance === "true") return;
+  doc.body.dataset.aegisEnhancedGovernance = "true";
+  injectStyles(doc);
+
+  const tryDemo = findButton(doc, "Try Live Demo");
+  const downloadStarter = findButton(doc, "Download Starter");
+  const unlockFull = findButton(doc, "Unlock Full System");
+  const openDocs = findButton(doc, "Open Docs");
+  const returnToNexus = findButton(doc, "Return to Nexus");
+  const principleNodes = Array.from(doc.querySelectorAll("h1, h2, h3, h4, summary, button, a")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("axiom") || text.includes("ethos") || text.includes("imperative") || text.includes("glossary") || text.includes("canon");
+  });
+
+  bindManagedClick(tryDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+  bindManagedClick(downloadStarter, () => {
+    patchState({
+      starterQueued: true,
+      lastRoute: "aegis-governance-hub",
+      lastSeenAt: new Date().toISOString(),
+    });
+    navigateTo("/nexus/aegis-protocol-documentation-portal/");
+  });
+  bindManagedClick(unlockFull, () => {
+    patchState({
+      upgradeInterest: true,
+      lastRoute: "aegis-governance-hub",
+      lastSeenAt: new Date().toISOString(),
+    });
+    navigateTo("/nexus/aegisalign-pricing-plans/");
+  });
+  bindManagedClick(openDocs, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(returnToNexus, () => navigateTo("/nexus/aegisalign-landing-page/"));
+
+  principleNodes.forEach((node) => {
+    if (node.dataset.aegisManaged === "true") return;
+    const text = normalizeText(node.textContent);
+    if (!(text.includes("axiom") || text.includes("ethos") || text.includes("imperative") || text.includes("glossary") || text.includes("canon"))) {
+      return;
+    }
+    bindManagedClick(node, () => {
+      const target = node.closest("section, article, details, div");
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      target?.classList.add("aegis-highlight-ring");
+      window.setTimeout(() => target?.classList.remove("aegis-highlight-ring"), 1200);
+      showToast(doc, `Focused ${node.textContent.trim()} inside the governance reference.`);
+    });
+  });
+}
+
+function enhanceProtocolFeatures(doc) {
+  if (doc.body.dataset.aegisEnhancedProtocolFeatures === "true") return;
+  doc.body.dataset.aegisEnhancedProtocolFeatures = "true";
+  injectStyles(doc);
+
+  const tryDemo = findButton(doc, "Try Live Demo");
+  const downloadStarter = findButton(doc, "Download Starter");
+  const unlockFull = findButton(doc, "Unlock Full System");
+  const getStarted = findButton(doc, "Get Started");
+  const exploreSpecs = findButton(doc, "Explore Protocol Specs");
+  const viewDemo = findButton(doc, "View Demo");
+  const goToDocs = findButton(doc, "Go to Documentation");
+  const contactArchitect = findButton(doc, "Contact Architect");
+  const featureCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, article, section")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("feature") || text.includes("protocol") || text.includes("gateway") || text.includes("security");
+  });
+
+  bindManagedClick(tryDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+  bindManagedClick(downloadStarter, () => {
+    patchState({
+      starterQueued: true,
+      lastRoute: "aegis-protocol-features",
+      lastSeenAt: new Date().toISOString(),
+    });
+    navigateTo("/nexus/aegis-protocol-documentation-portal/");
+  });
+  bindManagedClick(unlockFull, () => {
+    patchState({
+      upgradeInterest: true,
+      lastRoute: "aegis-protocol-features",
+      lastSeenAt: new Date().toISOString(),
+    });
+    navigateTo("/nexus/aegisalign-pricing-plans/");
+  });
+  bindManagedClick(getStarted, () => navigateTo("/nexus/signup-aegisalign/"));
+  bindManagedClick(exploreSpecs, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(viewDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+  bindManagedClick(goToDocs, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(contactArchitect, () => {
+    patchState({
+      upgradeInterest: true,
+      subscription: "Architect Review",
+      lastRoute: "aegis-protocol-features",
+      lastSeenAt: new Date().toISOString(),
+    });
+    showToast(doc, "Architect consult intent captured. Opening the pricing and access surface.");
+    window.setTimeout(() => navigateTo("/nexus/aegisalign-pricing-plans/"), 180);
+  });
+
+  featureCards.forEach((card) => {
+    if (card.dataset.aegisManaged === "true") return;
+    card.style.cursor = "pointer";
+    bindManagedClick(card, () => {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.classList.add("aegis-highlight-ring");
+      window.setTimeout(() => card.classList.remove("aegis-highlight-ring"), 1000);
+    });
+  });
+}
+
 const pageEnhancers = {
   "login-aegisalign": enhanceLogin,
   "signup-aegisalign": enhanceSignup,
@@ -787,6 +1037,10 @@ const pageEnhancers = {
   "aegis-protocol-dashboard": enhanceDashboard,
   "aegis-protocol-documentation-portal": enhanceDocs,
   "aegisalign-settings": enhanceSettings,
+  "aegis-peer-profile": enhancePeerProfile,
+  "aegisalign-pricing-plans": enhancePricing,
+  "aegis-governance-hub": enhanceGovernanceHub,
+  "aegis-protocol-features": enhanceProtocolFeatures,
 };
 
 function enhanceFrame(frame) {

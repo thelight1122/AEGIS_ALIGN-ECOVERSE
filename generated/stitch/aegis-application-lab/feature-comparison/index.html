@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Comparison | Application Lab</title>
+    <link rel="stylesheet" href="../application-lab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Specific page overrides for comparison matrix */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 18px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .comparison-table th {
+            font-weight: 700;
+            color: #FFF;
+            background: rgba(255, 255, 255, 0.02);
+            font-size: 1.05rem;
+        }
+        .comparison-table td:first-child, .comparison-table th:first-child {
+            text-align: left;
+            width: 300px;
+            font-weight: 600;
+            background: transparent;
+        }
+        .comparison-table tr:hover {
+            background: rgba(138, 43, 226, 0.02);
+        }
+        .feature-icon {
+            font-size: 1.25rem;
+        }
+        .ops-cyan-text { color: var(--lab-cyan); }
+    </style>
+</head>
+<body class="lab-theme">
+    <div class="dashboard-shell">
+        <header class="ops-header">
+            <div class="header-main">
+                <h1 class="header-title">Feature Comparison</h1>
+                <p class="header-subtitle">Evaluate module packages for Sovereign ecosystem deployment.</p>
+            </div>
+            <div class="header-actions">
+                <button class="ops-btn ops-btn-outline"><i class="fa-solid fa-arrow-left"></i> Back to Lab</button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="glass-panel grid-span-12">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-table-columns panel-icon"></i> System Specs Matrix</h3>
+                </div>
+                <div class="panel-content u-fx-oupr09" >
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature Module</th>
+                                <th>Starter Node <div class="u-fx-qz44u9">Free Tier</div></th>
+                                <th>Sovereign Core <div class="u-fx-cwp02d">Peers Only</div></th>
+                                <th>Distributed Multi-Agent <div class="u-fx-gg02n1">Admin</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Max Shard Nodes</td>
+                                <td>2 Nodes</td>
+                                <td>12 Nodes</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td>Auto-Heal Buffers</td>
+                                <td><i class="fa-solid fa-minus feature-icon u-fx-oku39b" ></i></td>
+                                <td><i class="fa-solid fa-check feature-icon ops-cyan-text"></i></td>
+                                <td><i class="fa-solid fa-check-circle feature-icon u-fx-k0cehd" ></i> <span class="u-fx-fb6zku">(Adaptive)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Governance Simulation</td>
+                                <td><i class="fa-solid fa-minus feature-icon u-fx-oku39b" ></i></td>
+                                <td><i class="fa-solid fa-check feature-icon ops-cyan-text"></i></td>
+                                <td><i class="fa-solid fa-check feature-icon ops-cyan-text"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Audit Trail Indexing</td>
+                                <td>24 Hours</td>
+                                <td>30 Days</td>
+                                <td>Infinite (Archival)</td>
+                            </tr>
+                            <tr>
+                                <td>Dedicated Support Mesh</td>
+                                <td><i class="fa-solid fa-minus feature-icon u-fx-oku39b" ></i></td>
+                                <td><i class="fa-solid fa-check feature-icon ops-cyan-text"></i></td>
+                                <td><i class="fa-solid fa-check feature-icon ops-cyan-text"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Action</td>
+                                <td><button class="ops-btn ops-btn-sm u-fx-ntyiyt" >Current</button></td>
+                                <td><button class="ops-btn ops-btn-primary ops-btn-sm u-fx-ntyiyt" >Upgrade</button></td>
+                                <td><button class="ops-btn ops-btn-outline ops-btn-sm u-fx-ntyiyt" >Contact Admin</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
