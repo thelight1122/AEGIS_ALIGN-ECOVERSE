@@ -19,12 +19,12 @@ This matrix is the working activation plan for the Developer Depot section. It t
 | `submit-plugin-to-depot` | Submission studio | Draft/save, validation, upload stub, docs CTA, submit flow | `Live` in first slice | Creates and updates local submissions. |
 | `my-submissions-dashboard` | Contributor inventory | Search, filter, sort, edit, publish, analytics, delete | `Live` in first slice | Main operational surface for local plugin state. |
 | `plugin-developer-analytics` | Release and adoption insights | Range toggles, manage, push update, back/docs CTAs | `Live` in first slice | Tied to the shared Depot submission state. |
-| `developer-console-aegis-protocol` | Tooling console | Logs, config, command actions | `Queued` | Best handled in the next Depot slice. |
+| `developer-console-aegis-protocol` | Tooling console | Logs, config, command actions | `Live` in second slice | Console actions, key controls, log filtering, and cross-page routing are active. |
 | `web3-portal` | Web3 bridge surface | Wallet and gateway actions | `Queued` | Needs a dedicated Web3 activation model. |
-| `api-usage-report-aegis-protocol` | Usage reporting | Filters, charts, export actions | `Queued` | Better paired with API reference and console in slice two. |
-| `webhooks-configuration-aegis-protocol` | Integration setup | Endpoint forms, secret controls, delivery tests | `Queued` | Good candidate for the next API-oriented slice. |
-| `node-management-aegis-protocol` | Node operations | Search, actions, status controls | `Queued` | Better activated alongside protocol configuration. |
-| `protocol-configuration-aegis-protocol` | Protocol config | Form state, validation, save/apply actions | `Queued` | Same batch as node management. |
+| `api-usage-report-aegis-protocol` | Usage reporting | Filters, charts, export actions | `Live` in second slice | Range switching, export behavior, and related routing are active. |
+| `webhooks-configuration-aegis-protocol` | Integration setup | Endpoint forms, secret controls, delivery tests | `Live` in second slice | Draft state, endpoint creation, visibility, edit, delete, and delivery-log flow are active. |
+| `node-management-aegis-protocol` | Node operations | Search, actions, status controls | `Live` in second slice | Search, filters, provisioning, alert handoff, restart, and recovery flows are active. |
+| `protocol-configuration-aegis-protocol` | Protocol config | Form state, validation, save/apply actions | `Live` in second slice | Config controls persist local state and apply/reset behavior updates the shared Depot log. |
 | `protocol-isolated-confirmation` | Update confirmation | Deploy/confirm actions | `Partial` | Route exists; richer confirmation logic can come later. |
 | `colab-creation-page-1` | Collaboration builder | Builder controls, next-step CTA | `Queued` | Better after Depot core flows are live. |
 | `colab-creation-page-2` | Collaboration continuation | Continuation controls | `Queued` | Paired with `colab-creation-page-1`. |
@@ -53,13 +53,28 @@ The first implementation batch focuses on the primary contributor flow:
 - Local submission inventory management for edit, publish, delete, replay, and analytics routing
 - API docs language switching and copy helpers
 - Hub search, depot sorting, and local plugin install actions
+- Console range switching, key generation, and log filtering
+- Usage report range changes, export actions, and console/ops routing
+- Webhook draft, secret visibility, edit/delete flows, and local delivery state
+- Node operations including provisioning, restart, recovery, and alert escalation handoff
+- Protocol configuration persistence, preview refresh, and apply/reset actions
 
-## Next Developer Depot Slice
+## Second Developer Depot Slice
 
-After the first slice is stable, the next highest-value Depot work is:
+The second implementation batch extends the module into API operations and protocol controls:
 
 1. `developer-console-aegis-protocol`
 2. `api-usage-report-aegis-protocol`
 3. `webhooks-configuration-aegis-protocol`
 4. `node-management-aegis-protocol`
 5. `protocol-configuration-aegis-protocol`
+
+## Next Developer Depot Slice
+
+After the core Depot and API-control slices are stable, the next highest-value Depot work is:
+
+1. `protocol-isolated-confirmation`
+2. `network-topology-visualizer`
+3. `colab-creation-page-1`
+4. `colab-creation-page-2`
+5. `web3-portal`

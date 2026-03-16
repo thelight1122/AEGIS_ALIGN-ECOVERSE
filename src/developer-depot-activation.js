@@ -452,6 +452,12 @@ function resolveDepotCardHeading(node) {
   return "";
 }
 
+function resolveNodeRowId(row) {
+  return row?.querySelector("td .font-bold")?.textContent?.trim()
+    || row?.querySelector("td span")?.textContent?.trim()
+    || "";
+}
+
 function updateDraftFromSubmission(submission) {
   patchState({
     editingSubmissionId: submission.id,
@@ -1346,9 +1352,10 @@ function enhanceNodeManagement(doc) {
       row.classList.toggle("aegis-hidden", !item);
       if (!item) return;
       const cells = row.querySelectorAll("td");
-      const titles = row.querySelectorAll("td div div");
-      if (titles[0]) titles[0].textContent = item.id;
-      if (titles[1]) titles[1].textContent = item.region;
+      const title = row.querySelector("td .font-bold");
+      const subtitle = row.querySelector("td .text-xs");
+      if (title) title.textContent = item.id;
+      if (subtitle) subtitle.textContent = item.region;
       if (cells[1]) cells[1].textContent = item.status;
       if (cells[2]) cells[2].textContent = `${item.cpu} ${item.latency}`;
       if (cells[3]) cells[3].textContent = item.uptime;
@@ -1408,7 +1415,7 @@ function enhanceNodeManagement(doc) {
   bindManagedClick(alertButton, () => navigateTo("/custodian-ui/security-incident-assessor-center/"));
   actionButtons.forEach((button) => bindManagedClick(button, () => {
     const row = button.closest("tr");
-    const nodeId = row?.querySelector("td div div")?.textContent?.trim();
+    const nodeId = resolveNodeRowId(row);
     const current = readState();
     const item = current.nodesList.find((entry) => entry.id === nodeId);
     if (!item) return;
@@ -1460,9 +1467,7 @@ function enhanceProtocolConfiguration(doc) {
   const resetButton = findButton(doc, "Reset to Defaults");
   const applyButton = findButton(doc, "Apply Changes");
   const footer = doc.querySelector("footer");
-  const modifiedLabel = footer
-    ? Array.from(footer.querySelectorAll("div, p")).find((node) => normalizeText(node.textContent).includes("local changes"))
-    : null;
+  const modifiedLabel = footer?.querySelector(".text-sm") || null;
   const preview = doc.querySelector("pre");
   const syncValue = syncSlider
     ?.closest("div")

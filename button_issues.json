@@ -1,0 +1,37 @@
+[
+  {
+    "file": "/aegis-application-lab/home/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-arrow-right-long\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-outline ops-btn-sm\""
+  },
+  {
+    "file": "/aegis-application-lab/home/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-arrow-right-long\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-outline ops-btn-sm\""
+  },
+  {
+    "file": "/aegis-application-lab/home/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-arrow-right-long\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-outline ops-btn-sm\""
+  },
+  {
+    "file": "/aegis-application-lab/starter-download-surface/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-download\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-primary ops-btn-sm\""
+  },
+  {
+    "file": "/aegis-application-lab/starter-download-surface/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-download\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-primary ops-btn-sm\""
+  },
+  {
+    "file": "/aegis-application-lab/starter-download-surface/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-download\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-primary ops-btn-sm\""
+  },
+  {
+    "file": "/aegis-application-lab/starter-download-surface/index.html",
+    "innerHTML": "<i class=\"fa-solid fa-copy\"></i>",
+    "attrs": "class=\"ops-btn ops-btn-sm\""
+  }
+]

@@ -173,3 +173,12 @@ body.lab-theme {
 .node-status { width: 8px; height: 8px; border-radius: 50%; }
 .status-online { background: #00E676; box-shadow: 0 0 8px #00E676; }
 .status-warning { background: #FFEA00; box-shadow: 0 0 8px #FFEA00; }
+
+
+/* Added for inline style migration */
+.text-semibold-sm { font-weight: 600; font-size: 0.9rem; }
+.text-muted-xs { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+.margin-bottom-5 { margin-bottom: 5px; }
+.download-item-card { background: rgba(255,255,255,0.02) !important; border: 1px solid rgba(255,255,255,0.05) !important; border-radius: 8px !important; padding: 15px !important; margin-bottom: 10px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+.download-item-sub { margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+.margin-top-20 { margin-top: 20px; }
