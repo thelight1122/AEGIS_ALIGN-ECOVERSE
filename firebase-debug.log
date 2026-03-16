@@ -1,0 +1,21 @@
+[debug] [2026-03-16T02:00:20.245Z] ----------------------------------------------------------------------
+[debug] [2026-03-16T02:00:20.247Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\theli\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting --project aegis-align-ecoverse
+[debug] [2026-03-16T02:00:20.248Z] CLI Version:   15.10.0
+[debug] [2026-03-16T02:00:20.248Z] Platform:      win32
+[debug] [2026-03-16T02:00:20.248Z] Node Version:  v24.13.1
+[debug] [2026-03-16T02:00:20.248Z] Time:          Sun Mar 15 2026 19:00:20 GMT-0700 (Mountain Standard Time)
+[debug] [2026-03-16T02:00:20.248Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-16T02:00:21.371Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-16T02:00:21.371Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-03-16T02:00:21.372Z] [iam] checking project aegis-align-ecoverse for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-03-16T02:00:21.374Z] Checked if tokens are valid: true, expires at: 1773627705250
+[debug] [2026-03-16T02:00:21.374Z] Checked if tokens are valid: true, expires at: 1773627705250
+[debug] [2026-03-16T02:00:21.375Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/aegis-align-ecoverse:testIamPermissions [none]
+[debug] [2026-03-16T02:00:21.375Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/aegis-align-ecoverse:testIamPermissions  x-goog-user-project=aegis-align-ecoverse
+[debug] [2026-03-16T02:00:21.375Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/aegis-align-ecoverse:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-16T02:00:21.772Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/aegis-align-ecoverse:testIamPermissions 200
+[debug] [2026-03-16T02:00:21.773Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/aegis-align-ecoverse:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-16T02:00:21.773Z] Checked if tokens are valid: true, expires at: 1773627705250
+[debug] [2026-03-16T02:00:21.773Z] Checked if tokens are valid: true, expires at: 1773627705250
+[debug] [2026-03-16T02:00:21.773Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/aegis-align-ecoverse [none]

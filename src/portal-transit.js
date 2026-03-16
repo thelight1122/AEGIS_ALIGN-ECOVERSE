@@ -2,6 +2,7 @@ const TRANSIT_CLASS = "portal-transit-active";
 const OVERLAY_ID = "portal-transit-overlay";
 const ENTER_CLASS = "portal-transit-enter";
 const ENTER_READY_CLASS = "portal-transit-enter-ready";
+const DRIFT_STORAGE_KEY = "aegis.nexus.navMode";
 
 function ensureOverlay() {
   let overlay = document.getElementById(OVERLAY_ID);
@@ -75,6 +76,13 @@ document.addEventListener("click", (event) => {
   }
 
   event.preventDefault();
+  if (link.hasAttribute("data-drift-return")) {
+    try {
+      window.localStorage.setItem(DRIFT_STORAGE_KEY, "drift");
+    } catch {
+      // Ignore storage failures and continue with navigation.
+    }
+  }
   const rect = link.getBoundingClientRect();
   engageTransit(link.href, {
     centerX: rect.left + rect.width / 2,

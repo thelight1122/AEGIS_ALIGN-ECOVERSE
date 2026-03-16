@@ -286,14 +286,15 @@ function updateRedirectsFile(redirectFilePath, redirects) {
   fs.writeFileSync(redirectFilePath, next, "utf8");
 }
 
-function topLinksTemplate() {
-  return [
-    '<a href="/">Nexus</a>',
-    '<a class="top-link-governance" href="/nexus/aegis-governance-hub/">AEGIS Principles</a>',
-    '<a class="top-link-profile" href="/nexus/aegis-peer-profile/">Profile</a>',
-    ...domains.map((domain) => `<a href="/${domain.slug}/">${escapeHtml(domain.label)}</a>`),
-  ].join("\n");
-}
+  function topLinksTemplate() {
+    return [
+      '<a href="/">Nexus</a>',
+      '<a class="top-link-drift" href="/?mode=drift" data-drift-return="true">Re-enter Drift</a>',
+      '<a class="top-link-governance" href="/nexus/aegis-governance-hub/">AEGIS Principles</a>',
+      '<a class="top-link-profile" href="/nexus/aegis-peer-profile/">Profile</a>',
+      ...domains.map((domain) => `<a href="/${domain.slug}/">${escapeHtml(domain.label)}</a>`),
+    ].join("\n");
+  }
 
 function excerptParagraphs(markdown, count = 2) {
   return markdown

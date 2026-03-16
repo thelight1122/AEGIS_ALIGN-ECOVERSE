@@ -14,6 +14,7 @@ import {
   PlaneGeometry,
   Points,
   PointsMaterial,
+  Raycaster,
   RingGeometry,
   Scene,
   SRGBColorSpace,
@@ -41,6 +42,7 @@ if (!canvas) {
   camera.position.set(0, 0.2, 5.5);
   const cameraTarget = new Vector3(0, 0, 0);
   const driftTarget = new Vector2(0, 0);
+  const pointerNdc = new Vector2(0, 0);
   const roamPosition = new Vector3(0, 0, 0);
   const roamVelocity = new Vector3(0, 0, 0);
   const roamIntent = new Vector3(0, 0, 0);
@@ -50,7 +52,12 @@ if (!canvas) {
   const isSectionSurface = document.body.classList.contains("domain-surface");
   const roadSigns = [];
   let lockedRoadSign = null;
+  let hoveredRoadSign = null;
+  let selectedRoadSign = null;
+  let hoveredBillboard = null;
+  let selectedBillboard = null;
   const projectionBuffer = new Vector3();
+  const raycaster = new Raycaster();
   const focusThreshold = 0.13;
   let transitPull = 0;
   let navMode = document.body.classList.contains("nexus-drift-mode") ? "drift" : "direct";
@@ -363,6 +370,9 @@ if (!canvas) {
         baseY: mesh.position.y,
         baseZ: mesh.position.z,
         phase: Math.random() * Math.PI * 2,
+        label: `Signal Frame ${i + 1}`,
+        video,
+        material,
       });
       billboardVideos.push(video);
       billboardTextures.push(texture);
@@ -384,6 +394,8 @@ if (!canvas) {
   function onPointerMove(event) {
     pointer.x = event.clientX / window.innerWidth - 0.5;
     pointer.y = event.clientY / window.innerHeight - 0.5;
+    pointerNdc.x = pointer.x * 2;
+    pointerNdc.y = pointer.y * 2;
     if (navMode === "drift" && driftDrag.active && !lockedRoadSign) {
       const deltaX = event.clientX - driftDrag.lastX;
       const deltaY = event.clientY - driftDrag.lastY;
@@ -436,6 +448,60 @@ if (!canvas) {
   window.addEventListener("keyup", onKeyUp);
   window.addEventListener("wheel", onWheel, { passive: false });
 
+  function focusRoadSign(item, projection = null) {
+    if (lockedRoadSign === item || !item) {
+      return;
+    }
+    lockedRoadSign = item;
+    if (signHint) {
+      signHint.hidden = false;
+      signHint.textContent = navMode === "drift"
+        ? `${item.label} portal aligned - click to enter`
+        : `${item.label} entrance in resonance - click to enter`;
+    }
+    let centerX;
+    let centerY;
+    if (projection) {
+      centerX = ((projection.x + 1) * 0.5) * window.innerWidth;
+      centerY = ((-projection.y + 1) * 0.5) * window.innerHeight;
+    } else {
+      projectionBuffer.copy(item.sign.position).project(camera);
+      centerX = ((projectionBuffer.x + 1) * 0.5) * window.innerWidth;
+      centerY = ((-projectionBuffer.y + 1) * 0.5) * window.innerHeight;
+    }
+    window.dispatchEvent(
+      new CustomEvent("aegis:entrance-focus", {
+        detail: { type: "engage", centerX, centerY, viewportW: window.innerWidth, viewportH: window.innerHeight },
+      }),
+    );
+  }
+
+  function releaseRoadSignFocus() {
+    lockedRoadSign = null;
+    if (signHint) {
+      signHint.hidden = true;
+    }
+    window.dispatchEvent(new CustomEvent("aegis:entrance-focus", { detail: { type: "release" } }));
+  }
+
+  function engageRoadSign(item) {
+    if (!item) {
+      return;
+    }
+    selectedBillboard = null;
+    selectedRoadSign = item;
+    focusRoadSign(item);
+    transitPull = 1.85;
+    const transit = window.aegisTransit;
+    window.setTimeout(() => {
+      if (typeof transit === "function") {
+        transit(item.route);
+      } else {
+        window.location.assign(item.route);
+      }
+    }, 320);
+  }
+
   let raf = 0;
   const clock = new Clock();
 
@@ -455,14 +521,43 @@ if (!canvas) {
   window.addEventListener("aegis:nexus-nav-mode", (event) => {
     const detail = event.detail || {};
     navMode = detail.mode === "drift" ? "drift" : "direct";
+    selectedRoadSign = null;
+    selectedBillboard = null;
+    hoveredBillboard = null;
     if (navMode !== "drift" && lockedRoadSign) {
-      lockedRoadSign = null;
-      if (signHint) {
-        signHint.hidden = true;
-      }
-      window.dispatchEvent(new CustomEvent("aegis:entrance-focus", { detail: { type: "release" } }));
+      releaseRoadSignFocus();
     }
   });
+
+  function focusBillboard(item) {
+    if (!item) {
+      return;
+    }
+    selectedRoadSign = null;
+    hoveredRoadSign = null;
+    if (lockedRoadSign) {
+      releaseRoadSignFocus();
+    }
+    selectedBillboard = item;
+    if (signHint) {
+      signHint.hidden = false;
+      signHint.textContent = `${item.label} aligned - press Esc or click open space to drift again`;
+    }
+  }
+
+  function releaseBillboardFocus() {
+    selectedBillboard = null;
+    if (signHint) {
+      signHint.hidden = hoveredRoadSign || hoveredBillboard ? false : true;
+      if (!signHint.hidden) {
+        if (hoveredBillboard) {
+          signHint.textContent = `${hoveredBillboard.label} signal frame - click to focus`;
+        } else if (hoveredRoadSign) {
+          signHint.textContent = `${hoveredRoadSign.label} portal aligned - click to enter`;
+        }
+      }
+    }
+  }
 
   function tick() {
     const delta = Math.min(clock.getDelta(), 0.04);
@@ -486,9 +581,19 @@ if (!canvas) {
     for (let i = 0; i < billboardMeshes.length; i += 1) {
       const board = billboardMeshes[i];
       const wobble = board.phase;
-      board.mesh.position.x = board.baseX + Math.cos(t * 0.22 + wobble) * 0.22;
-      board.mesh.position.y = board.baseY + Math.sin(t * 0.36 + wobble) * 0.17;
-      board.mesh.position.z = board.baseZ + Math.sin(t * 0.18 + wobble) * 0.25;
+      const isSelected = selectedBillboard === board;
+      const isHovered = hoveredBillboard === board;
+      const targetX = isSelected ? roamPosition.x : board.baseX + Math.cos(t * 0.22 + wobble) * 0.22;
+      const targetY = isSelected ? roamPosition.y + 0.15 : board.baseY + Math.sin(t * 0.36 + wobble) * 0.17;
+      const targetZ = isSelected ? roamPosition.z - 2.7 : board.baseZ + Math.sin(t * 0.18 + wobble) * 0.25;
+      board.mesh.position.x += (targetX - board.mesh.position.x) * (isSelected ? 0.08 : 0.16);
+      board.mesh.position.y += (targetY - board.mesh.position.y) * (isSelected ? 0.08 : 0.16);
+      board.mesh.position.z += (targetZ - board.mesh.position.z) * (isSelected ? 0.08 : 0.16);
+      const targetScale = isSelected ? 2.2 : isHovered ? 1.18 : 1;
+      board.mesh.scale.x += (targetScale - board.mesh.scale.x) * 0.1;
+      board.mesh.scale.y += (targetScale - board.mesh.scale.y) * 0.1;
+      board.mesh.scale.z = 1;
+      board.material.opacity += (((isSelected ? 0.98 : isHovered ? 0.9 : 0.78)) - board.material.opacity) * 0.12;
       board.mesh.lookAt(camera.position);
     }
 
@@ -540,83 +645,107 @@ if (!canvas) {
         }
       }
 
+      raycaster.setFromCamera(pointerNdc, camera);
+      const hoveredHit = raycaster.intersectObjects(
+        roadSigns.map((item) => item.sign),
+        false,
+      )[0];
+      hoveredRoadSign = hoveredHit ? roadSigns.find((item) => item.sign === hoveredHit.object) || null : null;
+      const billboardHit = raycaster.intersectObjects(
+        billboardMeshes.map((item) => item.mesh),
+        false,
+      )[0];
+      hoveredBillboard = billboardHit ? billboardMeshes.find((item) => item.mesh === billboardHit.object) || null : null;
+
       const threshold = navMode === "drift" ? 0.18 : focusThreshold;
-      const shouldLock = nearest && nearestDistance < threshold;
-      if (shouldLock && lockedRoadSign !== nearest) {
-        lockedRoadSign = nearest;
+      const focusCandidate = selectedBillboard ? null : hoveredRoadSign || (nearest && nearestDistance < threshold ? nearest : null);
+      if (hoveredBillboard && !selectedBillboard) {
         if (signHint) {
           signHint.hidden = false;
-          signHint.textContent = navMode === "drift"
-            ? `${nearest.label} portal aligned - click to enter`
-            : `${nearest.label} entrance in resonance - click to enter`;
+          signHint.textContent = `${hoveredBillboard.label} signal frame - click to focus`;
         }
-        const cx = ((nearestProjection.x + 1) * 0.5) * window.innerWidth;
-        const cy = ((-nearestProjection.y + 1) * 0.5) * window.innerHeight;
-        window.dispatchEvent(
-          new CustomEvent("aegis:entrance-focus", {
-            detail: { type: "engage", centerX: cx, centerY: cy, viewportW: window.innerWidth, viewportH: window.innerHeight },
-          }),
-        );
-      } else if (!shouldLock && lockedRoadSign) {
-        lockedRoadSign = null;
-        if (signHint) {
-          signHint.hidden = true;
-        }
-        window.dispatchEvent(new CustomEvent("aegis:entrance-focus", { detail: { type: "release" } }));
+      } else if (focusCandidate) {
+        focusRoadSign(focusCandidate, focusCandidate === nearest ? nearestProjection : null);
+      } else if (lockedRoadSign && !selectedRoadSign) {
+        releaseRoadSignFocus();
+      } else if (!selectedBillboard && signHint && !hoveredRoadSign) {
+        signHint.hidden = true;
       }
     }
 
-    if (!reducedMotion) {
-      if (navMode === "drift") {
-        const moveSpeed = 10.5;
-        const liftSpeed = 7.6;
-        const depthSpeed = 14.5;
-        roamVelocity.x += (roamIntent.x * moveSpeed - roamVelocity.x) * Math.min(1, delta * 5.5);
-        roamVelocity.y += (roamIntent.y * liftSpeed - roamVelocity.y) * Math.min(1, delta * 5.5);
-        roamVelocity.z += ((roamIntent.z * depthSpeed) + wheelImpulse * 9.5 - roamVelocity.z) * Math.min(1, delta * 4.6);
-        wheelImpulse *= Math.pow(0.12, delta);
-        roamPosition.x = Math.max(-10.5, Math.min(10.5, roamPosition.x + roamVelocity.x * delta));
-        roamPosition.y = Math.max(-4.1, Math.min(4.1, roamPosition.y + roamVelocity.y * delta));
-        roamPosition.z = Math.max(-30.5, Math.min(4.5, roamPosition.z - roamVelocity.z * delta));
-      } else {
-        wheelImpulse = 0;
-        roamVelocity.multiplyScalar(0.82);
-        roamPosition.x += (0 - roamPosition.x) * 0.08;
-        roamPosition.y += (0 - roamPosition.y) * 0.08;
-        roamPosition.z += (0 - roamPosition.z) * 0.08;
-      }
-
-      if (hasEntranceFocus) {
-        const focusX = driftTarget.x;
-        const focusY = driftTarget.y;
-        camera.position.x += ((roamPosition.x + focusX) - camera.position.x) * 0.04;
-        camera.position.y += ((roamPosition.y + focusY) - camera.position.y) * 0.04;
-        camera.position.z += ((roamPosition.z + 5.05) - camera.position.z) * 0.025;
-      } else {
-        const driftScale = navMode === "drift" ? 1.85 : 1;
-        const baseZ = navMode === "drift" ? 6.6 : isSectionSurface ? 5.2 : 5.5;
-        const pointerDriftX = pointer.x * (isSectionSurface ? 0.34 : 0.22) * driftScale;
-        const pointerDriftY = -pointer.y * (isSectionSurface ? 0.2 : 0.12) * driftScale;
-        const wanderX = Math.sin(t * 0.18) * (isSectionSurface ? 0.32 : 0.22) * driftScale + pointerDriftX;
-        const wanderY = Math.cos(t * 0.14) * (isSectionSurface ? 0.16 : 0.1) * driftScale + pointerDriftY;
-        camera.position.x += ((roamPosition.x + wanderX) - camera.position.x) * 0.03;
-        camera.position.y += ((roamPosition.y + wanderY) - camera.position.y) * 0.03;
-        camera.position.z += ((roamPosition.z + baseZ) - camera.position.z) * (navMode === "drift" ? 0.04 : 0.025);
-      }
-      if (transitPull > 0.001) {
-        camera.position.z -= transitPull * 0.06;
-        transitPull *= 0.92;
-      } else {
-        transitPull = 0;
-      }
-      const targetBaseX = navMode === "drift" ? roamPosition.x + pointer.x * 0.75 : pointer.x * 0.35;
-      const targetBaseY = navMode === "drift" ? roamPosition.y + pointer.y * 0.3 : pointer.y * 0.14;
-      const targetBaseZ = navMode === "drift" ? roamPosition.z - 7.5 : -0.2;
-      cameraTarget.x += (targetBaseX - cameraTarget.x) * 0.05;
-      cameraTarget.y += ((-targetBaseY) - cameraTarget.y) * 0.05;
-      cameraTarget.z += (targetBaseZ - cameraTarget.z) * 0.05;
-      camera.lookAt(cameraTarget);
+    if (navMode === "drift") {
+      const moveSpeed = reducedMotion ? 14 : 18;
+      const liftSpeed = reducedMotion ? 9 : 12;
+      const depthSpeed = reducedMotion ? 22 : 28;
+      roamVelocity.x += (roamIntent.x * moveSpeed - roamVelocity.x) * Math.min(1, delta * 5.5);
+      roamVelocity.y += (roamIntent.y * liftSpeed - roamVelocity.y) * Math.min(1, delta * 5.5);
+      roamVelocity.z += ((roamIntent.z * depthSpeed) + wheelImpulse * 24 - roamVelocity.z) * Math.min(1, delta * 4.6);
+      wheelImpulse *= Math.pow(0.12, delta);
+      roamPosition.x = Math.max(-10.5, Math.min(10.5, roamPosition.x + roamVelocity.x * delta));
+      roamPosition.y = Math.max(-4.1, Math.min(4.1, roamPosition.y + roamVelocity.y * delta));
+      roamPosition.z = Math.max(-30.5, Math.min(4.5, roamPosition.z - roamVelocity.z * delta));
+    } else {
+      wheelImpulse = 0;
+      roamVelocity.multiplyScalar(0.82);
+      roamPosition.x += (0 - roamPosition.x) * 0.08;
+      roamPosition.y += (0 - roamPosition.y) * 0.08;
+      roamPosition.z += (0 - roamPosition.z) * 0.08;
     }
+
+    if (selectedBillboard) {
+      const focusX = selectedBillboard.mesh.position.x;
+      const focusY = selectedBillboard.mesh.position.y;
+      const focusZ = selectedBillboard.mesh.position.z + 2.15;
+      camera.position.x += (focusX - camera.position.x) * 0.06;
+      camera.position.y += (focusY - camera.position.y) * 0.06;
+      camera.position.z += (focusZ - camera.position.z) * 0.06;
+    } else if (hasEntranceFocus) {
+      const focusX = selectedRoadSign ? selectedRoadSign.sign.position.x : roamPosition.x + driftTarget.x;
+      const focusY = selectedRoadSign ? selectedRoadSign.sign.position.y : roamPosition.y + driftTarget.y;
+      const focusZ = selectedRoadSign ? selectedRoadSign.sign.position.z + 3.9 : roamPosition.z + 5.05;
+      camera.position.x += (focusX - camera.position.x) * 0.052;
+      camera.position.y += (focusY - camera.position.y) * 0.052;
+      camera.position.z += (focusZ - camera.position.z) * 0.032;
+    } else {
+      const driftScale = navMode === "drift" ? 1.85 : 1;
+      const baseZ = navMode === "drift" ? 6.6 : isSectionSurface ? 5.2 : 5.5;
+      const pointerDriftX = pointer.x * (isSectionSurface ? 0.34 : 0.22) * driftScale;
+      const pointerDriftY = -pointer.y * (isSectionSurface ? 0.2 : 0.12) * driftScale;
+      const wanderX = reducedMotion
+        ? pointerDriftX
+        : Math.sin(t * 0.18) * (isSectionSurface ? 0.32 : 0.22) * driftScale + pointerDriftX;
+      const wanderY = reducedMotion
+        ? pointerDriftY
+        : Math.cos(t * 0.14) * (isSectionSurface ? 0.16 : 0.1) * driftScale + pointerDriftY;
+      camera.position.x += ((roamPosition.x + wanderX) - camera.position.x) * 0.03;
+      camera.position.y += ((roamPosition.y + wanderY) - camera.position.y) * 0.03;
+      camera.position.z += ((roamPosition.z + baseZ) - camera.position.z) * (navMode === "drift" ? 0.04 : 0.025);
+    }
+    if (transitPull > 0.001) {
+      camera.position.z -= transitPull * 0.09;
+      transitPull *= 0.9;
+    } else {
+      transitPull = 0;
+    }
+    const targetBaseX = selectedRoadSign
+      ? selectedRoadSign.sign.position.x
+      : selectedBillboard
+        ? selectedBillboard.mesh.position.x
+        : navMode === "drift" ? roamPosition.x + pointer.x * 0.75 : pointer.x * 0.35;
+    const targetBaseY = selectedRoadSign
+      ? selectedRoadSign.sign.position.y
+      : selectedBillboard
+        ? selectedBillboard.mesh.position.y
+        : navMode === "drift" ? roamPosition.y + pointer.y * 0.3 : pointer.y * 0.14;
+    const targetBaseZ = selectedRoadSign
+      ? selectedRoadSign.sign.position.z - 6.5
+      : selectedBillboard
+        ? selectedBillboard.mesh.position.z - 1.25
+        : navMode === "drift" ? roamPosition.z - 7.5 : -0.2;
+    cameraTarget.x += (targetBaseX - cameraTarget.x) * 0.05;
+    cameraTarget.y += ((-targetBaseY) - cameraTarget.y) * 0.05;
+    cameraTarget.z += (targetBaseZ - cameraTarget.z) * 0.05;
+    camera.lookAt(cameraTarget);
 
     renderer.render(scene, camera);
     raf = window.requestAnimationFrame(tick);
@@ -625,6 +754,18 @@ if (!canvas) {
   tick();
 
   window.addEventListener("pointerdown", (event) => {
+    if (selectedBillboard && !hoveredBillboard && event.button === 0) {
+      releaseBillboardFocus();
+      return;
+    }
+    if (hoveredBillboard && event.button === 0) {
+      focusBillboard(hoveredBillboard);
+      return;
+    }
+    if (hoveredRoadSign && event.button === 0) {
+      engageRoadSign(hoveredRoadSign);
+      return;
+    }
     if (navMode === "drift" && !lockedRoadSign && event.button === 0) {
       driftDrag.active = true;
       driftDrag.lastX = event.clientX;
@@ -634,15 +775,7 @@ if (!canvas) {
     if (!lockedRoadSign || event.button !== 0) {
       return;
     }
-    transitPull = 1;
-    const transit = window.aegisTransit;
-    window.setTimeout(() => {
-      if (typeof transit === "function") {
-        transit(lockedRoadSign.route);
-      } else {
-        window.location.assign(lockedRoadSign.route);
-      }
-    }, 170);
+    engageRoadSign(lockedRoadSign);
   });
 
   window.addEventListener("pointerup", () => {
@@ -651,6 +784,12 @@ if (!canvas) {
 
   window.addEventListener("pointercancel", () => {
     driftDrag.active = false;
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && selectedBillboard) {
+      releaseBillboardFocus();
+    }
   });
 
   window.addEventListener("beforeunload", () => {
