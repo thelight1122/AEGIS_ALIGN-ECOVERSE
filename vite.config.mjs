@@ -43,6 +43,23 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: gatherHtmlEntries(generatedDir),
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/three")) {
+            return "three-core";
+          }
+          if (id.includes(`${path.sep}src${path.sep}nexus-ether.js`)) {
+            return "nexus-ether";
+          }
+          if (id.includes(`${path.sep}src${path.sep}portal-transit.js`)) {
+            return "portal-transit";
+          }
+          if (id.includes(`${path.sep}src${path.sep}surface-flight.js`)) {
+            return "surface-flight";
+          }
+          return undefined;
+        },
+      },
     },
   },
 });

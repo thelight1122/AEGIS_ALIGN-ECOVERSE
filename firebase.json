@@ -17,11 +17,56 @@
         ]
       },
       {
-        "source": "**/*.html",
+        "source": "/",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "public, max-age=0, must-revalidate"
+            "value": "no-cache, no-store"
+          }
+        ]
+      },
+      {
+        "source": "/nexus/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store"
+          }
+        ]
+      },
+      {
+        "source": "/developer-depot/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store"
+          }
+        ]
+      },
+      {
+        "source": "/custodian-ui/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store"
+          }
+        ]
+      },
+      {
+        "source": "/aegis-application-lab/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store"
+          }
+        ]
+      },
+      {
+        "source": "/agent-workshop/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store"
           }
         ]
       }

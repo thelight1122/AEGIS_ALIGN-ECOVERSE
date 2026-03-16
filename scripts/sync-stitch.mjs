@@ -640,8 +640,10 @@ function shellScriptsTemplate(options = {}) {
   }
 
   if (immersive) {
-    scripts.push("/src/portal-transit.js");
+    scripts.push("/src/nexus-drift-mode.js");
   }
+
+  scripts.push("/src/portal-transit.js");
 
   return scripts.map((src) => `<script type="module" src="${src}"></script>`).join("\n    ");
 }
@@ -1547,6 +1549,13 @@ function rootIndexTemplate(hubs, pages) {
           <p>
             This frontier will take strange turns; we stay coherent by choosing cooperation, curiosity, and care.
           </p>
+          <div class="nexus-mode-switch" aria-label="Navigation mode">
+            <button class="nexus-mode-btn is-active" type="button" data-drift-direct>Direct Access</button>
+            <button class="nexus-mode-btn" type="button" data-drift-enter>Enter Drift Mode</button>
+          </div>
+          <p class="nexus-mode-copy">
+            Choose direct access for speed, or enter Drift Mode to move through the Ether and approach floating module portals.
+          </p>
           <div class="phase-links">
             <a class="phase-link" href="/nexus/">Visit Nexus</a>
             ${liveHubLinks}
@@ -1556,6 +1565,13 @@ function rootIndexTemplate(hubs, pages) {
         <section class="portal-grid">
           ${cards}
         </section>
+        <div class="drift-quickbar" data-drift-quickbar hidden>
+          <div class="drift-quickbar-copy">
+            <strong>Drift Mode</strong>
+            <span>Move through the Ether and click when a portal resonates.</span>
+          </div>
+          <button class="nexus-mode-btn" type="button" data-drift-exit>Return To Direct Access</button>
+        </div>
       </main>
     </div>
     ${shellScriptsTemplate({ immersive: true })}

@@ -49,6 +49,7 @@ if (!canvas) {
   const projectionBuffer = new Vector3();
   const focusThreshold = 0.13;
   let transitPull = 0;
+  let navMode = document.body.classList.contains("nexus-drift-mode") ? "drift" : "direct";
 
   const starGeometry = new BufferGeometry();
   const starCount = 2500;
@@ -396,6 +397,18 @@ if (!canvas) {
     }
   });
 
+  window.addEventListener("aegis:nexus-nav-mode", (event) => {
+    const detail = event.detail || {};
+    navMode = detail.mode === "drift" ? "drift" : "direct";
+    if (navMode !== "drift" && lockedRoadSign) {
+      lockedRoadSign = null;
+      if (signHint) {
+        signHint.hidden = true;
+      }
+      window.dispatchEvent(new CustomEvent("aegis:entrance-focus", { detail: { type: "release" } }));
+    }
+  });
+
   function tick() {
     const t = clock.getElapsedTime();
     stars.rotation.y = t * 0.02;
@@ -471,12 +484,15 @@ if (!canvas) {
         }
       }
 
-      const shouldLock = nearest && nearestDistance < focusThreshold;
+      const threshold = navMode === "drift" ? 0.18 : focusThreshold;
+      const shouldLock = nearest && nearestDistance < threshold;
       if (shouldLock && lockedRoadSign !== nearest) {
         lockedRoadSign = nearest;
         if (signHint) {
           signHint.hidden = false;
-          signHint.textContent = `${nearest.label} entrance in resonance - click to enter`;
+          signHint.textContent = navMode === "drift"
+            ? `${nearest.label} portal aligned - click to enter`
+            : `${nearest.label} entrance in resonance - click to enter`;
         }
         const cx = ((nearestProjection.x + 1) * 0.5) * window.innerWidth;
         const cy = ((-nearestProjection.y + 1) * 0.5) * window.innerHeight;
@@ -502,13 +518,15 @@ if (!canvas) {
         camera.position.y += (focusY - camera.position.y) * 0.04;
         camera.position.z += (5.05 - camera.position.z) * 0.025;
       } else {
-        const pointerDriftX = pointer.x * (isSectionSurface ? 0.34 : 0.22);
-        const pointerDriftY = -pointer.y * (isSectionSurface ? 0.2 : 0.12);
-        const wanderX = Math.sin(t * 0.18) * (isSectionSurface ? 0.32 : 0.22) + pointerDriftX;
-        const wanderY = Math.cos(t * 0.14) * (isSectionSurface ? 0.16 : 0.1) + pointerDriftY;
+        const driftScale = navMode === "drift" ? 1.85 : 1;
+        const baseZ = navMode === "drift" ? 6.6 : isSectionSurface ? 5.2 : 5.5;
+        const pointerDriftX = pointer.x * (isSectionSurface ? 0.34 : 0.22) * driftScale;
+        const pointerDriftY = -pointer.y * (isSectionSurface ? 0.2 : 0.12) * driftScale;
+        const wanderX = Math.sin(t * 0.18) * (isSectionSurface ? 0.32 : 0.22) * driftScale + pointerDriftX;
+        const wanderY = Math.cos(t * 0.14) * (isSectionSurface ? 0.16 : 0.1) * driftScale + pointerDriftY;
         camera.position.x += (wanderX - camera.position.x) * 0.03;
         camera.position.y += (wanderY - camera.position.y) * 0.03;
-        camera.position.z += ((isSectionSurface ? 5.2 : 5.5) - camera.position.z) * 0.025;
+        camera.position.z += (baseZ - camera.position.z) * (navMode === "drift" ? 0.04 : 0.025);
       }
       if (transitPull > 0.001) {
         camera.position.z -= transitPull * 0.06;

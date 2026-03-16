@@ -1,5 +1,7 @@
 const TRANSIT_CLASS = "portal-transit-active";
 const OVERLAY_ID = "portal-transit-overlay";
+const ENTER_CLASS = "portal-transit-enter";
+const ENTER_READY_CLASS = "portal-transit-enter-ready";
 
 function ensureOverlay() {
   let overlay = document.getElementById(OVERLAY_ID);
@@ -10,10 +12,6 @@ function ensureOverlay() {
   overlay = document.createElement("div");
   overlay.id = OVERLAY_ID;
   overlay.setAttribute("aria-hidden", "true");
-  overlay.innerHTML = `
-    <div class="portal-transit-core"></div>
-    <div class="portal-transit-copy">Crossing into the next AEGIS dimension...</div>
-  `;
   document.body.appendChild(overlay);
   return overlay;
 }
@@ -32,13 +30,36 @@ function isInternalRoute(link) {
   return true;
 }
 
-function engageTransit(targetHref) {
+function setTransitOrigin(centerX, centerY) {
+  document.documentElement.style.setProperty("--portal-transit-origin-x", `${centerX.toFixed(2)}px`);
+  document.documentElement.style.setProperty("--portal-transit-origin-y", `${centerY.toFixed(2)}px`);
+}
+
+function engageTransit(targetHref, options = {}) {
+  const viewportW = options.viewportW || window.innerWidth;
+  const viewportH = options.viewportH || window.innerHeight;
+  const centerX = typeof options.centerX === "number" ? options.centerX : viewportW * 0.5;
+  const centerY = typeof options.centerY === "number" ? options.centerY : viewportH * 0.5;
+
   ensureOverlay();
+  setTransitOrigin(centerX, centerY);
   document.body.classList.add(TRANSIT_CLASS);
-  window.dispatchEvent(new CustomEvent("aegis:entrance-focus", { detail: { type: "engage" } }));
+  window.dispatchEvent(
+    new CustomEvent("aegis:entrance-focus", {
+      detail: { type: "engage", centerX, centerY, viewportW, viewportH },
+    }),
+  );
+  try {
+    const prefetch = document.createElement("link");
+    prefetch.rel = "prefetch";
+    prefetch.href = targetHref;
+    document.head.appendChild(prefetch);
+  } catch {
+    // Ignore prefetch issues and continue with the transition.
+  }
   window.setTimeout(() => {
     window.location.assign(targetHref);
-  }, 520);
+  }, 240);
 }
 
 window.aegisTransit = engageTransit;
@@ -54,9 +75,24 @@ document.addEventListener("click", (event) => {
   }
 
   event.preventDefault();
-  engageTransit(link.href);
+  const rect = link.getBoundingClientRect();
+  engageTransit(link.href, {
+    centerX: rect.left + rect.width / 2,
+    centerY: rect.top + rect.height / 2,
+    viewportW: window.innerWidth,
+    viewportH: window.innerHeight,
+  });
 });
 
 window.addEventListener("pageshow", () => {
   document.body.classList.remove(TRANSIT_CLASS);
+  document.body.classList.add(ENTER_CLASS);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add(ENTER_READY_CLASS);
+      window.setTimeout(() => {
+        document.body.classList.remove(ENTER_CLASS, ENTER_READY_CLASS);
+      }, 420);
+    });
+  });
 });
