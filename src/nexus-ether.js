@@ -41,6 +41,10 @@ if (!canvas) {
   camera.position.set(0, 0.2, 5.5);
   const cameraTarget = new Vector3(0, 0, 0);
   const driftTarget = new Vector2(0, 0);
+  const roamPosition = new Vector3(0, 0, 0);
+  const roamVelocity = new Vector3(0, 0, 0);
+  const roamIntent = new Vector3(0, 0, 0);
+  const driftDrag = { active: false, lastX: 0, lastY: 0 };
   let hasEntranceFocus = false;
   const isImmersiveNexus = document.body.classList.contains("immersive-root");
   const isSectionSurface = document.body.classList.contains("domain-surface");
@@ -50,6 +54,8 @@ if (!canvas) {
   const focusThreshold = 0.13;
   let transitPull = 0;
   let navMode = document.body.classList.contains("nexus-drift-mode") ? "drift" : "direct";
+  let wheelImpulse = 0;
+  const activeKeys = new Set();
 
   const starGeometry = new BufferGeometry();
   const starCount = 2500;
@@ -171,9 +177,9 @@ if (!canvas) {
       {
         label: "Custodian Ops Center",
         route: "/custodian-ui/",
-        x: -3.4,
-        y: 0.5,
-        z: -6.8,
+        x: -6.8,
+        y: 0.8,
+        z: -8.5,
         subtitle: "Stewardship + system continuity",
         color: 0x6ef1d0,
         palette: {
@@ -186,9 +192,9 @@ if (!canvas) {
       {
         label: "AEGIS Application Lab",
         route: "/aegis-application-lab/",
-        x: 3.2,
-        y: 0.9,
-        z: -8.5,
+        x: 6.4,
+        y: 1.3,
+        z: -14.8,
         subtitle: "Live demos and practical exploration",
         color: 0x7f66ff,
         palette: {
@@ -201,9 +207,9 @@ if (!canvas) {
       {
         label: "Developers Depot",
         route: "/developer-depot/",
-        x: -2.9,
-        y: -1.2,
-        z: -10.4,
+        x: -7.9,
+        y: -1.6,
+        z: -21.6,
         subtitle: "Build lanes and protocol surfaces",
         color: 0xffb56b,
         palette: {
@@ -216,9 +222,9 @@ if (!canvas) {
       {
         label: "Agentic Workshop",
         route: "/agent-workshop/",
-        x: 3.5,
-        y: -0.9,
-        z: -12.1,
+        x: 7.6,
+        y: -1.2,
+        z: -28.4,
         subtitle: "Agent mesh and recursive systems",
         color: 0x59b0ff,
         palette: {
@@ -378,8 +384,57 @@ if (!canvas) {
   function onPointerMove(event) {
     pointer.x = event.clientX / window.innerWidth - 0.5;
     pointer.y = event.clientY / window.innerHeight - 0.5;
+    if (navMode === "drift" && driftDrag.active && !lockedRoadSign) {
+      const deltaX = event.clientX - driftDrag.lastX;
+      const deltaY = event.clientY - driftDrag.lastY;
+      roamPosition.x = Math.max(-10.5, Math.min(10.5, roamPosition.x - deltaX * 0.014));
+      roamPosition.y = Math.max(-4.1, Math.min(4.1, roamPosition.y + deltaY * 0.01));
+      driftDrag.lastX = event.clientX;
+      driftDrag.lastY = event.clientY;
+    }
   }
   window.addEventListener("pointermove", onPointerMove);
+
+  function refreshRoamIntent() {
+    const lateral = (activeKeys.has("KeyD") || activeKeys.has("ArrowRight") ? 1 : 0)
+      - (activeKeys.has("KeyA") || activeKeys.has("ArrowLeft") ? 1 : 0);
+    const vertical = (activeKeys.has("KeyW") || activeKeys.has("ArrowUp") ? 1 : 0)
+      - (activeKeys.has("KeyS") || activeKeys.has("ArrowDown") ? 1 : 0);
+    const depth = (activeKeys.has("KeyE") ? 1 : 0) - (activeKeys.has("KeyQ") ? 1 : 0);
+    roamIntent.set(lateral, vertical, depth);
+    if (roamIntent.lengthSq() > 1) {
+      roamIntent.normalize();
+    }
+  }
+
+  function onKeyDown(event) {
+    if (!isImmersiveNexus || navMode !== "drift") {
+      return;
+    }
+    if (/^(KeyW|KeyA|KeyS|KeyD|KeyQ|KeyE|ArrowUp|ArrowDown|ArrowLeft|ArrowRight|Space)$/.test(event.code)) {
+      activeKeys.add(event.code);
+      refreshRoamIntent();
+      event.preventDefault();
+    }
+  }
+
+  function onKeyUp(event) {
+    if (activeKeys.delete(event.code)) {
+      refreshRoamIntent();
+    }
+  }
+
+  function onWheel(event) {
+    if (navMode !== "drift") {
+      return;
+    }
+    wheelImpulse += Math.max(-2.4, Math.min(2.4, event.deltaY * -0.0013));
+    event.preventDefault();
+  }
+
+  window.addEventListener("keydown", onKeyDown, { passive: false });
+  window.addEventListener("keyup", onKeyUp);
+  window.addEventListener("wheel", onWheel, { passive: false });
 
   let raf = 0;
   const clock = new Clock();
@@ -410,7 +465,8 @@ if (!canvas) {
   });
 
   function tick() {
-    const t = clock.getElapsedTime();
+    const delta = Math.min(clock.getDelta(), 0.04);
+    const t = clock.elapsedTime;
     stars.rotation.y = t * 0.02;
     stars.rotation.x = Math.sin(t * 0.11) * 0.05;
     stars.position.z = Math.sin(t * 0.2) * 0.15;
@@ -511,12 +567,31 @@ if (!canvas) {
     }
 
     if (!reducedMotion) {
+      if (navMode === "drift") {
+        const moveSpeed = 10.5;
+        const liftSpeed = 7.6;
+        const depthSpeed = 14.5;
+        roamVelocity.x += (roamIntent.x * moveSpeed - roamVelocity.x) * Math.min(1, delta * 5.5);
+        roamVelocity.y += (roamIntent.y * liftSpeed - roamVelocity.y) * Math.min(1, delta * 5.5);
+        roamVelocity.z += ((roamIntent.z * depthSpeed) + wheelImpulse * 9.5 - roamVelocity.z) * Math.min(1, delta * 4.6);
+        wheelImpulse *= Math.pow(0.12, delta);
+        roamPosition.x = Math.max(-10.5, Math.min(10.5, roamPosition.x + roamVelocity.x * delta));
+        roamPosition.y = Math.max(-4.1, Math.min(4.1, roamPosition.y + roamVelocity.y * delta));
+        roamPosition.z = Math.max(-30.5, Math.min(4.5, roamPosition.z - roamVelocity.z * delta));
+      } else {
+        wheelImpulse = 0;
+        roamVelocity.multiplyScalar(0.82);
+        roamPosition.x += (0 - roamPosition.x) * 0.08;
+        roamPosition.y += (0 - roamPosition.y) * 0.08;
+        roamPosition.z += (0 - roamPosition.z) * 0.08;
+      }
+
       if (hasEntranceFocus) {
         const focusX = driftTarget.x;
         const focusY = driftTarget.y;
-        camera.position.x += (focusX - camera.position.x) * 0.04;
-        camera.position.y += (focusY - camera.position.y) * 0.04;
-        camera.position.z += (5.05 - camera.position.z) * 0.025;
+        camera.position.x += ((roamPosition.x + focusX) - camera.position.x) * 0.04;
+        camera.position.y += ((roamPosition.y + focusY) - camera.position.y) * 0.04;
+        camera.position.z += ((roamPosition.z + 5.05) - camera.position.z) * 0.025;
       } else {
         const driftScale = navMode === "drift" ? 1.85 : 1;
         const baseZ = navMode === "drift" ? 6.6 : isSectionSurface ? 5.2 : 5.5;
@@ -524,9 +599,9 @@ if (!canvas) {
         const pointerDriftY = -pointer.y * (isSectionSurface ? 0.2 : 0.12) * driftScale;
         const wanderX = Math.sin(t * 0.18) * (isSectionSurface ? 0.32 : 0.22) * driftScale + pointerDriftX;
         const wanderY = Math.cos(t * 0.14) * (isSectionSurface ? 0.16 : 0.1) * driftScale + pointerDriftY;
-        camera.position.x += (wanderX - camera.position.x) * 0.03;
-        camera.position.y += (wanderY - camera.position.y) * 0.03;
-        camera.position.z += (baseZ - camera.position.z) * (navMode === "drift" ? 0.04 : 0.025);
+        camera.position.x += ((roamPosition.x + wanderX) - camera.position.x) * 0.03;
+        camera.position.y += ((roamPosition.y + wanderY) - camera.position.y) * 0.03;
+        camera.position.z += ((roamPosition.z + baseZ) - camera.position.z) * (navMode === "drift" ? 0.04 : 0.025);
       }
       if (transitPull > 0.001) {
         camera.position.z -= transitPull * 0.06;
@@ -534,6 +609,12 @@ if (!canvas) {
       } else {
         transitPull = 0;
       }
+      const targetBaseX = navMode === "drift" ? roamPosition.x + pointer.x * 0.75 : pointer.x * 0.35;
+      const targetBaseY = navMode === "drift" ? roamPosition.y + pointer.y * 0.3 : pointer.y * 0.14;
+      const targetBaseZ = navMode === "drift" ? roamPosition.z - 7.5 : -0.2;
+      cameraTarget.x += (targetBaseX - cameraTarget.x) * 0.05;
+      cameraTarget.y += ((-targetBaseY) - cameraTarget.y) * 0.05;
+      cameraTarget.z += (targetBaseZ - cameraTarget.z) * 0.05;
       camera.lookAt(cameraTarget);
     }
 
@@ -544,6 +625,12 @@ if (!canvas) {
   tick();
 
   window.addEventListener("pointerdown", (event) => {
+    if (navMode === "drift" && !lockedRoadSign && event.button === 0) {
+      driftDrag.active = true;
+      driftDrag.lastX = event.clientX;
+      driftDrag.lastY = event.clientY;
+      return;
+    }
     if (!lockedRoadSign || event.button !== 0) {
       return;
     }
@@ -558,9 +645,20 @@ if (!canvas) {
     }, 170);
   });
 
+  window.addEventListener("pointerup", () => {
+    driftDrag.active = false;
+  });
+
+  window.addEventListener("pointercancel", () => {
+    driftDrag.active = false;
+  });
+
   window.addEventListener("beforeunload", () => {
     window.cancelAnimationFrame(raf);
     window.removeEventListener("pointermove", onPointerMove);
+    window.removeEventListener("keydown", onKeyDown);
+    window.removeEventListener("keyup", onKeyUp);
+    window.removeEventListener("wheel", onWheel);
     renderer.dispose();
     starGeometry.dispose();
     starMaterial.dispose();
