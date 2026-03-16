@@ -638,6 +638,7 @@ function shellScriptsTemplate(options = {}) {
 
   if (domainSlug === "nexus") {
     scripts.push("/src/nexus-state.js");
+    scripts.push("/src/nexus-activation.js");
   }
 
   if (immersive) {

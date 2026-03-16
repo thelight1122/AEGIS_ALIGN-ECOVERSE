@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Custodian Ops Center | Security Incident #4092</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00d8ff",
+                        "secondary": "#0f766e",
+                        "background": "#030712",
+                        "panel": "rgba(15, 23, 42, 0.6)",
+                        "panel-border": "rgba(255, 255, 255, 0.05)",
+                    },
+                    fontFamily: { "sans": ["Plus Jakarta Sans", "sans-serif"] }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            background-image: radial-gradient(at 0% 0%, rgba(244, 63, 94, 0.03) 0px, transparent 50%), linear-gradient(rgba(255,255,255,0.003) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.003) 1px, transparent 1px);
+            background-size: 100% 100%, 24px 24px, 24px 24px;
+        }
+        .glass-panel { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.04); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+        .node-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
+    </style>
+</head>
+<body class="text-slate-100 antialiased custom-scrollbar">
+    <div class="flex h-screen w-full flex-col overflow-hidden">
+        
+        <!-- Topbar / Back Link -->
+        <header class="flex h-12 items-center border-b border-white/[0.03] bg-background/40 px-6 backdrop-blur-md">
+            <a href="../incident-review-queue/" class="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Back to Queue</span>
+            </a>
+            <div class="mx-4 h-4 w-[1px] bg-white/[0.05]"></div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-slate-500">#AEG-4092</span>
+                <span class="text-xs font-bold">Decentered sync failure</span>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <div class="flex-1 overflow-y-auto p-4 grid grid-cols-1 xl:grid-cols-3 gap-4">
+            
+            <!-- Left Column: Details & Timeline -->
+            <div class="xl:col-span-2 space-y-4 flex flex-col">
+                
+                <!-- Main Header Card -->
+                <div class="glass-panel p-4 rounded-lg flex justify-between items-start">
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="rounded bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-400 border border-rose-500/20">Critical Alert</span>
+                            <span class="text-[10px] text-slate-500">Triggered: 2026-03-15 19:40</span>
+                        </div>
+                        <h2 class="text-lg font-bold leading-snug">Clock Drift & Timestamp Mismatch</h2>
+                        <p class="text-xs text-slate-400">Node `US-EAST-1A` reported a temporal drift of +320ms outside acceptable consensus variance from master ledger sync root.</p>
+                    </div>
+                    <div class="flex flex-col items-end gap-1">
+                        <p class="text-[10px] text-slate-500">Assigned Custodian</p>
+                        <div class="flex items-center gap-1">
+                            <span class="h-4 w-4 rounded-full bg-cyan-500/30 text-[8px] flex items-center justify-center font-bold">C1</span>
+                            <span class="text-xs font-medium">Auto-Allocated</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep Inspection Metrics -->
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="glass-panel p-3 rounded flex flex-col justify-between">
+                        <span class="text-[10px] text-slate-500 uppercase">Delta Drift</span>
+                        <h3 class="text-xl font-bold font-mono text-rose-400">+320ms</h3>
+                    </div>
+                    <div class="glass-panel p-3 rounded flex flex-col justify-between">
+                        <span class="text-[10px] text-slate-500 uppercase">Affected Blocks</span>
+                        <h3 class="text-xl font-bold font-mono">14 Blocks</h3>
+                    </div>
+                    <div class="glass-panel p-3 rounded flex flex-col justify-between border-l border-l-emerald-500/30">
+                        <span class="text-[10px] text-slate-500 uppercase">Consensus Status</span>
+                        <h3 class="text-xl font-bold text-emerald-400">Stable (92%)</h3>
+                    </div>
+                </div>
+
+                <!-- Live Stream Visualizer Concept -->
+                <div class="glass-panel rounded-lg p-3 flex-1 flex flex-col">
+                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-2">Streaming Evidence Log</h3>
+                    <div class="flex-1 bg-black/40 rounded border border-white/[0.02] p-2 font-mono text-[10px] text-slate-300 overflow-y-auto custom-scrollbar">
+                        <p class="text-slate-500">19:40:01 [SYNC_START] Initializing consensus sync cycle #104322</p>
+                        <p class="text-slate-500">19:40:02 [NODE_PING] Node US-EAST-1A response delay: 12ms</p>
+                        <p class="text-amber-400">19:40:12 [WARING] Peer timestamp offset exceeding 100ms threshold</p>
+                        <p class="text-rose-400 font-bold">19:40:15 [FAULT] Node US-EAST-1A block hash validation failure. LOCAL: 0x8a1... REMOTE: 0x9f3...</p>
+                        <p class="text-rose-400">19:40:15 [AUTO_HOLD] Safe-Hold procedure initiated for peer Node US-EAST-1A</p>
+                        <p class="text-cyan-400">19:41:00 [AUDIT] Custodian Allocation Server routing ticket #4092</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar Actions & Map viz -->
+            <div class="space-y-4">
+                
+                <!-- Node Location (Visualizer Concept) -->
+                <div class="glass-panel rounded-lg p-3 aspect-video flex flex-col">
+                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-2">Source Node Matrix</h3>
+                    <div class="flex-1 relative bg-slate-900/40 rounded border border-white/[0.01] overflow-hidden flex items-center justify-center">
+                        <!-- Futuristic grid overlay with pulse dot -->
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:12px_12px]"></div>
+                        <div class="relative items-center justify-center flex">
+                            <div class="h-3 w-3 rounded-full bg-rose-500 node-pulse"></div>
+                            <span class="text-[9px] text-rose-400 font-mono absolute top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">US-EAST-1A</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assessment Controls -->
+                <div class="glass-panel rounded-lg p-4 flex flex-col">
+                    <h3 class="text-[10px] font-bold uppercase tracking-wider mb-3">Assessment Decision</h3>
+                    <div class="space-y-2">
+                        <button class="w-full h-8 rounded border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-bold hover:bg-amber-500 hover:text-slate-900 transition-all">Apply Safe-Hold</button>
+                        <button class="w-full h-8 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-bold hover:bg-cyan-500 hover:text-slate-900 transition-all">Force Re-Sync</button>
+                        <button class="w-full h-8 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-bold hover:bg-emerald-500 hover:text-slate-900 transition-all">Resolve & Dismiss</button>
+                    </div>
+                </div>
+
+                <!-- Notes / Discussion snippet -->
+                <div class="glass-panel rounded-lg p-4 flex-1">
+                    <h4 class="text-[10px] font-bold text-slate-500 uppercase mb-2">Activity timeline</h4>
+                    <div class="space-y-3">
+                        <div class="flex gap-2 text-xs">
+                            <span class="h-4 w-4 rounded-full bg-slate-800 text-[8px] flex items-center justify-center shrink-0">AI</span>
+                            <div>
+                                <p class="font-bold text-slate-300">AEGIS-Sentry</p>
+                                <p class="text-[10px] text-slate-400">Applied Safe-Hold state to isolate peer nodes traffic synchronization sequences flow layout detail outline setup verification step workflow approval checklist detail sequence.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
