@@ -77,21 +77,21 @@
                             <div class="text-semibold-sm">Simulate Latency</div>
                             <div class="text-muted-xs">Inject mesh lag index</div>
                         </div>
-                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        <label class="switch"><input type="checkbox" aria-label="Simulate Latency"><span class="slider"></span></label>
                     </div>
                     <div class="control-item">
                         <div>
-                            <div style="font-weight: 600; font-size: 0.9rem;">Force Consensus</div>
-                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">Override voter buffer</div>
+                            <div class="u-fx-3nkvii">Force Consensus</div>
+                            <div class="u-fx-n3joq9">Override voter buffer</div>
                         </div>
                         <button class="ops-btn ops-btn-sm">Trigger</button>
                     </div>
                     <div class="control-item">
                         <div>
-                            <div style="font-weight: 600; font-size: 0.9rem;">Load Factor</div>
-                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">Scale auxiliary weight</div>
+                            <div class="u-fx-3nkvii">Load Factor</div>
+                            <div class="u-fx-n3joq9">Scale auxiliary weight</div>
                         </div>
-                        <input type="range" style="width: 80px;" min="0" max="100" value="45">
+                        <input type="range" class="u-fx-nq2ldd" min="0" max="100" value="45" aria-label="Load Factor">
                     </div>
                 </div>
             </div>
@@ -100,10 +100,10 @@
             <div class="viewport-canvas">
                 <div class="canvas-grid"></div>
                 <!-- Mock Matrix Node Visual -->
-                <div style="text-align: center; z-index: 1; pointer-events: none;">
-                    <i class="fa-solid fa-network-wired" style="font-size: 5rem; color: var(--lab-prism); animation: pulse 2s infinite;"></i>
-                    <h3 style="margin: 15px 0 5px 0; color: #FFF;">Simulated Mesh Topology</h3>
-                    <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Rendering 12 Adaptive Nodes...</p>
+                <div class="u-fx-3b14le">
+                    <i class="fa-solid fa-network-wired u-fx-dmk8pd" ></i>
+                    <h3 class="u-fx-3pyx4h">Simulated Mesh Topology</h3>
+                    <p class="u-fx-fqrbjj">Rendering 12 Adaptive Nodes...</p>
                 </div>
             </div>
 
@@ -113,12 +113,12 @@
                     <h3><i class="fa-solid fa-terminal panel-icon"></i> Diagnostic Log</h3>
                     <span class="badge badge-info">Stream</span>
                 </div>
-                <div class="panel-content" style="font-family: monospace; font-size: 0.8rem; color: rgba(255,255,255,0.7); overflow-y: auto; height: 100%;">
-                    <div class="margin-bottom-5"><span style="color: var(--lab-cyan);">[03:12:01]</span> Node #91 VPC handshake starting...</div>
-                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-cyan);">[03:12:01]</span> Fetching auth certs from buffer...</div>
-                    <div style="margin-bottom: 5px;"><span style="color: #00E676;">[03:12:02]</span> Certs verified. Shard load 12%.</div>
-                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-cyan);">[03:12:05]</span> Propagating consensus weight...</div>
-                    <div style="margin-bottom: 5px;"><span style="color: var(--lab-prism);">[03:12:08]</span> Matrix sync locked.</div>
+                <div class="panel-content u-fx-dlfgsa" >
+                    <div class="margin-bottom-5"><span class="u-fx-pd6s9r">[03:12:01]</span> Node #91 VPC handshake starting...</div>
+                    <div class="u-fx-73e0k2"><span class="u-fx-pd6s9r">[03:12:01]</span> Fetching auth certs from buffer...</div>
+                    <div class="u-fx-73e0k2"><span class="u-fx-k0cehd">[03:12:02]</span> Certs verified. Shard load 12%.</div>
+                    <div class="u-fx-73e0k2"><span class="u-fx-pd6s9r">[03:12:05]</span> Propagating consensus weight...</div>
+                    <div class="u-fx-73e0k2"><span class="u-fx-kgd5ef">[03:12:08]</span> Matrix sync locked.</div>
                 </div>
             </div>
         </div>

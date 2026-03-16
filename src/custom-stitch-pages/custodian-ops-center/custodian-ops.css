@@ -51,3 +51,7 @@ td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); }
 .margin-top-25 { margin-top: 25px; }
 .margin-top-20 { margin-top: 20px; }
 .meter-w72-warning { width: 72% !important; background: var(--ops-warning) !important; }
+
+/* Automated Inline Style Migration */
+.u-fx-gzi6ca { border-color: rgba(255,255,255,0.05); margin: 15px 0; !important; }
+.u-fx-eu5d6n { font-size: 0.85rem; !important; }
