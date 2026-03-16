@@ -59,6 +59,32 @@ const DEFAULT_STATE = {
     search: "",
     filter: "All Nodes",
   },
+  isolated: {
+    lastAudit: "",
+    standby: false,
+  },
+  topology: {
+    viewMode: "Spatial",
+    regions: ["North America (US)", "European Union (EU)"],
+    protocolLayer: "Encrypted (AEGIS-V2)",
+    focusedNode: "NY-CORE-MASTER",
+    zoom: 100,
+  },
+  colab: {
+    search: "",
+    title: "",
+    stack: "Rust (Substrate)",
+    goal: "",
+    stage: "alpha",
+    selectedProject: "Aegis-Vault Protocol",
+  },
+  web3: {
+    search: "",
+    connected: true,
+    selectedModule: ".digitalself",
+    delegatedProposal: "",
+    selectedCredential: "Passport Credential",
+  },
   apiKeys: [
     {
       id: "production-master",
@@ -267,6 +293,16 @@ function mergeState(base, stored) {
     webhooks: { ...base.webhooks, ...(stored?.webhooks || {}) },
     protocolConfig: { ...base.protocolConfig, ...(stored?.protocolConfig || {}) },
     nodes: { ...base.nodes, ...(stored?.nodes || {}) },
+    isolated: { ...base.isolated, ...(stored?.isolated || {}) },
+    topology: {
+      ...base.topology,
+      ...(stored?.topology || {}),
+      regions: Array.isArray(stored?.topology?.regions) && stored.topology.regions.length
+        ? stored.topology.regions
+        : base.topology.regions,
+    },
+    colab: { ...base.colab, ...(stored?.colab || {}) },
+    web3: { ...base.web3, ...(stored?.web3 || {}) },
     apiKeys: Array.isArray(stored?.apiKeys) && stored.apiKeys.length ? stored.apiKeys : base.apiKeys,
     webhooksList: Array.isArray(stored?.webhooksList) && stored.webhooksList.length ? stored.webhooksList : base.webhooksList,
     webhookDeliveries: Array.isArray(stored?.webhookDeliveries) && stored.webhookDeliveries.length ? stored.webhookDeliveries : base.webhookDeliveries,
@@ -1564,6 +1600,395 @@ governance:
   renderConfig();
 }
 
+function enhanceProtocolIsolation(doc) {
+  if (doc.body.dataset.aegisDepotIsolated === "true") return;
+  doc.body.dataset.aegisDepotIsolated = "true";
+  injectStyles(doc);
+
+  const notices = doc.querySelectorAll("header button");
+  const auditButton = findButton(doc, "Initiate System Audit");
+  const standbyButton = findButton(doc, "Enter Standby Mode");
+  const summaryCards = Array.from(doc.querySelectorAll("main .grid .p-4, main .rounded-lg"))
+    .filter((node) => /active breaches|system health|isolation level|mesh network|core firewall|cloud sync/i.test(node.textContent || ""));
+  const terminalLines = Array.from(doc.querySelectorAll(".font-mono.text-sm p"));
+  const uptimeLine = Array.from(doc.querySelectorAll("footer span"))
+    .find((node) => normalizeText(node.textContent).includes("uptime"));
+  const latencyLine = Array.from(doc.querySelectorAll("footer span"))
+    .find((node) => normalizeText(node.textContent).includes("latency"));
+  const heroPanel = Array.from(doc.querySelectorAll("section")).find((node) => normalizeText(node.textContent).includes("protocol isolated"));
+
+  notices.forEach((button, index) => bindManagedClick(button, () => {
+    if (index === 0) showToast(doc, "Security notifications reviewed. No active isolation breaches remain.");
+    else navigateTo("/nexus/aegis-peer-profile/");
+  }));
+
+  summaryCards.forEach((card) => bindManagedClick(card, () => {
+    const text = normalizeText(card.textContent);
+    if (text.includes("mesh network")) navigateTo("/developer-depot/network-topology-visualizer/");
+    else if (text.includes("core firewall")) navigateTo("/developer-depot/protocol-configuration-aegis-protocol/");
+    else if (text.includes("cloud sync")) navigateTo("/developer-depot/web3-portal/");
+    else showToast(doc, "Isolation verification panel focused.");
+  }));
+
+  bindManagedClick(auditButton, () => {
+    const stamp = new Date().toLocaleTimeString("en-US", { hour12: false });
+    const current = readState();
+    patchState({
+      isolated: { ...current.isolated, lastAudit: stamp, standby: false },
+      requestLog: [`[${stamp}] AUDIT /v2/protocol/isolation 200 OK 64ms`, ...current.requestLog].slice(0, 12),
+    });
+    if (terminalLines[terminalLines.length - 1]) {
+      terminalLines[terminalLines.length - 1].textContent = `[${stamp}] SUCCESS Full post-isolation audit passed. Cold-store integrity remains intact.`;
+    }
+    if (uptimeLine) uptimeLine.textContent = "Uptime: 145:08:41";
+    if (latencyLine) latencyLine.textContent = "Latency: 0.1ms";
+    setMessage(heroPanel || doc.body, `System audit completed at ${stamp}. No new breach signatures detected.`, "success");
+    showToast(doc, "Protocol isolation audit completed successfully.");
+  });
+
+  bindManagedClick(standbyButton, () => {
+    const current = readState();
+    const nextStandby = !current.isolated.standby;
+    patchState({ isolated: { ...current.isolated, standby: nextStandby } });
+    standbyButton.innerHTML = nextStandby
+      ? '<span class="material-symbols-outlined">bolt</span> Resume Active Monitoring'
+      : '<span class="material-symbols-outlined">power_settings_new</span> Enter Standby Mode';
+    setMessage(heroPanel || doc.body, nextStandby
+      ? "Standby mode staged. Passive monitoring remains enabled while direct actions are paused."
+      : "Active monitoring restored. The security cockpit is live again.", nextStandby ? "info" : "success");
+    showToast(doc, nextStandby ? "Security cockpit shifted to standby monitoring." : "Security cockpit restored to active monitoring.");
+  });
+}
+
+function enhanceTopologyVisualizer(doc) {
+  if (doc.body.dataset.aegisDepotTopology === "true") return;
+  doc.body.dataset.aegisDepotTopology = "true";
+  injectStyles(doc);
+
+  const navExplorer = findButton(doc, "Explorer");
+  const navNodes = findButton(doc, "Nodes");
+  const navSecurity = findButton(doc, "Security");
+  const topButtons = Array.from(doc.querySelectorAll("header button"));
+  const viewButtons = ["Spatial", "Logical"].map((label) => findButton(doc, label)).filter(Boolean);
+  const regionLabels = Array.from(doc.querySelectorAll("label")).filter((node) => /north america|european union|asia pacific/i.test(node.textContent || ""));
+  const protocolSelect = doc.querySelector("select");
+  const liveStream = Array.from(doc.querySelectorAll("div")).find((node) => normalizeText(node.textContent).includes("live stream"));
+  const zoomButtons = Array.from(doc.querySelectorAll("section button")).filter((node) => {
+    const icon = normalizeText(node.textContent);
+    return icon.includes("add") || icon.includes("remove") || icon.includes("center_focus_strong") || icon.includes("near_me");
+  });
+  const nodeBlocks = Array.from(doc.querySelectorAll("section .absolute")).filter((node) => /ny-core-master|us-east-01|eu-cent-04|ap-tok-02/i.test(node.textContent || ""));
+  const inspectorTitle = Array.from(doc.querySelectorAll("h2")).find((node) => normalizeText(node.textContent).includes("ny-core-master"));
+  const locationNode = doc.querySelector("[data-location]");
+  const cpuBar = Array.from(doc.querySelectorAll(".bg-primary.h-1\\.5, .bg-primary")).find((node) => node.getAttribute("style")?.includes("42%"));
+  const memBar = Array.from(doc.querySelectorAll(".bg-accent-success.h-1\\.5, .bg-accent-success")).find((node) => node.getAttribute("style")?.includes("45%"));
+  const connectionRows = Array.from(doc.querySelectorAll("aside .p-2")).filter((node) => /us-east-01|eu-cent-04|ap-tok-02/i.test(node.textContent || ""));
+
+  const nodeMeta = {
+    "NY-CORE-MASTER": { location: "New York, US", cpu: 42, memory: 45 },
+    "US-EAST-01": { location: "Virginia, US", cpu: 31, memory: 40 },
+    "EU-CENT-04": { location: "Frankfurt, EU", cpu: 27, memory: 36 },
+    "AP-TOK-02": { location: "Tokyo, AP", cpu: 66, memory: 58 },
+  };
+
+  const render = () => {
+    const state = readState();
+    viewButtons.forEach((button) => button.classList.toggle("aegis-active-anchor", normalizeText(button.textContent) === normalizeText(state.topology.viewMode)));
+    regionLabels.forEach((label) => {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      const text = label.textContent.trim();
+      if (checkbox) checkbox.checked = state.topology.regions.includes(text);
+    });
+    if (protocolSelect) protocolSelect.value = state.topology.protocolLayer;
+    const focused = nodeMeta[state.topology.focusedNode] || nodeMeta["NY-CORE-MASTER"];
+    if (inspectorTitle) inspectorTitle.textContent = state.topology.focusedNode;
+    if (locationNode) locationNode.textContent = focused.location;
+    if (cpuBar) cpuBar.style.width = `${focused.cpu}%`;
+    if (memBar) memBar.style.width = `${focused.memory}%`;
+    nodeBlocks.forEach((block) => block.classList.toggle("aegis-highlight-ring", normalizeText(block.textContent).includes(normalizeText(state.topology.focusedNode))));
+    if (liveStream) {
+      const rows = Array.from(liveStream.querySelectorAll("p"));
+      if (rows[0]) rows[0].textContent = `${state.topology.viewMode.toUpperCase()} :: ${state.topology.focusedNode} focus synchronized`;
+    }
+  };
+
+  bindManagedClick(navExplorer, () => navigateTo("/developer-depot/developer-hub-depot/"));
+  bindManagedClick(navNodes, () => navigateTo("/developer-depot/node-management-aegis-protocol/"));
+  bindManagedClick(navSecurity, () => navigateTo("/developer-depot/protocol-configuration-aegis-protocol/"));
+  topButtons.forEach((button, index) => bindManagedClick(button, () => {
+    if (index === 0) showToast(doc, "Topology notifications acknowledged.");
+    else navigateTo("/developer-depot/protocol-configuration-aegis-protocol/");
+  }));
+
+  viewButtons.forEach((button) => bindManagedClick(button, () => {
+    patchState({ topology: { ...readState().topology, viewMode: button.textContent.trim() } });
+    render();
+    showToast(doc, `Topology view switched to ${button.textContent.trim()}.`);
+  }));
+  regionLabels.forEach((label) => {
+    const checkbox = label.querySelector('input[type="checkbox"]');
+    checkbox?.addEventListener("change", () => {
+      const current = readState();
+      const regions = new Set(current.topology.regions);
+      const text = label.textContent.trim();
+      if (checkbox.checked) regions.add(text);
+      else regions.delete(text);
+      patchState({ topology: { ...current.topology, regions: Array.from(regions) } });
+      render();
+    });
+  });
+  protocolSelect?.addEventListener("change", () => {
+    patchState({ topology: { ...readState().topology, protocolLayer: protocolSelect.value } });
+    showToast(doc, `Protocol layer set to ${protocolSelect.value}.`);
+  });
+
+  zoomButtons.forEach((button) => bindManagedClick(button, () => {
+    const icon = normalizeText(button.textContent);
+    const current = readState();
+    let zoom = current.topology.zoom;
+    if (icon.includes("add")) zoom = Math.min(160, zoom + 10);
+    else if (icon.includes("remove")) zoom = Math.max(70, zoom - 10);
+    else if (icon.includes("center_focus_strong")) zoom = 100;
+    else if (icon.includes("near_me")) patchState({ topology: { ...current.topology, focusedNode: "NY-CORE-MASTER" } });
+    patchState({ topology: { ...readState().topology, zoom } });
+    showToast(doc, `Topology zoom ${zoom}%. Focus: ${readState().topology.focusedNode}.`);
+    render();
+  }));
+
+  nodeBlocks.forEach((block) => bindManagedClick(block, () => {
+    const raw = block.textContent || "";
+    const focusedNode = /US-EAST-01/i.test(raw) ? "US-EAST-01"
+      : /EU-CENT-04/i.test(raw) ? "EU-CENT-04"
+      : /AP-TOK-02/i.test(raw) ? "AP-TOK-02"
+      : "NY-CORE-MASTER";
+    patchState({ topology: { ...readState().topology, focusedNode } });
+    render();
+    showToast(doc, `${focusedNode} focused in the topology inspector.`);
+  }));
+
+  connectionRows.forEach((row) => bindManagedClick(row, () => {
+    const raw = row.textContent || "";
+    const focusedNode = /US-EAST-01/i.test(raw) ? "US-EAST-01"
+      : /EU-CENT-04/i.test(raw) ? "EU-CENT-04"
+      : "AP-TOK-02";
+    patchState({ topology: { ...readState().topology, focusedNode } });
+    render();
+    showToast(doc, `Peer connection ${focusedNode} selected for drilldown.`);
+  }));
+
+  render();
+}
+
+function enhanceCollabHub(doc, stage = "alpha") {
+  const key = stage === "beta" ? "aegisDepotColabBeta" : "aegisDepotColabAlpha";
+  if (doc.body.dataset[key] === "true") return;
+  doc.body.dataset[key] = "true";
+  injectStyles(doc);
+
+  const navProjects = findButton(doc, "Projects");
+  const navTeams = findButton(doc, "Teams");
+  const navDocs = findButton(doc, "Docs");
+  const search = doc.querySelector('input[placeholder*="Search ecosystem"]');
+  const startButtons = Array.from(doc.querySelectorAll("button")).filter((node) => /start new colab|launch proposal/i.test(node.textContent || ""));
+  const stackSelect = doc.querySelector("select");
+  const titleField = Array.from(doc.querySelectorAll("input")).find((node) => /oracle bridge/i.test(node.getAttribute("placeholder") || ""));
+  const goalField = doc.querySelector("textarea");
+  const filterButton = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("filter_list"));
+  const projectCards = Array.from(doc.querySelectorAll("h4")).filter((node) => /aegis-vault protocol|sentinel ui framework/i.test(node.textContent || ""))
+    .map((node) => node.closest(".group"));
+  const projectActions = Array.from(doc.querySelectorAll("button")).filter((node) => /view details|join team/i.test(node.textContent || ""));
+  const communityLink = Array.from(doc.querySelectorAll("a")).find((node) => normalizeText(node.textContent).includes("connect now"));
+  const footerLinks = Array.from(doc.querySelectorAll("footer a"));
+  const panel = Array.from(doc.querySelectorAll(".rounded-xl")).find((node) => normalizeText(node.textContent).includes("start new colab"));
+
+  const render = () => {
+    const state = readState();
+    if (search) search.value = state.colab.search;
+    if (titleField) titleField.value = state.colab.title;
+    if (stackSelect) stackSelect.value = state.colab.stack;
+    if (goalField) goalField.value = state.colab.goal;
+    projectCards.forEach((card) => {
+      const match = !state.colab.search || normalizeText(card.textContent).includes(normalizeText(state.colab.search));
+      card.classList.toggle("aegis-hidden", !match);
+      card.classList.toggle("aegis-highlight-ring", normalizeText(card.textContent).includes(normalizeText(state.colab.selectedProject)));
+    });
+  };
+
+  bindManagedClick(navProjects, () => navigateTo("/developer-depot/my-submissions-dashboard/"));
+  bindManagedClick(navTeams, () => navigateTo("/developer-depot/colab-creation-page-1/"));
+  bindManagedClick(navDocs, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(filterButton, () => {
+    const current = readState();
+    patchState({ colab: { ...current.colab, search: current.colab.search ? "" : "Aegis" } });
+    render();
+    showToast(doc, current.colab.search ? "Collab filter cleared." : "Collab filter primed for AEGIS projects.");
+  });
+
+  search?.addEventListener("input", () => {
+    patchState({ colab: { ...readState().colab, search: search.value } });
+    render();
+  });
+  titleField?.addEventListener("input", () => patchState({ colab: { ...readState().colab, title: titleField.value } }));
+  stackSelect?.addEventListener("change", () => patchState({ colab: { ...readState().colab, stack: stackSelect.value } }));
+  goalField?.addEventListener("input", () => patchState({ colab: { ...readState().colab, goal: goalField.value } }));
+
+  startButtons.forEach((button) => bindManagedClick(button, () => {
+    const current = readState();
+    const title = current.colab.title.trim();
+    const goal = current.colab.goal.trim();
+    if (!title && stage === "beta") {
+      setMessage(panel, "Add a project title before launching the proposal.", "error");
+      return;
+    }
+    patchState({ colab: { ...current.colab, stage } });
+    if (stage === "alpha") {
+      showToast(doc, "Collab concept staged. Continue into the proposal workspace.");
+      navigateTo("/developer-depot/colab-creation-page-2/");
+      return;
+    }
+    const nextId = slugify(title || current.colab.selectedProject || "aegis-colab-proposal");
+    const nextSubmission = {
+      id: nextId,
+      name: title || "AEGIS Colab Proposal",
+      version: "0.1.0-proposal",
+      category: "Collaboration",
+      description: goal || "Collaboration proposal staged through the Depot workspace.",
+      status: "In Review",
+      updatedLabel: "Proposal launched just now",
+      createdLabel: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+      downloads: 0,
+      rating: 0,
+      reason: "",
+    };
+    const currentSubmissions = readState().submissions.filter((item) => item.id !== nextId);
+    patchState({
+      submissions: [nextSubmission, ...currentSubmissions],
+      submissionFilter: "all",
+      colab: { ...current.colab, selectedProject: nextSubmission.name },
+    });
+    setMessage(panel, `${nextSubmission.name} launched into the Developer Depot review queue.`, "success");
+    showToast(doc, "Collab proposal launched and routed into My Submissions.");
+    window.setTimeout(() => navigateTo("/developer-depot/my-submissions-dashboard/"), 180);
+  }));
+
+  projectActions.forEach((button) => bindManagedClick(button, () => {
+    const card = button.closest(".group");
+    const title = card?.querySelector("h4")?.textContent?.trim() || "Collab";
+    patchState({ colab: { ...readState().colab, selectedProject: title } });
+    render();
+    if (/view details/i.test(button.textContent || "")) {
+      showToast(doc, `${title} selected for deeper collaboration planning.`);
+      navigateTo("/developer-depot/colab-creation-page-2/");
+    } else {
+      showToast(doc, `You joined the ${title} collaboration lane.`);
+    }
+  }));
+
+  bindManagedClick(communityLink, () => navigateTo("/peer-profile/home/"));
+  footerLinks.forEach((link) => bindManagedClick(link, () => {
+    const text = normalizeText(link.textContent);
+    if (text.includes("github")) navigateTo("/developer-depot/developer-console-aegis-protocol/");
+    else if (text.includes("privacy") || text.includes("cookie")) navigateTo("/nexus/aegis-peer-profile/");
+    else navigateTo("/nexus/aegisalign-landing-page/");
+  }));
+
+  render();
+}
+
+function enhanceWeb3Portal(doc) {
+  if (doc.body.dataset.aegisDepotWeb3 === "true") return;
+  doc.body.dataset.aegisDepotWeb3 = "true";
+  injectStyles(doc);
+
+  const navEcosystem = findButton(doc, "Ecosystem");
+  const navProtocol = findButton(doc, "Protocol");
+  const navGovernance = findButton(doc, "Governance");
+  const navStitch = findButton(doc, "Stitch");
+  const search = doc.querySelector('input[placeholder*="Search ecosystem"]');
+  const walletButton = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("account_balance_wallet"));
+  const getStarted = findButton(doc, "Get Started");
+  const viewDocs = findButton(doc, "View Documentation");
+  const moduleButtons = Array.from(doc.querySelectorAll("button")).filter((node) => /launch module|manage identity/i.test(node.textContent || ""));
+  const editProfile = findButton(doc, "Edit Profile");
+  const delegateVoting = findButton(doc, "Delegate Voting Power");
+  const proposalCards = Array.from(doc.querySelectorAll("a")).filter((node) => /aap-104|aap-105/i.test(node.textContent || ""));
+  const didCards = Array.from(doc.querySelectorAll("p")).filter((node) => /passport credential|dao contribution score|multi-chain stitch/i.test(node.textContent || ""))
+    .map((node) => node.closest(".flex.items-center.justify-between"));
+  const footerLinks = Array.from(doc.querySelectorAll("footer a"));
+  const hero = Array.from(doc.querySelectorAll("section")).find((node) => normalizeText(node.textContent).includes("gateway to the"));
+
+  const render = () => {
+    const state = readState();
+    if (search) search.value = state.web3.search;
+    didCards.forEach((card) => card?.classList.toggle("aegis-highlight-ring", normalizeText(card.textContent).includes(normalizeText(state.web3.selectedCredential))));
+    proposalCards.forEach((card) => card?.classList.toggle("aegis-highlight-ring", normalizeText(card.textContent).includes(normalizeText(state.web3.delegatedProposal))));
+  };
+
+  bindManagedClick(navEcosystem, () => navigateTo("/aegis-application-lab/"));
+  bindManagedClick(navProtocol, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(navGovernance, () => navigateTo("/custodian-ui/decentralized-governance-voting/"));
+  bindManagedClick(navStitch, () => navigateTo("/developer-depot/developer-hub-depot/"));
+  bindManagedClick(walletButton, () => {
+    const current = readState();
+    patchState({ web3: { ...current.web3, connected: !current.web3.connected } });
+    showToast(doc, readState().web3.connected ? "Wallet relay connected to the .digitalSelf gateway." : "Wallet relay disconnected from the Web3 gateway.");
+  });
+  bindManagedClick(getStarted, () => {
+    patchState({ web3: { ...readState().web3, selectedModule: ".digitalself" } });
+    setMessage(hero || doc.body, "Gateway onboarding staged. Route the Peer into Profile to complete identity setup.", "success");
+    navigateTo("/nexus/aegis-peer-profile/");
+  });
+  bindManagedClick(viewDocs, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  moduleButtons.forEach((button) => bindManagedClick(button, () => {
+    const text = normalizeText(button.closest(".group, .rounded-xl, .rounded-lg")?.textContent || button.textContent);
+    if (text.includes("stitch for web3")) {
+      patchState({ web3: { ...readState().web3, selectedModule: "Stitch for Web3" } });
+      showToast(doc, "Stitch for Web3 selected as the active gateway module.");
+      navigateTo("/developer-depot/webhooks-configuration-aegis-protocol/");
+    } else {
+      patchState({ web3: { ...readState().web3, selectedModule: ".digitalself", selectedCredential: "Passport Credential" } });
+      showToast(doc, ".digitalself identity workspace selected.");
+      navigateTo("/peer-profile/home/");
+    }
+  }));
+  bindManagedClick(editProfile, () => navigateTo("/nexus/aegis-peer-profile/"));
+  bindManagedClick(delegateVoting, () => {
+    const proposal = "AAP-104: Liquidity Incentives";
+    patchState({ web3: { ...readState().web3, delegatedProposal: proposal } });
+    render();
+    showToast(doc, `Voting power delegated toward ${proposal}.`);
+    navigateTo("/custodian-ui/decentralized-governance-voting/");
+  });
+  proposalCards.forEach((card) => bindManagedClick(card, () => {
+    const title = card.querySelector("p")?.textContent?.trim() || card.textContent.trim();
+    patchState({ web3: { ...readState().web3, delegatedProposal: title } });
+    render();
+    showToast(doc, `${title} marked as the active governance proposal.`);
+  }));
+  didCards.forEach((card) => bindManagedClick(card, () => {
+    const title = card.querySelector(".font-bold")?.textContent?.trim() || "Identity credential";
+    patchState({ web3: { ...readState().web3, selectedCredential: title } });
+    render();
+    showToast(doc, `${title} focused in the identity workspace.`);
+  }));
+  search?.addEventListener("input", () => {
+    const current = readState();
+    patchState({ web3: { ...current.web3, search: search.value } });
+    const query = normalizeText(search.value);
+    [...didCards, ...proposalCards].forEach((node) => {
+      node.classList.toggle("aegis-hidden", query && !normalizeText(node.textContent).includes(query));
+    });
+  });
+  footerLinks.forEach((link) => bindManagedClick(link, () => {
+    const text = normalizeText(link.textContent);
+    if (text.includes("discord")) navigateTo("/peer-profile/home/");
+    else if (text.includes("github")) navigateTo("/developer-depot/developer-console-aegis-protocol/");
+    else navigateTo("/nexus/aegisalign-landing-page/");
+  }));
+
+  render();
+}
+
 const pageEnhancers = {
   "developer-hub-depot": enhanceDeveloperHub,
   "api-reference-aegis-protocol": enhanceApiReference,
@@ -1575,6 +2000,11 @@ const pageEnhancers = {
   "webhooks-configuration-aegis-protocol": enhanceWebhooks,
   "node-management-aegis-protocol": enhanceNodeManagement,
   "protocol-configuration-aegis-protocol": enhanceProtocolConfiguration,
+  "protocol-isolated-confirmation": enhanceProtocolIsolation,
+  "network-topology-visualizer": enhanceTopologyVisualizer,
+  "colab-creation-page-1": (doc) => enhanceCollabHub(doc, "alpha"),
+  "colab-creation-page-2": (doc) => enhanceCollabHub(doc, "beta"),
+  "web3-portal": enhanceWeb3Portal,
 };
 
 function enhanceFrame(frame) {

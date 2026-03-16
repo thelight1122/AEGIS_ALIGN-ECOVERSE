@@ -20,15 +20,15 @@ This matrix is the working activation plan for the Developer Depot section. It t
 | `my-submissions-dashboard` | Contributor inventory | Search, filter, sort, edit, publish, analytics, delete | `Live` in first slice | Main operational surface for local plugin state. |
 | `plugin-developer-analytics` | Release and adoption insights | Range toggles, manage, push update, back/docs CTAs | `Live` in first slice | Tied to the shared Depot submission state. |
 | `developer-console-aegis-protocol` | Tooling console | Logs, config, command actions | `Live` in second slice | Console actions, key controls, log filtering, and cross-page routing are active. |
-| `web3-portal` | Web3 bridge surface | Wallet and gateway actions | `Queued` | Needs a dedicated Web3 activation model. |
+| `web3-portal` | Web3 bridge surface | Wallet, gateway, DID, governance, and module actions | `Live` in final Depot slice | Gateway onboarding, identity focus, proposal delegation, and module handoffs are active. |
 | `api-usage-report-aegis-protocol` | Usage reporting | Filters, charts, export actions | `Live` in second slice | Range switching, export behavior, and related routing are active. |
 | `webhooks-configuration-aegis-protocol` | Integration setup | Endpoint forms, secret controls, delivery tests | `Live` in second slice | Draft state, endpoint creation, visibility, edit, delete, and delivery-log flow are active. |
 | `node-management-aegis-protocol` | Node operations | Search, actions, status controls | `Live` in second slice | Search, filters, provisioning, alert handoff, restart, and recovery flows are active. |
 | `protocol-configuration-aegis-protocol` | Protocol config | Form state, validation, save/apply actions | `Live` in second slice | Config controls persist local state and apply/reset behavior updates the shared Depot log. |
-| `protocol-isolated-confirmation` | Update confirmation | Deploy/confirm actions | `Partial` | Route exists; richer confirmation logic can come later. |
-| `colab-creation-page-1` | Collaboration builder | Builder controls, next-step CTA | `Queued` | Better after Depot core flows are live. |
-| `colab-creation-page-2` | Collaboration continuation | Continuation controls | `Queued` | Paired with `colab-creation-page-1`. |
-| `network-topology-visualizer` | Topology display | Filters, node focus, drilldown actions | `Queued` | Better handled with a dedicated topology model. |
+| `protocol-isolated-confirmation` | Update confirmation | Audit, standby, isolation summaries, secure handoffs | `Live` in final Depot slice | Audit and standby flows now update the local security posture and route into the wider Depot. |
+| `colab-creation-page-1` | Collaboration builder | Search, project selection, draft builder, next-step CTA | `Live` in final Depot slice | Early-stage collaboration planning now persists and routes into the proposal workspace. |
+| `colab-creation-page-2` | Collaboration continuation | Proposal form, launch actions, project/team handoffs | `Live` in final Depot slice | Proposal launch now creates a real local submission and returns into Depot operations. |
+| `network-topology-visualizer` | Topology display | View mode, region filters, node focus, zoom, drilldown actions | `Live` in final Depot slice | Topology focus, region state, inspector syncing, and related routing are active. |
 
 ## First Activation Slice
 
@@ -69,12 +69,10 @@ The second implementation batch extends the module into API operations and proto
 4. `node-management-aegis-protocol`
 5. `protocol-configuration-aegis-protocol`
 
-## Next Developer Depot Slice
+## Next Developer Depot Improvements
 
-After the core Depot and API-control slices are stable, the next highest-value Depot work is:
+With the full Developer Depot section now live, the next highest-value refinements are:
 
-1. `protocol-isolated-confirmation`
-2. `network-topology-visualizer`
-3. `colab-creation-page-1`
-4. `colab-creation-page-2`
-5. `web3-portal`
+1. Deepen Web3 persistence so gateway state, wallet actions, and DID surfaces share richer long-lived history
+2. Expand collaboration routing so Colab proposals can branch into dedicated team/workspace pages
+3. Add more visual telemetry linking topology, node management, and usage reporting into one shared operational view

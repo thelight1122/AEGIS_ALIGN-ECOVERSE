@@ -649,6 +649,10 @@ function shellScriptsTemplate(options = {}) {
     scripts.push("/src/custodian-activation.js");
   }
 
+  if (domainSlug === "aegis-application-lab") {
+    scripts.push("/src/application-lab-activation.js");
+  }
+
   if (immersive) {
     scripts.push("/src/nexus-drift-mode.js");
   }
