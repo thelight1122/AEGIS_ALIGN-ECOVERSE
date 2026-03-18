@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AEGIS Agentic Workshop - Main Console</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -18,7 +18,8 @@
                         "background-dark": "#101622",
                     },
                     fontFamily: {
-                        "display": ["Space Grotesk"]
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
                     },
                     borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
                 },
@@ -29,289 +30,212 @@
         body {
             font-family: 'Space Grotesk', sans-serif;
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+        .workshop-grid {
+            background-image:
+                linear-gradient(to right, rgba(17, 82, 212, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(17, 82, 212, 0.06) 1px, transparent 1px);
+            background-size: 34px 34px;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
+        .workshop-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #282e39;
-            border-radius: 10px;
+        .workshop-scrollbar::-webkit-scrollbar-track {
+            background: rgba(17, 82, 212, 0.05);
+        }
+        .workshop-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(17, 82, 212, 0.28);
+            border-radius: 999px;
         }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
-<div class="flex h-screen w-full flex-col">
-<!-- Top Navigation -->
-<header class="flex h-16 items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark px-6">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3">
-<div class="flex h-8 w-8 items-center justify-center rounded bg-primary text-white">
-<span class="material-symbols-outlined text-xl">shield</span>
-</div>
-<h2 class="text-lg font-bold tracking-tight">AEGIS <span class="text-primary">PROTOCOL</span></h2>
-</div>
-<div class="hidden md:flex items-center">
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-<input class="h-10 w-64 rounded-lg border-none bg-slate-200 dark:bg-slate-800 pl-10 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="Search resources..." type="text"/>
-</div>
-</div>
-</div>
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden">
+<div class="absolute inset-0 workshop-grid opacity-60 pointer-events-none"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(17,82,212,0.18),transparent_45%)] pointer-events-none"></div>
+<header class="relative z-10 flex items-center justify-between border-b border-primary/20 bg-background-dark/70 px-6 py-4 backdrop-blur-md">
 <div class="flex items-center gap-4">
-<nav class="hidden lg:flex items-center gap-6 mr-4">
-<a class="text-sm font-medium hover:text-primary transition-colors text-primary border-b-2 border-primary py-5" href="#">Workshop</a>
-<a class="text-sm font-medium hover:text-primary transition-colors text-slate-500 py-5" href="#">Vault</a>
-<a class="text-sm font-medium hover:text-primary transition-colors text-slate-500 py-5" href="#">Network</a>
-</nav>
-<div class="flex items-center gap-2">
-<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
-<span class="material-symbols-outlined">settings</span>
-</button>
-<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-primary bg-slate-300 dark:bg-slate-700 ml-2" data-alt="User profile avatar with futuristic tech aesthetic">
-<img alt="Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnAaYgBFkS5o8rB7peUgyszdzBLzgliNta0kcMzryPcR9vUetNENp_YuhiUQL1YlZ3Eu1d8-RGKPmG3TEqSXuANGmt-nnMdYYaBakl7iuLtK0GiD7SxZvn6xu77gQTkL7dGOaOLFv2uGpw59XtTBjD1BUz7swpZzbg0oi5JaHcAk-drVe1iA6I9FSxT7U9GoRStiUgaBpawBZPAlgc3Yz3Oj7flrsvGwszrCyelkOCA_opq-Ta16d3q9CMjWOw-KxlacFzOCTqHD7H"/>
-</div>
-</div>
-</div>
-</header>
-<div class="flex flex-1 overflow-hidden">
-<!-- Sidebar Navigation -->
-<aside class="w-64 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-background-light dark:bg-background-dark">
-<div class="p-6">
-<div class="flex items-center gap-3 mb-8">
-<div class="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary" data-alt="Blue glowing geometric icon for AEGIS Workshop">
-<span class="material-symbols-outlined">grid_view</span>
+<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary border border-primary/25">
+<span class="material-symbols-outlined text-2xl">shield_with_heart</span>
 </div>
 <div>
-<h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">Environment</h3>
-<p class="text-xs font-mono text-primary">AGENTIC_V2.0.4</p>
+<h2 class="text-lg font-bold tracking-tight text-white">AEGIS Agentic Workshop</h2>
+<p class="text-[11px] uppercase tracking-[0.2em] text-primary/60">Main Console</p>
 </div>
 </div>
-<nav class="space-y-1">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary font-medium" href="#">
-<span class="material-symbols-outlined">description</span>
-<span class="text-sm">Agent Templates</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">memory</span>
-<span class="text-sm">Active Nodes</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">database</span>
-<span class="text-sm">Knowledge Base</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">terminal</span>
-<span class="text-sm">Deployment Logs</span>
-</a>
-</nav>
+<div class="hidden md:flex items-center gap-3">
+<div class="rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">Governed Local Session</div>
+<div class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">Backend orchestration pending</div>
 </div>
-<div class="mt-auto p-6 border-t border-slate-200 dark:border-slate-800">
-<div class="bg-primary/5 rounded-xl p-4 border border-primary/20">
-<p class="text-[10px] font-bold uppercase tracking-widest text-primary mb-2">System Status</p>
-<div class="flex items-center justify-between mb-1">
-<span class="text-xs text-slate-400">Node Sync</span>
-<span class="text-xs font-mono text-green-500">OPTIMAL</span>
+</header>
+<main class="relative z-10 flex-1 overflow-hidden px-6 py-6">
+<div class="mx-auto flex h-full w-full max-w-[1520px] gap-6">
+<aside class="hidden lg:flex w-72 flex-col gap-5 rounded-3xl border border-primary/15 bg-slate-950/70 p-5 backdrop-blur-md">
+<div>
+<p class="text-[11px] font-bold uppercase tracking-[0.22em] text-primary/70">Workshop Lanes</p>
+<h3 class="mt-2 text-2xl font-semibold text-white">Where to go next</h3>
+<p class="mt-2 text-sm leading-6 text-slate-400">This console is the orientation and launch surface for agent creation, monitoring, deployment, and records review.</p>
 </div>
-<div class="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-primary" style="width: 88%"></div>
+<div class="space-y-3">
+<button class="w-full rounded-2xl border border-primary/20 bg-primary/10 px-4 py-4 text-left transition hover:border-primary/40 hover:bg-primary/15" data-workshop-route="/agent-workshop/create-new-agent-flow/">
+<div class="flex items-center justify-between">
+<div>
+<div class="text-sm font-bold text-white">Create Agents</div>
+<div class="mt-1 text-xs text-slate-400">Identity, logic, memory, and deployment staging</div>
+</div>
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+</div>
+</button>
+<button class="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 text-left transition hover:border-primary/30 hover:bg-slate-900" data-workshop-route="/agent-workshop/active-agents-monitor-agentic-workshop/">
+<div class="flex items-center justify-between">
+<div>
+<div class="text-sm font-bold text-white">Monitor Agents</div>
+<div class="mt-1 text-xs text-slate-400">Review active nodes, anomalies, and recursive signals</div>
+</div>
+<span class="material-symbols-outlined text-primary">monitoring</span>
+</div>
+</button>
+<button class="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 text-left transition hover:border-primary/30 hover:bg-slate-900" data-workshop-route="/agent-workshop/detailed-agent-view-dataquad-node/">
+<div class="flex items-center justify-between">
+<div>
+<div class="text-sm font-bold text-white">Deployment Records</div>
+<div class="mt-1 text-xs text-slate-400">Inspect detailed agent state and governed records</div>
+</div>
+<span class="material-symbols-outlined text-primary">deployed_code</span>
+</div>
+</button>
+</div>
+<div class="mt-auto rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+<p class="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">Current session</p>
+<div class="mt-3 space-y-2 text-sm text-slate-300">
+<div class="flex items-center justify-between">
+<span>Connectivity</span>
+<span data-workshop-connectivity>Checking</span>
+</div>
+<div class="flex items-center justify-between">
+<span>Last launch</span>
+<span data-workshop-last-launch>Awaiting</span>
+</div>
+<div class="flex items-center justify-between">
+<span>Recent actions</span>
+<span data-workshop-action-count>0</span>
 </div>
 </div>
 </div>
 </aside>
-<!-- Main Content Area -->
-<main class="flex-1 flex flex-col overflow-hidden">
-<!-- Dashboard Header -->
-<div class="p-8 pb-4 flex items-center justify-between">
+<section class="flex-1 overflow-y-auto workshop-scrollbar">
+<div class="rounded-[28px] border border-primary/15 bg-slate-950/75 p-7 backdrop-blur-md">
+<div class="flex flex-wrap items-start justify-between gap-6">
+<div class="max-w-3xl">
+<p class="text-[11px] font-bold uppercase tracking-[0.24em] text-primary/70">Workshop Home</p>
+<h1 class="mt-3 text-4xl font-black tracking-tight text-white">Build, review, and deploy governed agent systems without losing orientation.</h1>
+<p class="mt-4 max-w-2xl text-sm leading-7 text-slate-300">The Agentic Workshop is where Peers define new agents, inspect mesh behavior, review recursive signals, and move governed deployments forward. This surface can orient the next move instead of pretending to be a second login screen.</p>
+<div class="mt-6 flex flex-wrap gap-3">
+<button class="rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:brightness-110" data-workshop-route="/agent-workshop/create-new-agent-flow/">Open Creation Flow</button>
+<button class="rounded-xl border border-slate-700 bg-slate-900 px-5 py-3 text-sm font-bold text-slate-200 transition hover:border-primary/35 hover:text-white" data-workshop-route="/agent-workshop/aegis-project-tree-index/">View Project Map</button>
+<button class="rounded-xl border border-slate-700 bg-slate-900 px-5 py-3 text-sm font-bold text-slate-200 transition hover:border-primary/35 hover:text-white" data-workshop-route="/agent-workshop/active-agents-monitor-agentic-workshop/">Review Live Signals</button>
+</div>
+</div>
+<div class="w-full max-w-sm rounded-3xl border border-primary/20 bg-primary/10 p-5">
+<p class="text-[11px] font-bold uppercase tracking-[0.2em] text-primary/70">Resume lane</p>
+<div class="mt-3 text-lg font-semibold text-white" data-workshop-last-surface>Awaiting activity</div>
+<p class="mt-2 text-sm leading-6 text-slate-300">The Workshop keeps the most recent local route so Peers can return to the lane they were using.</p>
+<button class="mt-5 w-full rounded-xl border border-primary/25 bg-slate-950/70 px-4 py-3 text-sm font-bold text-primary transition hover:border-primary/45 hover:bg-slate-950" data-workshop-resume>Resume last surface</button>
+</div>
+</div>
+<div class="mt-8 grid gap-5 xl:grid-cols-3">
+<article class="rounded-3xl border border-slate-800 bg-slate-900/80 p-5 xl:col-span-2">
+<div class="flex items-center justify-between gap-4">
 <div>
-<h1 class="text-4xl font-black tracking-tight mb-2">Agent Workbench</h1>
-<p class="text-slate-500 max-w-xl">Configure autonomous node logic, define behavioral constraints, and assign neural profiles for the private AEGIS subnet.</p>
+<p class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">Launch Surfaces</p>
+<h3 class="mt-2 text-2xl font-semibold text-white">Primary Workshop functions</h3>
 </div>
-<div class="flex gap-3">
-<button class="flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
-<span class="material-symbols-outlined text-sm">save</span> Save Config
-                        </button>
-<button class="flex items-center gap-2 rounded-lg bg-primary px-6 py-2 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-<span class="material-symbols-outlined text-sm">rocket_launch</span> DEPLOY NODE
-                        </button>
-</div>
-</div>
-<!-- Stats Bar -->
-<div class="px-8 py-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- Token Usage -->
-<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 p-6 flex items-center justify-between">
-<div class="flex-1">
-<p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Token Throughput</p>
-<div class="flex items-baseline gap-3">
-<h4 class="text-3xl font-bold">1.42M</h4>
-<span class="text-xs font-medium text-green-500 flex items-center">
-<span class="material-symbols-outlined text-sm">trending_up</span> +5.2%
-                                </span>
-</div>
-</div>
-<div class="w-32 h-16 flex items-end gap-1">
-<div class="w-3 bg-primary/20 h-8 rounded-t-sm"></div>
-<div class="w-3 bg-primary/40 h-12 rounded-t-sm"></div>
-<div class="w-3 bg-primary/60 h-10 rounded-t-sm"></div>
-<div class="w-3 bg-primary/80 h-14 rounded-t-sm"></div>
-<div class="w-3 bg-primary h-16 rounded-t-sm"></div>
-</div>
-</div>
-<!-- Latency -->
-<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 p-6 flex items-center justify-between">
-<div class="flex-1">
-<p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Inference Latency</p>
-<div class="flex items-baseline gap-3">
-<h4 class="text-3xl font-bold">42<span class="text-xl font-normal text-slate-500">ms</span></h4>
-<span class="text-xs font-medium text-orange-500 flex items-center">
-<span class="material-symbols-outlined text-sm">timer</span> Real-time
-                                </span>
-</div>
-</div>
-<div class="w-32 h-16">
-<svg class="w-full h-full" viewbox="0 0 100 40">
-<path d="M0,35 Q10,10 20,30 T40,20 T60,25 T80,15 T100,5" fill="none" stroke="#1152d4" stroke-width="2"></path>
-</svg>
-</div>
-</div>
-</div>
-<!-- Workbench Layout -->
-<div class="flex-1 px-8 pb-8 overflow-hidden flex gap-6">
-<!-- Canvas (Central Workbench) -->
-<div class="flex-1 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 relative overflow-hidden group">
-<!-- Grid Pattern Background -->
-<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #1152d4 1px, transparent 1px); background-size: 24px 24px;"></div>
-<div class="absolute inset-0 p-6 flex flex-col">
-<div class="flex items-center justify-between mb-8 z-10">
-<div class="flex gap-2">
-<span class="h-3 w-3 rounded-full bg-red-500"></span>
-<span class="h-3 w-3 rounded-full bg-yellow-500"></span>
-<span class="h-3 w-3 rounded-full bg-green-500"></span>
-</div>
-<div class="px-3 py-1 bg-slate-800/80 rounded border border-slate-700 text-[10px] font-mono text-slate-400">
-                                    LOCKED_MODE // ENCRYPTED
-                                </div>
-</div>
-<div class="flex-1 flex items-center justify-center">
-<!-- Node Architecture Visualization -->
-<div class="relative w-full max-w-lg">
-<!-- Central Node -->
-<div class="mx-auto w-48 h-48 rounded-3xl border-2 border-primary bg-primary/5 flex flex-col items-center justify-center gap-3 shadow-[0_0_50px_-12px_rgba(17,82,212,0.5)] z-20 relative">
-<span class="material-symbols-outlined text-5xl text-primary animate-pulse">hub</span>
-<p class="text-xs font-bold font-mono tracking-widest">CENTRAL_CORE</p>
-</div>
-<!-- Orbiting Elements -->
-<div class="absolute -top-12 -left-12 w-32 h-32 rounded-2xl border border-slate-700 bg-slate-900/80 p-4 shadow-xl">
-<div class="flex items-center gap-2 mb-2">
-<span class="material-symbols-outlined text-primary text-sm">visibility</span>
-<span class="text-[10px] font-bold">PERCEPTION</span>
-</div>
-<div class="space-y-1">
-<div class="h-1 bg-primary/40 rounded w-full"></div>
-<div class="h-1 bg-primary/40 rounded w-2/3"></div>
-<div class="h-1 bg-primary/40 rounded w-4/5"></div>
-</div>
-</div>
-<div class="absolute -bottom-12 -right-12 w-32 h-32 rounded-2xl border border-slate-700 bg-slate-900/80 p-4 shadow-xl">
-<div class="flex items-center gap-2 mb-2">
-<span class="material-symbols-outlined text-orange-500 text-sm">bolt</span>
-<span class="text-[10px] font-bold">ACTION_LAYER</span>
-</div>
-<div class="space-y-1">
-<div class="h-1 bg-orange-500/40 rounded w-full"></div>
-<div class="h-1 bg-orange-500/40 rounded w-3/4"></div>
-</div>
-</div>
-<!-- Connectors (SVG) -->
-<svg class="absolute inset-0 -z-10 w-full h-full pointer-events-none" style="filter: blur(1px)">
-<line stroke="rgba(17,82,212,0.3)" stroke-dasharray="4" stroke-width="2" x1="10%" x2="50%" y1="10%" y2="50%"></line>
-<line stroke="rgba(17,82,212,0.3)" stroke-dasharray="4" stroke-width="2" x1="90%" x2="50%" y1="90%" y2="50%"></line>
-</svg>
-</div>
-</div>
-<!-- Workbench Pathways -->
-<div class="mt-auto flex justify-center gap-4 z-10">
-<div class="flex p-1 bg-slate-800/90 rounded-lg border border-slate-700">
-<button class="p-2 rounded hover:bg-slate-700 text-slate-300"><span class="material-symbols-outlined">zoom_in</span></button>
-<button class="p-2 rounded hover:bg-slate-700 text-slate-300"><span class="material-symbols-outlined">zoom_out</span></button>
-<div class="w-px h-6 bg-slate-700 my-auto mx-1"></div>
-<button class="p-2 rounded hover:bg-slate-700 text-slate-300"><span class="material-symbols-outlined">undo</span></button>
-<button class="p-2 rounded hover:bg-slate-700 text-slate-300"><span class="material-symbols-outlined">redo</span></button>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Configuration Panel -->
-<div class="w-80 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
-<!-- Model Selection -->
-<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
-<h3 class="text-sm font-bold flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-primary text-sm">neurology</span> Model Selection
-                            </h3>
-<div class="space-y-3">
-<label class="block">
-<span class="text-xs text-slate-500 mb-1 block">Primary Neural Engine</span>
-<select class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm focus:ring-1 focus:ring-primary">
-<option>AEGIS-Titan-70B (Private)</option>
-<option>AEGIS-Swift-8B (Edge)</option>
-<option>Neural-Cortex-Alpha</option>
-</select>
+<label class="relative w-full max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+<input class="w-full rounded-xl border border-slate-800 bg-slate-950 px-10 py-3 text-sm text-white placeholder:text-slate-500 focus:border-primary/40 focus:outline-none" data-workshop-search placeholder="Filter workshop surfaces..." type="text"/>
 </label>
-<div class="grid grid-cols-2 gap-2">
-<div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg border border-transparent hover:border-primary/50 cursor-pointer transition-all">
-<p class="text-[10px] text-slate-500 uppercase">Temp</p>
-<p class="text-sm font-bold">0.72</p>
 </div>
-<div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg border border-transparent hover:border-primary/50 cursor-pointer transition-all">
-<p class="text-[10px] text-slate-500 uppercase">Top-P</p>
-<p class="text-sm font-bold">0.95</p>
+<div class="mt-6 grid gap-4 md:grid-cols-2" data-workshop-card-grid>
+<button class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 text-left transition hover:border-primary/35 hover:bg-slate-950" data-workshop-card data-workshop-route="/agent-workshop/aegis-project-tree-index/">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+<span class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Orientation</span>
+</div>
+<h4 class="mt-4 text-lg font-semibold text-white">Project Map</h4>
+<p class="mt-2 text-sm leading-6 text-slate-400">Understand the current Workshop surfaces, agent lanes, and how the section is organized.</p>
+</button>
+<button class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 text-left transition hover:border-primary/35 hover:bg-slate-950" data-workshop-card data-workshop-route="/agent-workshop/agent-communication-protocol/">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">forum</span>
+<span class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Protocol</span>
+</div>
+<h4 class="mt-4 text-lg font-semibold text-white">Communication Protocol</h4>
+<p class="mt-2 text-sm leading-6 text-slate-400">Review the current message and orchestration framing for agent communication inside the Workshop.</p>
+</button>
+<button class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 text-left transition hover:border-primary/35 hover:bg-slate-950" data-workshop-card data-workshop-route="/agent-workshop/agent-mesh-visualizer/">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">hub</span>
+<span class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Topology</span>
+</div>
+<h4 class="mt-4 text-lg font-semibold text-white">Mesh Visualizer</h4>
+<p class="mt-2 text-sm leading-6 text-slate-400">Inspect how agent pathways and mesh relationships are represented in the current section.</p>
+</button>
+<button class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 text-left transition hover:border-primary/35 hover:bg-slate-950" data-workshop-card data-workshop-route="/agent-workshop/create-new-agent-identity-configuration/">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">identity_platform</span>
+<span class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Creation</span>
+</div>
+<h4 class="mt-4 text-lg font-semibold text-white">Agent Identity</h4>
+<p class="mt-2 text-sm leading-6 text-slate-400">Enter the creation lane directly at identity configuration when a new agent is being defined.</p>
+</button>
+<button class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 text-left transition hover:border-primary/35 hover:bg-slate-950" data-workshop-card data-workshop-route="/agent-workshop/active-agents-monitor-agentic-workshop/">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+<span class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Signals</span>
+</div>
+<h4 class="mt-4 text-lg font-semibold text-white">Active Agent Monitor</h4>
+<p class="mt-2 text-sm leading-6 text-slate-400">See the current monitoring surface for active nodes, anomalies, and recursive review work.</p>
+</button>
+<button class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 text-left transition hover:border-primary/35 hover:bg-slate-950" data-workshop-card data-workshop-route="/agent-workshop/detailed-agent-view-dataquad-node/">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">deployed_code</span>
+<span class="text-[11px] uppercase tracking-[0.18em] text-slate-500">Records</span>
+</div>
+<h4 class="mt-4 text-lg font-semibold text-white">Deployment Records</h4>
+<p class="mt-2 text-sm leading-6 text-slate-400">Open the current detailed agent record surface and continue into archive or export paths when appropriate.</p>
+</button>
+</div>
+</article>
+<article class="rounded-3xl border border-slate-800 bg-slate-900/80 p-5">
+<p class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">Session Pulse</p>
+<div class="mt-4 grid gap-4">
+<div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+<div class="text-xs uppercase tracking-[0.18em] text-slate-500">Connectivity</div>
+<div class="mt-2 text-2xl font-mono font-semibold text-white" data-workshop-connectivity-panel>Checking</div>
+<p class="mt-2 text-sm text-slate-400">Live browser truth only. No backend Workshop orchestration feed is claimed here.</p>
+</div>
+<div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+<div class="text-xs uppercase tracking-[0.18em] text-slate-500">Recent launch count</div>
+<div class="mt-2 text-2xl font-mono font-semibold text-white" data-workshop-action-count-panel>0</div>
+<p class="mt-2 text-sm text-slate-400">Derived from locally recorded Workshop launches in this browser.</p>
+</div>
+<div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+<div class="text-xs uppercase tracking-[0.18em] text-slate-500">Current orientation</div>
+<div class="mt-2 text-lg font-semibold text-white">Main Console</div>
+<p class="mt-2 text-sm text-slate-400">Use this surface to choose the next lane, not to simulate telemetry that does not exist.</p>
+</div>
+<div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+<div class="text-xs uppercase tracking-[0.18em] text-slate-500">Recent local actions</div>
+<div class="mt-3 space-y-2 text-sm text-slate-300" data-workshop-activity-feed>
+<div>Workshop home loaded. Awaiting the next Peer action.</div>
 </div>
 </div>
 </div>
-</div>
-<!-- Identity Constraints -->
-<div class="flex-1 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 flex flex-col">
-<h3 class="text-sm font-bold flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-primary text-sm">lock_person</span> Identity Constraints
-                            </h3>
-<div class="space-y-4 flex-1">
-<div>
-<span class="text-xs text-slate-500 mb-2 block">Behavioral Directives</span>
-<textarea class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-xs font-mono p-3 focus:ring-1 focus:ring-primary resize-none custom-scrollbar" placeholder="Enter system instructions..." rows="4"></textarea>
-</div>
-<div class="space-y-2">
-<div class="flex items-center justify-between p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors group">
-<span class="text-xs text-slate-300">Self-Correction Mode</span>
-<div class="w-8 h-4 bg-primary rounded-full relative">
-<div class="absolute right-1 top-1 w-2 h-2 bg-white rounded-full"></div>
+</article>
 </div>
 </div>
-<div class="flex items-center justify-between p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors group">
-<span class="text-xs text-slate-300">Tool Use Authorization</span>
-<div class="w-8 h-4 bg-primary rounded-full relative">
-<div class="absolute right-1 top-1 w-2 h-2 bg-white rounded-full"></div>
-</div>
-</div>
-<div class="flex items-center justify-between p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors group">
-<span class="text-xs text-slate-300">Human Override Req.</span>
-<div class="w-8 h-4 bg-slate-700 rounded-full relative">
-<div class="absolute left-1 top-1 w-2 h-2 bg-white rounded-full"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-4 p-3 bg-red-500/10 rounded-lg border border-red-500/20">
-<p class="text-[10px] text-red-500 font-bold uppercase mb-1">Warning</p>
-<p class="text-[10px] text-slate-400">Node will have full write-access to the Knowledge Base once deployed.</p>
-</div>
-</div>
-</div>
+</section>
 </div>
 </main>
 </div>
-</div>
-</body></html>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Custodian Command Cockpit - AEGIS Protocol</title>
+<title>AegisAlign | Custodian Operations Cockpit</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -60,11 +60,11 @@
 <span class="material-symbols-outlined text-accent-cyan">shield_with_heart</span>
 </div>
 <div>
-<h2 class="text-xl font-bold leading-tight tracking-widest uppercase font-mono italic">CUSTODIAN COMMAND COCKPIT</h2>
+<h2 class="text-xl font-bold leading-tight tracking-widest uppercase font-mono italic">CUSTODIAN OPERATIONS COCKPIT</h2>
 <div class="flex gap-4 text-[10px] font-mono text-primary/70">
-<span>SYSTEM: AEGIS CORE v4.0.2</span>
-<span>LOC: ORBITAL-STATION-09</span>
-<span class="text-accent-cyan animate-pulse">● LIVE CONNECTION</span>
+<span>SYSTEM: CUSTODIAN LOCAL WORKSPACE</span>
+<span>LOC: BROWSER SESSION</span>
+<span class="text-accent-cyan animate-pulse">● LIVE LOCAL SIGNAL</span>
 </div>
 </div>
 </div>
@@ -82,8 +82,8 @@
 </div>
 <div class="flex items-center gap-3 pl-4 border-l border-primary/20">
 <div class="text-right font-mono">
-<p class="text-xs font-bold">OPERATOR: C. RIKER</p>
-<p class="text-[10px] text-primary">LEVEL 5 CLEARANCE</p>
+<p class="text-xs font-bold">PEER CUSTODIAN SESSION</p>
+<p class="text-[10px] text-primary">LOCAL REVIEW CONTEXT</p>
 </div>
 <div class="size-10 rounded-full border-2 border-primary/40 p-0.5">
 <img alt="Operator profile portrait" class="rounded-full bg-primary/20" data-alt="Futuristic soldier profile portrait in neon blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV_juxnZrr-DIWymVDY9X7fBe-QAZGOS2ft9XnbpAlo6hYAduuZIB2e14LTTkCoJnPBdXPippHJXfu6Cflcs92G5PptTMJRxc1-214rQUVZy_pg4Jymzl9ySx7SWduYg1Gq3lxQUfZFJ1xKu6YfdKbvL4Q5bH1jx8Y-WRQh7yBB0k1Ut090W7NN9lK3CGOb3b-nU1ljRGGQ2gUGjXtQWagvLADCyWrph1k509Xj_BVKS8b-J5GibistmMBAx5JGP-4NomhIvaNRbKP"/>
@@ -97,40 +97,40 @@
 <div class="hud-border bg-primary/5 p-4 rounded flex flex-col gap-3">
 <h3 class="text-xs font-bold text-primary font-mono flex items-center gap-2">
 <span class="size-2 bg-accent-cyan rounded-full shadow-[0_0_8px_#00f2ff]"></span>
-                            REAL-TIME SYNC STREAM
+                            LIVE LOCAL ACTIVITY
                         </h3>
 <div class="flex flex-col gap-2 font-mono text-[10px] h-64 overflow-hidden">
-<div class="text-accent-cyan/80">14:22:01 &gt; NODE_094 COMMITTING_TX...</div>
-<div class="text-slate-400">14:22:02 &gt; SHIELD_LAYER_3 OPTIMIZED</div>
-<div class="text-slate-400">14:22:04 &gt; PARSING INCOMING PACKETS...</div>
-<div class="text-accent-amber">14:22:07 &gt; WARNING: LATENCY SPIKE @ SECTOR_7</div>
-<div class="text-accent-cyan/80">14:22:09 &gt; AUTHENTICATING HANDSHAKE...</div>
-<div class="text-slate-400">14:22:11 &gt; HEARTBEAT SENT TO ALL NODES</div>
-<div class="text-primary">14:22:15 &gt; SYNC STATUS: 100%</div>
-<div class="text-accent-cyan/80">14:22:18 &gt; TRACING IP: 192.168.0.255</div>
-<div class="text-slate-400">14:22:20 &gt; LOGS ARCHIVED SUCCESSFULLY</div>
-<div class="border-t border-primary/20 pt-1 text-primary">_ SYSTEM IDLE</div>
+<div class="text-accent-cyan/80">[--:--:--] &gt; LOCAL STATE NOT YET VERIFIED</div>
+<div class="text-slate-400">[--:--:--] &gt; BACKEND TELEMETRY PENDING</div>
+<div class="text-slate-400">[--:--:--] &gt; WAITING FOR LIVE CUSTODIAN ACTION</div>
+<div class="text-accent-amber">[--:--:--] &gt; NO INCIDENT FEED CONNECTED</div>
+<div class="text-accent-cyan/80">[--:--:--] &gt; BROWSER CONNECTIVITY CHECK PENDING</div>
+<div class="text-slate-400">[--:--:--] &gt; LOCAL LOG ARCHIVE STANDBY</div>
+<div class="text-primary">[--:--:--] &gt; TRUTH-FIRST DISPLAY ACTIVE</div>
+<div class="text-accent-cyan/80">[--:--:--] &gt; SESSION READY FOR REVIEW</div>
+<div class="text-slate-400">[--:--:--] &gt; NO FABRICATED TELEMETRY SHOWN</div>
+<div class="border-t border-primary/20 pt-1 text-primary">_ AWAITING LOCAL ACTION</div>
 </div>
 </div>
 <div class="hud-border bg-primary/5 p-4 rounded flex flex-col gap-3">
 <h3 class="text-xs font-bold text-accent-red font-mono flex items-center gap-2 uppercase tracking-tighter">
 <span class="material-symbols-outlined text-sm">emergency_home</span>
-                            Active Incidents
+                            Active Review Lanes
                         </h3>
 <div class="flex flex-col gap-2">
 <div class="p-2 border border-accent-red/30 bg-accent-red/10 rounded">
 <div class="flex justify-between items-start mb-1">
-<span class="text-[10px] font-bold text-accent-red font-mono">CRITICAL</span>
-<span class="text-[9px] text-accent-red/60 font-mono">02:14m</span>
+<span class="text-[10px] font-bold text-accent-red font-mono">LOCAL</span>
+<span class="text-[9px] text-accent-red/60 font-mono">session</span>
 </div>
-<p class="text-xs font-medium">Brute Force: Node 77</p>
+<p class="text-xs font-medium">Support, governance, and incident actions appear here when recorded.</p>
 </div>
 <div class="p-2 border border-accent-amber/30 bg-accent-amber/10 rounded">
 <div class="flex justify-between items-start mb-1">
-<span class="text-[10px] font-bold text-accent-amber font-mono">MODERATE</span>
-<span class="text-[9px] text-accent-amber/60 font-mono">08:45m</span>
+<span class="text-[10px] font-bold text-accent-amber font-mono">PENDING</span>
+<span class="text-[9px] text-accent-amber/60 font-mono">backend</span>
 </div>
-<p class="text-xs font-medium">Data Exfiltration: Sector B</p>
+<p class="text-xs font-medium">No external incident feed is connected to this cockpit yet.</p>
 </div>
 </div>
 </div>
@@ -148,11 +148,11 @@
 <div class="absolute top-4 left-4 flex flex-col gap-2 z-30">
 <div class="flex items-center gap-2 bg-black/60 px-3 py-1.5 border-l-2 border-accent-cyan rounded-r">
 <span class="text-[10px] font-bold text-primary tracking-widest uppercase">HUD STATUS</span>
-<span class="text-xs text-accent-cyan font-mono">ACTIVE</span>
+<span class="text-xs text-accent-cyan font-mono">LOCAL</span>
 </div>
 <div class="flex items-center gap-2 bg-black/60 px-3 py-1.5 border-l-2 border-primary rounded-r">
 <span class="text-[10px] font-bold text-primary tracking-widest uppercase">TARGETING</span>
-<span class="text-xs text-white font-mono font-bold tracking-tighter">LOCK_ENGAGED</span>
+<span class="text-xs text-white font-mono font-bold tracking-tighter">REVIEW_READY</span>
 </div>
 </div>
 <div class="absolute inset-0 pointer-events-none opacity-40">
@@ -168,21 +168,21 @@
 </div>
 <div class="mt-8 flex gap-20">
 <div class="text-center">
-<p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Structural Integrity</p>
-<p class="text-3xl font-mono font-bold text-white tracking-tighter">99.98%</p>
+<p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Connectivity</p>
+<p class="text-3xl font-mono font-bold text-white tracking-tighter">CHECKING</p>
 </div>
 <div class="text-center">
-<p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Energy Output</p>
-<p class="text-3xl font-mono font-bold text-accent-cyan tracking-tighter">1.21 GW</p>
+<p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Recent Actions</p>
+<p class="text-3xl font-mono font-bold text-accent-cyan tracking-tighter">0</p>
 </div>
 <div class="text-center">
-<p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Field Density</p>
-<p class="text-3xl font-mono font-bold text-white tracking-tighter">0.82 kg/m³</p>
+<p class="text-[10px] text-primary font-bold uppercase tracking-[0.2em] mb-1">Last Pulse</p>
+<p class="text-3xl font-mono font-bold text-white tracking-tighter">--</p>
 </div>
 </div>
 </div>
 <div class="absolute bottom-4 right-4 text-right">
-<p class="text-[10px] text-primary/60 font-mono tracking-widest">SCANNING SECTOR 7-G...</p>
+<p class="text-[10px] text-primary/60 font-mono tracking-widest">AWAITING VERIFIED LOCAL STATE...</p>
 <div class="w-48 h-1 bg-primary/20 mt-1 rounded-full overflow-hidden">
 <div class="w-3/4 h-full bg-accent-cyan"></div>
 </div>
@@ -195,9 +195,9 @@
 <circle class="text-primary/20" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-width="4"></circle>
 <circle class="text-accent-cyan" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="3.5" stroke-width="4"></circle>
 </svg>
-<span class="text-xs font-bold font-mono text-white">98%</span>
+<span class="text-xs font-bold font-mono text-white">ON</span>
 </div>
-<p class="text-[10px] text-primary font-bold uppercase text-center">Shield Strength</p>
+<p class="text-[10px] text-primary font-bold uppercase text-center">Connectivity</p>
 </div>
 <div class="hud-border bg-primary/10 rounded p-4 flex flex-col justify-center items-center gap-2">
 <div class="relative size-16 flex items-center justify-center">
@@ -205,9 +205,9 @@
 <circle class="text-primary/20" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-width="4"></circle>
 <circle class="text-accent-cyan" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="1" stroke-width="4"></circle>
 </svg>
-<span class="text-xs font-bold font-mono text-white">99%</span>
+<span class="text-xs font-bold font-mono text-white">LOC</span>
 </div>
-<p class="text-[10px] text-primary font-bold uppercase text-center">Consensus</p>
+<p class="text-[10px] text-primary font-bold uppercase text-center">Governance</p>
 </div>
 <div class="hud-border bg-primary/10 rounded p-4 flex flex-col justify-center items-center gap-2">
 <div class="relative size-16 flex items-center justify-center">
@@ -215,9 +215,9 @@
 <circle class="text-primary/20" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-width="4"></circle>
 <circle class="text-accent-amber" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="140" stroke-width="4"></circle>
 </svg>
-<span class="text-xs font-bold font-mono text-white">12ms</span>
+<span class="text-xs font-bold font-mono text-white">--</span>
 </div>
-<p class="text-[10px] text-primary font-bold uppercase text-center">Latency</p>
+<p class="text-[10px] text-primary font-bold uppercase text-center">Pulse</p>
 </div>
 <div class="hud-border bg-background-dark/80 rounded p-4 flex flex-col justify-center items-center gap-3 border-accent-amber/40">
 <span class="material-symbols-outlined text-accent-amber text-3xl">key_visualizer</span>
@@ -231,7 +231,7 @@
 <div class="hud-border bg-primary/5 p-4 rounded flex flex-col gap-3 h-full">
 <h3 class="text-xs font-bold text-primary font-mono flex items-center gap-2">
 <span class="material-symbols-outlined text-sm">hub</span>
-                        NODE NETWORK MAP
+                        NODE REVIEW MAP
                     </h3>
 <div class="flex-1 bg-black/40 rounded border border-primary/20 relative overflow-hidden flex items-center justify-center">
 <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(17,82,212,0.1)_0%,transparent_70%)]"></div>
@@ -243,15 +243,15 @@
 <div class="flex flex-col gap-2 mt-2">
 <div class="flex justify-between text-[10px] font-mono">
 <span class="text-primary/60">ACTIVE NODES</span>
-<span class="text-white">1,402 / 1,405</span>
+<span class="text-white">0 / 0</span>
 </div>
 <div class="flex justify-between text-[10px] font-mono">
 <span class="text-primary/60">GEO REPLICATION</span>
-<span class="text-white">STABLE</span>
+<span class="text-white">LOCAL</span>
 </div>
 <div class="flex justify-between text-[10px] font-mono">
 <span class="text-primary/60">UPTIME</span>
-<span class="text-accent-cyan">99.9999%</span>
+<span class="text-accent-cyan">BACKEND PENDING</span>
 </div>
 </div>
 </div>

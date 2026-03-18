@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AEGIS Protocol - US-EAST-1 Regional Drill-down</title>
+<title>AEGIS Protocol - US-EAST-1 Regional Review</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -47,7 +47,7 @@
 </div>
 <div class="flex flex-col">
 <h1 class="text-base font-bold leading-tight uppercase tracking-wider text-primary">AEGIS Protocol</h1>
-<p class="text-slate-500 dark:text-slate-400 text-xs">Security Admin</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Custodian regional workspace</p>
 </div>
 </div>
 <nav class="flex flex-col gap-1">
@@ -79,8 +79,8 @@
 <img alt="User profile" class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeAJNAm56lMWAkppQdZdaT7SCTaJE3i__Ocw95cSN1468cCqPSVZDxx3-pnAbzumMISq_Lx4xUW1dHzFJvx3Sr1KPZ3NaOZGKm2Fo8za-NRSzhsd1igcUhcJJhnmXCDlBZ3c3P2yxIybhgU-EBZ0o0YQY_IabICfZrimZ-vuftdJWIbn_Zm28YXTX0I1PLqFsEzYi2qQNZzVHW7F9OmN5wzw08qpTo4JheT9T3Uq8i7wPqNKYyfp8lJOhMzcVvY15M7tv9vlB6qePO"/>
 </div>
 <div class="flex-1 overflow-hidden">
-<p class="text-xs font-bold truncate">Admin Alpha</p>
-<p class="text-[10px] text-slate-500">Security Clearance Level 4</p>
+<p class="text-xs font-bold truncate">Peer Custodian Session</p>
+<p class="text-[10px] text-slate-500">Local regional review</p>
 </div>
 </div>
 </div>
@@ -91,8 +91,8 @@
 <header class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-primary">location_on</span>
-<h2 class="text-xl font-bold tracking-tight">Region: US-EAST-1</h2>
-<span class="px-2 py-0.5 text-[10px] font-bold bg-green-500/20 text-green-500 rounded border border-green-500/30 uppercase tracking-widest">Live</span>
+<h2 class="text-xl font-bold tracking-tight">Region Review: US-EAST-1</h2>
+<span class="px-2 py-0.5 text-[10px] font-bold bg-primary/20 text-primary rounded border border-primary/30 uppercase tracking-widest" data-live-region-badge>Local Truth</span>
 </div>
 <div class="flex items-center gap-4">
 <div class="relative flex items-center">
@@ -114,33 +114,33 @@
 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
 <span class="material-symbols-outlined text-6xl text-green-500">check_circle</span>
 </div>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Regional Health</p>
-<h3 class="text-3xl font-bold text-green-500">Operational</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Browser Connectivity</p>
+<h3 class="text-3xl font-bold text-primary" data-live-region-metric="connectivity">Checking</h3>
 <div class="mt-4 flex items-center gap-2 text-xs font-bold text-green-500/80">
 <span class="material-symbols-outlined text-sm">trending_up</span>
-<span>Stable for 14d 6h</span>
+<span data-live-region-detail="connectivity">Awaiting verification</span>
 </div>
 </div>
 <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
 <span class="material-symbols-outlined text-6xl text-primary">cloud_done</span>
 </div>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Uptime</p>
-<h3 class="text-3xl font-bold">99.99%</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Recent Custodian Actions</p>
+<h3 class="text-3xl font-bold" data-live-region-metric="actions">0</h3>
 <div class="mt-4 flex items-center gap-2 text-xs font-bold text-slate-500">
 <span class="material-symbols-outlined text-sm">history</span>
-<span>Last 30 days window</span>
+<span data-live-region-detail="actions">Recorded locally</span>
 </div>
 </div>
 <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
 <span class="material-symbols-outlined text-6xl text-orange-500">speed</span>
 </div>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Avg Latency</p>
-<h3 class="text-3xl font-bold">24ms</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Last Verified Pulse</p>
+<h3 class="text-3xl font-bold" data-live-region-metric="pulse">--</h3>
 <div class="mt-4 flex items-center gap-2 text-xs font-bold text-orange-500/80">
 <span class="material-symbols-outlined text-sm">south_east</span>
-<span>-2ms from yesterday</span>
+<span data-live-region-detail="pulse">Current session</span>
 </div>
 </div>
 </div>
@@ -168,16 +168,16 @@
 </div>
 </div>
 <div class="absolute top-4 left-4 bg-white/90 dark:bg-slate-900/90 p-3 rounded-lg border border-slate-200 dark:border-slate-700 backdrop-blur shadow-xl">
-<h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Active Data Centers</h4>
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Tracked Regional Nodes</h4>
 <div class="flex items-center gap-4">
 <div class="flex flex-col">
-<span class="text-xl font-bold">12</span>
-<span class="text-[10px] text-slate-400">Online Nodes</span>
+<span class="text-xl font-bold" data-live-region-node-count="tracked">0</span>
+<span class="text-[10px] text-slate-400">Visible locally</span>
 </div>
 <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
 <div class="flex flex-col">
-<span class="text-xl font-bold">0</span>
-<span class="text-[10px] text-slate-400">Offline Nodes</span>
+<span class="text-xl font-bold" data-live-region-node-count="focused">0</span>
+<span class="text-[10px] text-slate-400">Focused nodes</span>
 </div>
 </div>
 </div>
@@ -186,7 +186,7 @@
 <div class="space-y-4">
 <h3 class="text-lg font-bold flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">lan</span>
-                                Local Node Cluster Status
+                                Local Node Review
                             </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <!-- Node Card 1 -->
@@ -201,7 +201,7 @@
 </div>
 <div class="flex items-center gap-3 text-[10px] text-slate-400">
 <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">settings_input_component</span> v2.4.1</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span> 42% Load</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span><span data-live-node-load="1">Awaiting local review</span></span>
 </div>
 </div>
 </div>
@@ -217,7 +217,7 @@
 </div>
 <div class="flex items-center gap-3 text-[10px] text-slate-400">
 <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">settings_input_component</span> v2.4.1</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span> 68% Load</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span><span data-live-node-load="2">Awaiting local review</span></span>
 </div>
 </div>
 </div>
@@ -233,7 +233,7 @@
 </div>
 <div class="flex items-center gap-3 text-[10px] text-slate-400">
 <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">settings_input_component</span> v2.4.0</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span> 12% Load</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span><span data-live-node-load="3">Awaiting local review</span></span>
 </div>
 </div>
 </div>
@@ -249,7 +249,7 @@
 </div>
 <div class="flex items-center gap-3 text-[10px] text-slate-400">
 <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">settings_input_component</span> v2.4.1</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span> 0% Load</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">memory</span><span data-live-node-load="4">No local activity</span></span>
 </div>
 </div>
 </div>
@@ -261,36 +261,23 @@
 <!-- Traffic Analysis Chart -->
 <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
 <h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6 flex items-center justify-between">
-                                Traffic Analysis
-                                <span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded tracking-normal font-medium">Last 6 Hours</span>
+                                Local Activity Signal
+                                <span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded tracking-normal font-medium">Backend Pending</span>
 </h3>
-<div class="h-48 flex items-end justify-between gap-1">
-<div class="w-full bg-primary/20 rounded-t-sm h-[30%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[45%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[60%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[85%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/40 rounded-t-sm h-[100%] border-t-2 border-primary"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[75%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[55%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[40%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[65%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[90%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[70%] hover:bg-primary/40 transition-colors"></div>
-<div class="w-full bg-primary/20 rounded-t-sm h-[50%] hover:bg-primary/40 transition-colors"></div>
+<div class="h-48 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-center p-8 text-center bg-slate-50 dark:bg-slate-950/40">
+<div>
+<p class="text-lg font-bold" data-live-region-feed-title>Awaiting real regional telemetry</p>
+<p class="text-sm text-slate-500 mt-2" data-live-region-feed-copy>Only browser connectivity and local Custodian actions are available right now. Connect a backend feed to populate traffic and latency charts.</p>
 </div>
-<div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
-<span>-6h</span>
-<span>-3h</span>
-<span>Now</span>
 </div>
 <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
 <div class="flex items-center justify-between text-xs mb-2">
-<span class="text-slate-500">Peak Request Volume</span>
-<span class="font-bold">12.4k req/s</span>
+<span class="text-slate-500">Regional Feed State</span>
+<span class="font-bold" data-live-region-feed-state>Pending backend connection</span>
 </div>
 <div class="flex items-center justify-between text-xs">
-<span class="text-slate-500">Error Rate</span>
-<span class="font-bold text-green-500">0.002%</span>
+<span class="text-slate-500">Last Local Action</span>
+<span class="font-bold text-primary" data-live-region-last-action>None recorded</span>
 </div>
 </div>
 </div>
@@ -298,50 +285,50 @@
 <div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col h-full">
 <h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6 flex items-center gap-2">
 <span class="material-symbols-outlined text-sm">history_toggle_off</span>
-                                Regional Incidents
+                                Regional Activity
                             </h3>
 <div class="space-y-4">
-<div class="flex gap-4 group">
+<div class="flex gap-4 group" data-live-region-activity-row>
 <div class="flex flex-col items-center">
 <div class="size-2 rounded-full bg-slate-300 dark:bg-slate-700"></div>
 <div class="w-px h-full bg-slate-100 dark:bg-slate-800"></div>
 </div>
 <div class="pb-4">
-<p class="text-[10px] text-slate-400 font-bold mb-1">08:42 AM</p>
-<p class="text-sm font-medium">Auto-scaling group triggered</p>
-<p class="text-[11px] text-slate-500">Scale out DC-ALPHA +2 instances</p>
+<p class="text-[10px] text-slate-400 font-bold mb-1" data-live-region-activity-date>No activity yet</p>
+<p class="text-sm font-medium" data-live-region-activity-title>Awaiting local Custodian action</p>
+<p class="text-[11px] text-slate-500" data-live-region-activity-copy>Regional actions will appear here once recorded in this workspace.</p>
 </div>
 </div>
-<div class="flex gap-4 group">
+<div class="flex gap-4 group" data-live-region-activity-row>
 <div class="flex flex-col items-center">
 <div class="size-2 rounded-full bg-orange-500 shadow-sm shadow-orange-500/50"></div>
 <div class="w-px h-full bg-slate-100 dark:bg-slate-800"></div>
 </div>
 <div class="pb-4">
-<p class="text-[10px] text-orange-500 font-bold mb-1">04:15 AM</p>
-<p class="text-sm font-medium">Potential DDoS Mitigation</p>
-<p class="text-[11px] text-slate-500">Inbound traffic anomaly scrubbed from IP cluster 102.x.x.x</p>
+<p class="text-[10px] text-orange-500 font-bold mb-1" data-live-region-activity-date>No activity yet</p>
+<p class="text-sm font-medium" data-live-region-activity-title>Awaiting local Custodian action</p>
+<p class="text-[11px] text-slate-500" data-live-region-activity-copy>Backend-driven incident lanes are not connected yet.</p>
 </div>
 </div>
-<div class="flex gap-4 group">
+<div class="flex gap-4 group" data-live-region-activity-row>
 <div class="flex flex-col items-center">
 <div class="size-2 rounded-full bg-slate-300 dark:bg-slate-700"></div>
 <div class="w-px h-full bg-slate-100 dark:bg-slate-800"></div>
 </div>
 <div class="pb-4">
-<p class="text-[10px] text-slate-400 font-bold mb-1">Yesterday 11:20 PM</p>
-<p class="text-sm font-medium">Routine Maintenance Complete</p>
-<p class="text-[11px] text-slate-500">Security Patch v2.4.1 applied successfully</p>
+<p class="text-[10px] text-slate-400 font-bold mb-1" data-live-region-activity-date>No activity yet</p>
+<p class="text-sm font-medium" data-live-region-activity-title>Awaiting local Custodian action</p>
+<p class="text-[11px] text-slate-500" data-live-region-activity-copy>Only truth-first local state will be shown here.</p>
 </div>
 </div>
-<div class="flex gap-4 group">
+<div class="flex gap-4 group" data-live-region-activity-row>
 <div class="flex flex-col items-center">
 <div class="size-2 rounded-full bg-slate-300 dark:bg-slate-700"></div>
 </div>
 <div>
-<p class="text-[10px] text-slate-400 font-bold mb-1">Yesterday 02:30 PM</p>
-<p class="text-sm font-medium">Backup Verification Successful</p>
-<p class="text-[11px] text-slate-500">Cold storage sync completed for VA-Snapshot-1192</p>
+<p class="text-[10px] text-slate-400 font-bold mb-1" data-live-region-activity-date>No activity yet</p>
+<p class="text-sm font-medium" data-live-region-activity-title>Awaiting local Custodian action</p>
+<p class="text-[11px] text-slate-500" data-live-region-activity-copy>Connect a real regional event feed to replace this placeholder lane.</p>
 </div>
 </div>
 </div>

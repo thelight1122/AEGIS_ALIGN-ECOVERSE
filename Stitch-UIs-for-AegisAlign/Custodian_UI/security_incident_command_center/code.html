@@ -81,7 +81,7 @@
 </div>
 <div class="flex-1 min-w-0">
 <p class="text-xs font-bold truncate">CMD. RAELIN</p>
-<p class="text-[10px] text-slate-500 uppercase">Lead Analyst</p>
+<p class="text-[10px] text-slate-500 uppercase">Local review session</p>
 </div>
 <span class="material-symbols-outlined text-slate-400 text-sm">logout</span>
 </div>
@@ -92,10 +92,10 @@
 <!-- Header -->
 <header class="h-16 border-b border-slate-200 dark:border-primary/20 bg-white/50 dark:bg-background-dark/50 backdrop-blur-md flex items-center justify-between px-8">
 <div class="flex items-center gap-4">
-<h2 class="text-lg font-bold tracking-tight">SECURITY INCIDENT <span class="text-primary">COMMAND</span></h2>
+<h2 class="text-lg font-bold tracking-tight">SECURITY INCIDENT <span class="text-primary">REVIEW</span></h2>
 <div class="flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full">
 <div class="size-2 rounded-full bg-red-500 animate-pulse"></div>
-<span class="text-[10px] font-bold text-red-500 uppercase tracking-tighter">Live Operations</span>
+<span class="text-[10px] font-bold text-primary uppercase tracking-tighter" data-live-incident-center-badge>Live Local</span>
 </div>
 </div>
 <div class="flex items-center gap-6">
@@ -105,7 +105,7 @@
 </div>
 <div class="flex items-center gap-2 text-xs font-mono">
 <span class="text-slate-500 uppercase">System Time:</span>
-<span class="text-primary">14:22:09 UTC</span>
+<span class="text-primary" data-live-incident-center-time>Awaiting verification</span>
 </div>
 </div>
 </header>
@@ -114,25 +114,25 @@
 <!-- KPI Row -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <div class="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-primary/10 p-5 rounded-xl flex flex-col gap-1">
-<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Active Threats</p>
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Open Review Items</p>
 <div class="flex items-end justify-between">
-<h3 class="text-3xl font-bold text-red-500">42</h3>
-<div class="text-xs font-bold text-red-400 bg-red-400/10 px-2 py-1 rounded">+12.4% <span class="material-symbols-outlined text-[10px] align-middle">trending_up</span></div>
+<h3 class="text-3xl font-bold text-primary" data-live-incident-center-metric="actions">0</h3>
+<div class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded" data-live-incident-center-detail="actions">Local state</div>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-primary/10 p-5 rounded-xl flex flex-col gap-1">
-<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Avg. Mitigation Time</p>
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Last Verified Pulse</p>
 <div class="flex items-end justify-between">
-<h3 class="text-3xl font-bold">12m 04s</h3>
-<div class="text-xs font-bold text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">-5.2% <span class="material-symbols-outlined text-[10px] align-middle">trending_down</span></div>
+<h3 class="text-3xl font-bold" data-live-incident-center-metric="pulse">--</h3>
+<div class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded" data-live-incident-center-detail="pulse">Current session</div>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-primary/10 p-5 rounded-xl flex flex-col gap-1">
-<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Global Shield Strength</p>
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Evidence Feed</p>
 <div class="flex items-end justify-between">
-<h3 class="text-3xl font-bold text-primary">98.2%</h3>
+<h3 class="text-3xl font-bold text-primary" data-live-incident-center-metric="feed">Pending</h3>
 <div class="w-24 h-2 bg-slate-800 rounded-full overflow-hidden self-center ml-4">
-<div class="w-[98%] h-full bg-primary shadow-[0_0_10px_#1152d4]"></div>
+<div class="w-[35%] h-full bg-primary shadow-[0_0_10px_#1152d4]" data-live-incident-center-bar></div>
 </div>
 </div>
 </div>
@@ -144,7 +144,7 @@
 <div class="p-4 border-b border-slate-200 dark:border-primary/10 flex items-center justify-between">
 <h4 class="text-sm font-bold uppercase tracking-widest flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-sm">public</span>
-                                    Global Threat Map
+                                    Global Review Map
                                 </h4>
 <div class="flex gap-2">
 <button class="size-8 rounded bg-slate-100 dark:bg-primary/10 flex items-center justify-center border border-slate-300 dark:border-primary/20">
@@ -168,15 +168,15 @@
 <div class="absolute bottom-6 left-6 p-3 bg-black/60 backdrop-blur-md rounded-lg border border-primary/20 text-[10px] font-mono space-y-1">
 <div class="flex items-center gap-2">
 <div class="size-2 rounded-full bg-red-500 shadow-[0_0_5px_#ef4444]"></div>
-<span>Active Breach Attempt</span>
+<span>Local incident focus</span>
 </div>
 <div class="flex items-center gap-2">
 <div class="size-2 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981]"></div>
-<span>Healthy Perimeter Node</span>
+<span>Tracked workspace point</span>
 </div>
 <div class="flex items-center gap-2">
 <div class="size-2 rounded-full bg-slate-500"></div>
-<span>Offline/Maintenance</span>
+<span>Backend pending</span>
 </div>
 </div>
 </div>
@@ -203,37 +203,37 @@
 <div class="space-y-4">
 <h4 class="text-sm font-bold uppercase tracking-widest flex items-center gap-2">
 <span class="material-symbols-outlined text-red-500 text-sm">warning</span>
-                                Priority Incidents
+                                Priority Review Lanes
                             </h4>
 <!-- Incident Card 1 -->
 <div class="bg-white dark:bg-slate-900/40 border-l-4 border-l-red-500 border-r border-y border-slate-200 dark:border-primary/20 p-4 rounded-lg">
 <div class="flex justify-between items-start mb-2">
-<span class="text-[10px] font-mono font-bold text-slate-500">INC-88942-B</span>
-<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/10 text-red-500 uppercase tracking-tighter">Critical</span>
+<span class="text-[10px] font-mono font-bold text-slate-500">LOCAL-REVIEW-1</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary uppercase tracking-tighter">Local</span>
 </div>
-<h5 class="text-sm font-bold mb-1">DDoS Attack Target Node-X4</h5>
+<h5 class="text-sm font-bold mb-1">Awaiting recorded Custodian incident action</h5>
 <div class="flex items-center gap-4 text-[10px] font-mono text-slate-400">
 <div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">schedule</span> 04m 22s
+<span class="material-symbols-outlined text-xs">schedule</span> current session
                                     </div>
 <div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">shield_with_heart</span> Mitigating
+<span class="material-symbols-outlined text-xs">shield_with_heart</span> local review
                                     </div>
 </div>
 </div>
 <!-- Incident Card 2 -->
 <div class="bg-white dark:bg-slate-900/40 border-l-4 border-l-amber-500 border-r border-y border-slate-200 dark:border-primary/20 p-4 rounded-lg opacity-80">
 <div class="flex justify-between items-start mb-2">
-<span class="text-[10px] font-mono font-bold text-slate-500">INC-88945-A</span>
-<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-500 uppercase tracking-tighter">Warning</span>
+<span class="text-[10px] font-mono font-bold text-slate-500">BACKEND-PENDING</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-500/10 text-slate-400 uppercase tracking-tighter">Pending</span>
 </div>
-<h5 class="text-sm font-bold mb-1">Unusual API Spike - APAC</h5>
+<h5 class="text-sm font-bold mb-1">Awaiting external incident feed</h5>
 <div class="flex items-center gap-4 text-[10px] font-mono text-slate-400">
 <div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">schedule</span> 12m 45s
+<span class="material-symbols-outlined text-xs">schedule</span> backend required
                                     </div>
 <div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">search</span> Investigating
+<span class="material-symbols-outlined text-xs">search</span> not connected
                                     </div>
 </div>
 </div>
@@ -241,7 +241,7 @@
 <!-- Live Incident Stream (Terminal Style) -->
 <div class="bg-black/80 rounded-xl border border-primary/20 overflow-hidden flex flex-col h-[400px]">
 <div class="bg-slate-800 p-2 flex items-center justify-between">
-<span class="text-[10px] font-mono text-slate-400">AEGIS_LIVE_LOGGER_V4.2</span>
+<span class="text-[10px] font-mono text-slate-400">AEGIS_LOCAL_REVIEW_LOG</span>
 <div class="flex gap-1">
 <div class="size-2 rounded-full bg-slate-600"></div>
 <div class="size-2 rounded-full bg-slate-600"></div>
@@ -249,16 +249,9 @@
 </div>
 </div>
 <div class="flex-1 p-4 font-mono text-xs overflow-y-auto terminal-scroll leading-relaxed">
-<div class="mb-2"><span class="text-primary">[14:21:44]</span> <span class="text-slate-500">INFO:</span> Handshake verified with Node-A3.</div>
-<div class="mb-2"><span class="text-primary">[14:21:45]</span> <span class="text-slate-500">INFO:</span> Scanning port 443 on Perimeter_1.</div>
-<div class="mb-2"><span class="text-primary">[14:21:50]</span> <span class="text-amber-400">WARN:</span> Late response from Sydney Relay (240ms).</div>
-<div class="mb-2 animate-pulse"><span class="text-primary">[14:21:55]</span> <span class="text-red-500 font-bold">CRIT:</span> Anomalous traffic detected at Frankfurt-IX.</div>
-<div class="mb-2"><span class="text-primary">[14:22:01]</span> <span class="text-red-500">CRIT:</span> Failed SSH attempt from 192.168.1.44 (Blocked).</div>
-<div class="mb-2"><span class="text-primary">[14:22:03]</span> <span class="text-slate-500">INFO:</span> Rotating ephemeral keys for Session_82.</div>
-<div class="mb-2"><span class="text-primary">[14:22:05]</span> <span class="text-emerald-400">INFO:</span> Mitigator-09 deployed to Frankfurt-IX.</div>
-<div class="mb-2"><span class="text-primary">[14:22:06]</span> <span class="text-slate-500">INFO:</span> System health check: 100% stable.</div>
-<div class="mb-2"><span class="text-primary">[14:22:08]</span> <span class="text-slate-500">INFO:</span> Polling global nodes...</div>
-<div class="mb-2"><span class="text-primary">[14:22:09]</span> <span class="text-slate-500">INFO:</span> AEGIS Protocol status: NORMAL.</div>
+<div class="mb-2" data-live-incident-log>[--:--:--] INFO: Local review log awaiting Custodian action.</div>
+<div class="mb-2" data-live-incident-log>[--:--:--] INFO: Backend incident telemetry not connected.</div>
+<div class="mb-2" data-live-incident-log>[--:--:--] INFO: Truth-first display active.</div>
 <div class="animate-pulse inline-block w-2 h-4 bg-primary ml-1"></div>
 </div>
 </div>

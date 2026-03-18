@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AegisAlign | Support Ticket #AEG-4092</title>
+<title>AegisAlign | Support Case AEG-4092</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -74,33 +74,33 @@
 <!-- Breadcrumbs & Header -->
 <div class="flex flex-col gap-4">
 <nav class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
-<a class="hover:text-primary" href="#">Support Tickets</a>
+<a class="hover:text-primary" href="#">Custodian Support</a>
 <span class="material-symbols-outlined text-sm">chevron_right</span>
 <span class="text-slate-900 dark:text-white font-medium">#AEG-4092</span>
 </nav>
 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
 <div class="flex flex-col gap-2">
-<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">Neural Link Synchronization Failure</h1>
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">Governed Support Case: AEGIS Protocol Access Drift</h1>
 <div class="flex flex-wrap items-center gap-4 text-sm">
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-bold">Ticket #AEG-4092</span>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-bold">Support Case AEG-4092</span>
 <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
 <span class="size-2 rounded-full bg-yellow-500 animate-pulse"></span>
-<span class="font-medium">Status: In Progress</span>
+<span class="font-medium">Status: In Review</span>
 </div>
 <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
 <span class="material-symbols-outlined text-red-500 text-sm">priority_high</span>
-<span class="font-medium text-red-500">Priority: High</span>
+<span class="font-medium text-red-500">Priority: High Custodian Review</span>
 </div>
 </div>
 </div>
 <div class="flex items-center gap-3">
 <button class="flex items-center justify-center gap-2 px-4 h-11 rounded-lg border border-slate-300 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
 <span class="material-symbols-outlined text-sm">close</span>
-                                Close Ticket
+                                Close Case
                             </button>
 <button class="flex items-center justify-center gap-2 px-6 h-11 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">
 <span class="material-symbols-outlined text-sm">reply</span>
-                                Post Reply
+                                Post Custodian Reply
                             </button>
 </div>
 </div>
@@ -129,12 +129,12 @@
 </div>
 <div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl rounded-tl-none border border-slate-200 dark:border-slate-800">
 <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
-                                            The neural link sync for Node ID #7721 is consistently failing at 84%. I've tried three manual resets, but the error persists. Protocol v4.2 seems to be throwing a handshake timeout. Attached the initial stack trace.
+                                            Peer access to a governed protocol surface is drifting after session verification. Re-entry succeeds, but the publishing lane intermittently loses validated state and falls back to a generic access denial. Initial logs are attached for Custodian review.
                                         </p>
 <div class="mt-4 flex flex-wrap gap-2">
 <div class="flex items-center gap-2 bg-slate-200 dark:bg-slate-900 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 cursor-pointer hover:bg-primary/10 transition-colors">
 <span class="material-symbols-outlined text-primary text-sm">description</span>
-<span class="text-xs font-medium text-slate-600 dark:text-slate-300">stack_trace_7721.log</span>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-300">custodian-access-drift.log</span>
 </div>
 </div>
 </div>
@@ -152,7 +152,7 @@
 </div>
 <div class="bg-primary/10 p-4 rounded-xl rounded-tr-none border border-primary/20">
 <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
-                                            Hello Kaelen, I've analyzed your stack trace. It appears to be a phase alignment issue with the subnet. I'm escalating this to the Engineering team for a deep scan of Node #7721.
+                                            Initial triage complete. The issue appears to be a governed state handoff mismatch between intake validation and the publishing lane. Escalating to the Peer Custodian support lane for reproducible review.
                                         </p>
 </div>
 </div>
@@ -169,8 +169,8 @@
 </div>
 <div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl rounded-tl-none border border-slate-200 dark:border-slate-800">
 <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
-                                            Acknowledged. We are seeing a pattern across the Orion Cluster. Kaelen, can you please run the following coordination on your node and paste the result? <br/>
-<code class="block bg-black/30 p-2 mt-2 rounded border border-slate-700 text-primary font-mono text-xs">aegisctl link --force-sync --node-id 7721 --verbose</code>
+                                            Acknowledged. We are seeing a pattern across governed access surfaces after recent route and publication updates. Please capture a fresh validation trace and attach it so the Custodian lane can compare it against the log archive. <br/>
+<code class="block bg-black/30 p-2 mt-2 rounded border border-slate-700 text-primary font-mono text-xs">aegisctl access --capture-trace --surface publishing --case AEG-4092</code>
 </p>
 </div>
 </div>
@@ -190,10 +190,10 @@
 <div class="flex items-center justify-between p-3 bg-slate-200 dark:bg-slate-800 border-t border-slate-300 dark:border-slate-700">
 <button class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-400 dark:border-slate-600 text-xs font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
 <span class="material-symbols-outlined text-sm">attach_file</span>
-                                    Attach Log File
+                                    Attach Support Log
                                 </button>
 <button class="px-6 py-2 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity">
-                                    Send Reply
+                                    Send Custodian Reply
                                 </button>
 </div>
 </div>
@@ -203,25 +203,25 @@
 <div class="bg-slate-100 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col gap-6">
 <h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">analytics</span>
-                                Ticket Metadata
+                                Support Case Metadata
                             </h3>
 <div class="flex flex-col gap-4">
 <div class="flex flex-col gap-1">
 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Protocol Version</span>
 <div class="flex items-center justify-between">
-<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Aegis Neural v4.2.0-STABLE</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">AEGIS Protocol Access Layer v4.2.0-STABLE</span>
 <span class="material-symbols-outlined text-green-500 text-sm">verified</span>
 </div>
 </div>
 <div class="h-px bg-slate-200 dark:bg-slate-700"></div>
 <div class="flex flex-col gap-1">
 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Node ID</span>
-<span class="text-sm font-medium text-slate-900 dark:text-slate-200">#7721-DELTA-ORION</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">SURFACE-PUBLISHING-01</span>
 </div>
 <div class="h-px bg-slate-200 dark:bg-slate-700"></div>
 <div class="flex flex-col gap-1">
 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Last Sync Attempt</span>
-<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Oct 12, 2023 10:05:21 UTC</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200" data-live-ticket-sync>Awaiting verification</span>
 </div>
 <div class="h-px bg-slate-200 dark:bg-slate-700"></div>
 <div class="flex flex-col gap-1">
@@ -232,7 +232,7 @@
 <img alt="Team 2" class="size-6 rounded-full border-2 border-slate-800" data-alt="Team member small avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_-Z4PANyGa0mf_Tz8TOGpC6nuD1E4eOB32PCsip01NwaVsXFq_zVqLD5ocOinAdjAxaYiDXHkiSdmBtIFP64drmP8ruMVQnZQLBoS9NKIy_dIrOJj-EoNMKKU9zbJsQNoDOkBBuUsPBOa5W2GsZnLFg--b3-iisJeoof3cqebUYMhTHwtUfWOFX7W37Vh8dDFQHBp19aaDZAoK2w9cD-iVWILU-I_IdUFcEXcVw_cPJANDOPOXJIs1v_2-fDmFV1kaLnQ3aUvQh6G"/>
 <div class="size-6 rounded-full border-2 border-slate-800 bg-primary flex items-center justify-center text-[10px] font-bold">+2</div>
 </div>
-<span class="text-xs text-slate-500 font-medium">Core Link Eng.</span>
+<span class="text-xs text-slate-500 font-medium">Custodian Support Lane</span>
 </div>
 </div>
 </div>
@@ -249,8 +249,8 @@
 <img alt="Map" class="w-full h-full object-cover opacity-50 grayscale contrast-125" data-alt="Satellite map view of regional node" data-location="Reykjavik, Iceland" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_b8VpnekrvAqKDMEMQQwXIJo2aXMWy3k2I3frjBMuv8FNFLPG3znRflWEcgfiJ5mwnMA2wYS91z-L7KiB4pD3gA4kc1iS-E8FBp3_dJeI8WcWfUndu1uCaz6mSkqLbmDNOktDZvCFd13r1DLWn18paOasLN1-byYjfP6vjVsLFnkhSA7J7iePv-qxL4YvIFhvcNlOIC3LD5AT7DqkQnmPDkoygKcTzyJywc5tjtT7tzvHyEhaFfVvvNNZVGj2mMbAg7GMpb4dE8dm"/>
 </div>
 <div class="p-4 bg-slate-200 dark:bg-slate-800">
-<p class="text-xs text-slate-500">Latency: <span class="text-green-500 font-bold">12ms</span></p>
-<p class="text-xs text-slate-500">Region: <span class="text-slate-900 dark:text-slate-200 font-bold">Northern Atlantic-1</span></p>
+<p class="text-xs text-slate-500">Connectivity: <span class="text-green-500 font-bold" data-live-ticket-connectivity>Checking</span></p>
+<p class="text-xs text-slate-500">Region: <span class="text-slate-900 dark:text-slate-200 font-bold" data-live-ticket-region>Local browser session</span></p>
 </div>
 </div>
 <!-- Quick Actions -->
@@ -278,7 +278,7 @@
 <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
 <div class="flex items-center gap-2 text-slate-500 text-sm">
 <span class="material-symbols-outlined text-primary text-lg">shield</span>
-<span>© 2023 AegisAlign System. All rights reserved.</span>
+<span>Governed support case surface. Local session state only until shared support services are connected.</span>
 </div>
 <div class="flex gap-6 text-sm font-medium text-slate-500">
 <a class="hover:text-primary transition-colors" href="#">Security Policy</a>

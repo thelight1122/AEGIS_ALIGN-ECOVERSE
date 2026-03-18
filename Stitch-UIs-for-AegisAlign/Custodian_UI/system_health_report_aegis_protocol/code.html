@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AegisAlign | System Health Report</title>
+<title>AegisAlign | Live System Health</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -46,7 +46,7 @@
 <div class="hidden md:flex flex-1 max-w-md">
 <div class="relative w-full">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-<input class="w-full bg-primary/10 border-none rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-sm" placeholder="Search system logs..." type="text"/>
+<input class="w-full bg-primary/10 border-none rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-sm" placeholder="Search live telemetry notes..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-3">
@@ -59,8 +59,8 @@
 <div class="h-8 w-[1px] bg-primary/20 mx-2"></div>
 <div class="flex items-center gap-3 pl-2">
 <div class="text-right hidden sm:block">
-<p class="text-xs font-bold">Commander Kane</p>
-<p class="text-[10px] text-primary">System Admin</p>
+<p class="text-xs font-bold">Peer Custodian Session</p>
+<p class="text-[10px] text-primary">Local telemetry workspace</p>
 </div>
 <div class="size-10 rounded-full border-2 border-primary bg-cover bg-center" data-alt="User profile portrait of Commander Kane" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7L1uSKwGHd7eW6aH_Hl9SXniVbL5BGb9DyPZcMQqAXz0j2Xt79YmdSbwG3swhhQ6o03J58gbllyGOQl5rKGvliLvLuQr_20BClWxtmWwii9VZbfjkyx1ERko2xz42oMVllm1mBJNQdvF1lM_B2Gc6AxE-k4fg3QW655lQ-38irW7tv3uKJAr_ILpqYGSTHhj9nuJZTIFFhiWhY9BpprH0hPGcNHNsWLeI_WBwKkMK7jZ4DYh1gwx5qoew2rXEWw_l8eCvCgv7jhVs')"></div>
 </div>
@@ -95,11 +95,11 @@
 </div>
 <div class="mt-auto">
 <div class="bg-primary/10 rounded-xl p-4 border border-primary/20">
-<p class="text-xs font-bold text-primary mb-1">System Load</p>
+<p class="text-xs font-bold text-primary mb-1">Telemetry Feed</p>
 <div class="w-full bg-primary/20 h-1.5 rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[42%]"></div>
+<div class="bg-primary h-full w-[100%]" data-live-bar="connectivity"></div>
 </div>
-<p class="text-[10px] mt-2 text-slate-400">42% CPU Utilization</p>
+<p class="text-[10px] mt-2 text-slate-400" data-live-note="connectivity">Awaiting live infrastructure feed</p>
 </div>
 </div>
 </aside>
@@ -108,24 +108,24 @@
 <!-- Page Header & Global Status -->
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
 <div>
-<h1 class="text-3xl font-black tracking-tight mb-2">System Status</h1>
-<p class="text-slate-500">Global infrastructure monitoring and incident log.</p>
+<h1 class="text-3xl font-black tracking-tight mb-2">Live System Health</h1>
+<p class="text-slate-500">Truth-first telemetry for the Custodian workspace. Only live local signals are shown until backend feeds are connected.</p>
 </div>
-<div class="flex items-center gap-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-6 py-4">
-<div class="size-3 bg-emerald-500 rounded-full animate-pulse"></div>
+<div class="flex items-center gap-4 bg-primary/10 border border-primary/30 rounded-xl px-6 py-4">
+<div class="size-3 bg-primary rounded-full animate-pulse" data-live-indicator="status"></div>
 <div>
-<p class="text-emerald-500 font-bold leading-none">All Systems Operational</p>
-<p class="text-[10px] text-emerald-500/70 mt-1 uppercase font-semibold">Verified 2m ago</p>
+<p class="text-primary font-bold leading-none" data-live-text="status">Checking live local status</p>
+<p class="text-[10px] text-primary/70 mt-1 uppercase font-semibold" data-live-text="verified">Awaiting current verification</p>
 </div>
 </div>
 </div>
 <!-- Key Metrics -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 p-6 rounded-xl">
-<p class="text-slate-500 text-sm font-medium">Protocol Uptime</p>
+<p class="text-slate-500 text-sm font-medium">Browser Connectivity</p>
 <div class="flex items-baseline gap-2 mt-2">
-<p class="text-3xl font-bold">99.99%</p>
-<span class="text-emerald-500 text-xs font-bold">+0.01%</span>
+<p class="text-3xl font-bold" data-live-metric="connectivity">Checking</p>
+<span class="text-primary text-xs font-bold" data-live-metric-detail="connectivity">Local signal</span>
 </div>
 <div class="mt-4 flex gap-1 h-1">
 <div class="flex-1 bg-emerald-500 rounded-full"></div>
@@ -135,10 +135,10 @@
 </div>
 </div>
 <div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 p-6 rounded-xl">
-<p class="text-slate-500 text-sm font-medium">Average Latency</p>
+<p class="text-slate-500 text-sm font-medium">Recent Custodian Actions</p>
 <div class="flex items-baseline gap-2 mt-2">
-<p class="text-3xl font-bold">14ms</p>
-<span class="text-orange-500 text-xs font-bold">-2ms</span>
+<p class="text-3xl font-bold" data-live-metric="actions">0</p>
+<span class="text-primary text-xs font-bold" data-live-metric-detail="actions">Recorded locally</span>
 </div>
 <div class="mt-4 flex gap-1 h-1">
 <div class="flex-1 bg-emerald-500 rounded-full"></div>
@@ -148,10 +148,10 @@
 </div>
 </div>
 <div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 p-6 rounded-xl">
-<p class="text-slate-500 text-sm font-medium">Active Nodes</p>
+<p class="text-slate-500 text-sm font-medium">Last Verified Pulse</p>
 <div class="flex items-baseline gap-2 mt-2">
-<p class="text-3xl font-bold">1,248</p>
-<span class="text-emerald-500 text-xs font-bold">+12</span>
+<p class="text-3xl font-bold" data-live-metric="pulse">--</p>
+<span class="text-primary text-xs font-bold" data-live-metric-detail="pulse">Current session</span>
 </div>
 <div class="mt-4 flex gap-1 h-1">
 <div class="flex-1 bg-primary rounded-full"></div>
@@ -164,7 +164,7 @@
 <!-- Service Health Grid -->
 <section>
 <div class="flex justify-between items-center mb-6">
-<h3 class="text-lg font-bold">Service Health</h3>
+<h3 class="text-lg font-bold">Service Feed Status</h3>
 <button class="text-primary text-sm font-bold flex items-center gap-1">
                         Refresh <span class="material-symbols-outlined text-sm">refresh</span>
 </button>
@@ -174,44 +174,44 @@
 <div class="bg-primary/5 border border-primary/10 p-4 rounded-lg flex flex-col gap-4">
 <div class="flex justify-between items-start">
 <span class="material-symbols-outlined text-primary">sync</span>
-<span class="bg-emerald-500/10 text-emerald-500 text-[10px] px-2 py-1 rounded font-bold">HEALTHY</span>
+<span class="bg-primary/10 text-primary text-[10px] px-2 py-1 rounded font-bold" data-live-service="workspace-status">LOCAL</span>
 </div>
 <div>
-<p class="font-bold text-sm">Core Sync Engine</p>
-<p class="text-xs text-slate-500 mt-1">Version 2.4.1-stable</p>
+<p class="font-bold text-sm">Custodian Workspace</p>
+<p class="text-xs text-slate-500 mt-1" data-live-service-note="workspace-status">Live local session only</p>
 </div>
 </div>
 <!-- Healthy -->
 <div class="bg-primary/5 border border-primary/10 p-4 rounded-lg flex flex-col gap-4">
 <div class="flex justify-between items-start">
 <span class="material-symbols-outlined text-primary">shield_moon</span>
-<span class="bg-emerald-500/10 text-emerald-500 text-[10px] px-2 py-1 rounded font-bold">HEALTHY</span>
+<span class="bg-primary/10 text-primary text-[10px] px-2 py-1 rounded font-bold" data-live-service="hosting-status">CHECK</span>
 </div>
 <div>
-<p class="font-bold text-sm">Shield Network</p>
-<p class="text-xs text-slate-500 mt-1">Encryption: AES-256</p>
+<p class="font-bold text-sm">Hosting Reachability</p>
+<p class="text-xs text-slate-500 mt-1" data-live-service-note="hosting-status">Awaiting active endpoint verification</p>
 </div>
 </div>
 <!-- Degraded -->
 <div class="bg-orange-500/5 border border-orange-500/20 p-4 rounded-lg flex flex-col gap-4">
 <div class="flex justify-between items-start">
 <span class="material-symbols-outlined text-orange-500">api</span>
-<span class="bg-orange-500/10 text-orange-500 text-[10px] px-2 py-1 rounded font-bold">DEGRADED</span>
+<span class="bg-primary/10 text-primary text-[10px] px-2 py-1 rounded font-bold" data-live-service="governance-status">LOCAL</span>
 </div>
 <div>
-<p class="font-bold text-sm">API Gateway</p>
-<p class="text-xs text-orange-500/70 mt-1">Elevated error rates in US-East</p>
+<p class="font-bold text-sm">Governance Handoff</p>
+<p class="text-xs text-slate-500 mt-1" data-live-service-note="governance-status">Derived from current Custodian actions</p>
 </div>
 </div>
 <!-- Maintenance -->
 <div class="bg-slate-500/5 border border-slate-500/20 p-4 rounded-lg flex flex-col gap-4">
 <div class="flex justify-between items-start">
 <span class="material-symbols-outlined text-slate-500">rocket_launch</span>
-<span class="bg-slate-500/10 text-slate-500 text-[10px] px-2 py-1 rounded font-bold">MAINTENANCE</span>
+<span class="bg-slate-500/10 text-slate-500 text-[10px] px-2 py-1 rounded font-bold" data-live-service="telemetry-status">WAITING</span>
 </div>
 <div>
-<p class="font-bold text-sm">Deployment Service</p>
-<p class="text-xs text-slate-500 mt-1">Scheduled: 02:00 - 04:00 UTC</p>
+<p class="font-bold text-sm">Telemetry Feed</p>
+<p class="text-xs text-slate-500 mt-1" data-live-service-note="telemetry-status">No backend telemetry source connected yet</p>
 </div>
 </div>
 </div>
@@ -222,23 +222,16 @@
 <div class="lg:col-span-2 space-y-6">
 <div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 rounded-xl p-6">
 <div class="flex justify-between items-center mb-8">
-<h3 class="text-lg font-bold">Historical Uptime (30 Days)</h3>
+<h3 class="text-lg font-bold">Telemetry Feed Status</h3>
 <div class="flex gap-2">
-<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400"><div class="size-2 rounded-full bg-primary"></div> Perf</span>
-<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400"><div class="size-2 rounded-full bg-slate-700"></div> Baseline</span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400"><div class="size-2 rounded-full bg-primary"></div> Live local</span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-slate-400"><div class="size-2 rounded-full bg-slate-700"></div> Backend pending</span>
 </div>
 </div>
-<!-- Mockup Line Chart -->
-<div class="relative h-48 w-full">
-<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 100">
-<path d="M0,80 Q50,70 100,75 T200,60 T300,65 T400,20 T500,40 T600,30 T700,50 T800,20 T900,10 T1000,5" fill="none" stroke="#1152d4" stroke-width="3"></path>
-<path class="fill-primary/10" d="M0,80 Q50,70 100,75 T200,60 T300,65 T400,20 T500,40 T600,30 T700,50 T800,20 T900,10 T1000,5 L1000,100 L0,100 Z"></path>
-<line stroke="#334155" stroke-dasharray="4" x1="0" x2="1000" y1="90" y2="90"></line>
-</svg>
-<div class="absolute bottom-[-24px] w-full flex justify-between text-[10px] font-bold text-slate-500 uppercase">
-<span>30 Days Ago</span>
-<span>15 Days Ago</span>
-<span>Today</span>
+<div class="relative h-48 w-full rounded-xl border border-primary/10 bg-primary/5 flex items-center justify-center px-8 text-center">
+<div>
+<p class="text-lg font-bold" data-live-feed-title>Awaiting backend telemetry connection</p>
+<p class="text-sm text-slate-500 mt-2" data-live-feed-copy>Live Custodian actions and browser connectivity are active. Historical uptime and node telemetry will appear here once a real feed is connected.</p>
 </div>
 </div>
 </div>
@@ -246,28 +239,28 @@
 <!-- Incident History -->
 <div class="lg:col-span-1">
 <div class="bg-background-light dark:bg-slate-900/50 border border-primary/10 rounded-xl p-6 flex flex-col h-full">
-<h3 class="text-lg font-bold mb-6">Incident History</h3>
+<h3 class="text-lg font-bold mb-6">Recent Custodian Activity</h3>
 <div class="space-y-6 flex-1">
-<div class="relative pl-6 border-l-2 border-primary/20 pb-4">
-<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-emerald-500"></div>
-<p class="text-[10px] font-bold text-slate-500 uppercase">Oct 24, 2023</p>
-<p class="text-sm font-bold mt-1">API Gateway Latency Spike</p>
-<p class="text-xs text-slate-500 mt-1">Resolved: Automated scaling triggered successfully in US-East-1.</p>
-<span class="inline-block mt-2 text-[10px] bg-emerald-500/10 text-emerald-500 font-bold px-2 py-0.5 rounded">RESOLVED</span>
+<div class="relative pl-6 border-l-2 border-primary/20 pb-4" data-live-activity-row>
+<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-primary"></div>
+<p class="text-[10px] font-bold text-slate-500 uppercase" data-live-activity-date>No activity yet</p>
+<p class="text-sm font-bold mt-1" data-live-activity-title>Awaiting live Custodian action</p>
+<p class="text-xs text-slate-500 mt-1" data-live-activity-copy>Local support, governance, and publishing actions will appear here as they happen.</p>
+<span class="inline-block mt-2 text-[10px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded" data-live-activity-tag>LIVE LOCAL</span>
 </div>
-<div class="relative pl-6 border-l-2 border-primary/20 pb-4">
-<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-orange-500"></div>
-<p class="text-[10px] font-bold text-slate-500 uppercase">Oct 21, 2023</p>
-<p class="text-sm font-bold mt-1">Core Database Maintenance</p>
-<p class="text-xs text-slate-500 mt-1">Scheduled index optimization for high-load clusters.</p>
-<span class="inline-block mt-2 text-[10px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded">COMPLETED</span>
+<div class="relative pl-6 border-l-2 border-primary/20 pb-4" data-live-activity-row>
+<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-primary"></div>
+<p class="text-[10px] font-bold text-slate-500 uppercase" data-live-activity-date>No activity yet</p>
+<p class="text-sm font-bold mt-1" data-live-activity-title>Awaiting live Custodian action</p>
+<p class="text-xs text-slate-500 mt-1" data-live-activity-copy>Backend feed not connected; only real local actions will render here.</p>
+<span class="inline-block mt-2 text-[10px] bg-primary/10 text-primary font-bold px-2 py-0.5 rounded" data-live-activity-tag>LIVE LOCAL</span>
 </div>
-<div class="relative pl-6 border-l-2 border-primary/20">
-<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-slate-600"></div>
-<p class="text-[10px] font-bold text-slate-500 uppercase">Oct 15, 2023</p>
-<p class="text-sm font-bold mt-1">DDoS Mitigation Active</p>
-<p class="text-xs text-slate-500 mt-1">Shield Network successfully filtered 4TB/s of malicious traffic.</p>
-<span class="inline-block mt-2 text-[10px] bg-emerald-500/10 text-emerald-500 font-bold px-2 py-0.5 rounded">RESOLVED</span>
+<div class="relative pl-6 border-l-2 border-primary/20" data-live-activity-row>
+<div class="absolute -left-[9px] top-0 size-4 rounded-full bg-background-dark border-2 border-primary"></div>
+<p class="text-[10px] font-bold text-slate-500 uppercase" data-live-activity-date>No activity yet</p>
+<p class="text-sm font-bold mt-1" data-live-activity-title>Awaiting live Custodian action</p>
+<p class="text-xs text-slate-500 mt-1" data-live-activity-copy>Connect a real telemetry backend to replace this placeholder lane.</p>
+<span class="inline-block mt-2 text-[10px] bg-slate-500/10 text-slate-400 font-bold px-2 py-0.5 rounded" data-live-activity-tag>BACKEND PENDING</span>
 </div>
 </div>
 <button class="mt-6 w-full py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold rounded-lg transition-colors">
@@ -278,7 +271,7 @@
 </div>
 <!-- Footer Details -->
 <div class="pt-10 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
-<p>© 2023 AegisAlign System Health Monitoring. All rights reserved.</p>
+<p>AEGIS Custodian live health surface. Truth-first data only.</p>
 <div class="flex gap-6">
 <a class="hover:text-primary transition-colors" href="#">Security Policy</a>
 <a class="hover:text-primary transition-colors" href="#">API Documentation</a>

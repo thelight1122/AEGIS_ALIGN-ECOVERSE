@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AegisAlign Incident Report | AEG-2023-08</title>
+<title>AegisAlign Incident Case | AEG-2023-08</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -65,11 +65,11 @@
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
 <div class="space-y-1">
 <div class="flex items-center gap-3">
-<span class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-red-500/10 text-red-500 border border-red-500/20">Critical</span>
-<span class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-green-500/10 text-green-500 border border-green-500/20">Resolved</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20">Custodian Case</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-slate-500/10 text-slate-400 border border-slate-500/20" data-live-incident-status>Backend Pending</span>
 </div>
-<h1 class="text-3xl lg:text-5xl font-black tracking-tight mt-2">AEG-2023-08: Regional Latency Spike</h1>
-<p class="text-slate-500 dark:text-slate-400 font-medium">Incident ID: 892-QX • US-East-1 Region • Aug 14, 2023</p>
+<h1 class="text-3xl lg:text-5xl font-black tracking-tight mt-2">AEG-2023-08: Governed Incident Case</h1>
+<p class="text-slate-500 dark:text-slate-400 font-medium">Truth-first Custodian case surface. Real evidence feed not connected yet.</p>
 </div>
 <button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all flex items-center gap-2">
 <span class="material-symbols-outlined text-sm">download</span> Export PDF
@@ -77,20 +77,20 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
 <div class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Total Duration</p>
-<p class="text-2xl font-bold">1h 42m</p>
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Case Status</p>
+<p class="text-2xl font-bold" data-live-incident-metric="status">Open</p>
 </div>
 <div class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Time to Detect</p>
-<p class="text-2xl font-bold">4m</p>
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Recent Custodian Actions</p>
+<p class="text-2xl font-bold" data-live-incident-metric="actions">0</p>
 </div>
 <div class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Affected Users</p>
-<p class="text-2xl font-bold">12.4k</p>
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Last Verified Pulse</p>
+<p class="text-2xl font-bold" data-live-incident-metric="pulse">--</p>
 </div>
 <div class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Peak Latency</p>
-<p class="text-2xl font-bold text-red-500">2,450ms</p>
+<p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Evidence Feed</p>
+<p class="text-2xl font-bold text-primary" data-live-incident-metric="feed">Pending</p>
 </div>
 </div>
 </section>
@@ -100,36 +100,19 @@
 <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">description</span> Executive Summary
                                 </h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    On August 14th, between 14:02 and 15:44 UTC, a subset of customers in the US-East-1 region experienced elevated latency and intermittent 5xx errors across our primary API Gateway. The issue was triggered by an automated deployment that caused a resource contention lock within the Global Sync Engine's caching layer.
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed" data-live-incident-summary>
+                                    This case records a governed Custodian review lane. No backend incident evidence is connected yet, so this surface only reflects local Custodian activity, routing, and review state.
                                 </p>
 </section>
 <section class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
 <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">analytics</span> Impact Metrics
+<span class="material-symbols-outlined text-primary">analytics</span> Evidence Feed State
                                 </h3>
-<div class="h-48 w-full bg-slate-200 dark:bg-slate-800/50 rounded-lg flex items-end justify-between p-4 relative overflow-hidden">
-<div class="absolute inset-0 flex flex-col justify-between p-4 opacity-20">
-<div class="border-b border-slate-400 dark:border-slate-600 w-full"></div>
-<div class="border-b border-slate-400 dark:border-slate-600 w-full"></div>
-<div class="border-b border-slate-400 dark:border-slate-600 w-full"></div>
+<div class="h-48 w-full bg-slate-200 dark:bg-slate-800/50 rounded-lg flex items-center justify-center p-8 text-center">
+<div>
+<p class="text-lg font-bold" data-live-incident-feed-title>Awaiting real incident evidence</p>
+<p class="text-sm text-slate-500 mt-2" data-live-incident-feed-copy>Historical impact charts and external incident evidence will appear here once the incident backend is connected.</p>
 </div>
-<!-- Simple CSS Chart Bars -->
-<div class="w-8 bg-primary/40 h-1/4 rounded-t-sm z-10"></div>
-<div class="w-8 bg-primary/40 h-1/3 rounded-t-sm z-10"></div>
-<div class="w-8 bg-primary/60 h-2/3 rounded-t-sm z-10"></div>
-<div class="w-8 bg-red-500 h-[90%] rounded-t-sm z-10"></div>
-<div class="w-8 bg-red-600 h-full rounded-t-sm z-10"></div>
-<div class="w-8 bg-red-500 h-[85%] rounded-t-sm z-10"></div>
-<div class="w-8 bg-primary/60 h-1/2 rounded-t-sm z-10"></div>
-<div class="w-8 bg-primary/40 h-1/4 rounded-t-sm z-10"></div>
-</div>
-<div class="flex justify-between mt-2 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
-<span>14:00</span>
-<span>14:30</span>
-<span>15:00</span>
-<span>15:30</span>
-<span>16:00</span>
 </div>
 </section>
 <section class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
@@ -137,8 +120,8 @@
 <span class="material-symbols-outlined text-primary">psychology</span> Root Cause Analysis (RCA)
                                 </h3>
 <div class="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
-<p>The primary cause was identified as a <strong class="text-slate-900 dark:text-white">deadlock condition</strong> in the synchronization worker pool. Version 4.2.1 introduced a new caching strategy designed to reduce database read pressure.</p>
-<p>However, under high concurrent load, the locking mechanism failed to release resource handles during cache misses, leading to a "spiral of death" where waiting threads consumed all available memory in the application container, triggering CPU throttling.</p>
+<p>This case currently has no verified backend root-cause feed attached. Custodians should treat this surface as a review worksheet until evidence, telemetry, and validated incident records are connected.</p>
+<p>Local actions, governance escalations, and support handoffs can still be recorded honestly without fabricating technical cause or impact values.</p>
 </div>
 </section>
 <section class="p-6 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
@@ -148,15 +131,15 @@
 <ul class="space-y-3">
 <li class="flex gap-3">
 <span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
-<span class="text-slate-600 dark:text-slate-400">Implement stricter circuit breakers for cache-dependent calls.</span>
+<span class="text-slate-600 dark:text-slate-400">Attach verified incident evidence before publishing a final case summary.</span>
 </li>
 <li class="flex gap-3">
 <span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
-<span class="text-slate-600 dark:text-slate-400">Automated canary analysis for all caching layer updates.</span>
+<span class="text-slate-600 dark:text-slate-400">Route unresolved support or governance dependencies into the appropriate Custodian lane.</span>
 </li>
 <li class="flex gap-3">
 <span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
-<span class="text-slate-600 dark:text-slate-400">Increase horizontal scaling limits for the Sync Engine by 200%.</span>
+<span class="text-slate-600 dark:text-slate-400">Replace local placeholders with live telemetry only when a real backend source is available.</span>
 </li>
 </ul>
 </section>
@@ -166,21 +149,21 @@
 <h3 class="text-lg font-bold mb-4">Affected Services</h3>
 <div class="space-y-4">
 <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-<span class="text-sm font-medium">API Gateway</span>
-<span class="flex items-center gap-2 text-xs font-bold text-green-500">
-<span class="size-2 bg-green-500 rounded-full"></span> Operational
+<span class="text-sm font-medium">Custodian Review Lane</span>
+<span class="flex items-center gap-2 text-xs font-bold text-primary">
+<span class="size-2 bg-primary rounded-full"></span> Live Local
                                         </span>
 </div>
 <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-<span class="text-sm font-medium">Global Sync Engine</span>
-<span class="flex items-center gap-2 text-xs font-bold text-green-500">
-<span class="size-2 bg-green-500 rounded-full"></span> Operational
+<span class="text-sm font-medium">Support Handoff</span>
+<span class="flex items-center gap-2 text-xs font-bold text-primary">
+<span class="size-2 bg-primary rounded-full"></span> Available
                                         </span>
 </div>
 <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-<span class="text-sm font-medium">Authentication</span>
+<span class="text-sm font-medium">Evidence Backend</span>
 <span class="flex items-center gap-2 text-xs font-bold text-slate-400">
-<span class="size-2 bg-slate-400 rounded-full"></span> Not Affected
+<span class="size-2 bg-slate-400 rounded-full"></span> Pending
                                         </span>
 </div>
 </div>
@@ -194,8 +177,8 @@
 <span class="material-symbols-outlined text-base">check</span>
 </div>
 <div>
-<p class="text-sm font-bold">Resolved</p>
-<p class="text-xs text-slate-500">15:44 UTC</p>
+<p class="text-sm font-bold" data-live-incident-timeline-title>Awaiting verified case state</p>
+<p class="text-xs text-slate-500" data-live-incident-timeline-time>No backend timestamp</p>
 </div>
 </div>
 </div>
@@ -205,8 +188,8 @@
 <span class="material-symbols-outlined text-base">visibility</span>
 </div>
 <div>
-<p class="text-sm font-bold">Monitoring</p>
-<p class="text-xs text-slate-500">15:10 UTC</p>
+<p class="text-sm font-bold">Local Custodian Review</p>
+<p class="text-xs text-slate-500">Active in this session</p>
 </div>
 </div>
 </div>
@@ -216,8 +199,8 @@
 <span class="material-symbols-outlined text-base">fingerprint</span>
 </div>
 <div>
-<p class="text-sm font-bold">Identified</p>
-<p class="text-xs text-slate-500">14:22 UTC</p>
+<p class="text-sm font-bold">Support / Governance Handoff</p>
+<p class="text-xs text-slate-500">Available when needed</p>
 </div>
 </div>
 </div>
@@ -227,8 +210,8 @@
 <span class="material-symbols-outlined text-base">search</span>
 </div>
 <div>
-<p class="text-sm font-bold">Investigating</p>
-<p class="text-xs text-slate-500">14:06 UTC</p>
+<p class="text-sm font-bold">Evidence Feed Pending</p>
+<p class="text-xs text-slate-500">Connect real backend source</p>
 </div>
 </div>
 </div>
@@ -240,7 +223,7 @@
 </main>
 <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 px-6 lg:px-40 py-6 bg-slate-100 dark:bg-slate-900/50">
 <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-<p class="text-xs text-slate-500 font-medium">© 2023 AegisAlign Cloud Infrastructure. All technical reports are confidential.</p>
+<p class="text-xs text-slate-500 font-medium">AEGIS Custodian incident case surface. Truth-first review only.</p>
 <div class="flex gap-6">
 <a class="text-xs text-slate-500 hover:text-primary transition-colors" href="#">Internal Wiki</a>
 <a class="text-xs text-slate-500 hover:text-primary transition-colors" href="#">On-call Rotation</a>

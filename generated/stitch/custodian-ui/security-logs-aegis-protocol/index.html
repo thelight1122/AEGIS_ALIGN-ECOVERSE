@@ -56,7 +56,7 @@
 </div>
 <div>
 <h1 class="text-lg font-bold leading-none tracking-tight">AegisAlign</h1>
-<p class="text-xs text-slate-500 dark:text-slate-400">AEGIS Protocol Admin</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Custodian log workspace</p>
 </div>
 </div>
 <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
@@ -89,8 +89,8 @@
 <div class="flex items-center gap-3 p-2">
 <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center" data-alt="User avatar placeholder" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwL2LHZ_EuJ0misQhURGXJL1rD7g7mGDYplFz0QT_ZToM14s8QHFAygaH7oDaKG_CSOrArzxKtzlUjGxJMwPCVXmKaz8fJhkR4j7dHXB3MOEWCSfOX7ATJ0rdvUyDp9eiw7iLiysDwqxSvSDkBKowJ6xKjwBRht4hXW27VkEaszv5e_i-s652c_dc6GmZo5-W10jq5-NSxgswRuCCtmjFd6S4VUEHAxUtFdPBFhXU-Elg87zLcPDPbLK3D24je1H-GScAX0fQQRMAY')"></div>
 <div class="flex-1 min-w-0">
-<p class="text-xs font-semibold truncate">Cmdr. Vance</p>
-<p class="text-[10px] text-slate-500 uppercase tracking-wider">Level 5 Access</p>
+<p class="text-xs font-semibold truncate">Peer Custodian Session</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wider">Local archive review</p>
 </div>
 <span class="material-symbols-outlined text-slate-400 text-sm">logout</span>
 </div>
@@ -102,7 +102,7 @@
 <header class="h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm">
 <div class="flex items-center gap-2">
 <h2 class="text-lg font-bold">Security Logs</h2>
-<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded">Real-time</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded">Live Local</span>
 </div>
 <div class="flex items-center gap-4">
 <button class="size-10 rounded-lg bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
@@ -118,30 +118,30 @@
 <!-- Activity at a Glance Widgets -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
 <div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
-<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Critical Alerts (24h)</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Browser Connectivity</p>
 <div class="flex items-end justify-between">
-<h3 class="text-3xl font-bold text-accent-critical">04</h3>
-<span class="text-xs text-red-500 flex items-center bg-red-500/10 px-2 py-1 rounded">+12%</span>
+<h3 class="text-3xl font-bold text-primary" data-live-log-metric="connectivity">Checking</h3>
+<span class="text-xs text-primary flex items-center bg-primary/10 px-2 py-1 rounded" data-live-log-detail="connectivity">Local signal</span>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
-<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Unauthorized Attempts</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Recent Custodian Actions</p>
 <div class="flex items-end justify-between">
-<h3 class="text-3xl font-bold text-accent-high">127</h3>
-<span class="text-xs text-green-500 flex items-center bg-green-500/10 px-2 py-1 rounded">-5%</span>
+<h3 class="text-3xl font-bold text-primary" data-live-log-metric="actions">0</h3>
+<span class="text-xs text-primary flex items-center bg-primary/10 px-2 py-1 rounded" data-live-log-detail="actions">Recorded locally</span>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
-<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Active Shield Nodes</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Archive Feed</p>
 <div class="flex items-end justify-between">
-<h3 class="text-3xl font-bold text-primary">892</h3>
-<span class="text-xs text-slate-400 flex items-center bg-slate-400/10 px-2 py-1 rounded">Stable</span>
+<h3 class="text-3xl font-bold text-primary" data-live-log-metric="archive">Pending</h3>
+<span class="text-xs text-slate-400 flex items-center bg-slate-400/10 px-2 py-1 rounded" data-live-log-detail="archive">Backend required</span>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5">
-<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Last Threat Blocked</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mb-1">Last Verified Pulse</p>
 <div class="flex items-end justify-between">
-<h3 class="text-lg font-bold leading-tight">2m 45s ago</h3>
+<h3 class="text-lg font-bold leading-tight" data-live-log-metric="pulse">--</h3>
 <span class="material-symbols-outlined text-primary">security</span>
 </div>
 </div>
@@ -151,7 +151,7 @@
 <div class="flex flex-col lg:flex-row gap-4 items-center">
 <div class="relative flex-1 w-full">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
-<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Search by Node ID, Event Type, or Hash..." type="text"/>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Search live local log notes..." type="text"/>
 </div>
 <div class="flex flex-wrap gap-2 items-center w-full lg:w-auto">
 <div class="relative">
@@ -176,7 +176,7 @@
 </div>
 <div class="relative">
 <select class="appearance-none bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-4 pr-10 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none cursor-pointer">
-<option>Date: Last 24h</option>
+<option>Date: Current Session</option>
 <option>Last 7 Days</option>
 <option>Last 30 Days</option>
 <option>Custom Range</option>
@@ -204,33 +204,33 @@
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
 <!-- Critical Log -->
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium">2023-10-24 14:22:01</td>
+<td class="px-6 py-4 text-sm font-medium" data-live-log-date>No log yet</td>
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-accent-critical">lock_reset</span>
-<span class="text-sm">Unauthorized Access Attempt</span>
+<span class="material-symbols-outlined text-primary">history</span>
+<span class="text-sm" data-live-log-title>Awaiting local Custodian action</span>
 </div>
 </td>
-<td class="px-6 py-4 font-mono text-xs text-slate-400">NODE-7721-OMEGA</td>
+<td class="px-6 py-4 font-mono text-xs text-slate-400" data-live-log-source>LOCAL-WORKSPACE</td>
 <td class="px-6 py-4 text-center">
-<span class="px-3 py-1 bg-accent-critical/10 text-accent-critical text-[10px] font-bold uppercase rounded-full border border-accent-critical/20">Critical</span>
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-full border border-primary/20" data-live-log-severity>Live Local</span>
 </td>
 <td class="px-6 py-4 text-right">
-<button class="text-primary hover:underline text-xs font-semibold">View Details</button>
+<button class="text-primary hover:underline text-xs font-semibold">Open Case</button>
 </td>
 </tr>
 <!-- High Log -->
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium">2023-10-24 14:18:45</td>
+<td class="px-6 py-4 text-sm font-medium">No backend log</td>
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-accent-high">gpp_maybe</span>
-<span class="text-sm">Shield Breach Warning</span>
+<span class="material-symbols-outlined text-slate-400">history</span>
+<span class="text-sm">Awaiting live local log</span>
 </div>
 </td>
-<td class="px-6 py-4 font-mono text-xs text-slate-400">NODE-1049-DELTA</td>
+<td class="px-6 py-4 font-mono text-xs text-slate-400">BACKEND-PENDING</td>
 <td class="px-6 py-4 text-center">
-<span class="px-3 py-1 bg-accent-high/10 text-accent-high text-[10px] font-bold uppercase rounded-full border border-accent-high/20">High</span>
+<span class="px-3 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-bold uppercase rounded-full border border-slate-400/20">Pending</span>
 </td>
 <td class="px-6 py-4 text-right">
 <button class="text-primary hover:underline text-xs font-semibold">View Details</button>
@@ -238,16 +238,16 @@
 </tr>
 <!-- Medium Log -->
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium">2023-10-24 14:15:12</td>
+<td class="px-6 py-4 text-sm font-medium">No backend log</td>
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-accent-medium">sync_problem</span>
-<span class="text-sm">Node Sync Latency</span>
+<span class="material-symbols-outlined text-slate-400">history</span>
+<span class="text-sm">Awaiting live local log</span>
 </div>
 </td>
-<td class="px-6 py-4 font-mono text-xs text-slate-400">NODE-5502-GAMMA</td>
+<td class="px-6 py-4 font-mono text-xs text-slate-400">BACKEND-PENDING</td>
 <td class="px-6 py-4 text-center">
-<span class="px-3 py-1 bg-accent-medium/10 text-accent-medium text-[10px] font-bold uppercase rounded-full border border-accent-medium/20">Medium</span>
+<span class="px-3 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-bold uppercase rounded-full border border-slate-400/20">Pending</span>
 </td>
 <td class="px-6 py-4 text-right">
 <button class="text-primary hover:underline text-xs font-semibold">View Details</button>
@@ -255,16 +255,16 @@
 </tr>
 <!-- Low Log -->
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium">2023-10-24 14:10:05</td>
+<td class="px-6 py-4 text-sm font-medium">No backend log</td>
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">cloud_upload</span>
-<span class="text-sm">Deployment Success</span>
+<span class="material-symbols-outlined text-slate-400">history</span>
+<span class="text-sm">Awaiting live local log</span>
 </div>
 </td>
-<td class="px-6 py-4 font-mono text-xs text-slate-400">CORE-ADMIN-01</td>
+<td class="px-6 py-4 font-mono text-xs text-slate-400">BACKEND-PENDING</td>
 <td class="px-6 py-4 text-center">
-<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-full border border-primary/20">Low</span>
+<span class="px-3 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-bold uppercase rounded-full border border-slate-400/20">Pending</span>
 </td>
 <td class="px-6 py-4 text-right">
 <button class="text-primary hover:underline text-xs font-semibold">View Details</button>
@@ -272,32 +272,32 @@
 </tr>
 <!-- Repeat Low Log for density -->
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium">2023-10-24 14:08:22</td>
+<td class="px-6 py-4 text-sm font-medium">No backend log</td>
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">shield</span>
-<span class="text-sm">Shield Activation Routine</span>
+<span class="material-symbols-outlined text-slate-400">history</span>
+<span class="text-sm">Awaiting live local log</span>
 </div>
 </td>
-<td class="px-6 py-4 font-mono text-xs text-slate-400">NODE-3921-SIGMA</td>
+<td class="px-6 py-4 font-mono text-xs text-slate-400">BACKEND-PENDING</td>
 <td class="px-6 py-4 text-center">
-<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-full border border-primary/20">Low</span>
+<span class="px-3 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-bold uppercase rounded-full border border-slate-400/20">Pending</span>
 </td>
 <td class="px-6 py-4 text-right">
 <button class="text-primary hover:underline text-xs font-semibold">View Details</button>
 </td>
 </tr>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium">2023-10-24 14:05:59</td>
+<td class="px-6 py-4 text-sm font-medium">No backend log</td>
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-slate-400">vpn_key</span>
-<span class="text-sm">Successful Admin Login</span>
+<span class="material-symbols-outlined text-slate-400">history</span>
+<span class="text-sm">Awaiting live local log</span>
 </div>
 </td>
-<td class="px-6 py-4 font-mono text-xs text-slate-400">ADMIN-VANCE-CONSOLE</td>
+<td class="px-6 py-4 font-mono text-xs text-slate-400">BACKEND-PENDING</td>
 <td class="px-6 py-4 text-center">
-<span class="px-3 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-bold uppercase rounded-full border border-slate-400/20">Info</span>
+<span class="px-3 py-1 bg-slate-400/10 text-slate-400 text-[10px] font-bold uppercase rounded-full border border-slate-400/20">Pending</span>
 </td>
 <td class="px-6 py-4 text-right">
 <button class="text-primary hover:underline text-xs font-semibold">View Details</button>
@@ -307,7 +307,7 @@
 </table>
 <!-- Pagination Footer -->
 <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/30 flex items-center justify-between border-t border-slate-200 dark:border-slate-800">
-<p class="text-xs text-slate-500">Showing 1 to 6 of 1,284 entries</p>
+<p class="text-xs text-slate-500">Showing live local entries only. Backend archive feed is not connected.</p>
 <div class="flex gap-2">
 <button class="px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50" disabled="">Previous</button>
 <button class="px-3 py-1.5 bg-primary text-white rounded text-xs font-semibold">1</button>

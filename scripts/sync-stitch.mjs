@@ -26,6 +26,10 @@ const domains = [
   { source: "Agent_Workshop", slug: "agent-workshop", label: "Agentic Workshop" },
 ];
 
+const excludedSourceSlugsByDomain = {
+  "custodian-ui": new Set(["custodian-cockpit-hud-2", "aegis-protocol-dashboard"]),
+};
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -653,6 +657,10 @@ function shellScriptsTemplate(options = {}) {
     scripts.push("/src/application-lab-activation.js");
   }
 
+  if (domainSlug === "agent-workshop") {
+    scripts.push("/src/agent-workshop-activation.js");
+  }
+
   if (immersive) {
     scripts.push("/src/nexus-drift-mode.js");
   }
@@ -880,9 +888,11 @@ function voiceByDomain(domainSlug) {
 
 function groupPagesForSidebar(domain, domainPages, navigationHierarchy) {
   const domainConfig = (navigationHierarchy || []).find((d) => d.domain === domain.slug);
-  const sidebarHiddenSlugs = new Set([
-    "custodian-cockpit-hud-2",
-  ]);
+  const sidebarHiddenSlugs = new Set(
+    domain.slug === "custodian-ui"
+      ? ["custodian-cockpit-hud-2", "aegis-protocol-dashboard", "api-reference-aegis-protocol"]
+      : []
+  );
   const visibleDomainPages = domainPages.filter((page) => !sidebarHiddenSlugs.has(page.slug));
 
   if (!domainConfig) {
@@ -1192,7 +1202,7 @@ function primaryLandingSlug(domainSlug) {
   const byDomain = {
     "nexus": "aegisalign-landing-page",
     "developer-depot": "developer-hub-depot",
-    "custodian-ui": "aegis-protocol-dashboard",
+    "custodian-ui": "custodian-hub-operations-gallery",
     "aegis-application-lab": "aegis-implementation-apps",
     "agent-workshop": "agentic-workshop-entrance",
   };
@@ -1679,6 +1689,9 @@ for (const domain of domains) {
     const relSegments = relDir.split(path.sep).filter(Boolean);
     const sourceSlug = slugify(relSegments.join("-"));
     if (!sourceSlug) {
+      continue;
+    }
+    if (excludedSourceSlugsByDomain[domain.slug]?.has(sourceSlug)) {
       continue;
     }
 

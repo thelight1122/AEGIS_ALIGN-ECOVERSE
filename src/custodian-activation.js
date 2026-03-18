@@ -14,6 +14,7 @@ const DEFAULT_STATE = {
   governanceFilter: "all",
   reviewDecision: "",
   submissionClaimed: false,
+  publishingFilter: "all",
   pageDraft: {
     title: "",
     slug: "",
@@ -29,6 +30,9 @@ const DEFAULT_STATE = {
     mitigationMinutes: 12,
     shieldStrength: 98.2,
   },
+  ticketStatus: "in-review",
+  ticketLane: "messages",
+  lastTicketAction: "",
   recentActions: [],
 };
 
@@ -237,13 +241,7 @@ function inferPageSlug() {
 
 function refreshQueueState() {
   const current = readState();
-  const next = {
-    activeThreats: Math.max(0, current.queueCounts.activeThreats + (Math.random() > 0.58 ? -1 : 1)),
-    mitigationMinutes: Math.max(4, current.queueCounts.mitigationMinutes + (Math.random() > 0.5 ? -1 : 1)),
-    shieldStrength: Math.min(99.99, Math.max(94.5, Number((current.queueCounts.shieldStrength + (Math.random() > 0.5 ? 0.2 : -0.15)).toFixed(2)))),
-  };
-  patchState({ queueCounts: next });
-  return next;
+  return current.queueCounts;
 }
 
 function enhanceStatusSurface(doc) {
@@ -267,15 +265,12 @@ function enhanceStatusSurface(doc) {
 
   const render = () => {
     const state = readState();
-    const stability = Math.max(99.95, Number((99.99 - state.queueCounts.activeThreats * 0.0001).toFixed(3)));
-    const coverage = `24 / 24`;
-    const posture = state.queueCounts.activeThreats > 40
-      ? "Guarded"
-      : state.queueCounts.activeThreats > 25
-        ? "Nominal"
-        : "Hardened";
+    const lastAction = state.recentActions[0];
+    const connectivity = navigator.onLine ? "Connected" : "Offline";
+    const coverage = `${state.recentActions.length} recent actions`;
+    const posture = lastAction ? "Active Review" : "Awaiting Live Feed";
 
-    missionTile?.querySelector(".status-number")?.replaceChildren(doc.createTextNode(`${stability}%`));
+    missionTile?.querySelector(".status-number")?.replaceChildren(doc.createTextNode(connectivity));
     coverageTile?.querySelector(".status-number")?.replaceChildren(doc.createTextNode(coverage));
     postureTile?.querySelector(".status-number")?.replaceChildren(doc.createTextNode(posture));
 
@@ -291,12 +286,13 @@ function enhanceStatusSurface(doc) {
       });
     }
 
-    pulse.textContent = `Public status pulse refreshed at ${new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}. Active threats: ${state.queueCounts.activeThreats}. Shield integrity: ${state.queueCounts.shieldStrength.toFixed(2)}%.`;
+    pulse.textContent = lastAction
+      ? `Public status pulse refreshed at ${new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}. Latest live Custodian action: ${lastAction.action.replace(/-/g, " ")} at ${new Date(lastAction.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}.`
+      : `Public status pulse refreshed at ${new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}. No backend telemetry is connected yet, so only live local Custodian state is shown.`;
   };
 
   render();
   window.setInterval(() => {
-    refreshQueueState();
     render();
   }, 6000);
 }
@@ -386,6 +382,10 @@ function enhanceRecruitmentHub(doc) {
   injectStyles(doc);
 
   const launchApp = findButton(doc, "Launch App");
+  const protocol = findButton(doc, "Protocol");
+  const governance = findButton(doc, "Governance");
+  const custodians = findButton(doc, "Custodians");
+  const ecosystem = findButton(doc, "Ecosystem");
   const custodianLogin = findButton(doc, "Custodian Login");
   const applyToJoin = findButton(doc, "Apply to Join");
   const createNewPage = findButton(doc, "Create New Page");
@@ -405,6 +405,10 @@ function enhanceRecruitmentHub(doc) {
   const firstActionArea = applyToJoin?.closest("div");
 
   bindManagedClick(launchApp, () => navigateTo("/custodian-ui/secure/"));
+  bindManagedClick(protocol, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(governance, () => navigateTo("/custodian-ui/decentralized-governance-voting/"));
+  bindManagedClick(custodians, () => navigateTo("/custodian-ui/site-custodians/"));
+  bindManagedClick(ecosystem, () => navigateTo("/aegis-application-lab/"));
   bindManagedClick(custodianLogin, () => navigateTo("/custodian-ui/custodian-login-portal/"));
   bindManagedClick(applyToJoin, () => {
     patchState({ recruitmentIntent: "applicant" });
@@ -440,7 +444,6 @@ function enhanceSubmissionReview(doc) {
   doc.body.dataset.aegisEnhancedSubmissionReview = "true";
   injectStyles(doc);
 
-  const state = readState();
   const backToQueue = findButton(doc, "Back to Queue");
   const claimSubmission = findButton(doc, "Claim Submission");
   const overview = findButton(doc, "Overview");
@@ -470,6 +473,17 @@ function enhanceSubmissionReview(doc) {
     return text.includes("security scan") || text.includes("code review") || text.includes("metadata") || text.includes("submission overview") || text.includes("reviewer comments");
   });
   const mainPanel = approve?.closest("div");
+  const liveReviewCount = doc.querySelector("[data-live-review-count]");
+
+  const render = () => {
+    const state = readState();
+    if (liveReviewCount) {
+      liveReviewCount.textContent = String(Math.max(1, state.recentActions.length));
+    }
+    if (state.reviewDecision && mainPanel) {
+      setMessage(mainPanel, `Previous local review state: ${state.reviewDecision}.`, "info");
+    }
+  };
 
   const showSection = (mode) => {
     highlightSelection(tabButtons, ({
@@ -545,9 +559,7 @@ function enhanceSubmissionReview(doc) {
   bindManagedClick(requestChanges, () => completeDecision("request-changes", "info", "/custodian-ui/site-custodian-hub-gallery-update/"));
   bindManagedClick(rejectBlock, () => completeDecision("rejected-and-blocked", "error", "/custodian-ui/security-incident-assessor-center/"));
 
-  if (state.reviewDecision && mainPanel) {
-    setMessage(mainPanel, `Previous local review state: ${state.reviewDecision}.`, "info");
-  }
+  render();
   showSection("overview");
 }
 
@@ -737,6 +749,129 @@ function enhanceCreatePageTool(doc) {
   highlightSelection([writeMode, previewMode], writeMode);
 }
 
+function enhancePublishingSurface(doc) {
+  if (doc.body.dataset.aegisEnhancedPublishingSurface === "true") return;
+  doc.body.dataset.aegisEnhancedPublishingSurface = "true";
+  injectStyles(doc);
+
+  const launchApp = findButton(doc, "Launch App");
+  const protocol = findButton(doc, "Protocol");
+  const governance = findButton(doc, "Governance");
+  const custodians = findButton(doc, "Custodians");
+  const ecosystem = findButton(doc, "Ecosystem");
+  const openPublishingQueue = findButton(doc, "Open Publishing Queue");
+  const stageReleaseReview = findButton(doc, "Stage Release Review");
+  const allPackages = findButton(doc, "All Packages");
+  const needsReview = findButton(doc, "Needs Review");
+  const validated = Array.from(doc.querySelectorAll("button, a")).find((node) => normalizeText(node.textContent) === "validated");
+  const readyToSync = findButton(doc, "Ready to Sync");
+  const reviewPackage = findButton(doc, "Review Package");
+  const previewRelease = findButton(doc, "Preview Release");
+  const routeToGovernance = findButton(doc, "Route to Governance");
+  const openInEditor = findButton(doc, "Open In Editor");
+  const syncToMesh = findButton(doc, "Sync to Mesh");
+  const openIntegrityNotes = findButton(doc, "Open Integrity Notes");
+  const sendBackToDraft = findButton(doc, "Send Back To Draft");
+  const runValidationSweep = findButton(doc, "Run Validation Sweep");
+  const openDraftEditor = Array.from(doc.querySelectorAll("button, a")).find((node) => normalizeText(node.textContent) === "open draft editor");
+  const reviewPending = findButton(doc, "Review pending submissions");
+  const openPublishingGuide = findButton(doc, "Open publishing guide");
+  const syncDynamicUpdates = findButton(doc, "Sync dynamic updates");
+  const filterButtons = [allPackages, needsReview, validated, readyToSync].filter(Boolean);
+  const queueCards = Array.from(doc.querySelectorAll("article"));
+  const heroPanel = openPublishingQueue?.closest("section");
+  const validationPanel = runValidationSweep?.closest("section");
+  const publishingSync = doc.querySelector("[data-live-publishing-sync]");
+  const publishingSyncCopy = doc.querySelector("[data-live-publishing-sync-copy]");
+
+  const render = () => {
+    const state = readState();
+    if (publishingSync) publishingSync.textContent = navigator.onLine ? "Local" : "Offline";
+    if (publishingSyncCopy) {
+      publishingSyncCopy.textContent = state.recentActions.length
+        ? `${state.recentActions.length} local Custodian action${state.recentActions.length === 1 ? "" : "s"} recorded. Backend publishing telemetry is still pending.`
+        : "Backend publishing telemetry is not connected. Showing local Custodian state only.";
+    }
+  };
+
+  const applyFilter = (filter) => {
+    patchState({ publishingFilter: filter });
+    highlightSelection(filterButtons, ({
+      all: allPackages,
+      "needs-review": needsReview,
+      validated,
+      "ready-to-sync": readyToSync,
+    })[filter] || allPackages);
+
+    queueCards.forEach((card) => {
+      const text = normalizeText(card.textContent);
+      const visible = filter === "all"
+        || (filter === "needs-review" && text.includes("needs review"))
+        || (filter === "validated" && text.includes("validated"))
+        || (filter === "ready-to-sync" && (text.includes("validated") || text.includes("mesh")));
+      card.classList.toggle("aegis-hidden-row", !visible);
+    });
+  };
+
+  bindManagedClick(launchApp, () => navigateTo("/custodian-ui/secure/"));
+  bindManagedClick(protocol, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(governance, () => navigateTo("/custodian-ui/decentralized-governance-voting/"));
+  bindManagedClick(custodians, () => navigateTo("/custodian-ui/site-custodians/"));
+  bindManagedClick(ecosystem, () => navigateTo("/aegis-application-lab/"));
+
+  bindManagedClick(openPublishingQueue, () => {
+    pushAction("open-publishing-queue");
+    if (heroPanel) setMessage(heroPanel, "Publishing queue aligned. Review-ready packages are highlighted for the next Custodian pass.", "success");
+    applyFilter("needs-review");
+    showToast(doc, "Publishing queue focused on review-ready packages.");
+  });
+  bindManagedClick(stageReleaseReview, () => {
+    pushAction("stage-release-review");
+    if (heroPanel) setMessage(heroPanel, "Release review staged. Governance-sensitive updates can now be routed into proposal review.", "success");
+    showToast(doc, "Release review staged for Peer Custodian handling.");
+  });
+
+  bindManagedClick(allPackages, () => applyFilter("all"));
+  bindManagedClick(needsReview, () => applyFilter("needs-review"));
+  bindManagedClick(validated, () => applyFilter("validated"));
+  bindManagedClick(readyToSync, () => applyFilter("ready-to-sync"));
+
+  bindManagedClick(reviewPackage, () => navigateTo("/custodian-ui/submission-review-interface/"));
+  bindManagedClick(previewRelease, () => navigateTo("/custodian-ui/create-new-page-custodian-tool/"));
+  bindManagedClick(routeToGovernance, () => {
+    pushAction("route-publishing-governance");
+    showToast(doc, "Publishing package routed into governance review.");
+    navigateTo("/custodian-ui/decentralized-governance-voting/");
+  });
+  bindManagedClick(openInEditor, () => navigateTo("/custodian-ui/create-new-page-custodian-tool/"));
+  bindManagedClick(syncToMesh, () => {
+    pushAction("sync-publishing-mesh");
+    showToast(doc, "Validated package queued for governed mesh sync.");
+  });
+  bindManagedClick(openIntegrityNotes, () => navigateTo("/custodian-ui/security-incident-assessor-center/"));
+  bindManagedClick(sendBackToDraft, () => {
+    pushAction("send-back-to-draft");
+    showToast(doc, "Package sent back into the draft lane.");
+    navigateTo("/custodian-ui/create-new-page-custodian-tool/");
+  });
+
+  bindManagedClick(runValidationSweep, () => {
+    pushAction("run-validation-sweep");
+    if (validationPanel) setMessage(validationPanel, "Validation sweep complete. Governance alignment passed, publishing diff review remains under watch.", "success");
+    showToast(doc, "Validation sweep completed for staged publishing packages.");
+  });
+  bindManagedClick(openDraftEditor, () => navigateTo("/custodian-ui/create-new-page-custodian-tool/"));
+  bindManagedClick(reviewPending, () => navigateTo("/custodian-ui/submission-review-interface/"));
+  bindManagedClick(openPublishingGuide, () => navigateTo("/nexus/aegis-governance-hub/"));
+  bindManagedClick(syncDynamicUpdates, () => {
+    pushAction("sync-dynamic-updates");
+    showToast(doc, "Dynamic update sync queued across Custodian publishing surfaces.");
+  });
+
+  render();
+  applyFilter(readState().publishingFilter || "all");
+}
+
 function enhanceRegionalDrilldown(doc) {
   if (doc.body.dataset.aegisEnhancedRegionalDrilldown === "true") return;
   doc.body.dataset.aegisEnhancedRegionalDrilldown = "true";
@@ -752,8 +887,20 @@ function enhanceRegionalDrilldown(doc) {
   const search = findField(doc, (node) => normalizeText(node.placeholder).includes("search nodes or logs"));
   const regionLog = findButton(doc, "View Full Region Log");
   const nodeCards = Array.from(doc.querySelectorAll("h4")).map((heading) => heading.closest("div")).filter(Boolean);
-  const incidentItems = Array.from(doc.querySelectorAll("p")).filter((node) => normalizeText(node.textContent).includes("auto-scaling group triggered") || normalizeText(node.textContent).includes("potential ddos mitigation"));
-  const metricCards = Array.from(doc.querySelectorAll("p")).filter((node) => normalizeText(node.textContent).includes("regional health") || normalizeText(node.textContent).includes("uptime") || normalizeText(node.textContent).includes("avg latency"));
+  const incidentItems = Array.from(doc.querySelectorAll("[data-live-region-activity-row]"));
+  const metricCards = Array.from(doc.querySelectorAll("[data-live-region-metric]")).map((node) => node.closest("div")).filter(Boolean);
+  const connectivityMetric = doc.querySelector("[data-live-region-metric='connectivity']");
+  const connectivityDetail = doc.querySelector("[data-live-region-detail='connectivity']");
+  const actionsMetric = doc.querySelector("[data-live-region-metric='actions']");
+  const actionsDetail = doc.querySelector("[data-live-region-detail='actions']");
+  const pulseMetric = doc.querySelector("[data-live-region-metric='pulse']");
+  const pulseDetail = doc.querySelector("[data-live-region-detail='pulse']");
+  const nodeTracked = doc.querySelector("[data-live-region-node-count='tracked']");
+  const nodeFocused = doc.querySelector("[data-live-region-node-count='focused']");
+  const feedState = doc.querySelector("[data-live-region-feed-state]");
+  const lastAction = doc.querySelector("[data-live-region-last-action]");
+  const badge = doc.querySelector("[data-live-region-badge]");
+  const nodeLoads = Array.from(doc.querySelectorAll("[data-live-node-load]"));
 
   bindManagedClick(dashboard, () => navigateTo("/custodian-ui/custodian-hub-operations-gallery/"));
   bindManagedClick(regions, () => navigateTo("/custodian-ui/regional-drill-down-us-east-1/"));
@@ -762,12 +909,8 @@ function enhanceRegionalDrilldown(doc) {
   bindManagedClick(settings, () => navigateTo("/custodian-ui/site-custodians/"));
   bindManagedClick(notifications, () => showToast(doc, "Regional watch alerts acknowledged for US-EAST-1."));
   bindManagedClick(refresh, () => {
-    const next = refreshQueueState();
-    const numbers = Array.from(doc.querySelectorAll("h3"));
-    if (numbers[0]) numbers[0].textContent = next.activeThreats > 40 ? "Guarded" : "Operational";
-    if (numbers[1]) numbers[1].textContent = "99.99%";
-    if (numbers[2]) numbers[2].textContent = `${Math.max(12, next.mitigationMinutes * 2)}ms`;
-    showToast(doc, "Regional telemetry refreshed from the live Custodian state.");
+    renderRegionalTruth();
+    showToast(doc, "Regional review refreshed from live local Custodian state.");
   });
   bindManagedClick(regionLog, () => navigateTo("/custodian-ui/system-health-report-aegis-protocol/"));
 
@@ -776,10 +919,7 @@ function enhanceRegionalDrilldown(doc) {
     nodeCards.forEach((card) => {
       card.classList.toggle("aegis-hidden-row", query && !normalizeText(card.textContent).includes(query));
     });
-    incidentItems.forEach((item) => {
-      const block = item.closest("div");
-      block?.classList.toggle("aegis-hidden-row", query && !normalizeText(block.textContent).includes(query));
-    });
+    incidentItems.forEach((item) => item.classList.toggle("aegis-hidden-row", query && !normalizeText(item.textContent).includes(query)));
   });
 
   nodeCards.forEach((card) => bindManagedClick(card, () => {
@@ -787,11 +927,226 @@ function enhanceRegionalDrilldown(doc) {
     card.classList.add("aegis-highlight-ring");
     showToast(doc, `${card.querySelector("h4")?.textContent || "Node"} selected for focused regional review.`);
   }));
-  incidentItems.forEach((item) => bindManagedClick(item.closest("div"), () => navigateTo("/custodian-ui/security-incident-assessor-center/")));
+  incidentItems.forEach((item) => bindManagedClick(item, () => navigateTo("/custodian-ui/security-incident-assessor-center/")));
   metricCards.forEach((label) => bindManagedClick(label.closest("div"), () => {
-    const next = refreshQueueState();
-    showToast(doc, `Regional metric pulse refreshed. Shield integrity now ${next.shieldStrength.toFixed(2)}%.`);
+    renderRegionalTruth();
+    showToast(doc, "Regional metric pulse refreshed from local state.");
   }));
+
+  const renderRegionalTruth = () => {
+    const state = readState();
+    const online = navigator.onLine;
+    const latest = state.recentActions[0] || null;
+
+    if (badge) badge.textContent = online ? "Live Local" : "Offline";
+    if (connectivityMetric) connectivityMetric.textContent = online ? "Online" : "Offline";
+    if (connectivityDetail) connectivityDetail.textContent = online ? "Browser connected" : "Reconnect required";
+    if (actionsMetric) actionsMetric.textContent = String(state.recentActions.length);
+    if (actionsDetail) actionsDetail.textContent = latest ? "Derived from local Custodian actions" : "No actions recorded yet";
+    if (pulseMetric) pulseMetric.textContent = latest
+      ? new Date(latest.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : "--";
+    if (pulseDetail) pulseDetail.textContent = latest ? latest.action.replace(/-/g, " ") : "Current session";
+    if (nodeTracked) nodeTracked.textContent = String(nodeCards.length);
+    if (nodeFocused) nodeFocused.textContent = String(nodeCards.filter((card) => card.classList.contains("aegis-highlight-ring")).length);
+    if (feedState) feedState.textContent = "Pending backend connection";
+    if (lastAction) lastAction.textContent = latest ? latest.action.replace(/-/g, " ") : "None recorded";
+
+    nodeLoads.forEach((node, index) => {
+      const entry = state.recentActions[index];
+      node.textContent = entry ? `Linked to ${entry.action.replace(/-/g, " ")}` : index === 3 ? "No local activity" : "Awaiting local review";
+    });
+
+    incidentItems.forEach((row, index) => {
+      const entry = state.recentActions[index];
+      if (!entry) return;
+      const date = row.querySelector("[data-live-region-activity-date]");
+      const title = row.querySelector("[data-live-region-activity-title]");
+      const copy = row.querySelector("[data-live-region-activity-copy]");
+      if (date) date.textContent = new Date(entry.at).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+      if (title) title.textContent = entry.action.replace(/-/g, " ");
+      if (copy) copy.textContent = "Recorded from live local Custodian state in this browser session.";
+    });
+  };
+
+  renderRegionalTruth();
+  window.setInterval(renderRegionalTruth, 15000);
+}
+
+function enhanceSecurityLogs(doc) {
+  if (doc.body.dataset.aegisEnhancedSecurityLogs === "true") return;
+  doc.body.dataset.aegisEnhancedSecurityLogs = "true";
+  injectStyles(doc);
+
+  const overview = findButton(doc, "Overview");
+  const shields = findButton(doc, "Shields");
+  const network = findButton(doc, "Network");
+  const deployments = findButton(doc, "Deployments");
+  const logs = findButton(doc, "Security Logs");
+  const settings = findButton(doc, "Settings");
+  const search = findField(doc, (node) => normalizeText(node.placeholder).includes("search live local log notes"));
+  const apply = findButton(doc, "Apply");
+  const viewDetails = Array.from(doc.querySelectorAll("button")).filter((node) => normalizeText(node.textContent).includes("open case") || normalizeText(node.textContent).includes("view details"));
+  const connectivityMetric = doc.querySelector("[data-live-log-metric='connectivity']");
+  const connectivityDetail = doc.querySelector("[data-live-log-detail='connectivity']");
+  const actionsMetric = doc.querySelector("[data-live-log-metric='actions']");
+  const actionsDetail = doc.querySelector("[data-live-log-detail='actions']");
+  const archiveMetric = doc.querySelector("[data-live-log-metric='archive']");
+  const archiveDetail = doc.querySelector("[data-live-log-detail='archive']");
+  const pulseMetric = doc.querySelector("[data-live-log-metric='pulse']");
+  const rows = Array.from(doc.querySelectorAll("tbody tr"));
+
+  bindManagedClick(overview, () => navigateTo("/custodian-ui/custodian-hub-operations-gallery/"));
+  bindManagedClick(shields, () => navigateTo("/custodian-ui/system-health-report-aegis-protocol/"));
+  bindManagedClick(network, () => navigateTo("/custodian-ui/regional-drill-down-us-east-1/"));
+  bindManagedClick(deployments, () => navigateTo("/custodian-ui/site-custodian-hub-gallery-update/"));
+  bindManagedClick(logs, () => navigateTo("/custodian-ui/security-logs-aegis-protocol/"));
+  bindManagedClick(settings, () => navigateTo("/custodian-ui/site-custodians/"));
+  bindManagedClick(apply, () => {
+    renderSecurityLogsTruth();
+    showToast(doc, "Security log view refreshed from current local state.");
+  });
+
+  search?.addEventListener("input", () => {
+    const query = normalizeText(search.value);
+    rows.forEach((row) => row.classList.toggle("aegis-hidden-row", query && !normalizeText(row.textContent).includes(query)));
+  });
+
+  viewDetails.forEach((button) => bindManagedClick(button, () => navigateTo("/custodian-ui/ticket-details-aeg-4092/")));
+
+  const renderSecurityLogsTruth = () => {
+    const state = readState();
+    const online = navigator.onLine;
+    const latest = state.recentActions[0] || null;
+
+    if (connectivityMetric) connectivityMetric.textContent = online ? "Online" : "Offline";
+    if (connectivityDetail) connectivityDetail.textContent = online ? "Browser signal live" : "Reconnect required";
+    if (actionsMetric) actionsMetric.textContent = String(state.recentActions.length);
+    if (actionsDetail) actionsDetail.textContent = latest ? "Local actions indexed" : "No local actions indexed";
+    if (archiveMetric) archiveMetric.textContent = "Pending";
+    if (archiveDetail) archiveDetail.textContent = "Backend archive feed required";
+    if (pulseMetric) pulseMetric.textContent = latest
+      ? new Date(latest.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : "--";
+
+    rows.forEach((row, index) => {
+      const entry = state.recentActions[index];
+      if (!entry) {
+        row.classList.toggle("aegis-hidden-row", index > 0);
+        return;
+      }
+      row.classList.remove("aegis-hidden-row");
+      const cells = row.querySelectorAll("td");
+      if (cells[0]) cells[0].textContent = new Date(entry.at).toLocaleString("en-US", { month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit" });
+      const title = row.querySelector("[data-live-log-title]");
+      if (title) title.textContent = entry.action.replace(/-/g, " ");
+      if (cells[2]) cells[2].textContent = "LOCAL-WORKSPACE";
+      const severity = row.querySelector("[data-live-log-severity]");
+      if (severity) severity.textContent = "Recorded";
+    });
+  };
+
+  renderSecurityLogsTruth();
+  window.setInterval(renderSecurityLogsTruth, 15000);
+}
+
+function enhanceIncidentReport(doc) {
+  if (doc.body.dataset.aegisEnhancedIncidentReport === "true") return;
+  doc.body.dataset.aegisEnhancedIncidentReport = "true";
+  injectStyles(doc);
+
+  const notifications = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("notifications"));
+  const share = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("share"));
+  const exportPdf = findButton(doc, "Export PDF");
+  const status = doc.querySelector("[data-live-incident-status]");
+  const metricStatus = doc.querySelector("[data-live-incident-metric='status']");
+  const metricActions = doc.querySelector("[data-live-incident-metric='actions']");
+  const metricPulse = doc.querySelector("[data-live-incident-metric='pulse']");
+  const metricFeed = doc.querySelector("[data-live-incident-metric='feed']");
+  const summary = doc.querySelector("[data-live-incident-summary]");
+  const timelineTitle = doc.querySelector("[data-live-incident-timeline-title]");
+  const timelineTime = doc.querySelector("[data-live-incident-timeline-time]");
+
+  bindManagedClick(notifications, () => showToast(doc, "Incident case watch notifications acknowledged."));
+  bindManagedClick(share, () => navigateTo("/custodian-ui/decentralized-governance-voting/"));
+  bindManagedClick(exportPdf, () => showToast(doc, "Export is disabled until a verified backend case feed is attached."));
+
+  const renderIncidentTruth = () => {
+    const state = readState();
+    const latest = state.recentActions[0] || null;
+    if (status) status.textContent = latest ? "Live Local" : "Backend Pending";
+    if (metricStatus) metricStatus.textContent = state.lastTicketAction ? "In Review" : "Open";
+    if (metricActions) metricActions.textContent = String(state.recentActions.length);
+    if (metricPulse) metricPulse.textContent = latest
+      ? new Date(latest.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : "--";
+    if (metricFeed) metricFeed.textContent = "Pending";
+    if (summary) summary.textContent = latest
+      ? `Latest local Custodian action recorded: ${latest.action.replace(/-/g, " ")}. This case remains truth-first until a real evidence backend is connected.`
+      : "This case records a governed Custodian review lane. No backend incident evidence is connected yet, so this surface only reflects local Custodian activity, routing, and review state.";
+    if (timelineTitle) timelineTitle.textContent = latest ? latest.action.replace(/-/g, " ") : "Awaiting verified case state";
+    if (timelineTime) timelineTime.textContent = latest
+      ? new Date(latest.at).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
+      : "No backend timestamp";
+  };
+
+  renderIncidentTruth();
+  window.setInterval(renderIncidentTruth, 15000);
+}
+
+function enhanceOperationsCockpit(doc) {
+  if (doc.body.dataset.aegisEnhancedOperationsCockpit === "true") return;
+  doc.body.dataset.aegisEnhancedOperationsCockpit = "true";
+  injectStyles(doc);
+
+  const buttons = Array.from(doc.querySelectorAll("button"));
+  const terminal = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("terminal"));
+  const notifications = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("notifications"));
+  const warning = Array.from(doc.querySelectorAll("button")).find((node) => normalizeText(node.textContent).includes("warning"));
+  const emergencyStop = findButton(doc, "Emergency Stop");
+  const override = findButton(doc, "Protocol Override");
+  const syncLines = Array.from(doc.querySelectorAll("div.text-accent-cyan\\/80, div.text-slate-400, div.text-accent-amber, div.text-primary")).filter((node) => node.textContent.includes(">"));
+  const metrics = Array.from(doc.querySelectorAll("p.text-3xl"));
+  const ringValues = Array.from(doc.querySelectorAll("span.text-xs.font-bold.font-mono.text-white"));
+  const nodeStats = Array.from(doc.querySelectorAll("div")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("active nodes") || text.includes("geo replication") || text.includes("uptime");
+  }).map((node) => Array.from(node.querySelectorAll("span")).at(-1)).filter(Boolean);
+
+  bindManagedClick(terminal, () => navigateTo("/developer-depot/developer-console-aegis-protocol/"));
+  bindManagedClick(notifications, () => showToast(doc, "Operations cockpit alerts acknowledged."));
+  bindManagedClick(warning, () => navigateTo("/custodian-ui/security-incident-assessor-center/"));
+  bindManagedClick(emergencyStop, () => {
+    pushAction("operations-emergency-stop");
+    showToast(doc, "Emergency stop recorded locally. No backend control plane is connected.");
+  });
+  bindManagedClick(override, () => navigateTo("/custodian-ui/secure/"));
+  buttons.forEach((button) => {
+    const text = normalizeText(button.textContent);
+    if (text.includes("emergency stop") || text.includes("protocol override")) return;
+    if (text.includes("terminal") || text.includes("notifications") || text.includes("warning")) return;
+    bindManagedClick(button, () => showToast(doc, "This cockpit action is currently limited to live local state."));
+  });
+
+  const renderCockpitTruth = () => {
+    const state = readState();
+    const latest = state.recentActions[0] || null;
+    if (syncLines[0]) syncLines[0].textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] > LIVE LOCAL CUSTODIAN STATE ACTIVE`;
+    if (syncLines[1]) syncLines[1].textContent = latest ? `[${new Date(latest.at).toLocaleTimeString("en-US", { hour12: false })}] > LAST ACTION: ${latest.action.replace(/-/g, " ").toUpperCase()}` : "[--:--:--] > NO LOCAL ACTIONS RECORDED";
+    if (syncLines[2]) syncLines[2].textContent = navigator.onLine ? `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] > BROWSER CONNECTIVITY VERIFIED` : "[offline] > BROWSER CONNECTIVITY LOST";
+    if (metrics[0]) metrics[0].textContent = navigator.onLine ? "LIVE" : "OFFLINE";
+    if (metrics[1]) metrics[1].textContent = String(state.recentActions.length);
+    if (metrics[2]) metrics[2].textContent = latest ? new Date(latest.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : "--";
+    if (ringValues[0]) ringValues[0].textContent = navigator.onLine ? "ON" : "OFF";
+    if (ringValues[1]) ringValues[1].textContent = state.lastVote ? "GOV" : "LOC";
+    if (ringValues[2]) ringValues[2].textContent = latest ? "NOW" : "--";
+    if (nodeStats[0]) nodeStats[0].textContent = `${state.recentActions.length} / ${state.recentActions.length}`;
+    if (nodeStats[1]) nodeStats[1].textContent = "LOCAL";
+    if (nodeStats[2]) nodeStats[2].textContent = "BACKEND PENDING";
+  };
+
+  renderCockpitTruth();
+  window.setInterval(renderCockpitTruth, 15000);
 }
 
 function enhanceSystemHealth(doc) {
@@ -812,14 +1167,27 @@ function enhanceSystemHealth(doc) {
   const policy = findButton(doc, "Security Policy");
   const apiDocs = findButton(doc, "API Documentation");
   const contact = findButton(doc, "Contact Engineering");
-  const serviceCards = Array.from(doc.querySelectorAll("p")).filter((node) => {
-    const text = normalizeText(node.textContent);
-    return text === "core sync engine" || text === "shield network" || text === "api gateway" || text === "deployment service";
-  }).map((node) => node.closest("div")).filter(Boolean);
-  const incidentTitles = Array.from(doc.querySelectorAll("p")).filter((node) => {
-    const text = normalizeText(node.textContent);
-    return text.includes("api gateway latency spike") || text.includes("core database maintenance") || text.includes("ddos mitigation active");
-  }).map((node) => node.closest("div")).filter(Boolean);
+  const serviceCards = Array.from(doc.querySelectorAll("[data-live-service]")).map((node) => node.closest("div")).filter(Boolean);
+  const activityRows = Array.from(doc.querySelectorAll("[data-live-activity-row]"));
+  const statusText = doc.querySelector("[data-live-text='status']");
+  const verifiedText = doc.querySelector("[data-live-text='verified']");
+  const indicator = doc.querySelector("[data-live-indicator='status']");
+  const connectivityMetric = doc.querySelector("[data-live-metric='connectivity']");
+  const connectivityDetail = doc.querySelector("[data-live-metric-detail='connectivity']");
+  const actionsMetric = doc.querySelector("[data-live-metric='actions']");
+  const actionsDetail = doc.querySelector("[data-live-metric-detail='actions']");
+  const pulseMetric = doc.querySelector("[data-live-metric='pulse']");
+  const pulseDetail = doc.querySelector("[data-live-metric-detail='pulse']");
+  const connectivityBar = doc.querySelector("[data-live-bar='connectivity']");
+  const connectivityNote = doc.querySelector("[data-live-note='connectivity']");
+  const workspaceStatus = doc.querySelector("[data-live-service='workspace-status']");
+  const workspaceNote = doc.querySelector("[data-live-service-note='workspace-status']");
+  const hostingStatus = doc.querySelector("[data-live-service='hosting-status']");
+  const hostingNote = doc.querySelector("[data-live-service-note='hosting-status']");
+  const governanceStatus = doc.querySelector("[data-live-service='governance-status']");
+  const governanceNote = doc.querySelector("[data-live-service-note='governance-status']");
+  const telemetryStatus = doc.querySelector("[data-live-service='telemetry-status']");
+  const telemetryNote = doc.querySelector("[data-live-service-note='telemetry-status']");
 
   bindManagedClick(dashboard, () => navigateTo("/custodian-ui/custodian-hub-operations-gallery/"));
   bindManagedClick(systemHealth, () => navigateTo("/custodian-ui/system-health-report-aegis-protocol/"));
@@ -829,12 +1197,8 @@ function enhanceSystemHealth(doc) {
   bindManagedClick(notifications, () => showToast(doc, "System health alerts synchronized with the Custodian watch queue."));
   bindManagedClick(settings, () => navigateTo("/custodian-ui/site-custodians/"));
   bindManagedClick(refresh, () => {
-    const next = refreshQueueState();
-    const metricValues = Array.from(doc.querySelectorAll("p.text-3xl, p.text-3xl.font-bold, .text-3xl.font-bold"));
-    if (metricValues[0]) metricValues[0].textContent = `${Math.max(99.9, 100 - next.activeThreats * 0.0002).toFixed(2)}%`;
-    if (metricValues[1]) metricValues[1].textContent = `${Math.max(10, next.mitigationMinutes + 2)}ms`;
-    if (metricValues[2]) metricValues[2].textContent = `${1248 + (42 - next.activeThreats)}`;
-    showToast(doc, "System health telemetry refreshed from the Custodian command layer.");
+    renderTruth();
+    showToast(doc, "Live Custodian telemetry refreshed from current local state.");
   });
   bindManagedClick(viewArchive, () => navigateTo("/custodian-ui/security-logs-aegis-protocol/"));
   bindManagedClick(policy, () => navigateTo("/nexus/aegis-governance-hub/"));
@@ -843,7 +1207,7 @@ function enhanceSystemHealth(doc) {
 
   search?.addEventListener("input", () => {
     const query = normalizeText(search.value);
-    [...serviceCards, ...incidentTitles].forEach((block) => {
+    [...serviceCards, ...activityRows].forEach((block) => {
       block.classList.toggle("aegis-hidden-row", query && !normalizeText(block.textContent).includes(query));
     });
   });
@@ -853,7 +1217,64 @@ function enhanceSystemHealth(doc) {
     window.setTimeout(() => card.classList.remove("aegis-highlight-ring"), 1200);
     showToast(doc, `${card.querySelector("p")?.textContent || "Service"} selected for deeper health review.`);
   }));
-  incidentTitles.forEach((card) => bindManagedClick(card, () => navigateTo("/custodian-ui/security-incident-assessor-center/")));
+  activityRows.forEach((card) => bindManagedClick(card, () => navigateTo("/custodian-ui/security-incident-assessor-center/")));
+
+  const renderTruth = () => {
+    const state = readState();
+    const now = new Date();
+    const lastAction = state.recentActions[0] || null;
+    const online = navigator.onLine;
+
+    if (statusText) statusText.textContent = online ? "Local workspace online" : "Local workspace offline";
+    if (verifiedText) verifiedText.textContent = `Verified ${now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`;
+    if (indicator) indicator.className = `size-3 rounded-full animate-pulse ${online ? "bg-emerald-500" : "bg-orange-500"}`;
+
+    if (connectivityMetric) connectivityMetric.textContent = online ? "Online" : "Offline";
+    if (connectivityDetail) connectivityDetail.textContent = online ? "Browser signal live" : "Reconnect needed";
+    if (actionsMetric) actionsMetric.textContent = String(state.recentActions.length);
+    if (actionsDetail) actionsDetail.textContent = lastAction ? "Derived from local Custodian state" : "No actions recorded yet";
+    if (pulseMetric) pulseMetric.textContent = lastAction
+      ? new Date(lastAction.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : "--";
+    if (pulseDetail) pulseDetail.textContent = lastAction ? lastAction.action.replace(/-/g, " ") : "Current session";
+
+    if (connectivityBar) connectivityBar.style.width = online ? "100%" : "35%";
+    if (connectivityNote) connectivityNote.textContent = online
+      ? "Browser connectivity is live. Backend infrastructure feed is still pending."
+      : "Browser appears offline. Backend telemetry is unavailable.";
+
+    if (workspaceStatus) workspaceStatus.textContent = online ? "LIVE" : "OFFLINE";
+    if (workspaceNote) workspaceNote.textContent = lastAction
+      ? `Latest local action: ${lastAction.action.replace(/-/g, " ")}`
+      : "No live Custodian actions recorded yet";
+
+    if (hostingStatus) hostingStatus.textContent = "CHECK";
+    if (hostingNote) hostingNote.textContent = "Static hosting is reachable; no real backend infrastructure metrics are connected yet.";
+
+    if (governanceStatus) governanceStatus.textContent = state.lastVote ? "ACTIVE" : "LOCAL";
+    if (governanceNote) governanceNote.textContent = state.lastVote
+      ? `Latest local governance signal: ${state.lastVote}`
+      : "No live governance action recorded in this session";
+
+    if (telemetryStatus) telemetryStatus.textContent = "WAITING";
+    if (telemetryNote) telemetryNote.textContent = "Connect a backend telemetry source to replace this placeholder lane.";
+
+    activityRows.forEach((row, index) => {
+      const entry = state.recentActions[index];
+      const date = row.querySelector("[data-live-activity-date]");
+      const title = row.querySelector("[data-live-activity-title]");
+      const copy = row.querySelector("[data-live-activity-copy]");
+      const tag = row.querySelector("[data-live-activity-tag]");
+      if (!entry) return;
+      if (date) date.textContent = new Date(entry.at).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+      if (title) title.textContent = entry.action.replace(/-/g, " ");
+      if (copy) copy.textContent = "Live local Custodian action recorded in this browser session.";
+      if (tag) tag.textContent = "RECORDED";
+    });
+  };
+
+  renderTruth();
+  window.setInterval(renderTruth, 15000);
 }
 
 function enhanceSiteCustodians(doc) {
@@ -968,6 +1389,10 @@ function enhanceHubGallery(doc) {
   const nodeBeta = Array.from(doc.querySelectorAll("p, span, div")).find((node) => normalizeText(node.textContent) === "node beta");
   const excellenceCard = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, .group, .card")).find((node) => normalizeText(node.textContent).includes("standard of excellence"));
 
+  bindManagedClick(protocol, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(governance, () => navigateTo("/custodian-ui/decentralized-governance-voting/"));
+  bindManagedClick(custodians, () => navigateTo("/custodian-ui/site-custodians/"));
+  bindManagedClick(ecosystem, () => navigateTo("/aegis-application-lab/"));
   bindManagedClick(launchApp, () => navigateTo("/custodian-ui/secure/"));
   bindManagedClick(custodianLogin, () => navigateTo("/custodian-ui/custodian-login-portal/"));
   bindManagedClick(applyToJoin, () => navigateTo("/custodian-ui/site-custodian-login-recruitment-hub/"));
@@ -993,7 +1418,7 @@ function enhanceIncidentCenter(doc) {
   doc.body.dataset.aegisEnhancedIncidentCenter = "true";
   injectStyles(doc);
 
-  const safetyHold = findButton(doc, "Initiate Safety hold");
+  const safetyHold = findButton(doc, "Initiate Lockdown");
   const flushDns = findButton(doc, "Flush DNS Cache");
   const rotateKeys = findButton(doc, "Rotate Master Keys");
   const navDashboard = findButton(doc, "Dashboard");
@@ -1001,63 +1426,201 @@ function enhanceIncidentCenter(doc) {
   const navThreatIntel = findButton(doc, "Threat Intelligence");
   const navProtocolConfig = findButton(doc, "Protocol Config");
   const navSupport = findButton(doc, "Support");
-  const priorityCards = Array.from(doc.querySelectorAll("h5, h4, h3")).filter((node) => {
+  const priorityHeadings = Array.from(doc.querySelectorAll("h5")).filter((node) => {
     const text = normalizeText(node.textContent);
-    return text.includes("ddos attack target node-x4") || text.includes("unusual api spike");
+    return text.includes("awaiting recorded custodian incident action")
+      || text.includes("awaiting backend incident evidence");
   });
-  const logger = Array.from(doc.querySelectorAll("div")).find((node) => normalizeText(node.textContent).includes("aegis_live_logger_v4.2"));
-  const logLinesContainer = logger?.parentElement?.querySelector("div:last-child") || logger?.parentElement;
-  const activeThreats = Array.from(doc.querySelectorAll("h3")).find((node) => /^\d+$/.test((node.textContent || "").trim()));
-  const mitigation = Array.from(doc.querySelectorAll("h3")).find((node) => normalizeText(node.textContent).includes("12m"));
-  const shield = Array.from(doc.querySelectorAll("h3")).find((node) => normalizeText(node.textContent).includes("98.2"));
+  const priorityCards = priorityHeadings.map((node) => node.closest("div")).filter(Boolean);
+  const incidentBadge = doc.querySelector("[data-live-incident-center-badge]");
+  const incidentTime = doc.querySelector("[data-live-incident-center-time]");
+  const actionsMetric = doc.querySelector("[data-live-incident-center-metric='actions']");
+  const pulseMetric = doc.querySelector("[data-live-incident-center-metric='pulse']");
+  const feedMetric = doc.querySelector("[data-live-incident-center-metric='feed']");
+  const actionDetail = doc.querySelector("[data-live-incident-center-detail='actions']");
+  const pulseDetail = doc.querySelector("[data-live-incident-center-detail='pulse']");
+  const feedBar = doc.querySelector("[data-live-incident-center-bar]");
+  const liveLogLines = Array.from(doc.querySelectorAll("[data-live-incident-log]"));
+  const header = doc.querySelector("header");
+
+  const render = () => {
+    const state = readState();
+    const lastAction = state.recentActions[0];
+    const connectivity = navigator.onLine ? "Live Local" : "Offline";
+    const pulse = lastAction
+      ? new Date(lastAction.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : "--";
+    const feedStatus = navigator.onLine ? "Local" : "Offline";
+    const actionCount = state.recentActions.length;
+
+    if (incidentBadge) incidentBadge.textContent = connectivity;
+    if (incidentTime) {
+      incidentTime.textContent = new Date().toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+    }
+    if (actionsMetric) actionsMetric.textContent = String(actionCount);
+    if (pulseMetric) pulseMetric.textContent = pulse;
+    if (feedMetric) feedMetric.textContent = feedStatus;
+    if (actionDetail) {
+      actionDetail.textContent = actionCount ? `${actionCount} recorded action${actionCount === 1 ? "" : "s"}` : "Awaiting local actions";
+    }
+    if (pulseDetail) {
+      pulseDetail.textContent = lastAction ? "Derived from local activity" : "Current session";
+    }
+    if (feedBar) {
+      const width = navigator.onLine ? Math.min(100, Math.max(20, actionCount * 22)) : 12;
+      feedBar.style.width = `${width}%`;
+      feedBar.style.background = navigator.onLine ? "#1152d4" : "#64748b";
+      feedBar.style.boxShadow = navigator.onLine ? "0 0 10px #1152d4" : "none";
+    }
+
+    liveLogLines.forEach((line, index) => {
+      const entry = state.recentActions[index];
+      if (entry) {
+        line.textContent = `[${new Date(entry.at).toLocaleTimeString("en-US", { hour12: false })}] LOCAL: ${entry.action.replace(/-/g, " ")} recorded for Custodian review.`;
+      } else if (index === 0) {
+        line.textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] LOCAL: Review workspace active. Awaiting backend incident telemetry.`;
+      } else if (index === 1) {
+        line.textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] NOTE: Browser connectivity is ${navigator.onLine ? "online" : "offline"}. Only local state is being shown.`;
+      } else {
+        line.textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] PENDING: Incident evidence feed will appear here when backend services are connected.`;
+      }
+    });
+
+    const cardRoutes = [
+      "/custodian-ui/incident-report-aeg-2023-08/",
+      "/custodian-ui/ticket-details-aeg-4092/",
+    ];
+    priorityCards.forEach((card, index) => {
+      const badge = card?.querySelector(".uppercase");
+      const meta = card ? Array.from(card.querySelectorAll(".text-\\[10px\\], .font-mono")).find((node) => normalizeText(node.textContent).includes("current session") || normalizeText(node.textContent).includes("backend pending")) : null;
+      if (badge) {
+        badge.textContent = index === 0 && actionCount ? "Active" : "Pending";
+      }
+      if (meta && index === 0 && lastAction) {
+        meta.textContent = `${new Date(lastAction.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })} local action`;
+      }
+      if (card) {
+        card.dataset.aegisPriorityRoute = cardRoutes[index] || "";
+      }
+    });
+
+    if (header) {
+      header.dataset.aegisTruthFirst = navigator.onLine ? "connected" : "offline";
+    }
+  };
 
   bindManagedClick(navDashboard, () => navigateTo("/custodian-ui/custodian-hub-operations-gallery/"));
   bindManagedClick(navGlobalNodes, () => navigateTo("/custodian-ui/regional-drill-down-us-east-1/"));
   bindManagedClick(navThreatIntel, () => navigateTo("/custodian-ui/security-logs-aegis-protocol/"));
-  bindManagedClick(navProtocolConfig, () => navigateTo("/custodian-ui/api-reference-aegis-protocol/"));
+  bindManagedClick(navProtocolConfig, () => navigateTo("/developer-depot/api-reference-aegis-protocol/"));
   bindManagedClick(navSupport, () => navigateTo("/custodian-ui/ticket-details-aeg-4092/"));
 
   bindManagedClick(safetyHold, () => {
     pushAction("safety-hold");
-    patchState({
-      selectedIncident: "INC-88942-B",
-      queueCounts: {
-        ...readState().queueCounts,
-        activeThreats: Math.max(1, readState().queueCounts.activeThreats - 1),
-      },
-    });
-    if (activeThreats) activeThreats.textContent = String(readState().queueCounts.activeThreats);
-    if (logLinesContainer) {
-      const line = doc.createElement("div");
-      line.textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] HOLD: Safety hold sequence queued for Node-X4 containment.`;
-      logLinesContainer.prepend(line);
-    }
-    showToast(doc, "Safety hold staged. Opening the hold protocol sequence.");
+    patchState({ selectedIncident: "local-review-1" });
+    render();
+    showToast(doc, "Safety hold recorded in the local review session. Opening the hold workflow.");
     window.setTimeout(() => navigateTo("/custodian-ui/safety-hold-protocol-sequence/"), 180);
   });
   bindManagedClick(flushDns, () => {
     pushAction("flush-dns");
-    if (mitigation) mitigation.textContent = "11m 42s";
-    if (logLinesContainer) {
-      const line = doc.createElement("div");
-      line.textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] INFO: DNS cache flush propagated through perimeter relays.`;
-      logLinesContainer.prepend(line);
-    }
-    showToast(doc, "DNS cache flush executed across the active perimeter.");
+    render();
+    showToast(doc, "DNS cache flush action recorded locally. No backend network control is connected.");
   });
   bindManagedClick(rotateKeys, () => {
     pushAction("rotate-keys");
-    if (shield) shield.textContent = "99.1%";
-    if (logLinesContainer) {
-      const line = doc.createElement("div");
-      line.textContent = `[${new Date().toLocaleTimeString("en-US", { hour12: false })}] INFO: Master key rotation completed for incident workspace.`;
-      logLinesContainer.prepend(line);
-    }
-    showToast(doc, "Master keys rotated. Shield integrity is rising.");
+    render();
+    showToast(doc, "Key rotation intent recorded locally. Backend key services are still pending.");
   });
 
-  bindManagedClick(priorityCards.find((node) => normalizeText(node.textContent).includes("ddos"))?.closest("div"), () => navigateTo("/custodian-ui/incident-report-aeg-2023-08/"));
-  bindManagedClick(priorityCards.find((node) => normalizeText(node.textContent).includes("api spike"))?.closest("div"), () => navigateTo("/custodian-ui/ticket-details-aeg-4092/"));
+  bindManagedClick(priorityCards[0], () => navigateTo("/custodian-ui/incident-report-aeg-2023-08/"));
+  bindManagedClick(priorityCards[1], () => navigateTo("/custodian-ui/ticket-details-aeg-4092/"));
+
+  render();
+  window.setInterval(render, 6000);
+}
+
+function enhanceSafetyHoldProtocol(doc) {
+  if (doc.body.dataset.aegisEnhancedSafetyHold === "true") return;
+  doc.body.dataset.aegisEnhancedSafetyHold = "true";
+  injectStyles(doc);
+
+  const protocolDetails = findButton(doc, "Protocol Details");
+  const emergencyOverride = findButton(doc, "Emergency Override");
+  const confirmAuthorization = findButton(doc, "Confirm Authorization");
+  const biometricScan = Array.from(doc.querySelectorAll("button, div")).find((node) => normalizeText(node.textContent).includes("biometric scan"));
+  const keycardAuth = Array.from(doc.querySelectorAll("button, div")).find((node) => normalizeText(node.textContent).includes("keycard auth"));
+  const countdown = Array.from(doc.querySelectorAll("div, span, p")).find((node) => /^\d{2}:\d{2}:\d{2}$/.test((node.textContent || "").trim()));
+  const progressValue = Array.from(doc.querySelectorAll("div, span, p")).find((node) => (node.textContent || "").trim() === "45%");
+  const progressBar = progressValue?.closest("div")?.nextElementSibling?.querySelector("div");
+  const connectivityPanel = Array.from(doc.querySelectorAll("div")).find((node) => normalizeText(node.textContent).includes("network status"));
+  const integrityPanel = Array.from(doc.querySelectorAll("div")).find((node) => normalizeText(node.textContent).includes("data integrity"));
+
+  let authMode = "biometric";
+
+  const render = () => {
+    const state = readState();
+    const lastAction = state.recentActions.find((entry) => entry.action === "safety-hold") || state.recentActions[0] || null;
+    const online = navigator.onLine;
+    const elapsedMs = lastAction ? Math.max(0, Date.now() - new Date(lastAction.at).getTime()) : 0;
+    const remainingMs = Math.max(0, 252000 - elapsedMs);
+    const totalSeconds = Math.floor(remainingMs / 1000);
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    const progress = lastAction ? Math.min(100, 45 + Math.floor(elapsedMs / 4000)) : 45;
+
+    if (countdown) countdown.textContent = `00:${minutes}:${seconds}`;
+    if (progressValue) progressValue.textContent = `${progress}%`;
+    if (progressBar) progressBar.style.width = `${progress}%`;
+
+    if (connectivityPanel) {
+      const parts = connectivityPanel.querySelectorAll("div, p");
+      const value = Array.from(parts).find((node) => node !== connectivityPanel && normalizeText(node.textContent) && !normalizeText(node.textContent).includes("network status"));
+      const detail = Array.from(parts).reverse().find((node) => node !== value && node !== connectivityPanel && normalizeText(node.textContent));
+      if (value) value.textContent = online ? "LOCAL REVIEW" : "OFFLINE";
+      if (detail) {
+        detail.textContent = lastAction
+          ? "Safety-hold intent is recorded locally. Backend containment services are pending."
+          : "No live containment backend is connected.";
+      }
+    }
+
+    if (integrityPanel) {
+      const parts = integrityPanel.querySelectorAll("div, p");
+      const value = Array.from(parts).find((node) => node !== connectivityPanel && normalizeText(node.textContent) && !normalizeText(node.textContent).includes("data integrity"));
+      const detail = Array.from(parts).reverse().find((node) => node !== value && normalizeText(node.textContent));
+      if (value) value.textContent = "LOCAL ONLY";
+      if (detail) detail.textContent = "Integrity confirmation becomes authoritative when backend evidence services are connected.";
+    }
+
+    if (biometricScan) biometricScan.classList.toggle("aegis-highlight-ring", authMode === "biometric");
+    if (keycardAuth) keycardAuth.classList.toggle("aegis-highlight-ring", authMode === "keycard");
+  };
+
+  bindManagedClick(protocolDetails, () => navigateTo("/custodian-ui/proposal-discussion-details/"));
+  bindManagedClick(emergencyOverride, () => navigateTo("/custodian-ui/secure/"));
+  bindManagedClick(confirmAuthorization, () => {
+    pushAction(`safety-hold-authorized-${authMode}`);
+    showToast(doc, "Safety hold authorization recorded in local Custodian state.");
+    navigateTo("/custodian-ui/ticket-details-aeg-4092/");
+  });
+  bindManagedClick(biometricScan, () => {
+    authMode = "biometric";
+    showToast(doc, "Biometric authorization path selected for local review.");
+    render();
+  });
+  bindManagedClick(keycardAuth, () => {
+    authMode = "keycard";
+    showToast(doc, "Keycard authorization path selected for local review.");
+    render();
+  });
+
+  render();
+  window.setInterval(render, 3000);
 }
 
 function enhanceGovernance(doc) {
@@ -1141,17 +1704,174 @@ function enhanceGovernance(doc) {
   applyFilter(activeFilter);
 }
 
+function enhanceSupportTicket(doc) {
+  if (doc.body.dataset.aegisEnhancedSupportTicket === "true") return;
+  doc.body.dataset.aegisEnhancedSupportTicket = "true";
+  injectStyles(doc);
+
+  const dashboard = findButton(doc, "Dashboard");
+  const tickets = findButton(doc, "Tickets");
+  const nodes = findButton(doc, "Nodes");
+  const systemLog = findButton(doc, "System Log");
+  const closeTicket = findButton(doc, "Close Ticket");
+  const postReply = findButton(doc, "Post Reply");
+  const messagesTab = findButton(doc, "Messages");
+  const logsTab = findButton(doc, "System Logs");
+  const activityTab = findButton(doc, "Activity Feed");
+  const attachLog = findButton(doc, "Attach Log File");
+  const sendReply = findButton(doc, "Send Reply");
+  const composer = Array.from(doc.querySelectorAll("textarea")).find((node) =>
+    normalizeText(node.placeholder).includes("type your reply here"));
+  const mainPanel = doc.querySelector("main");
+  const statusLine = Array.from(doc.querySelectorAll("span, div")).find((node) =>
+    normalizeText(node.textContent).includes("status:"));
+  const liveSync = doc.querySelector("[data-live-ticket-sync]");
+  const liveConnectivity = doc.querySelector("[data-live-ticket-connectivity]");
+  const liveRegion = doc.querySelector("[data-live-ticket-region]");
+  const quickActions = Array.from(doc.querySelectorAll("button, a")).filter((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("launch") || text.includes("assign") || text.includes("escalate") || text.includes("open archive");
+  });
+  const tabs = [messagesTab, logsTab, activityTab].filter(Boolean);
+
+  const applyTicketStatus = (state) => {
+    if (!statusLine) return;
+    const statusMap = {
+      "in-review": "Status: In Review",
+      "awaiting-peer-response": "Status: Awaiting Peer Response",
+      "resolved-awaiting-publish": "Status: Resolved / Awaiting Custodian Publish",
+    };
+    statusLine.textContent = statusMap[state.ticketStatus] || statusLine.textContent;
+  };
+
+  const render = () => {
+    if (liveSync) {
+      liveSync.textContent = new Date().toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    }
+    if (liveConnectivity) {
+      liveConnectivity.textContent = navigator.onLine ? "Online" : "Offline";
+      liveConnectivity.className = navigator.onLine ? "text-green-500 font-bold" : "text-amber-500 font-bold";
+    }
+    if (liveRegion) {
+      liveRegion.textContent = "Local browser session";
+    }
+  };
+
+  bindManagedClick(dashboard, () => navigateTo("/custodian-ui/custodian-hub-operations-gallery/"));
+  bindManagedClick(tickets, () => navigateTo("/custodian-ui/ticket-details-aeg-4092/"));
+  bindManagedClick(nodes, () => navigateTo("/custodian-ui/regional-drill-down-us-east-1/"));
+  bindManagedClick(systemLog, () => navigateTo("/custodian-ui/security-logs-aegis-protocol/"));
+  bindManagedClick(closeTicket, () => {
+    const next = patchState({ ticketStatus: "resolved-awaiting-publish", lastTicketAction: "close-ticket" });
+    pushAction("close-ticket");
+    applyTicketStatus(next);
+    if (mainPanel) setMessage(mainPanel, "Ticket AEG-4092 closed locally and handed toward governed publishing review.", "success");
+    showToast(doc, "Support ticket closed and staged for Custodian review.");
+  });
+  bindManagedClick(postReply, () => {
+    const reply = composer?.value.trim() || "";
+    if (!reply) {
+      if (mainPanel) setMessage(mainPanel, "Add a reply before posting to the Custodian support lane.", "error");
+      return;
+    }
+    const next = patchState({ ticketStatus: "awaiting-peer-response", lastTicketAction: "post-reply" });
+    pushAction("post-ticket-reply");
+    applyTicketStatus(next);
+    if (mainPanel) setMessage(mainPanel, "Reply staged in local support state. Continue through logs, incident casework, or governed publishing as needed.", "success");
+    showToast(doc, "Reply posted to support case AEG-4092.");
+  });
+  bindManagedClick(attachLog, () => {
+    patchState({ lastTicketAction: "attach-log" });
+    pushAction("attach-support-log");
+    showToast(doc, "Opening the security log archive for attachment review.");
+    navigateTo("/custodian-ui/security-logs-aegis-protocol/");
+  });
+  bindManagedClick(sendReply, () => {
+    const reply = composer?.value.trim() || "";
+    if (!reply) {
+      if (mainPanel) setMessage(mainPanel, "Write a governed response before sending.", "error");
+      return;
+    }
+    const next = patchState({ ticketStatus: "awaiting-peer-response", lastTicketAction: "send-reply" });
+    pushAction("send-support-reply");
+    applyTicketStatus(next);
+    if (mainPanel) setMessage(mainPanel, "Governed support response sent. Archive or escalate the case if further action is needed.", "success");
+    showToast(doc, "Governed support response sent.");
+  });
+
+  bindManagedClick(messagesTab, () => {
+    patchState({ ticketLane: "messages" });
+    showToast(doc, "Message lane focused for AEG-4092.");
+  });
+  bindManagedClick(logsTab, () => {
+    patchState({ ticketLane: "logs" });
+    showToast(doc, "Opening the archived system log lane for AEG-4092.");
+    navigateTo("/custodian-ui/security-logs-aegis-protocol/");
+  });
+  bindManagedClick(activityTab, () => {
+    patchState({ ticketLane: "activity" });
+    showToast(doc, "Activity feed lane aligned for the support case.");
+  });
+
+  tabs.forEach((tab) => bindManagedClick(tab, () => {
+    tabs.forEach((node) => {
+      node.classList.remove("border-primary", "text-primary");
+      node.classList.add("border-transparent");
+    });
+    tab.classList.add("border-primary", "text-primary");
+    tab.classList.remove("border-transparent");
+  }));
+
+  quickActions.forEach((button) => bindManagedClick(button, () => {
+    const text = normalizeText(button.textContent);
+    if (text.includes("launch")) {
+      pushAction("launch-containment");
+      showToast(doc, "Containment workflow launched from the support case.");
+      navigateTo("/custodian-ui/security-incident-assessor-center/");
+      return;
+    }
+    if (text.includes("assign")) {
+      patchState({ lastTicketAction: "assign-custodian-lane" });
+      showToast(doc, "Custodian support lane assignment recorded for AEG-4092.");
+      return;
+    }
+    if (text.includes("escalate")) {
+      patchState({ lastTicketAction: "escalate-governance" });
+      showToast(doc, "Support case escalated into the governance lane.");
+      navigateTo("/custodian-ui/decentralized-governance-voting/");
+      return;
+    }
+    if (text.includes("open archive")) {
+      navigateTo("/custodian-ui/security-logs-aegis-protocol/");
+    }
+  }));
+
+  applyTicketStatus(readState());
+  render();
+}
+
 const pageEnhancers = {
   "custodian-hub-operations-gallery": enhanceHubGallery,
+  "custodian-cockpit-hud-1": enhanceOperationsCockpit,
   "security-incident-assessor-center": enhanceIncidentCenter,
+  "safety-hold-protocol-sequence": enhanceSafetyHoldProtocol,
   "decentralized-governance-voting": enhanceGovernance,
   "custodian-login-portal": enhanceCustodianLogin,
   "site-custodian-login-recruitment-hub": enhanceRecruitmentHub,
   "submission-review-interface": enhanceSubmissionReview,
   "create-new-page-custodian-tool": enhanceCreatePageTool,
+  "site-custodian-hub-gallery-update": enhancePublishingSurface,
   "site-custodians": enhanceSiteCustodians,
   "regional-drill-down-us-east-1": enhanceRegionalDrilldown,
+  "security-logs-aegis-protocol": enhanceSecurityLogs,
+  "incident-report-aeg-2023-08": enhanceIncidentReport,
   "system-health-report-aegis-protocol": enhanceSystemHealth,
+  "ticket-details-aeg-4092": enhanceSupportTicket,
 };
 
 function enhanceFrame(frame) {

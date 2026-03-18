@@ -100,9 +100,9 @@
 <section class="flex flex-col gap-4">
 <div class="flex items-center gap-3">
 <span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/20">Discussion Phase</span>
-<span class="text-slate-500 text-sm">Created 2 days ago</span>
+<span class="text-slate-500 text-sm">Governed local discussion view</span>
 </div>
-<h1 class="text-4xl font-black leading-tight tracking-tight">AIP-154: Upgrade Governance Module to V2.0</h1>
+<h1 class="text-4xl font-black leading-tight tracking-tight">AIP-154: Governance Module Revision Discussion</h1>
 <div class="flex items-center gap-4 py-2 border-y border-slate-200 dark:border-slate-800">
 <div class="flex items-center gap-2">
 <div class="size-6 rounded-full bg-slate-700" data-alt="Author profile avatar">
@@ -122,7 +122,7 @@
 <span class="material-symbols-outlined text-primary">info</span> Proposal Overview
                     </h3>
 <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                        This proposal aims to upgrade the current AEGIS governance module from V1.4 to V2.0. The primary goal is to introduce quadratic voting weights for specific parameter-change proposals and implement a sub-committee system for emergency treasury allocations. This will significantly reduce latency in critical security responses while maintaining decentralization through a veto-capable main assembly.
+                        This discussion surface captures a governed proposal review lane. Detailed module revisions, release targets, and execution parameters should be treated as pending until a real governance backend is connected and the proposal record is verified.
                     </p>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
 <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
@@ -131,7 +131,7 @@
 </div>
 <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
 <div class="text-xs font-bold text-slate-500 uppercase mb-1">Affected Modules</div>
-<div class="font-medium">Governance, Treasury, Staking</div>
+<div class="font-medium">Governance records pending verification</div>
 </div>
 </div>
 </section>
@@ -145,22 +145,15 @@
 <span class="material-symbols-outlined text-xs">content_copy</span> Copy
                             </button>
 </div>
-<pre class="p-6 text-sm font-mono overflow-x-auto text-emerald-400"><code><span class="text-slate-500"># Upgrade configuration for Governance V2.0</span>
-version: 2.0.0
-quadratic_voting:
-  enabled: true
-  min_stake_threshold: 1000AEGIS
-  coefficient: 0.5
+<pre class="p-6 text-sm font-mono overflow-x-auto text-emerald-400"><code><span class="text-slate-500"># Truth-first governance note</span>
+proposal_record: pending-backend-verification
+discussion_mode: local-review
+execution_parameters: not-attached
+affected_modules: pending
+release_target: pending
 
-emergency_committee:
-  quorum: 0.66
-  max_spend_limit: 50000USDC
-  veto_period: 48h <span class="text-slate-500"># Time for main DAO to block action</span>
-
-modules_to_patch:
-  - id: "aegis-core-gov-v1"
-    target: "aegis-core-gov-v2"
-    checksum: "sha256:8f1a2b3c4d5e6f7g8h9i0j..."</code></pre>
+<span class="text-slate-500"># Attach the verified governance record before treating any
+# implementation values on this page as authoritative.</span></code></pre>
 </div>
 </section>
 <!-- Discussion Thread -->
@@ -323,7 +316,7 @@ modules_to_patch:
 </div>
 <div>
 <h4 class="text-sm font-bold text-emerald-500">Draft Proposed</h4>
-<p class="text-xs text-slate-500 mt-0.5">Oct 12, 2023</p>
+<p class="text-xs text-slate-500 mt-0.5">Recorded in current governed session</p>
 </div>
 </div>
 <!-- Step 2 (Active) -->
@@ -333,7 +326,7 @@ modules_to_patch:
 </div>
 <div>
 <h4 class="text-sm font-bold">Community Discussion</h4>
-<p class="text-xs text-slate-400 mt-0.5">Active Phase • Ends in 3 days</p>
+<p class="text-xs text-slate-400 mt-0.5">Local discussion state • Backend phase data pending</p>
 </div>
 </div>
 <!-- Step 3 -->
@@ -343,7 +336,7 @@ modules_to_patch:
 </div>
 <div>
 <h4 class="text-sm font-bold">Final Review</h4>
-<p class="text-xs text-slate-500 mt-0.5">Estimated Oct 25</p>
+<p class="text-xs text-slate-500 mt-0.5">Awaiting verified governance schedule</p>
 </div>
 </div>
 <!-- Step 4 -->
@@ -353,7 +346,7 @@ modules_to_patch:
 </div>
 <div>
 <h4 class="text-sm font-bold">On-chain Voting</h4>
-<p class="text-xs text-slate-500 mt-0.5">Estimated Oct 28</p>
+<p class="text-xs text-slate-500 mt-0.5">Awaiting verified governance schedule</p>
 </div>
 </div>
 </div>

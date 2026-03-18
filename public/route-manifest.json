@@ -93,7 +93,7 @@
   {
     "domain": "agent-workshop",
     "slug": "agentic-workshop-main-console",
-    "title": "Agentic Workshop Main Console",
+    "title": "AEGIS Agentic Workshop - Main Console",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agentic_workshop_main_console/code.html",
     "routePath": "/agent-workshop/agentic-workshop-main-console/"
   },
@@ -211,13 +211,6 @@
   },
   {
     "domain": "custodian-ui",
-    "slug": "aegis-protocol-dashboard",
-    "title": "AEGIS Protocol - Mission Guidance",
-    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/aegis_protocol_dashboard/code.html",
-    "routePath": "/custodian-ui/aegis-protocol-dashboard/"
-  },
-  {
-    "domain": "custodian-ui",
     "slug": "api-reference-aegis-protocol",
     "title": "AEGIS Protocol API Reference",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/api_reference_aegis_protocol/code.html",
@@ -233,16 +226,9 @@
   {
     "domain": "custodian-ui",
     "slug": "custodian-cockpit-hud-1",
-    "title": "Custodian Coordination Cockpit - AEGIS Protocol",
+    "title": "AegisAlign | Custodian Operations Cockpit",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/custodian_cockpit_hud_1/code.html",
     "routePath": "/custodian-ui/custodian-cockpit-hud-1/"
-  },
-  {
-    "domain": "custodian-ui",
-    "slug": "custodian-cockpit-hud-2",
-    "title": "Custodian Coordination Cockpit - AEGIS Protocol",
-    "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/custodian_cockpit_hud_2/code.html",
-    "routePath": "/custodian-ui/custodian-cockpit-hud-2/"
   },
   {
     "domain": "custodian-ui",
@@ -268,7 +254,7 @@
   {
     "domain": "custodian-ui",
     "slug": "incident-report-aeg-2023-08",
-    "title": "AegisAlign Incident Report | AEG-2023-08",
+    "title": "AegisAlign Incident Case | AEG-2023-08",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/incident_report_aeg_2023_08/code.html",
     "routePath": "/custodian-ui/incident-report-aeg-2023-08/"
   },
@@ -282,14 +268,14 @@
   {
     "domain": "custodian-ui",
     "slug": "regional-drill-down-us-east-1",
-    "title": "AEGIS Protocol - US-EAST-1 Regional Drill-down",
+    "title": "AEGIS Protocol - US-EAST-1 Regional Review",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/regional_drill_down_us_east_1/code.html",
     "routePath": "/custodian-ui/regional-drill-down-us-east-1/"
   },
   {
     "domain": "custodian-ui",
     "slug": "safety-hold-protocol-sequence",
-    "title": "AEGIS Custodian - Safety hold Protocol",
+    "title": "AEGIS Custodian - Safety Hold Protocol",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/lockdown_protocol_sequence/code.html",
     "routePath": "/custodian-ui/safety-hold-protocol-sequence/"
   },
@@ -310,14 +296,14 @@
   {
     "domain": "custodian-ui",
     "slug": "site-custodian-hub-gallery-update",
-    "title": "Site Custodian Hub Gallery Update",
+    "title": "AegisAlign | Governed Publishing Review",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/site_custodian_hub_gallery_update/code.html",
     "routePath": "/custodian-ui/site-custodian-hub-gallery-update/"
   },
   {
     "domain": "custodian-ui",
     "slug": "site-custodian-login-recruitment-hub",
-    "title": "Site Custodian Login Recruitment Hub",
+    "title": "AegisAlign | Custodian Intake & Recruitment",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/site_custodian_login_recruitment_hub/code.html",
     "routePath": "/custodian-ui/site-custodian-login-recruitment-hub/"
   },
@@ -338,14 +324,14 @@
   {
     "domain": "custodian-ui",
     "slug": "system-health-report-aegis-protocol",
-    "title": "AegisAlign | System Health Report",
+    "title": "AegisAlign | Live System Health",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/system_health_report_aegis_protocol/code.html",
     "routePath": "/custodian-ui/system-health-report-aegis-protocol/"
   },
   {
     "domain": "custodian-ui",
     "slug": "ticket-details-aeg-4092",
-    "title": "AegisAlign | Support Ticket #AEG-4092",
+    "title": "AegisAlign | Support Case AEG-4092",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Custodian_UI/ticket_details_aeg_4092/code.html",
     "routePath": "/custodian-ui/ticket-details-aeg-4092/"
   },

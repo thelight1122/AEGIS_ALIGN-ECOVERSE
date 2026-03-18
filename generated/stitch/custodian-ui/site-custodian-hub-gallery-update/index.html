@@ -1,319 +1,192 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AegisAlign | Governed Publishing Review</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1152d4",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
-        }
-    </script>
-<style>
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#1152d4",
+        "background-light": "#f6f6f8",
+        "background-dark": "#101622"
+      },
+      fontFamily: { display: ["Space Grotesk"] }
+    }
+  }
+};
+</script>
+<style>body{font-family:"Space Grotesk",sans-serif}</style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<!-- Navigation -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 lg:px-40 py-4 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<body class="bg-background-light text-slate-900 antialiased dark:bg-background-dark dark:text-slate-100">
+<div class="flex min-h-screen flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 bg-background-light px-6 py-4 dark:border-slate-800 dark:bg-background-dark md:px-12">
 <div class="flex items-center gap-3 text-primary">
-<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
-<span class="material-symbols-outlined text-primary">shield_with_heart</span>
-</div>
-<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-[-0.015em]">AegisAlign</h2>
+<div class="flex size-8 items-center justify-center rounded-lg bg-primary/10"><span class="material-symbols-outlined">shield_with_heart</span></div>
+<h2 class="text-xl font-bold">AegisAlign</h2>
 </div>
 <div class="flex flex-1 justify-end gap-8">
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Protocol</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Governance</a>
-<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Custodians</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Ecosystem</a>
+<nav class="hidden items-center gap-8 md:flex">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400" href="#">Protocol</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400" href="#">Governance</a>
+<a class="border-b-2 border-primary text-sm font-bold text-primary" href="#">Custodians</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400" href="#">Ecosystem</a>
 </nav>
-<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold leading-normal transition-all hover:opacity-90 active:scale-95">
-                    Launch App
-                </button>
+<button class="rounded-xl bg-primary px-5 py-2 text-sm font-bold text-white">Launch App</button>
 </div>
 </header>
-<main class="flex-1 flex flex-col px-6 md:px-20 lg:px-40 py-10 gap-16">
-<!-- Hero Section -->
-<section class="@container"><div class="flex min-h-[500px] flex-col gap-8 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-8 relative overflow-hidden text-center border border-slate-200 dark:border-slate-800" style="background-image: linear-gradient(rgba(16, 22, 34, 0.85) 0%, rgba(16, 22, 34, 0.98) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8FyGdNZnPDIN5ErjqISPA1v4RnlSTpG9RXqPnyWk0nmd-rF4M9_T1-dZr8GEr9bqAVz4qruhi8-Y1pmTKI_ez5hRgRG2WvH4b0pgNMeqC-cHtOzjMGfp2WAvObYjZqYCoDQ0j-N7cH-L8nA5ndQoozV2e0_MRq0rxwZNxt4j3bIVbHQbStwJKzNk9pUaYyDJOUIFQTg5akP6MZ-7y9QzX_pArWmDoV779154ZaJMp3QuH7jxUM4J1O0AVLQGnNQMYOFCYM3oaXaUT');">
-<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-<div class="w-[600px] h-[600px] border-[20px] border-primary rounded-full flex items-center justify-center relative">
-<div class="absolute w-1 h-full bg-primary top-0 left-1/2 -translate-x-1/2"></div>
-<div class="absolute h-1 w-full bg-primary left-0 top-1/2 -translate-y-1/2"></div>
-<div class="absolute h-1 w-full bg-primary left-0 top-1/2 -translate-y-1/2 rotate-45"></div>
-<div class="absolute h-1 w-full bg-primary left-0 top-1/2 -translate-y-1/2 -rotate-45"></div>
-</div>
-</div>
-<div class="flex flex-col gap-4 max-w-3xl z-10">
-<span class="text-primary font-bold tracking-widest uppercase text-xs">Network Operations &amp; Entry</span>
-<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
-            Custodian Hub
-        </h1>
-<p class="text-slate-300 text-base md:text-lg font-normal leading-relaxed">
-            A decentralized management portal where every member is a ring and every action a spoke. Securely login to manage protocol content or apply to join the circle.
-        </p>
-</div>
-<div class="flex flex-wrap gap-4 z-10 justify-center">
-<button class="flex min-w-[180px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold transition-all hover:bg-primary/90 shadow-lg shadow-primary/20">
-<span class="material-symbols-outlined mr-2">login</span>
-            Custodian Login
-        </button>
-<button class="flex min-w-[180px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-white/10 text-white text-base font-bold backdrop-blur-sm border border-white/20 hover:bg-white/20">
-<span class="material-symbols-outlined mr-2">person_add</span>
-            Apply to Join
-        </button>
-</div>
-</div></section>
-<!-- The High Council -->
-<section class="border-2 border-primary/30 bg-primary/5 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-<div class="absolute top-0 right-0 p-4 opacity-10">
-<span class="material-symbols-outlined text-[12rem]">cyclone</span>
-</div>
-<div class="relative z-10">
-<div class="flex flex-col gap-4 mb-12">
-<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight">Coherence through Illumination</h2>
-<p class="text-slate-600 dark:text-slate-400 max-w-2xl">In our network, hierarchy is replaced by circularity. Current Custodians manage the living protocol here, while prospective guardians initiate their journey.</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-<!-- Management Spoke -->
-<div class="flex flex-col gap-6 bg-white dark:bg-slate-900/80 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center">
-<span class="material-symbols-outlined text-primary">settings_applications</span>
-</div>
-<h3 class="text-xl font-bold">Protocol Management</h3>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
-<span class="material-symbols-outlined text-primary">add_circle</span>
-<span class="font-bold text-sm">Create New Page</span>
-<span class="text-xs text-slate-500">Expand the protocol's digital footprint.</span>
-</button>
-<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
-<span class="material-symbols-outlined text-primary">edit_document</span>
-<span class="font-bold text-sm">Edit Site Content</span>
-<span class="text-xs text-slate-500">Update live pages and documentation.</span>
-</button>
-<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
-<span class="material-symbols-outlined text-primary">cloud_sync</span>
-<span class="font-bold text-sm">Dynamic Updates</span>
-<span class="text-xs text-slate-500">Sync changes across the decentralized web.</span>
-</button>
-<button class="flex flex-col items-start gap-2 p-4 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-primary/5 transition-all text-left">
-<span class="material-symbols-outlined text-primary">group_work</span>
-<span class="font-bold text-sm">Network Health</span>
-<span class="text-xs text-slate-500">Monitor the status of all ring nodes.</span>
-</button>
-</div>
-</div>
-<!-- Recruitment Spoke -->
-<div class="flex flex-col gap-6 bg-white dark:bg-slate-900/80 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center">
-<span class="material-symbols-outlined text-primary">hub</span>
-</div>
-<h3 class="text-xl font-bold">Recruitment Portal</h3>
-</div>
+
+<main class="flex flex-1 flex-col gap-8 px-6 py-8 md:px-12">
+<section class="rounded-3xl border border-primary/20 bg-[linear-gradient(140deg,rgba(17,82,212,0.16),rgba(10,16,28,0.96))] p-8 text-white">
+<div class="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
 <div class="space-y-4">
-<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-l-4 border-primary">
-<p class="text-sm font-medium italic">"Every member is a ring, and everyone is a spoke on the ring."</p>
-</div>
-<p class="text-sm text-slate-600 dark:text-slate-400">Seeking experts in cryptoeconomics and secure systems. Join the circle to uphold the AEGIS charter.</p>
-<div class="flex flex-col gap-2">
-<div class="flex justify-between text-xs">
-<span>Current Openings</span>
-<span class="text-primary font-bold">4 Available</span>
-</div>
-<div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-<div class="h-full bg-primary w-[75%]"></div>
+<p class="text-xs font-bold uppercase tracking-[0.3em] text-primary/80">Custodian Publishing Surface</p>
+<h1 class="text-4xl font-black tracking-[-0.03em] md:text-5xl">Governed Site Update Review</h1>
+<p class="max-w-2xl text-sm leading-7 text-slate-300 md:text-base">Peer Custodians stage, validate, and route page updates here before they move into the living EcoVerse. Nothing publishes itself. Each package passes through review, integrity checks, and release routing.</p>
+<div class="flex flex-wrap gap-3">
+<button class="rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white">Open Publishing Queue</button>
+<button class="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-bold text-white">Stage Release Review</button>
 </div>
 </div>
-<button class="w-full h-11 bg-primary text-white rounded-lg font-bold hover:opacity-90 transition-all">Initiate Application</button>
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+<div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5">
+<p class="text-xs uppercase tracking-[0.24em] text-slate-400">Pending Review</p>
+<p class="mt-2 text-3xl font-black">08</p>
+<p class="mt-1 text-sm text-slate-400">Draft packages awaiting Custodian sign-off.</p>
 </div>
-</div>
-</div>
-</div>
-</section>
-<!-- Founding Entities -->
-<section class="border-2 border-primary/30 bg-primary/5 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-<div class="absolute top-0 right-0 p-4 opacity-10">
-<span class="material-symbols-outlined text-[12rem]">cyclone</span>
-</div>
-<div class="relative z-10">
-<div class="flex flex-col gap-4 mb-12">
-<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight">Coherence through Illumination</h2>
-<p class="text-slate-600 dark:text-slate-400 max-w-2xl">In our network, hierarchy is replaced by circularity. Current Custodians manage the living protocol here, while prospective guardians initiate their journey.</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="w-full overflow-hidden py-10">
-<div class="flex gap-8 animate-marquee whitespace-nowrap">
-<div class="flex-none w-80 h-48 rounded-xl bg-slate-900 border border-primary/30 relative overflow-hidden group">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&amp;w=2832&amp;auto=format&amp;fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
-<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-dark to-transparent">
-<p class="text-xs font-mono text-primary uppercase tracking-widest">Neural Network 01</p>
-</div>
-</div>
-<div class="flex-none w-80 h-48 rounded-xl bg-slate-900 border border-primary/30 relative overflow-hidden group">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&amp;w=2874&amp;auto=format&amp;fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
-<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-dark to-transparent">
-<p class="text-xs font-mono text-primary uppercase tracking-widest">Quantum Ledger 04</p>
-</div>
-</div>
-<div class="flex-none w-80 h-48 rounded-xl bg-slate-900 border border-primary/30 relative overflow-hidden group">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&amp;w=2944&amp;auto=format&amp;fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
-<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-dark to-transparent">
-<p class="text-xs font-mono text-primary uppercase tracking-widest">Node Visualization</p>
-</div>
-</div>
-<div class="flex-none w-80 h-48 rounded-xl bg-slate-900 border border-primary/30 relative overflow-hidden group">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&amp;w=2940&amp;auto=format&amp;fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
-<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-dark to-transparent">
-<p class="text-xs font-mono text-primary uppercase tracking-widest">Protocol Core</p>
-</div>
-</div>
-<!-- Repeat for continuous effect -->
-<div class="flex-none w-80 h-48 rounded-xl bg-slate-900 border border-primary/30 relative overflow-hidden group">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&amp;w=2832&amp;auto=format&amp;fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
-<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-dark to-transparent">
-<p class="text-xs font-mono text-primary uppercase tracking-widest">Neural Network 01</p>
-</div>
-</div>
-</div>
-<style>
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            display: flex;
-            width: fit-content;
-            animation: marquee 30s linear infinite;
-        }
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-    </style>
-</div></div>
-</div>
-</section>
-<!-- Custodian Responsibilities -->
-<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-<div class="flex flex-col gap-6">
-<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight tracking-tight">Responsibilities within the Circle</h2>
-<div class="space-y-4">
-<div class="flex gap-4">
-<div class="flex-shrink-0 mt-1">
-<span class="material-symbols-outlined text-primary">emergency_home</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-900 dark:text-slate-100">Emergency Patching</h4>
-<p class="text-slate-600 dark:text-slate-400 text-sm">Rapid response to critical vulnerabilities and zero-day threats in the protocol code.</p>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="flex-shrink-0 mt-1">
-<span class="material-symbols-outlined text-primary">account_balance</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-900 dark:text-slate-100">Governance Oversight</h4>
-<p class="text-slate-600 dark:text-slate-400 text-sm">Vetting and managing governance proposals to prevent malicious takeovers or technical errors.</p>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="flex-shrink-0 mt-1">
-<span class="material-symbols-outlined text-primary">payments</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-900 dark:text-slate-100">Treasury Management</h4>
-<p class="text-slate-600 dark:text-slate-400 text-sm">Secure handling of protocol reserves and distribution of ecosystem development grants.</p>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="flex-shrink-0 mt-1">
-<span class="material-symbols-outlined text-primary">verified_user</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-900 dark:text-slate-100">Integrity Validation</h4>
-<p class="text-slate-600 dark:text-slate-400 text-sm">Ensuring all protocol upgrades align with the original AEGIS Decentralization Charter.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900">
-<div class="p-8 flex flex-col items-center justify-center gap-6 relative">
-<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at center, #1152d4 0%, transparent 70%);"></div>
-<span class="material-symbols-outlined text-primary text-6xl">verified</span>
-<div class="text-center z-10">
-<p class="text-white text-xl font-bold">Standard of Excellence</p>
-<p class="text-slate-400 mt-2 text-sm px-8">All Custodians are bound by a cryptographically signed oath to uphold protocol neutrality and security above all other interests.</p>
-</div>
-<div class="w-full h-[1px] bg-slate-800"></div>
-<div class="flex justify-between w-full px-4 text-xs font-mono text-primary/70 z-10">
-<span>AUTH_KEY: 0x8a...4f2e</span>
-<span>STATUS: VERIFIED</span>
+<div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5">
+<p class="text-xs uppercase tracking-[0.24em] text-slate-400">Mesh Sync</p>
+<p class="mt-2 text-3xl font-black" data-live-publishing-sync>Pending</p>
+<p class="mt-1 text-sm text-slate-400" data-live-publishing-sync-copy>Backend publishing telemetry is not connected. Showing local Custodian state only.</p>
 </div>
 </div>
 </div>
 </section>
-<!-- Becoming a Custodian -->
+
+<section class="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+<section class="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900/80">
+<div class="flex flex-col gap-3 border-b border-slate-200 pb-5 dark:border-slate-800 md:flex-row md:items-end md:justify-between">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.24em] text-primary">Release Queue</p>
+<h2 class="mt-2 text-2xl font-bold">Staged page packages</h2>
+<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Filter live release candidates and route them into the right stewardship lane.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="rounded-full border border-primary bg-primary/10 px-4 py-2 text-xs font-bold text-primary">All Packages</button>
+<button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-bold text-slate-600 dark:border-slate-700 dark:text-slate-300">Needs Review</button>
+<button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-bold text-slate-600 dark:border-slate-700 dark:text-slate-300">Validated</button>
+<button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-bold text-slate-600 dark:border-slate-700 dark:text-slate-300">Ready to Sync</button>
+</div>
+</div>
+<div class="mt-6 space-y-4">
+<article class="rounded-2xl border border-primary/25 bg-primary/[0.04] p-5">
+<div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+<div class="space-y-2">
+<div class="flex flex-wrap gap-2">
+<span class="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-primary">Publishing</span>
+<span class="rounded-full bg-amber-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-amber-500">Needs Review</span>
+</div>
+<h3 class="text-xl font-bold">Custodian Charter and Stewardship Lane Update</h3>
+<p class="text-sm leading-6 text-slate-500 dark:text-slate-400">Refreshes the public charter summary, stewardship language, and lane descriptions across Custodian identity surfaces.</p>
+<div class="flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400">
+<span>Package: `charter-refresh-v3`</span><span>Target: `site-custodians`</span>
+</div>
+</div>
+<div class="grid min-w-[220px] gap-2">
+<button class="rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white">Review Package</button>
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Preview Release</button>
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Route to Governance</button>
+</div>
+</div>
+</article>
+
+<article class="rounded-2xl border border-slate-200 p-5 dark:border-slate-800">
+<div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+<div class="space-y-2">
+<div class="flex flex-wrap gap-2">
+<span class="rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-cyan-500">Validated</span>
+<span class="rounded-full bg-slate-200 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-600 dark:bg-slate-800 dark:text-slate-300">Site Update</span>
+</div>
+<h3 class="text-xl font-bold">Regional Operations Drilldown Visual Sync</h3>
+<p class="text-sm leading-6 text-slate-500 dark:text-slate-400">Stages revised telemetry labels and regional alerts while preserving the live routing structure.</p>
+</div>
+<div class="grid min-w-[220px] gap-2">
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Open In Editor</button>
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Sync to Mesh</button>
+</div>
+</div>
+</article>
+
+<article class="rounded-2xl border border-slate-200 p-5 dark:border-slate-800">
+<div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+<div class="space-y-2">
+<div class="flex flex-wrap gap-2">
+<span class="rounded-full bg-rose-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-rose-500">Integrity Hold</span>
+<span class="rounded-full bg-slate-200 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-600 dark:bg-slate-800 dark:text-slate-300">Escalated</span>
+</div>
+<h3 class="text-xl font-bold">Custodian Login Copy Revision</h3>
+<p class="text-sm leading-6 text-slate-500 dark:text-slate-400">Blocked until recovery language and secure entry guidance are reconciled against the current access posture.</p>
+</div>
+<div class="grid min-w-[220px] gap-2">
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Open Integrity Notes</button>
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Send Back To Draft</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+
+<div class="space-y-6">
+<section class="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900/80">
+<div class="flex items-start justify-between gap-4">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.24em] text-primary">Validation Rail</p>
+<h2 class="mt-2 text-2xl font-bold">Pre-release checks</h2>
+</div>
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Run Validation Sweep</button>
+</div>
+<div class="mt-5 space-y-4">
+<div class="rounded-2xl border border-slate-200 p-4 dark:border-slate-800"><div class="flex items-center justify-between gap-4"><div><p class="font-bold">Governance alignment</p><p class="text-sm text-slate-500 dark:text-slate-400">Checks canon references, stewardship language, and proposal dependencies.</p></div><span class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.24em] text-emerald-500">Passed</span></div></div>
+<div class="rounded-2xl border border-slate-200 p-4 dark:border-slate-800"><div class="flex items-center justify-between gap-4"><div><p class="font-bold">Publishing diff review</p><p class="text-sm text-slate-500 dark:text-slate-400">Confirms targeted page deltas before mesh sync and reviewer routing.</p></div><span class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.24em] text-amber-500">Watch</span></div></div>
+<div class="rounded-2xl border border-slate-200 p-4 dark:border-slate-800"><div class="flex items-center justify-between gap-4"><div><p class="font-bold">Operational impact</p><p class="text-sm text-slate-500 dark:text-slate-400">Flags changes touching active incidents, intake, or regional health surfaces.</p></div><span class="rounded-full bg-slate-200 px-3 py-1 text-xs font-bold uppercase tracking-[0.24em] text-slate-600 dark:bg-slate-800 dark:text-slate-300">Idle</span></div></div>
+</div>
+</section>
+
+<section class="rounded-3xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900/80">
+<div class="flex items-start justify-between gap-4">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.24em] text-primary">Quick Actions</p>
+<h2 class="mt-2 text-2xl font-bold">Publishing handoffs</h2>
+</div>
+<button class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-bold text-slate-700 dark:border-slate-700 dark:text-slate-200">Open Draft Editor</button>
+</div>
+<div class="mt-5 grid gap-3">
+<button class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-4 text-left dark:border-slate-800"><span><span class="block font-bold">Review pending submissions</span><span class="mt-1 block text-sm text-slate-500 dark:text-slate-400">Move queued page packages through intake and reviewer assignment.</span></span><span class="material-symbols-outlined text-primary">arrow_outward</span></button>
+<button class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-4 text-left dark:border-slate-800"><span><span class="block font-bold">Open publishing guide</span><span class="mt-1 block text-sm text-slate-500 dark:text-slate-400">Review standards, release language, and stewardship requirements.</span></span><span class="material-symbols-outlined text-primary">menu_book</span></button>
+<button class="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-4 text-left dark:border-slate-800"><span><span class="block font-bold">Sync dynamic updates</span><span class="mt-1 block text-sm text-slate-500 dark:text-slate-400">Queue approved copy and UI changes across governed Custodian surfaces.</span></span><span class="material-symbols-outlined text-primary">sync</span></button>
+</div>
+</section>
+</div>
+</section>
 </main>
-<!-- Footer -->
-<footer class="border-t border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark py-12 px-6 md:px-20 lg:px-40">
-<div class="flex flex-col md:flex-row justify-between gap-12">
-<div class="flex flex-col gap-4 max-w-xs">
-<div class="flex items-center gap-2 text-primary">
-<span class="material-symbols-outlined">shield_with_heart</span>
-<span class="text-slate-900 dark:text-slate-100 font-bold text-lg">AegisAlign</span>
-</div>
-<p class="text-slate-500 text-sm">Aligning decentralized security with long-term governance standards.</p>
-</div>
-<div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
-<div class="flex flex-col gap-3">
-<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Protocol</p>
-<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Architecture</a>
-<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">SDKs</a>
-</div>
-<div class="flex flex-col gap-3">
-<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Community</p>
-<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Discord</a>
-<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Twitter</a>
-</div>
-<div class="flex flex-col gap-3">
-<p class="text-slate-900 dark:text-slate-100 font-bold text-sm">Legal</p>
-<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Charter</a>
-<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Privacy</a>
+
+<footer class="border-t border-slate-200 bg-background-light px-6 py-10 text-sm text-slate-500 dark:border-slate-800 dark:bg-background-dark md:px-12">
+<div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+<p>Governed publishing for Peer Custodians maintaining the living EcoVerse.</p>
+<div class="flex flex-wrap gap-6">
+<a href="#">Architecture</a>
+<a href="#">SDKs</a>
+<a href="#">Charter</a>
+<a href="#">Privacy</a>
 </div>
 </div>
-</div>
-<div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-slate-500 text-xs">
-                © 2024 AEGIS Protocol. All nodes verified.
-            </div>
 </footer>
 </div>
-</div>
-</body></html>
+</body>
+</html>
