@@ -1159,6 +1159,13 @@ function enhanceExportWorkflowMoved(doc) {
   doc.body.dataset.aegisEnhancedExportMoved = "true";
   injectStyles(doc);
 
+  const anchor = doc.querySelector("main") || doc.body;
+  prependCoreBanner(
+    doc,
+    anchor,
+    `${CORE_ENGINE.name} ${CORE_ENGINE.displayVersion} grounds this surface. The export workflow has been retired as a standalone modal — export review is now embedded in the Detailed Agent View where it stays bounded to real Peer record state.`,
+  );
+
   const detailButton = doc.querySelector("[data-export-route='detail']");
   const monitorButton = doc.querySelector("[data-export-route='monitor']");
 
