@@ -1,0 +1,47 @@
+{
+  "sourceRepoPath": "I:\\AEGIS-CORE-ENGINE",
+  "sourceReadme": "I:\\AEGIS-CORE-ENGINE\\README.md",
+  "sourcePackage": "I:\\AEGIS-CORE-ENGINE\\package.json",
+  "sourceStandards": "I:\\AEGIS-CORE-ENGINE\\docs\\AEGIS Standards v0.1.md",
+  "sourceCorePackage": "I:\\AEGIS-CORE-ENGINE\\packages\\aegis-dataquad-core\\dist\\index.js",
+  "id": "aegis-core-engine",
+  "name": "AEGIS Core Engine",
+  "packageVersion": null,
+  "currentStatus": "limited beta",
+  "referenceDate": "2026-04-16",
+  "canonVersion": "1.3.0",
+  "canonRecordCount": 47,
+  "canonCategories": {
+    "AXIOM": 14,
+    "GATE": 18,
+    "STANDARD": 4,
+    "IMPERATIVE": 11
+  },
+  "standardsVersion": "0.1",
+  "posture": "Non-coercive, append-only, behavior-centered",
+  "governanceInvariants": [
+    "sovereignty_preserving",
+    "append_only",
+    "peer_aware"
+  ],
+  "creationDefaults": {
+    "identity": {
+      "role": "Peer Agent",
+      "boundary": "Stewardship-first operation"
+    },
+    "logic": {
+      "baseModel": "AEGIS CoLAB Core Runtime",
+      "reasoningMode": "structured",
+      "reflectionPrimitive": "IDR / IDQRA"
+    },
+    "memory": {
+      "architecture": "DataQuad recursive memory",
+      "snapshotProtocol": "SSSP v1.0",
+      "ragMode": "local-first"
+    },
+    "deployment": {
+      "mode": "prototype-local",
+      "state": "backend pending"
+    }
+  }
+}

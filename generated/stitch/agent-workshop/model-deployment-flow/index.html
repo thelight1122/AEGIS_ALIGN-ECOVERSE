@@ -1,296 +1,151 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1152d4",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Agentic Workshop - Core Deployment Review</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { primary: "#1152d4", "background-light": "#f6f6f8", "background-dark": "#101622" },
+          fontFamily: { display: ["Space Grotesk", "sans-serif"], mono: ["JetBrains Mono", "monospace"] }
         }
-    </script>
-<style>
-        body { font-family: 'Space Grotesk', sans-serif; }
-        .terminal-glow { text-shadow: 0 0 10px rgba(17, 82, 212, 0.5); }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #282e39; border-radius: 10px; }
-    </style>
+      }
+    };
+  </script>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
-<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-20">
-<div class="flex items-center gap-4">
-<div class="size-8 text-primary">
-<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
-</svg>
-</div>
-<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">AEGIS AI Audit</h2>
-</div>
-<div class="flex flex-1 justify-end gap-4">
-<div class="flex gap-2">
-<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-<span class="material-symbols-outlined">shield</span>
-</button>
-<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-</div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="User profile avatar with blue border" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDEKA_bLM2fLS0NxNr__sn8-GZPgFtxm0qnwiCYed-D1dsheCR3CZt8l4Foi7oGNuOeA2Xzs8zJrJokJPzCJn4FfveOXGILCi3TfEGIcY8ul_omgAlvq0TMP_1axEJPMqYJUw6USA_JGFYuZ9FUr8HqtYnIBcwiHIHlO0yicJYyRmmyPZTCHG_RXf2ZbgD0dxpgvHA9uqwUfNzcOXslTTqdjOZODudLYyKdhB0hiekWR8D1gBmu6c5v1ZTAxk6nAWOjPLw4qheneoRO");'></div>
-</div>
-</header>
-<main class="flex-1 flex flex-col lg:flex-row px-6 lg:px-20 py-8 gap-8">
-<aside class="w-full lg:w-64 flex flex-col gap-6">
-<div class="flex flex-col gap-1 p-4 rounded-xl bg-primary/10 border border-primary/20">
-<h1 class="text-primary text-base font-bold uppercase tracking-widest">Deployment Unit</h1>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">System Operator Node 07</p>
-</div>
-<nav class="flex flex-col gap-2">
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="font-medium text-sm">Dashboard</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">memory</span>
-<span class="font-medium text-sm">Training</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white shadow-lg shadow-primary/20 transition-colors" href="#">
-<span class="material-symbols-outlined">rocket_launch</span>
-<span class="font-medium text-sm">Deployment</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">history_edu</span>
-<span class="font-medium text-sm">Audit Logs</span>
-</a>
-</nav>
-<div class="mt-auto border-t border-slate-200 dark:border-slate-800 pt-6">
-<div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
-<p class="text-xs text-slate-500 mb-2">NETWORK HEALTH</p>
-<div class="flex items-center justify-between mb-2">
-<span class="text-sm font-medium">Latency</span>
-<span class="text-sm text-green-500">12ms</span>
-</div>
-<div class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[88%]"></div>
-</div>
-</div>
-</div>
-</aside>
-<div class="flex-1 flex flex-col gap-6">
-<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-<div>
-<h2 class="text-3xl font-bold tracking-tight mb-2">Model Deployment Flow</h2>
-<p class="text-slate-500 dark:text-slate-400">Transition hardened models from training environment to production mesh.</p>
-</div>
-<div class="flex gap-3">
-<button class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 font-medium text-sm">Save Config</button>
-<button class="px-6 py-2 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/30">AUTHORIZE GLOBAL DEPLOYMENT</button>
-</div>
-</div>
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-<div class="xl:col-span-2 flex flex-col gap-6">
-<section class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">analytics</span>
-                                    Model Selection &amp; Metadata
-                                </h3>
-<div class="flex flex-col md:flex-row gap-8">
-<div class="flex-1 space-y-6">
-<div class="space-y-1">
-<p class="text-xs uppercase tracking-wider text-slate-500">Active Version</p>
-<p class="text-2xl font-bold text-primary">AEGIS-SSSP-V4.8.2</p>
-<p class="text-sm text-slate-400">Hardened Audit Model - Deep Stability Patch</p>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-<p class="text-xs text-slate-500 mb-1">Accuracy Gain</p>
-<p class="text-xl font-bold text-green-500">+14.2%</p>
-</div>
-<div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-<p class="text-xs text-slate-500 mb-1">Stability Index</p>
-<p class="text-xl font-bold text-primary">0.998</p>
-</div>
-</div>
-</div>
-<div class="w-full md:w-64 h-40 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden relative group">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-<div class="absolute inset-0 flex items-center justify-center p-4">
-<div class="w-full h-full border border-dashed border-primary/30 rounded-md flex flex-col items-center justify-center gap-2">
-<span class="material-symbols-outlined text-primary/50 text-4xl">query_stats</span>
-<span class="text-[10px] text-slate-500 uppercase">Architecture Map</span>
-</div>
-</div>
-<img alt="Model architecture visualization" class="w-full h-full object-cover opacity-20 grayscale" data-alt="Schematic of a complex neural network architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6-XnvwOxBRouw5PJ1YlSJPlEYFvsUE4UsfEHfsFvhlNVbr-OPq1iX9327UMoGZLqE1qPVHcgavBou5sk3n5-IrB0Ez3oQYnIpNV42_OixiHJA_yrvdT6XkRLhrpj9Z7q5H06J_vtFK8kyzz_UOz9T-u8FYEXM9hQM37TTl6HkmxN96ne2Kw31Nu1hK0UblOpdEUkX3Y9illQKcEsE41V71aFD6VAx76gp8OVu-bGK1NK7JcLB9_FwTQQLEFAdMj1-DIsBNiz7_nWu"/>
-</div>
-</div>
-</section>
-<section class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-<h3 class="text-lg font-bold mb-8">Deployment Stage Tracker</h3>
-<div class="relative">
-<div class="absolute top-5 left-5 right-5 h-0.5 bg-slate-200 dark:bg-slate-800 -z-0"></div>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-<div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-3">
-<div class="size-10 rounded-full bg-green-500 text-white flex items-center justify-center ring-4 ring-white dark:ring-slate-900 ring-offset-0">
-<span class="material-symbols-outlined text-xl">check</span>
-</div>
-<div>
-<h4 class="font-bold text-sm">Integrity Validation</h4>
-<p class="text-xs text-slate-500 mt-1">Cryptographic hash SHA-512 verified.</p>
-</div>
-</div>
-<div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-3">
-<div class="size-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-white dark:ring-slate-900 animate-pulse">
-<span class="material-symbols-outlined text-xl">biotech</span>
-</div>
-<div>
-<h4 class="font-bold text-sm">Shadow Staging</h4>
-<p class="text-xs text-slate-500 mt-1">Silent deployment for drift monitoring.</p>
-</div>
-</div>
-<div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-3">
-<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 flex items-center justify-center ring-4 ring-white dark:ring-slate-900">
-<span class="material-symbols-outlined text-xl">view_in_ar</span>
-</div>
-<div>
-<h4 class="font-bold text-sm text-slate-500">Canary Rollout</h4>
-<p class="text-xs text-slate-500 mt-1">Gradual deploy to 10% node mesh.</p>
-</div>
-</div>
-<div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-3">
-<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 flex items-center justify-center ring-4 ring-white dark:ring-slate-900">
-<span class="material-symbols-outlined text-xl">language</span>
-</div>
-<div>
-<h4 class="font-bold text-sm text-slate-500">Global Sync</h4>
-<p class="text-xs text-slate-500 mt-1">Full protocol integration.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="bg-slate-950 border border-slate-800 rounded-xl p-4 overflow-hidden">
-<div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-2">
-<h3 class="text-xs font-mono text-primary flex items-center gap-2">
-<span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-</span>
-                                        TERMINAL_FEED: DEPLOYMENT_LOG
-                                    </h3>
-<span class="text-[10px] text-slate-600 font-mono">STATUS: PUSHING_BLOBS...</span>
-</div>
-<div class="font-mono text-[11px] leading-relaxed space-y-1 h-48 overflow-y-auto custom-scrollbar">
-<p class="text-slate-500">[14:22:01] <span class="text-white">INITIATING</span> handshake with Regional Cluster US-East-01...</p>
-<p class="text-slate-500">[14:22:02] <span class="text-green-500">SUCCESS</span> Cryptographic key exchange verified.</p>
-<p class="text-slate-500">[14:22:04] <span class="text-primary">PUSH</span> Layer 7 binary blobs transfer initiated.</p>
-<p class="text-slate-500">[14:22:08] <span class="text-slate-400">STAGING</span> Environment isolated. Monitoring for anomaly triggers...</p>
-<p class="text-slate-500">[14:22:15] <span class="text-white">SYNC</span> Manifest broadcast to 24 sub-nodes.</p>
-<p class="text-primary animate-pulse">_ Pushing version data to shard EU-West-04...</p>
-<p class="text-slate-700">[..] awaiting acknowledgment from master node..</p>
-</div>
-</section>
-</div>
-<div class="flex flex-col gap-6">
-<section class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 flex-1 flex flex-col">
-<h3 class="text-lg font-bold mb-4 flex items-center justify-between">
-                                    Target Node Selection
-                                    <span class="text-xs font-normal text-slate-500">6/8 Clusters Selected</span>
-</h3>
-<div class="h-48 w-full bg-slate-100 dark:bg-slate-800 rounded-lg mb-6 overflow-hidden border border-slate-200 dark:border-slate-800 relative">
-<img alt="World map with node points" class="w-full h-full object-cover opacity-30" data-alt="Dark stylized world map with glowing blue node connection points" data-location="Global" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd_4C8cPDO9bdnojFo27jkKk2XYxYjmIEfbhIeL-adkyPun-xgNGk4TgepvIXESuL41sxcYKnwWyQhUYadc-9qCF-N8K-0JnpKpjiOUZ36h0zCF76yWnpbUXMpUagrWlG_wfAcC9pIYSaAuyofZf0YsZxhTwJFxLT47yeNJGHtfEIhmEebdIu8oAt4QaltRNbCs4zOKBGFYHhj8fGJ7VeWyX6hlgL1dIA4cvZ5AtZ5Q_VFztEgr_upQr1dM51HlSjfnqd_KBLQaEXI"/>
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<div class="size-4 bg-primary rounded-full animate-ping opacity-50"></div>
-<div class="size-2 bg-primary rounded-full absolute"></div>
-</div>
-</div>
-<div class="space-y-3 overflow-y-auto max-h-80 custom-scrollbar pr-2">
-<div class="flex items-center justify-between p-3 rounded-lg border border-primary/30 bg-primary/5">
-<div class="flex items-center gap-3">
-<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
-<span class="text-sm font-medium">US-East-01 (Virginia)</span>
-</div>
-<span class="text-[10px] px-2 py-0.5 rounded bg-green-500/20 text-green-500 font-bold uppercase">Ready</span>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border border-primary/30 bg-primary/5">
-<div class="flex items-center gap-3">
-<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
-<span class="text-sm font-medium">EU-West-02 (Dublin)</span>
-</div>
-<span class="text-[10px] px-2 py-0.5 rounded bg-green-500/20 text-green-500 font-bold uppercase">Ready</span>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-slate-800">
-<div class="flex items-center gap-3">
-<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
-<span class="text-sm font-medium">AP-South-01 (Mumbai)</span>
-</div>
-<span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-500 font-bold uppercase">Syncing</span>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border border-primary/30 bg-primary/5">
-<div class="flex items-center gap-3">
-<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
-<span class="text-sm font-medium">US-West-02 (Oregon)</span>
-</div>
-<span class="text-[10px] px-2 py-0.5 rounded bg-green-500/20 text-green-500 font-bold uppercase">Ready</span>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-slate-800">
-<div class="flex items-center gap-3">
-<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
-<span class="text-sm font-medium">SA-East-01 (Sao Paulo)</span>
-</div>
-<span class="text-[10px] px-2 py-0.5 rounded bg-slate-500/20 text-slate-500 font-bold uppercase">Offline</span>
-</div>
-</div>
-</section>
-<section class="bg-primary/10 border border-primary/20 rounded-xl p-6">
-<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">verified_user</span>
-                                    Security Verification
-                                </h3>
-<div class="space-y-4">
-<div class="p-3 bg-background-dark/50 rounded-lg border border-slate-800">
-<p class="text-xs text-slate-400 mb-2">Hardware Key (YubiKey) required</p>
-<div class="flex items-center gap-3 text-sm text-primary italic">
-<span class="material-symbols-outlined animate-pulse">key</span>
-                                            Waiting for touch...
-                                        </div>
-</div>
-<div class="flex flex-col gap-2">
-<p class="text-[10px] text-slate-500 text-center">By authorizing, you confirm that model V4.8.2 has passed all stress-testing protocols.</p>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</main>
-<footer class="border-t border-slate-200 dark:border-slate-800 py-6 px-6 lg:px-20 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
-<div class="flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-xs text-slate-500">© 2024 AEGIS Systems Group. Secure Deployment Protocol Active.</p>
-<div class="flex gap-6 text-xs font-medium text-slate-400">
-<a class="hover:text-primary transition-colors" href="#">Documentation</a>
-<a class="hover:text-primary transition-colors" href="#">API Status</a>
-<a class="hover:text-primary transition-colors" href="#">Security Policy</a>
-</div>
-</div>
-</footer>
-</div>
-</div>
-</body></html>
+<body class="bg-background-light text-slate-900 antialiased dark:bg-background-dark dark:text-slate-100 font-display">
+  <div class="min-h-screen">
+    <header class="border-b border-slate-200 px-6 py-4 dark:border-slate-800 lg:px-16">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.24em] text-primary/80">Agentic Workshop</p>
+          <h1 class="text-2xl font-bold">Core Deployment Review</h1>
+        </div>
+        <div class="flex gap-3">
+          <button class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium dark:border-slate-700" data-deployment-route="/agent-workshop/aegis-project-tree-index/">Workshop Map</button>
+          <button class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white" data-deployment-route="/agent-workshop/agentic-workshop-main-console/">Main Console</button>
+        </div>
+      </div>
+    </header>
+    <main class="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-8 lg:px-16">
+      <section class="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-slate-900/90 to-slate-950 p-6 text-white shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+        <div class="grid gap-4 lg:grid-cols-[1.4fr,1fr]">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.24em] text-primary/80">Locked Core Reference</p>
+            <h2 class="mt-2 text-3xl font-bold tracking-tight">Finalize a Workshop draft against the canon-locked AEGIS Core Engine.</h2>
+            <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-300">This surface records the current Core binding, manifest truth, and EcoVerse handoff readiness. It does not pretend to perform live infrastructure rollout until that backend exists for real.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Core Version</p><p class="mt-2 text-sm font-semibold" data-core-version>Awaiting sync</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Status</p><p class="mt-2 text-sm font-semibold" data-core-status>Awaiting sync</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Mode</p><p class="mt-2 text-sm font-semibold" data-deployment-mode>Awaiting sync</p></div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Connectivity</p><p class="mt-2 text-sm font-semibold" data-deployment-connectivity>Awaiting sync</p></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid gap-6 xl:grid-cols-12">
+        <section class="space-y-6 xl:col-span-7">
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Bound Draft Agent</p>
+                <h3 class="mt-2 text-2xl font-bold tracking-tight">Current Workshop draft manifest</h3>
+              </div>
+              <span class="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">Truth-first</span>
+            </div>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Core Source</p><p class="mt-2 text-sm font-medium" data-core-source>Awaiting sync</p></div>
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Reference Date</p><p class="mt-2 text-sm font-medium" data-reference-date>Awaiting sync</p></div>
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Canon</p><p class="mt-2 text-sm font-medium" data-canon-version>Awaiting sync</p></div>
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Standards</p><p class="mt-2 text-sm font-medium" data-standards-version>Awaiting sync</p></div>
+            </div>
+            <div class="mt-6 rounded-2xl border border-primary/15 bg-primary/5 p-5">
+              <p class="text-[10px] uppercase tracking-[0.24em] text-primary/80">Current Defaults</p>
+              <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="rounded-xl border border-primary/10 bg-white/70 p-4 dark:bg-slate-950/40"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Identity Role</p><p class="mt-2 text-sm font-medium" data-default-role>Awaiting sync</p></div>
+                <div class="rounded-xl border border-primary/10 bg-white/70 p-4 dark:bg-slate-950/40"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Boundary</p><p class="mt-2 text-sm font-medium" data-default-boundary>Awaiting sync</p></div>
+                <div class="rounded-xl border border-primary/10 bg-white/70 p-4 dark:bg-slate-950/40"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Base Model</p><p class="mt-2 text-sm font-medium" data-default-model>Awaiting sync</p></div>
+                <div class="rounded-xl border border-primary/10 bg-white/70 p-4 dark:bg-slate-950/40"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Reflection Primitive</p><p class="mt-2 text-sm font-medium" data-default-reflection>Awaiting sync</p></div>
+                <div class="rounded-xl border border-primary/10 bg-white/70 p-4 dark:bg-slate-950/40"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Memory Architecture</p><p class="mt-2 text-sm font-medium" data-default-memory>Awaiting sync</p></div>
+                <div class="rounded-xl border border-primary/10 bg-white/70 p-4 dark:bg-slate-950/40"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Snapshot Protocol</p><p class="mt-2 text-sm font-medium" data-default-snapshot>Awaiting sync</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Readiness Sequence</p>
+                <h3 class="mt-2 text-xl font-bold tracking-tight">Deployment is a documented handoff, not a fake global launch.</h3>
+              </div>
+              <span class="rounded-full border border-slate-200 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:border-slate-700" data-deployment-state-badge>Awaiting sync</span>
+            </div>
+            <div class="mt-5 grid gap-4 md:grid-cols-3">
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">1. Core Bind</p><p class="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">Confirm the draft inherits the latest synchronized snapshot from the locked Core repo.</p></div>
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">2. Draft Record</p><p class="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">Preserve the current manifest, launch history, and browser truth without inventing backend state.</p></div>
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">3. EcoVerse Handoff</p><p class="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">Route the draft into the next Workshop or EcoVerse surface while production deployment stays explicitly pending.</p></div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5 font-mono text-[12px] text-slate-300 shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+            <div class="flex items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <p class="text-[11px] uppercase tracking-[0.24em] text-primary/90">Deployment Ledger</p>
+              <span class="text-[10px] uppercase tracking-[0.18em] text-slate-500" data-ledger-status>Awaiting sync</span>
+            </div>
+            <div class="mt-4 space-y-2" data-deployment-ledger>
+              <div>[pending] Waiting for synchronized draft data.</div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="space-y-6 xl:col-span-5">
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+            <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Manifest Integrity</p>
+            <h3 class="mt-2 text-xl font-bold tracking-tight">Current draft manifest snapshot</h3>
+            <div class="mt-5 space-y-3">
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Invariant Set</p><p class="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300" data-invariants>Awaiting sync</p></div>
+              <div class="rounded-xl border border-slate-200 p-4 dark:border-slate-800"><p class="text-[10px] uppercase tracking-[0.2em] text-slate-500">Draft Manifest</p><pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-[11px] leading-6 text-slate-300" data-manifest-preview>{
+  "coreEngineId": "aegis-core-engine",
+  "canonVersion": "pending",
+  "defaults": {}
+}</pre></div>
+            </div>
+          </section>
+
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+            <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Next Actions</p>
+            <h3 class="mt-2 text-xl font-bold tracking-tight">Choose an honest handoff.</h3>
+            <div class="mt-5 flex flex-col gap-3">
+              <button class="flex items-center justify-between rounded-xl bg-primary px-4 py-4 text-left text-white" data-deployment-action="finalize">
+                <span><span class="block text-sm font-semibold">Record Draft &amp; Open Monitoring</span><span class="mt-1 block text-xs text-white/75">Preserve the current draft and move into the active agents monitor.</span></span>
+                <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+              <button class="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-4 text-left dark:border-slate-800" data-deployment-route="/agent-workshop/create-new-agent-dataquad-memory-configuration/">
+                <span><span class="block text-sm font-semibold">Return to Memory Configuration</span><span class="mt-1 block text-xs text-slate-500 dark:text-slate-400">Adjust DataQuad memory or snapshot settings before recording the draft.</span></span>
+                <span class="material-symbols-outlined text-slate-400">undo</span>
+              </button>
+              <button class="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-4 text-left dark:border-slate-800" data-deployment-route="/agent-workshop/active-agents-monitor-agentic-workshop/">
+                <span><span class="block text-sm font-semibold">Open Active Agents Monitor</span><span class="mt-1 block text-xs text-slate-500 dark:text-slate-400">Move into the Workshop operations lane with the current draft context intact.</span></span>
+                <span class="material-symbols-outlined text-slate-400">monitoring</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="rounded-2xl border border-amber-200 bg-amber-50/80 p-6 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
+            <p class="text-[11px] uppercase tracking-[0.24em] text-amber-700 dark:text-amber-400">Reality Check</p>
+            <h3 class="mt-2 text-lg font-bold tracking-tight text-amber-950 dark:text-amber-100">Production deployment is still pending backend integration.</h3>
+            <p class="mt-3 text-sm leading-6 text-amber-900/80 dark:text-amber-100/80">This page reflects browser truth and the synchronized Core snapshot. It does not claim live regional rollout, hardware verification, or global mesh activation until those systems exist for real.</p>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

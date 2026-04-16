@@ -128,11 +128,11 @@
         ]
       },
       {
-        "label": "Orientation & Maps",
+        "label": "Proof & Review Lane",
         "pages": [
-          { "slug": "aegis-project-tree-index", "isParent": true },
-          { "slug": "agent-communication-protocol", "parent": "aegis-project-tree-index" },
-          { "slug": "agent-mesh-visualizer", "parent": "aegis-project-tree-index" }
+          { "slug": "active-agents-monitor-agentic-workshop", "isParent": true, "navLabel": "Active Agents Monitor" },
+          { "slug": "detailed-agent-view-dataquad-node", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Detailed Agent View" },
+          { "slug": "aegis-project-tree-index", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Workshop Map" }
         ]
       },
       {
@@ -163,9 +163,15 @@
         }
       },
       {
+        "label": "Orientation & Protocols",
+        "pages": [
+          { "slug": "agent-communication-protocol", "isParent": true },
+          { "slug": "agent-mesh-visualizer", "parent": "agent-communication-protocol" }
+        ]
+      },
+      {
         "label": "Monitoring & Analysis",
         "pages": [
-          { "slug": "active-agents-monitor-agentic-workshop", "isParent": true },
           { "slug": "ai-audit-analysis-recursive-training", "parent": "active-agents-monitor-agentic-workshop" },
           { "slug": "anomaly-analysis-detail", "parent": "active-agents-monitor-agentic-workshop" },
           { "slug": "global-anomaly-heatmap", "parent": "active-agents-monitor-agentic-workshop" },
@@ -176,10 +182,7 @@
       {
         "label": "Deployments & Records",
         "pages": [
-          { "slug": "detailed-agent-view-dataquad-node", "isParent": true },
-          { "slug": "bulk-export-progress-modal", "parent": "detailed-agent-view-dataquad-node" },
-          { "slug": "sssp-respawn-archive-1", "parent": "detailed-agent-view-dataquad-node" },
-          { "slug": "sssp-respawn-archive-2", "parent": "detailed-agent-view-dataquad-node" }
+          { "slug": "sssp-respawn-archive-1", "parent": "detailed-agent-view-dataquad-node", "navLabel": "Governed Respawn Archive" }
         ]
       }
     ]

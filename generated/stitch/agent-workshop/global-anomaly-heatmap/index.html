@@ -1,318 +1,111 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AEGIS AI - Global Anomaly Heatmap</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1152d4",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AEGIS Agentic Workshop - Workshop Topology Status</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#1152d4",
+            background: "#101622",
+            panel: "#0f1728",
+            line: "rgba(17,82,212,0.22)"
+          },
+          fontFamily: {
+            display: ["Space Grotesk"],
+            mono: ["Space Mono"]
+          }
         }
-    </script>
-<style>
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .heatmap-pulse {
-            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.3; }
-            100% { transform: scale(0.95); opacity: 0.5; }
-        }
-    </style>
+      }
+    };
+  </script>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
-<div class="relative flex h-screen w-full flex-col overflow-hidden">
-<!-- Header -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-dark/80 backdrop-blur-md px-10 py-3 z-50">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-4 text-primary">
-<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
-<span class="material-symbols-outlined text-primary font-bold">shield_with_heart</span>
-</div>
-<h2 class="text-slate-100 text-xl font-bold leading-tight tracking-tight">AEGIS AI Audit</h2>
-</div>
-<nav class="flex items-center gap-6">
-<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
-<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Heatmap</a>
-<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Audits</a>
-<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Nodes</a>
-</nav>
-</div>
-<div class="flex flex-1 justify-end gap-6 items-center">
-<label class="flex flex-col min-w-40 h-10 max-w-64">
-<div class="flex w-full flex-1 items-stretch rounded-lg bg-primary/10 border border-primary/20">
-<div class="text-slate-400 flex items-center justify-center pl-4">
-<span class="material-symbols-outlined text-xl">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 text-slate-100 placeholder:text-slate-500 text-sm" placeholder="Search anomalies..." value=""/>
-</div>
-</label>
-<div class="flex gap-2">
-<button class="flex size-10 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-slate-100 hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-xl">notifications</span>
-</button>
-<button class="flex size-10 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-slate-100 hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-xl">settings</span>
-</button>
-</div>
-<div class="bg-primary/30 rounded-full size-10 border border-primary/50 overflow-hidden">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a cyber security professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeiSZ1nRoL4k78VLPAzco5Dqg9lF3R8vGmJx8Wo4r0YjjmpZKSvp_Lsp5UvLi_Q21lb2H-vnsIc6x71Evuj_wpBAZgLRuUQx_lDm_gjvoeqaXOSQ1_LKankvicYdyIAGcASQdNweBA8604JdZkDJqbt7Uee4xDDOP7Onbzhqa7jVFCkd8QCFmv8aJ--E6fON8i3GatHr3WtmwXlk9Z1GXRkL1AOOGOLMqJpaiN28jZtC8tBgE0PgB1qnIkFOC9sj4mExHSb047-Wt8"/>
-</div>
-</div>
-</header>
-<div class="flex flex-1 overflow-hidden">
-<!-- Sidebar: Regional Metrics & Pathways -->
-<aside class="w-80 flex flex-col border-r border-primary/20 bg-background-dark/50 backdrop-blur-sm p-5 gap-6 overflow-y-auto">
-<div>
-<h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Time Range</h3>
-<div class="grid grid-cols-4 gap-2">
-<button class="h-9 rounded-lg bg-primary text-slate-100 text-xs font-bold">1h</button>
-<button class="h-9 rounded-lg bg-primary/10 border border-primary/20 text-slate-400 text-xs font-bold hover:text-slate-100">6h</button>
-<button class="h-9 rounded-lg bg-primary/10 border border-primary/20 text-slate-400 text-xs font-bold hover:text-slate-100">24h</button>
-<button class="h-9 rounded-lg bg-primary/10 border border-primary/20 text-slate-400 text-xs font-bold hover:text-slate-100">7d</button>
-</div>
-</div>
-<div>
-<h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Anomaly Filter</h3>
-<div class="flex flex-col gap-2">
-<label class="flex items-center gap-3 p-3 rounded-lg bg-background-dark border border-primary/10 hover:border-primary/40 cursor-pointer">
-<input checked="" class="rounded border-primary/30 text-primary bg-background-dark focus:ring-primary/50" type="checkbox"/>
-<span class="flex-1 text-sm font-medium">Glitches</span>
-<span class="size-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
-</label>
-<label class="flex items-center gap-3 p-3 rounded-lg bg-background-dark border border-primary/10 hover:border-primary/40 cursor-pointer">
-<input checked="" class="rounded border-primary/30 text-primary bg-background-dark focus:ring-primary/50" type="checkbox"/>
-<span class="flex-1 text-sm font-medium">Data Drift</span>
-<span class="size-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
-</label>
-<label class="flex items-center gap-3 p-3 rounded-lg bg-background-dark border border-primary/10 hover:border-primary/40 cursor-pointer">
-<input checked="" class="rounded border-primary/30 text-primary bg-background-dark focus:ring-primary/50" type="checkbox"/>
-<span class="flex-1 text-sm font-medium">Node Failures</span>
-<span class="size-2 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]"></span>
-</label>
-</div>
-</div>
-<div class="space-y-4">
-<h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest">Regional Metrics</h3>
-<div class="space-y-3">
-<div class="p-3 rounded-lg bg-primary/5 border border-primary/10">
-<div class="flex justify-between items-center mb-2">
-<span class="text-sm font-medium">US-East-1</span>
-<span class="text-red-400 text-xs font-bold">12 Glitches</span>
-</div>
-<div class="w-full h-1.5 bg-background-dark rounded-full overflow-hidden">
-<div class="bg-red-500 h-full w-[85%] rounded-full"></div>
-</div>
-</div>
-<div class="p-3 rounded-lg bg-primary/5 border border-primary/10">
-<div class="flex justify-between items-center mb-2">
-<span class="text-sm font-medium">EU-West-2</span>
-<span class="text-blue-400 text-xs font-bold">4 Drift Events</span>
-</div>
-<div class="w-full h-1.5 bg-background-dark rounded-full overflow-hidden">
-<div class="bg-blue-500 h-full w-[30%] rounded-full"></div>
-</div>
-</div>
-<div class="p-3 rounded-lg bg-primary/5 border border-primary/10">
-<div class="flex justify-between items-center mb-2">
-<span class="text-sm font-medium">Asia-Pacific</span>
-<span class="text-yellow-400 text-xs font-bold">2 Failures</span>
-</div>
-<div class="w-full h-1.5 bg-background-dark rounded-full overflow-hidden">
-<div class="bg-yellow-500 h-full w-[15%] rounded-full"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-auto">
-<div class="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-transparent border border-primary/30">
-<p class="text-xs text-slate-400 mb-1">System Health</p>
-<p class="text-2xl font-bold text-slate-100">94.2%</p>
-<div class="flex items-center gap-1 text-red-400 text-xs mt-1 font-medium">
-<span class="material-symbols-outlined text-sm">trending_down</span>
-<span>-1.4% vs last hour</span>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Content: Map & Trends -->
-<main class="flex-1 flex flex-col relative">
-<!-- Heatmap Visualization Area -->
-<div class="flex-1 relative bg-slate-950">
-<div class="absolute inset-0 z-0 bg-center bg-no-repeat bg-cover opacity-60 mix-blend-screen" data-alt="Dark stylized world map with glowing data connection lines" data-location="Global" style="background-image: url('https://placeholder.pics/svg/300');">
-</div>
-<!-- Map Overlay: Heatmap Elements -->
-<div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-<!-- US Cluster -->
-<div class="absolute top-[35%] left-[25%] size-32 bg-red-500/20 rounded-full blur-3xl heatmap-pulse"></div>
-<div class="absolute top-[38%] left-[27%] size-12 bg-red-500/40 rounded-full blur-xl"></div>
-<div class="absolute top-[40%] left-[28%] size-3 bg-red-500 rounded-full shadow-[0_0_15px_rgba(239,68,68,1)] pointer-events-auto cursor-pointer group">
-<div class="hidden group-hover:block absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 bg-background-dark border border-primary/40 rounded-lg text-[10px] z-50">
-<p class="font-bold text-red-400">CRITICAL GLITCH</p>
-<p class="text-slate-300">Node: US-E-092</p>
-<p class="text-slate-500 italic">Latency spiking &gt; 2s</p>
-</div>
-</div>
-<!-- Europe Cluster -->
-<div class="absolute top-[30%] left-[50%] size-24 bg-blue-500/20 rounded-full blur-3xl"></div>
-<div class="absolute top-[32%] left-[51%] size-4 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,1)] pointer-events-auto cursor-pointer"></div>
-<!-- Asia Cluster -->
-<div class="absolute top-[45%] left-[75%] size-28 bg-yellow-500/10 rounded-full blur-3xl heatmap-pulse"></div>
-<div class="absolute top-[48%] left-[77%] size-4 bg-yellow-500 rounded-full shadow-[0_0_10px_rgba(234,179,8,1)] pointer-events-auto cursor-pointer"></div>
-</div>
-<!-- Floating Legend -->
-<div class="absolute bottom-6 left-6 z-20 bg-background-dark/80 backdrop-blur-md p-4 rounded-xl border border-primary/20 flex flex-col gap-3">
-<h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Anomaly Legend</h4>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-3">
-<span class="size-2 rounded-full bg-red-500"></span>
-<span class="text-xs text-slate-300">Critical Glitch (High Freq)</span>
-</div>
-<div class="flex items-center gap-3">
-<span class="size-2 rounded-full bg-yellow-500"></span>
-<span class="text-xs text-slate-300">Node Instability (Medium)</span>
-</div>
-<div class="flex items-center gap-3">
-<span class="size-2 rounded-full bg-blue-500"></span>
-<span class="text-xs text-slate-300">Data Drift (Low Intensity)</span>
-</div>
-</div>
-</div>
-<!-- Map Pathways Overlay -->
-<div class="absolute top-6 right-6 z-20 flex flex-col gap-2">
-<button class="size-10 flex items-center justify-center rounded-lg bg-background-dark/80 border border-primary/20 text-slate-100 hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined">add</span>
-</button>
-<button class="size-10 flex items-center justify-center rounded-lg bg-background-dark/80 border border-primary/20 text-slate-100 hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined">remove</span>
-</button>
-<button class="size-10 flex items-center justify-center rounded-lg bg-background-dark/80 border border-primary/20 text-slate-100 hover:bg-primary/20 transition-all mt-4">
-<span class="material-symbols-outlined">my_location</span>
-</button>
-</div>
-</div>
-<!-- Bottom Panel: Trends & Feed -->
-<div class="h-64 bg-background-dark border-t border-primary/20 grid grid-cols-12 overflow-hidden">
-<!-- Trend Chart -->
-<div class="col-span-8 border-r border-primary/20 p-5 flex flex-col">
-<div class="flex justify-between items-center mb-4">
-<h3 class="text-sm font-bold text-slate-300">Detected Glitch Frequency (24h Trend)</h3>
-<div class="flex gap-4">
-<div class="flex items-center gap-1.5 text-[10px] text-slate-500">
-<span class="size-1.5 rounded-full bg-primary"></span> Baseline
-                            </div>
-<div class="flex items-center gap-1.5 text-[10px] text-slate-500">
-<span class="size-1.5 rounded-full bg-red-500"></span> Current
-                            </div>
-</div>
-</div>
-<div class="flex-1 flex items-end gap-1 relative overflow-hidden">
-<!-- Simplified bar chart representation -->
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[30%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[40%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[35%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[60%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[55%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[80%]"></div>
-<div class="flex-1 bg-red-500/40 rounded-t-sm h-[95%]"></div>
-<div class="flex-1 bg-red-500/40 rounded-t-sm h-[85%]"></div>
-<div class="flex-1 bg-red-500/40 rounded-t-sm h-[70%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[50%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[45%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[40%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[55%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[60%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[65%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[50%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[40%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[35%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[30%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[25%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[20%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[25%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[30%]"></div>
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[40%]"></div>
-<!-- Trend Line Overlay (Gradient path) -->
-<div class="absolute inset-x-0 bottom-0 h-full w-full opacity-40">
-<div class="absolute bottom-[40%] left-0 w-full h-[2px] bg-primary"></div>
-</div>
-</div>
-</div>
-<!-- Real-time Feed -->
-<div class="col-span-4 p-5 flex flex-col">
-<h3 class="text-sm font-bold text-slate-300 mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-sm text-primary">sensors</span>
-                        Real-time Event Feed
-                    </h3>
-<div class="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin">
-<div class="flex gap-3 p-2 rounded-lg bg-red-500/5 border-l-2 border-red-500">
-<span class="text-[10px] text-slate-500 font-mono mt-0.5">14:22:01</span>
-<div class="flex-1">
-<p class="text-xs font-bold text-red-400">Glitch Detected</p>
-<p class="text-[10px] text-slate-400">Node Cluster US-East-18a</p>
-</div>
-</div>
-<div class="flex gap-3 p-2 rounded-lg bg-yellow-500/5 border-l-2 border-yellow-500">
-<span class="text-[10px] text-slate-500 font-mono mt-0.5">14:21:44</span>
-<div class="flex-1">
-<p class="text-xs font-bold text-yellow-400">Node Failure</p>
-<p class="text-[10px] text-slate-400">Shard #802 unreachable</p>
-</div>
-</div>
-<div class="flex gap-3 p-2 rounded-lg bg-blue-500/5 border-l-2 border-blue-500">
-<span class="text-[10px] text-slate-500 font-mono mt-0.5">14:20:12</span>
-<div class="flex-1">
-<p class="text-xs font-bold text-blue-400">Data Drift</p>
-<p class="text-[10px] text-slate-400">Validation score dropped to 0.81</p>
-</div>
-</div>
-<div class="flex gap-3 p-2 rounded-lg bg-red-500/5 border-l-2 border-red-500 opacity-50">
-<span class="text-[10px] text-slate-500 font-mono mt-0.5">14:18:55</span>
-<div class="flex-1">
-<p class="text-xs font-bold text-red-400">Glitch Detected</p>
-<p class="text-[10px] text-slate-400">Node Cluster US-East-02c</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-</div>
-<!-- Status Bar -->
-<footer class="h-8 bg-background-dark border-t border-primary/20 px-4 flex items-center justify-between z-50">
-<div class="flex items-center gap-4">
-<div class="flex items-center gap-2">
-<span class="size-2 rounded-full bg-green-500"></span>
-<span class="text-[10px] text-slate-400">System Secure</span>
-</div>
-<div class="h-3 w-px bg-primary/20"></div>
-<div class="text-[10px] text-slate-400">Last updated: 14:22:15 GMT-4</div>
-</div>
-<div class="flex items-center gap-4 text-[10px] text-slate-400">
-<span>AEGIS AI v4.2.0-stable</span>
-<div class="h-3 w-px bg-primary/20"></div>
-<span>Support: AEGIS-L2-SEC</span>
-</div>
-</footer>
-</div>
-</body></html>
+<body class="min-h-screen bg-background text-slate-100 font-display">
+  <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-6">
+    <header class="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-line bg-panel/90 px-6 py-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.28em] text-primary">Agentic Workshop</p>
+        <h1 class="mt-2 text-3xl font-semibold">Workshop Topology Status</h1>
+        <p class="mt-2 max-w-2xl text-sm text-slate-300">A truthful substitute for the old global heatmap. This surface shows current Workshop posture, connectivity, and event-backed continuity without inventing worldwide anomaly telemetry.</p>
+      </div>
+      <div class="flex gap-3">
+        <button data-heatmap-route="monitor" class="rounded-2xl border border-line px-4 py-2 text-sm text-slate-200 transition hover:border-primary hover:text-white">Active Monitor</button>
+        <button data-heatmap-route="detail" class="rounded-2xl border border-line px-4 py-2 text-sm text-slate-200 transition hover:border-primary hover:text-white">Anomaly Review</button>
+        <button data-heatmap-action="append" class="rounded-2xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500">Record Topology Note</button>
+      </div>
+    </header>
+
+    <main class="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <section class="space-y-6">
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Topology Scope</p>
+              <h2 class="mt-2 text-2xl font-semibold">Current Reach of Visible Runtime Truth</h2>
+            </div>
+            <div class="flex flex-wrap gap-3 text-sm text-slate-300">
+              <span class="rounded-full border border-line px-3 py-1">connectivity: <span data-heatmap-connectivity class="text-white">Awaiting</span></span>
+              <span class="rounded-full border border-line px-3 py-1">runtime mode: <span data-heatmap-mode class="text-white">bootstrap-only</span></span>
+              <span class="rounded-full border border-line px-3 py-1">global feed: <span data-heatmap-global class="text-white">backend pending</span></span>
+            </div>
+          </div>
+          <p data-heatmap-summary class="mt-5 text-sm leading-7 text-slate-300">Awaiting persisted runtime hydration.</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="rounded-2xl border border-line bg-black/20 px-4 py-4">
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">Available Now</p>
+              <ul class="mt-3 space-y-2 text-sm leading-6 text-slate-200">
+                <li>Browser online/offline state</li>
+                <li>Persisted Peer continuity events</li>
+                <li>Workshop launch and review activity</li>
+                <li>DataQuad-bound identity continuity</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-line bg-black/20 px-4 py-4">
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">Not Available Yet</p>
+              <ul class="mt-3 space-y-2 text-sm leading-6 text-slate-200">
+                <li>Global node anomaly counts</li>
+                <li>Regional failure maps</li>
+                <li>Worldwide drift overlays</li>
+                <li>Live distributed topology heat signatures</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Topology Review Ledger</p>
+          <div data-heatmap-events class="mt-5 space-y-3 rounded-2xl border border-line bg-black/20 px-4 py-4 text-sm text-slate-200">
+            <div>No persisted topology review events yet.</div>
+          </div>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Topology Note</p>
+          <pre data-heatmap-note class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl border border-line bg-black/30 p-4 font-mono text-xs leading-6 text-slate-200">No topology note has been recorded yet.</pre>
+        </article>
+      </section>
+
+      <aside class="space-y-6">
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Truth Rule</p>
+          <p class="mt-5 text-sm leading-7 text-slate-300">This page no longer claims a global heatmap. Until distributed runtime feeds exist, it stays honest about the narrow topology view currently available inside EcoVerse.</p>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Next Backend Bridge</p>
+          <div class="mt-5 rounded-2xl border border-amber-400/20 bg-amber-400/5 px-4 py-4 text-sm leading-7 text-amber-100">
+            When real distributed agent runtime feeds exist, this surface can grow into an actual topology map. Until then, it remains a bounded review surface instead of simulated global telemetry.
+          </div>
+        </article>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

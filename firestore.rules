@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAllowedPeerId(peerId) {
+      return peerId == "peer-ecoverse-structure-steward-001";
+    }
+
+    function isAllowedStatus(status) {
+      return status in ["draft", "candidate", "bounded_live", "held"];
+    }
+
+    function validCoreBinding(coreBinding) {
+      return coreBinding is map
+        && coreBinding.coreEngineId == "aegis-core-engine"
+        && coreBinding.sourceRepoPath == "I:\\AEGIS-CORE-ENGINE"
+        && coreBinding.canonVersion is string
+        && coreBinding.standardsVersion is string
+        && coreBinding.referenceDate is string
+        && coreBinding.currentStatus is string;
+    }
+
+    function validPeerDocument(peerId) {
+      return request.resource.data.peerId == peerId
+        && isAllowedPeerId(peerId)
+        && request.resource.data.displayName is string
+        && request.resource.data.peerType in ["ai", "human", "hybrid"]
+        && request.resource.data.role is string
+        && isAllowedStatus(request.resource.data.status)
+        && validCoreBinding(request.resource.data.coreBinding)
+        && request.resource.data.systemParameters is map
+        && request.resource.data.coherence is map;
+    }
+
+    function validPeerLinkedDocument() {
+      return request.resource.data.peerId is string
+        && isAllowedPeerId(request.resource.data.peerId);
+    }
+
+    match /peers/{peerId} {
+      allow read: if isAllowedPeerId(peerId);
+      allow create, update: if validPeerDocument(peerId);
+    }
+
+    match /peer_advocate_state/{peerId} {
+      allow read: if isAllowedPeerId(peerId);
+      allow create, update: if validPeerLinkedDocument();
+    }
+
+    match /peer_steward_state/{peerId} {
+      allow read: if isAllowedPeerId(peerId);
+      allow create, update: if validPeerLinkedDocument();
+    }
+
+    match /peer_tasks/{taskId} {
+      allow read: if true;
+      allow create, update: if validPeerLinkedDocument();
+    }
+
+    match /peer_artifacts/{artifactId} {
+      allow read: if true;
+      allow create, update: if validPeerLinkedDocument();
+    }
+
+    match /peer_sessions/{sessionId} {
+      allow read: if true;
+      allow create, update: if validPeerLinkedDocument();
+    }
+
+    match /peer_memory_events/{eventId} {
+      allow read: if true;
+      allow create: if validPeerLinkedDocument()
+        && request.resource.data.eventType is string
+        && request.resource.data.summary is string;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

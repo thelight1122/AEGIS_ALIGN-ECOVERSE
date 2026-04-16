@@ -1,100 +1,535 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-        body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            padding: 40px;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-        h1 { color: #58a6ff; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
-        h2 { color: #f0883e; margin-top: 40px; border-left: 4px solid #f0883e; padding-left: 15px; }
-        h3 { color: #79c0ff; margin-top: 25px; }
-        ul { list-style-type: none; padding-left: 20px; }
-        li { margin-bottom: 10px; padding: 10px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; }
-        .placeholder { color: #8b949e; font-family: monospace; font-size: 0.9em; float: right; }
-        .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: bold; margin-right: 10px; text-transform: uppercase; }
-        .tag-nexus { background: #238636; color: white; }
-        .tag-depot { background: #1f6feb; color: white; }
-        .tag-ops { background: #da3633; color: white; }
-        .tag-lab { background: #8957e5; color: white; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Map</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: radial-gradient(circle at top, rgba(35, 104, 196, 0.18), transparent 34%),
+        linear-gradient(180deg, #07111f 0%, #091726 48%, #07111d 100%);
+      --panel: rgba(8, 20, 36, 0.88);
+      --panel-border: rgba(110, 171, 255, 0.16);
+      --text: #e8f1ff;
+      --muted: #8da5c7;
+      --accent: #5ba2ff;
+      --accent-soft: rgba(91, 162, 255, 0.18);
+      --success: #86f0bf;
+      --warning: #ffd488;
+      --shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 28px;
+      font-family: "Segoe UI", Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .workspace {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: grid;
+      gap: 22px;
+    }
+
+    .hero,
+    .lane,
+    .detail-card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
+      gap: 24px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warning);
+      margin-bottom: 12px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 3.7rem);
+      line-height: 1.02;
+      margin-bottom: 16px;
+    }
+
+    .hero-copy p {
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .action,
+    .card-button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    .action:hover,
+    .card-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .action-primary,
+    .card-button {
+      background: linear-gradient(135deg, #2f7cff, #4ba9ff);
+      color: #051120;
+    }
+
+    .action-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .detail-card {
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+
+    .detail-card strong {
+      display: block;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warning);
+      margin-bottom: 10px;
+    }
+
+    .detail-card span,
+    .detail-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .detail-grid div {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .map-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .map-search {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 13, 24, 0.7);
+      color: var(--text);
+      padding: 16px 18px;
+      font-size: 0.98rem;
+      outline: none;
+    }
+
+    .map-search::placeholder {
+      color: #6f89ab;
+    }
+
+    .lane-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lane {
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .lane header {
+      display: grid;
+      gap: 10px;
+    }
+
+    .lane-tag {
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #b7d4ff;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .lane p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .card-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .map-card {
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      gap: 10px;
+    }
+
+    .map-card h3 {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .map-card p {
+      font-size: 0.9rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta span {
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #bfd5f7;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-note {
+      color: var(--success);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .lane-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 16px;
+      }
+
+      .hero,
+      .lane {
+        padding: 20px;
+      }
+
+      .map-toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>AEGIS Protocol Project Tree</h1>
-        <p>A comprehensive index of all UI assets categorized for the Arch and Build Agents.</p>
+  <main class="workspace">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Agentic Workshop / Orientation Surface</div>
+        <h1>Workshop Map</h1>
+        <p>
+          This map is the orientation layer for the AEGIS Agentic Workshop. It shows the real
+          functional lanes of the workshop: access, maps, agent creation, monitoring, and
+          deployment records. Each surface below can help a Peer move with clarity instead
+          of hunting through stitched fragments.
+        </p>
+        <div class="hero-actions">
+          <button class="action action-primary" data-workshop-route="/agent-workshop/agentic-workshop-main-console/">
+            Return to Main Console
+          </button>
+          <button class="action action-secondary" data-workshop-route="/agent-workshop/create-new-agent-flow/">
+            Open Agent Creation
+          </button>
+          <button class="action action-secondary" data-workshop-route="/agent-workshop/active-agents-monitor-agentic-workshop/">
+            Open Monitoring
+          </button>
+        </div>
+      </div>
+      <div class="hero-side">
+        <article class="detail-card">
+          <strong>Current Workshop Truth</strong>
+          <span>
+            This page reflects the actual module structure, not a fake protocol tree. Route
+            handoffs go to live Workshop surfaces, and orientation state is stored only in the
+            local browser session.
+          </span>
+        </article>
+        <article class="detail-card">
+          <strong>Session Pulse</strong>
+          <div class="detail-grid">
+            <div>
+              <span>Last Launch</span>
+              <p data-workshop-map-last-launch>Awaiting</p>
+            </div>
+            <div>
+              <span>Connectivity</span>
+              <p data-workshop-map-connectivity>Online</p>
+            </div>
+            <div>
+              <span>Tracked Actions</span>
+              <p data-workshop-map-action-count>0</p>
+            </div>
+            <div>
+              <span>Current Mode</span>
+              <p>Local orientation</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-        <h2>1. Landing and Information Nexus</h2>
-        <h3>Marketing & Public Pages</h3>
-        <ul>
-            <li><span class="tag tag-nexus">Nexus</span> AegisAlign Landing Page <span class="placeholder">{{DATA:SCREEN:SCREEN_40}}</span></li>
-            <li><span class="tag tag-nexus">Nexus</span> Landing Page (with Testimonials) <span class="placeholder">{{DATA:SCREEN:SCREEN_87}}</span></li>
-            <li><span class="tag tag-nexus">Nexus</span> AEGIS Protocol Features <span class="placeholder">{{DATA:SCREEN:SCREEN_4}}</span></li>
-            <li><span class="tag tag-nexus">Nexus</span> AegisAlign Pricing Plans <span class="placeholder">{{DATA:SCREEN:SCREEN_30}}</span></li>
-        </ul>
-        <h3>Docs & Support</h3>
-        <ul>
-            <li><span class="tag tag-nexus">Nexus</span> Documentation Portal <span class="placeholder">{{DATA:SCREEN:SCREEN_6}}</span></li>
-            <li><span class="tag tag-nexus">Nexus</span> API Reference <span class="placeholder">{{DATA:SCREEN:SCREEN_41}}</span></li>
-            <li><span class="tag tag-nexus">Nexus</span> Signup / Login / MFA <span class="placeholder">{{DATA:SCREEN:SCREEN_64}}, {{DATA:SCREEN:SCREEN_83}}, {{DATA:SCREEN:SCREEN_72}}</span></li>
-            <li><span class="tag tag-nexus">Nexus</span> Support Ticketing System <span class="placeholder">{{DATA:SCREEN:SCREEN_96}}, {{DATA:SCREEN:SCREEN_73}}</span></li>
-        </ul>
+    <section class="map-toolbar">
+      <input
+        class="map-search"
+        type="search"
+        placeholder="Search Workshop surfaces, functions, or records"
+        data-workshop-map-search
+      />
+      <button class="action action-secondary" data-workshop-route="/agent-workshop/detailed-agent-view-dataquad-node/">
+        Open Deployment Records
+      </button>
+    </section>
 
-        <h2>2. Developers Depot</h2>
-        <h3>Community & Marketplace</h3>
-        <ul>
-            <li><span class="tag tag-depot">Depot</span> Developer Hub & Depot <span class="placeholder">{{DATA:SCREEN:SCREEN_98}}, {{DATA:SCREEN:SCREEN_68}}</span></li>
-            <li><span class="tag tag-depot">Depot</span> Plugin Submission Flow <span class="placeholder">{{DATA:SCREEN:SCREEN_79}}</span></li>
-            <li><span class="tag tag-depot">Depot</span> Web3 & .digitalself Portal <span class="placeholder">{{DATA:SCREEN:SCREEN_38}}, {{DATA:SCREEN:SCREEN_58}}</span></li>
-            <li><span class="tag tag-depot">Depot</span> Colab Creation Hub <span class="placeholder">{{DATA:SCREEN:SCREEN_45}}</span></li>
-        </ul>
-        <h3>Console & Analytics</h3>
-        <ul>
-            <li><span class="tag tag-depot">Depot</span> Developer Console <span class="placeholder">{{DATA:SCREEN:SCREEN_69}}</span></li>
-            <li><span class="tag tag-depot">Depot</span> Webhooks Configuration <span class="placeholder">{{DATA:SCREEN:SCREEN_46}}</span></li>
-            <li><span class="tag tag-depot">Depot</span> API Usage & Plugin Analytics <span class="placeholder">{{DATA:SCREEN:SCREEN_80}}, {{DATA:SCREEN:SCREEN_67}}</span></li>
-            <li><span class="tag tag-depot">Depot</span> My Submissions Dashboard <span class="placeholder">{{DATA:SCREEN:SCREEN_37}}</span></li>
-        </ul>
+    <section class="lane-grid">
+      <article class="lane">
+        <header>
+          <span class="lane-tag">Access & Orientation</span>
+          <h2>Where a Peer enters and regains bearings</h2>
+          <p>
+            These surfaces establish orientation before deeper work begins. They are the safest
+            re-entry points when a Peer needs context rather than immediate creation or monitoring.
+          </p>
+        </header>
+        <div class="card-list">
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Entry</span>
+              <span>Secure handoff</span>
+            </div>
+            <h3>Workshop Entrance</h3>
+            <p>Initial access surface for entering the workshop and moving into a live session.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/agentic-workshop-entrance/">Open Entrance</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Home</span>
+              <span>Session state</span>
+            </div>
+            <h3>Main Console</h3>
+            <p>Primary workshop home for recent activity, launch surfaces, and local session truth.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/agentic-workshop-main-console/">Open Console</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Topology</span>
+              <span>Coordination</span>
+            </div>
+            <h3>Agent Communication Protocol</h3>
+            <p>Explains how agents coordinate, signal, and maintain visible boundaries inside the workshop.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/agent-communication-protocol/">Open Protocol</button>
+          </section>
+        </div>
+      </article>
 
-        <h2>3. Custodian Ops Center</h2>
-        <h3>Mission Guidance & Governance</h3>
-        <ul>
-            <li><span class="tag tag-ops">Ops</span> Protocol Dashboard <span class="placeholder">{{DATA:SCREEN:SCREEN_62}}</span></li>
-            <li><span class="tag tag-ops">Ops</span> Incident Coordination Center <span class="placeholder">{{DATA:SCREEN:SCREEN_61}}</span></li>
-            <li><span class="tag tag-ops">Ops</span> Custodian Cockpit HUD <span class="placeholder">{{DATA:SCREEN:SCREEN_89}}</span></li>
-            <li><span class="tag tag-ops">Ops</span> Governance Voting Portal <span class="placeholder">{{DATA:SCREEN:SCREEN_97}}</span></li>
-            <li><span class="tag tag-ops">Ops</span> Site Custodian Management <span class="placeholder">{{DATA:SCREEN:SCREEN_8}}, {{DATA:SCREEN:SCREEN_84}}</span></li>
-        </ul>
-        <h3>Health & Monitoring</h3>
-        <ul>
-            <li><span class="tag tag-ops">Ops</span> System Health & Congruence <span class="placeholder">{{DATA:SCREEN:SCREEN_27}}, {{DATA:SCREEN:SCREEN_93}}</span></li>
-            <li><span class="tag tag-ops">Ops</span> Network Topology Visualizer <span class="placeholder">{{DATA:SCREEN:SCREEN_90}}</span></li>
-            <li><span class="tag tag-ops">Ops</span> Global Status & Anomaly Heatmaps <span class="placeholder">{{DATA:SCREEN:SCREEN_36}}, {{DATA:SCREEN:SCREEN_65}}</span></li>
-        </ul>
-        <h3>Emergency & Recovery</h3>
-        <ul>
-            <li><span class="tag tag-ops">Ops</span> Safety hold & Recovery Protocols <span class="placeholder">{{DATA:SCREEN:SCREEN_35}}, {{DATA:SCREEN:SCREEN_39}}, {{DATA:SCREEN:SCREEN_47}}</span></li>
-        </ul>
+      <article class="lane">
+        <header>
+          <span class="lane-tag">Creation Pipeline</span>
+          <h2>Agent identity, logic, memory, and deployment setup</h2>
+          <p>
+            This lane holds the agent creation chain. It can feel sequential and governed rather
+            than magical: identity first, then logic, then memory, then deployment.
+          </p>
+        </header>
+        <div class="card-list">
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Create</span>
+              <span>Primary flow</span>
+            </div>
+            <h3>Create New Agent Flow</h3>
+            <p>Entry point for configuring a new agent across identity, logic, memory, and launch.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/create-new-agent-flow/">Start Flow</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Identity</span>
+              <span>Logic</span>
+              <span>Memory</span>
+            </div>
+            <h3>Creation Stages</h3>
+            <p>Move into identity configuration, logic and intelligence, memory/RAG, and DataQuad memory shaping.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/create-new-agent-identity-configuration/">Open Stages</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Deployment</span>
+              <span>Model routing</span>
+            </div>
+            <h3>Model Deployment Flow</h3>
+            <p>Deployment planning surface for moving a configured agent into a governed runtime path.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/model-deployment-flow/">Open Deployment Flow</button>
+          </section>
+        </div>
+      </article>
 
-        <h2>4. AEGIS Application Lab</h2>
-        <h3>App Implementation Hub</h3>
-        <ul>
-            <li><span class="tag tag-lab">Lab</span> AEGIS Implementation Apps (Gallery) <span class="placeholder">{{DATA:SCREEN:SCREEN_71}}</span></li>
-            <li><span class="tag tag-lab">Lab</span> Feature Pages (Shield, Interceptor, Prism, Arbitor, Widget) <span class="placeholder">SCREEN_70, SCREEN_31, SCREEN_24, SCREEN_81, SCREEN_63</span></li>
-        </ul>
-        <h3>The Agentic Workshop</h3>
-        <ul>
-            <li><span class="tag tag-lab">Lab</span> Workshop Portal & Console <span class="placeholder">{{DATA:SCREEN:SCREEN_15}}, {{DATA:SCREEN:SCREEN_78}}</span></li>
-            <li><span class="tag tag-lab">Lab</span> Active Agent Monitor & Mesh Visualizer <span class="placeholder">{{DATA:SCREEN:SCREEN_95}}, {{DATA:SCREEN:SCREEN_23}}</span></li>
-            <li><span class="tag tag-lab">Lab</span> Detailed Agent View (DataQuad) <span class="placeholder">{{DATA:SCREEN:SCREEN_51}}</span></li>
-            <li><span class="tag tag-lab">Lab</span> Agent Creation & Logic Debugging <span class="placeholder">{{DATA:SCREEN:SCREEN_22}}, {{DATA:SCREEN:SCREEN_10}}</span></li>
-        </ul>
-    </div>
+      <article class="lane">
+        <header>
+          <span class="lane-tag">Monitoring & Analysis</span>
+          <h2>Observe what the workshop is actually doing</h2>
+          <p>
+            Monitoring surfaces belong here when they help a Peer see real session activity, anomaly
+            review, recursive logic evaluation, or audit movement without pretending to show data the
+            browser does not truly have.
+          </p>
+        </header>
+        <div class="card-list">
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Monitor</span>
+              <span>Live lane</span>
+            </div>
+            <h3>Active Agents Monitor</h3>
+            <p>Top-level workshop monitor for active surfaces, recent pulse, and local activity traces.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/active-agents-monitor-agentic-workshop/">Open Monitor</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Topology</span>
+              <span>Mesh</span>
+            </div>
+            <h3>Agent Mesh Visualizer</h3>
+            <p>Relationship view for agent coordination, lane placement, and mesh awareness.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/agent-mesh-visualizer/">Open Mesh</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Anomaly</span>
+              <span>Audit</span>
+              <span>Recursive logic</span>
+            </div>
+            <h3>Analysis Surfaces</h3>
+            <p>Move from anomaly detail into recursive training and logic debugging without leaving the workshop context.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/anomaly-analysis-detail/">Open Analysis</button>
+          </section>
+        </div>
+      </article>
+
+      <article class="lane">
+        <header>
+          <span class="lane-tag">Deployments & Records</span>
+          <h2>What has been created, shipped, observed, and archived</h2>
+          <p>
+            These records surfaces can behave like governed traces. They preserve what happened,
+            what was exported, and what an operator can reopen or inspect later.
+          </p>
+        </header>
+        <div class="card-list">
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Detail</span>
+              <span>Inspection</span>
+            </div>
+            <h3>Detailed Agent View</h3>
+            <p>Node-level drill-in for a specific deployment or runtime surface.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/detailed-agent-view-dataquad-node/">Open Detail</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Export</span>
+              <span>Archive</span>
+            </div>
+            <h3>Workshop Records</h3>
+            <p>Bulk export, respawn archives, and governed record retention live here when needed.</p>
+            <button class="card-button" data-workshop-route="/agent-workshop/sssp-respawn-archive-1/">Open Records</button>
+          </section>
+          <section class="map-card" data-workshop-map-card>
+            <div class="meta">
+              <span>Truth note</span>
+              <span>Local only</span>
+            </div>
+            <h3>Current Data Posture</h3>
+            <p class="status-note">
+              This map only reflects local browser session truth and route availability. Backend telemetry,
+              distributed deployment state, and archival guarantees can remain explicitly marked pending
+              until they exist.
+            </p>
+          </section>
+        </div>
+      </article>
+    </section>
+  </main>
 </body>
 </html>

@@ -50,6 +50,8 @@ function moveDirContents(sourceDir, targetDir) {
 }
 
 run(process.execPath, [path.join(repoRoot, "scripts", "sync-stitch.mjs")]);
+run(process.execPath, [path.join(repoRoot, "scripts", "sync-core-engine-reference.mjs")]);
+run(process.execPath, [path.join(repoRoot, "scripts", "sync-dataquad-bootstrap.mjs")]);
 run(process.execPath, [path.join(repoRoot, "scripts", "generate_upgraded_shells.mjs")]);
 run(process.execPath, [path.join(repoRoot, "scripts", "generate_custodian_shells.mjs")]);
 run(process.execPath, [path.join(repoRoot, "scripts", "generate_profile_shells.mjs")]);

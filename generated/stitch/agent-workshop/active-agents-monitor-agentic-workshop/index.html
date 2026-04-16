@@ -1,306 +1,149 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AEGIS Agentic Workshop - Active Monitoring</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Space+Mono&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1152d4",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk"],
-                        "mono": ["Space Mono"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AEGIS Agentic Workshop - Active Agents Monitor</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#1152d4",
+            background: "#101622",
+            panel: "#0f1728",
+            line: "rgba(17,82,212,0.22)"
+          },
+          fontFamily: {
+            display: ["Space Grotesk"],
+            mono: ["Space Mono"]
+          }
         }
-    </script>
-<style>
-        .terminal-glow {
-            text-shadow: 0 0 10px rgba(17, 82, 212, 0.5);
-        }
-        .mesh-grid {
-            background-image: radial-gradient(circle, #1152d4 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-    </style>
+      }
+    };
+  </script>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
-<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 bg-background-light dark:bg-background-dark/80 backdrop-blur-md px-10 py-3 sticky top-0 z-50">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-4 text-primary">
-<div class="size-8 flex items-center justify-center">
-<span class="material-symbols-outlined text-4xl">shield_with_heart</span>
-</div>
-<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight uppercase font-mono">AEGIS Agentic Workshop</h2>
-</div>
-<nav class="flex items-center gap-8">
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
-<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary" href="#">Active Agents</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Logs</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Governance</a>
-</nav>
-</div>
-<div class="flex flex-1 justify-end gap-6 items-center">
-<label class="flex flex-col min-w-40 !h-10 max-w-64">
-<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-primary/20 bg-primary/5">
-<div class="text-primary flex items-center justify-center pl-4">
-<span class="material-symbols-outlined text-xl">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:outline-0 focus:ring-0 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 text-sm font-normal leading-normal" placeholder="Search Mesh..." value=""/>
-</div>
-</label>
-<div class="flex gap-2">
-<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-xl">notifications_active</span>
-</button>
-<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all">
-<span class="material-symbols-outlined text-xl">settings_input_component</span>
-</button>
-</div>
-<div class="h-10 w-10 rounded-full border-2 border-primary bg-primary/20 flex items-center justify-center overflow-hidden" data-alt="User avatar placeholder">
-<span class="material-symbols-outlined text-primary">person</span>
-</div>
-</div>
-</header>
-<main class="flex-1 flex flex-col p-6 gap-6">
-<div class="flex flex-wrap gap-4">
-<div class="flex min-w-[240px] flex-1 flex-col gap-2 rounded-xl p-6 bg-white dark:bg-primary/5 border border-primary/10 backdrop-blur-sm">
-<div class="flex justify-between items-start">
-<p class="text-slate-500 dark:text-slate-400 text-sm font-mono uppercase">Total Compute Load</p>
-<span class="material-symbols-outlined text-primary">memory</span>
-</div>
-<div class="flex items-baseline gap-2">
-<p class="text-slate-900 dark:text-slate-100 text-3xl font-bold font-mono">84.2 <span class="text-lg">TFLOPS</span></p>
-<p class="text-emerald-500 text-xs font-bold font-mono">+12.4%</p>
-</div>
-<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-primary h-full w-[84%]" style="box-shadow: 0 0 10px #1152d4;"></div>
-</div>
-</div>
-<div class="flex min-w-[240px] flex-1 flex-col gap-2 rounded-xl p-6 bg-white dark:bg-primary/5 border border-primary/10 backdrop-blur-sm">
-<div class="flex justify-between items-start">
-<p class="text-slate-500 dark:text-slate-400 text-sm font-mono uppercase">Mean Resonance Rate</p>
-<span class="material-symbols-outlined text-primary">analytics</span>
-</div>
-<div class="flex items-baseline gap-2">
-<p class="text-slate-900 dark:text-slate-100 text-3xl font-bold font-mono">92.1<span class="text-lg">%</span></p>
-<p class="text-emerald-500 text-xs font-bold font-mono">+0.5%</p>
-</div>
-<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
-<div class="bg-primary h-full w-[92%]" style="box-shadow: 0 0 10px #1152d4;"></div>
-</div>
-</div>
-<div class="flex min-w-[240px] flex-1 flex-col gap-2 rounded-xl p-6 bg-white dark:bg-primary/5 border border-primary/10 backdrop-blur-sm">
-<div class="flex justify-between items-start">
-<p class="text-slate-500 dark:text-slate-400 text-sm font-mono uppercase">Governance Lock</p>
-<span class="material-symbols-outlined text-primary">lock_open</span>
-</div>
-<div class="flex items-baseline gap-2">
-<p class="text-primary text-3xl font-bold font-mono tracking-tighter">LOCKED</p>
-<p class="text-slate-500 text-xs font-mono">v4.0.2-S</p>
-</div>
-<div class="flex gap-1 mt-2">
-<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
-<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
-<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
-<div class="h-1.5 flex-1 bg-primary/20 rounded-full"></div>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-<div class="lg:col-span-8 flex flex-col gap-6">
-<div class="rounded-xl bg-white dark:bg-background-dark border border-primary/20 overflow-hidden flex flex-col">
-<div class="px-6 py-4 border-b border-primary/10 flex justify-between items-center bg-primary/5">
-<h3 class="text-sm font-bold font-mono text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-lg">hub</span>
-                                GLOBAL AGENT MESH VISUALIZER
-                            </h3>
-<div class="flex gap-4">
-<div class="flex items-center gap-1.5">
-<div class="size-2 rounded-full bg-emerald-500"></div>
-<span class="text-[10px] font-mono text-slate-500">ACTIVE</span>
-</div>
-<div class="flex items-center gap-1.5">
-<div class="size-2 rounded-full bg-amber-500"></div>
-<span class="text-[10px] font-mono text-slate-500">SYNC</span>
-</div>
-</div>
-</div>
-<div class="h-96 relative mesh-grid dark:bg-slate-950 flex items-center justify-center group overflow-hidden">
-<div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
-<div class="relative w-full h-full flex items-center justify-center">
-<div class="absolute size-[400px] border border-primary/10 rounded-full animate-pulse"></div>
-<div class="absolute size-[250px] border border-primary/20 rounded-full"></div>
-<div class="absolute top-1/4 left-1/4 p-3 bg-background-dark border border-primary rounded-lg shadow-[0_0_20px_rgba(17,82,212,0.3)]">
-<p class="text-[10px] font-mono text-primary mb-1">AGENT_ALPHA</p>
-<div class="h-1 w-12 bg-emerald-500 rounded-full"></div>
-</div>
-<div class="absolute bottom-1/3 right-1/4 p-3 bg-background-dark border border-primary/40 rounded-lg">
-<p class="text-[10px] font-mono text-primary/60 mb-1">AGENT_SIGMA</p>
-<div class="h-1 w-12 bg-amber-500 rounded-full"></div>
-</div>
-<div class="absolute top-1/2 right-1/3 p-3 bg-background-dark border border-primary rounded-lg shadow-[0_0_20px_rgba(17,82,212,0.3)]">
-<p class="text-[10px] font-mono text-primary mb-1">AGENT_DELTA</p>
-<div class="h-1 w-12 bg-emerald-500 rounded-full"></div>
-</div>
-<div class="w-[300px] h-[300px] border-l border-t border-primary/20 absolute top-0 left-0"></div>
-<div class="w-[300px] h-[300px] border-r border-b border-primary/20 absolute bottom-0 right-0"></div>
-<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40">
-<path d="M250 150 L600 280 L700 120" fill="none" stroke="#1152d4" stroke-dasharray="5,5" stroke-width="1"></path>
-<circle cx="250" cy="150" fill="#1152d4" r="4"></circle>
-<circle cx="600" cy="280" fill="#1152d4" r="4"></circle>
-<circle cx="700" cy="120" fill="#1152d4" r="4"></circle>
-</svg>
-</div>
-</div>
-</div>
-<div class="bg-background-dark border border-primary/30 rounded-xl overflow-hidden">
-<div class="bg-primary/10 border-b border-primary/20 px-4 py-2 flex items-center justify-between">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-sm">terminal</span>
-<span class="text-[10px] font-mono text-primary font-bold tracking-widest uppercase">Real-time Agent Event Feed</span>
-</div>
-<div class="flex gap-2">
-<div class="size-2 rounded-full bg-primary animate-pulse"></div>
-<span class="text-[10px] font-mono text-primary/60">LIVE</span>
-</div>
-</div>
-<div class="h-48 p-4 font-mono text-[11px] overflow-y-auto bg-black/40 space-y-1">
-<p class="text-slate-500"><span class="text-primary">[14:22:01.03]</span> <span class="text-emerald-400">SUCCESS:</span> Agent ALPHA synchronized with primary tensor mesh.</p>
-<p class="text-slate-500"><span class="text-primary">[14:22:05.44]</span> <span class="text-blue-400">INFO:</span> Global resonance recalibration in progress...</p>
-<p class="text-slate-500"><span class="text-primary">[14:22:08.12]</span> <span class="text-amber-400">WARN:</span> Agent SIGMA experiencing high 4-tensor memory drift (0.041).</p>
-<p class="text-slate-500"><span class="text-primary">[14:22:12.89]</span> <span class="text-primary">DEBUG:</span> DataQuad Health check initiated for all active units.</p>
-<p class="text-slate-500"><span class="text-primary">[14:22:15.20]</span> <span class="text-emerald-400">SUCCESS:</span> Governance Alignment tracker updated to 98.2%.</p>
-<p class="text-slate-500"><span class="text-primary">[14:22:18.00]</span> <span class="text-blue-400">INFO:</span> New worker agent instance AEGIS-W-782 deployed.</p>
-<p class="text-slate-500"><span class="text-primary">[14:22:21.44]</span> <span class="text-emerald-400">SUCCESS:</span> Agent DELTA reached target compute lock state.</p>
-</div>
-</div>
-</div>
-<div class="lg:col-span-4 flex flex-col gap-6">
-<div class="rounded-xl bg-white dark:bg-background-dark border border-primary/20 p-6">
-<h3 class="text-sm font-bold font-mono text-primary mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-lg">deployed_code</span>
-                            ACTIVE AGENTS
-                        </h3>
-<div class="space-y-4">
-<div class="p-4 rounded-lg bg-primary/5 border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
-<div class="flex justify-between items-start mb-3">
-<div>
-<h4 class="font-bold text-sm dark:text-white">AGENT_ALPHA</h4>
-<p class="text-[10px] text-slate-500 font-mono">ID: 4492-X</p>
-</div>
-<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-500 border border-emerald-500/30">ONLINE</span>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between items-center text-[10px] font-mono">
-<span class="text-slate-500">DataQuad Health</span>
-<span class="text-primary">0.992</span>
-</div>
-<div class="w-full bg-slate-800 h-1 rounded-full">
-<div class="bg-primary h-full w-[99%] shadow-[0_0_8px_#1152d4]"></div>
-</div>
-</div>
-</div>
-<div class="p-4 rounded-lg bg-primary/5 border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
-<div class="flex justify-between items-start mb-3">
-<div>
-<h4 class="font-bold text-sm dark:text-white">AGENT_DELTA</h4>
-<p class="text-[10px] text-slate-500 font-mono">ID: 8812-Y</p>
-</div>
-<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-primary/20 text-primary border border-primary/30">ACTIVE</span>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between items-center text-[10px] font-mono">
-<span class="text-slate-500">DataQuad Health</span>
-<span class="text-primary">0.841</span>
-</div>
-<div class="w-full bg-slate-800 h-1 rounded-full">
-<div class="bg-primary h-full w-[84%] shadow-[0_0_8px_#1152d4]"></div>
-</div>
-</div>
-</div>
-<div class="p-4 rounded-lg bg-primary/5 border border-primary/10 hover:border-primary/40 transition-all cursor-pointer group">
-<div class="flex justify-between items-start mb-3">
-<div>
-<h4 class="font-bold text-sm dark:text-white">AGENT_SIGMA</h4>
-<p class="text-[10px] text-slate-500 font-mono">ID: 0092-Z</p>
-</div>
-<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-500 border border-amber-500/30">SYNCING</span>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between items-center text-[10px] font-mono">
-<span class="text-slate-500">DataQuad Health</span>
-<span class="text-primary">0.672</span>
-</div>
-<div class="w-full bg-slate-800 h-1 rounded-full">
-<div class="bg-amber-500 h-full w-[67%] shadow-[0_0_8px_#f59e0b]"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="rounded-xl bg-primary/10 border border-primary/30 p-6">
-<h3 class="text-sm font-bold font-mono text-primary mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-lg">balance</span>
-                            GOVERNANCE ALIGNMENT
-                        </h3>
-<div class="flex flex-col items-center text-center py-4">
-<div class="relative size-32 flex items-center justify-center mb-4">
-<svg class="size-full transform -rotate-90">
-<circle class="text-slate-800" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
-<circle class="text-primary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="7.2" stroke-width="8"></circle>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="text-2xl font-bold font-mono">98.2%</span>
-<span class="text-[9px] text-slate-500 font-mono uppercase tracking-tighter">Alignment</span>
-</div>
-</div>
-<p class="text-xs text-slate-400 font-mono max-w-[200px]">Current cluster status exceeds baseline alignment threshold (95.0%)</p>
-</div>
-<div class="grid grid-cols-2 gap-2 mt-4">
-<div class="p-2 bg-black/20 rounded border border-primary/10">
-<p class="text-[9px] text-slate-500 uppercase font-mono">Bias Drift</p>
-<p class="text-xs font-bold text-emerald-500 font-mono">0.002</p>
-</div>
-<div class="p-2 bg-black/20 rounded border border-primary/10">
-<p class="text-[9px] text-slate-500 uppercase font-mono">Constraint Match</p>
-<p class="text-xs font-bold text-primary font-mono">1.000</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-<footer class="p-6 border-t border-primary/10 bg-background-light dark:bg-background-dark/50 flex justify-between items-center">
-<div class="flex items-center gap-4">
-<div class="text-[10px] font-mono text-slate-500">AEGIS WORKSHOP v4.0.2</div>
-<div class="h-3 w-[1px] bg-primary/20"></div>
-<div class="text-[10px] font-mono text-slate-500">LAST SYNC: 2024-05-20 14:22:15 UTC</div>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-emerald-500 text-xs">check_circle</span>
-<span class="text-[10px] font-mono text-slate-500 uppercase">System Ready</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-xs">router</span>
-<span class="text-[10px] font-mono text-slate-500 uppercase">3 Nodes Active</span>
-</div>
-</div>
-</footer>
-</div>
-</body></html>
+<body class="min-h-screen bg-background text-slate-100 font-display">
+  <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-6">
+    <header class="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-line bg-panel/90 px-6 py-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.28em] text-primary">Agentic Workshop</p>
+        <h1 class="mt-2 text-3xl font-semibold">Active Agents Monitor</h1>
+        <p class="mt-2 max-w-2xl text-sm text-slate-300">A truthful runtime surface for governed Peer activity, Steward-reviewed continuity, and persisted DataQuad state.</p>
+      </div>
+      <div class="flex gap-3">
+        <button data-active-route="map" class="rounded-2xl border border-line px-4 py-2 text-sm text-slate-200 transition hover:border-primary hover:text-white">Workshop Map</button>
+        <button data-active-route="detail" class="rounded-2xl border border-line px-4 py-2 text-sm text-slate-200 transition hover:border-primary hover:text-white">Detailed Node View</button>
+        <button data-active-action="append" class="rounded-2xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500">Append Steward Review</button>
+        <button data-active-action="guidance" class="rounded-2xl border border-primary/40 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10">Generate Structure Guidance</button>
+        <button data-active-action="proposal" class="rounded-2xl border border-emerald-400/40 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/10">Generate Review Proposal</button>
+        <button data-active-action="priority-note" class="rounded-2xl border border-amber-400/40 px-4 py-2 text-sm font-semibold text-amber-300 transition hover:bg-amber-400/10">Draft Priority Note</button>
+      </div>
+    </header>
+
+    <main class="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+      <section class="space-y-6">
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <article class="rounded-3xl border border-line bg-panel px-5 py-5">
+            <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Peer</p>
+            <p data-active-peer-name class="mt-3 text-xl font-semibold">Awaiting Peer</p>
+            <p data-active-peer-role class="mt-2 text-sm text-slate-300">Structure Steward</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-panel px-5 py-5">
+            <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Continuity</p>
+            <p data-active-continuity class="mt-3 text-xl font-semibold">bootstrap-only</p>
+            <p data-active-review class="mt-2 text-sm text-slate-300">review required</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-panel px-5 py-5">
+            <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Persisted Events</p>
+            <p data-active-event-count class="mt-3 text-xl font-semibold">0</p>
+            <p class="mt-2 text-sm text-slate-300">append-only memory ledger</p>
+          </article>
+          <article class="rounded-3xl border border-line bg-panel px-5 py-5">
+            <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Steward Appends</p>
+            <p data-active-append-count class="mt-3 text-xl font-semibold">0</p>
+            <p data-active-envelope class="mt-2 text-sm text-slate-300">strict</p>
+          </article>
+        </div>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Live Runtime Summary</p>
+              <h2 class="mt-2 text-2xl font-semibold">EcoVerse Structure Steward</h2>
+            </div>
+            <div class="flex flex-wrap gap-3 text-sm text-slate-300">
+              <span class="rounded-full border border-line px-3 py-1">status: <span data-active-status class="text-white">candidate</span></span>
+              <span class="rounded-full border border-line px-3 py-1">connectivity: <span data-active-connectivity class="text-white">Awaiting</span></span>
+              <span class="rounded-full border border-line px-3 py-1">core: <span data-active-core-version class="text-white">Awaiting</span></span>
+            </div>
+          </div>
+          <p data-active-summary class="mt-5 text-sm leading-7 text-slate-300">Awaiting persisted runtime hydration.</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="rounded-2xl border border-line bg-black/20 px-4 py-4">
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">DataQuad Binding</p>
+              <p data-active-dataquad class="mt-3 break-all text-sm text-slate-100">Awaiting DataQuad binding</p>
+              <p class="mt-2 text-xs text-slate-400">session <span data-active-session>Awaiting session</span></p>
+            </div>
+            <div class="rounded-2xl border border-line bg-black/20 px-4 py-4">
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">Runtime Posture</p>
+              <p class="mt-3 text-sm text-slate-100">The Steward daemon governs append review, preserves continuity, and keeps broadening disabled until coherence matures under traceable review.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Temporal Memory Feed</p>
+              <h2 class="mt-2 text-xl font-semibold">Persisted Continuity Events</h2>
+            </div>
+          </div>
+          <div data-active-feed class="mt-5 space-y-3 rounded-2xl border border-line bg-black/20 px-4 py-4 text-sm text-slate-200">
+            <div>No persisted Peer events yet.</div>
+          </div>
+        </article>
+      </section>
+
+      <aside class="space-y-6">
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Artifact Ledger</p>
+          <h2 class="mt-2 text-xl font-semibold">Bootstrap + Steward Notes</h2>
+          <div data-active-artifacts class="mt-5 space-y-3 rounded-2xl border border-line bg-black/20 px-4 py-4 text-sm text-slate-200">
+            <div>No recorded bootstrap or temporal memory artifacts yet.</div>
+          </div>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Latest Peer Guidance</p>
+          <pre data-active-guidance class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl border border-line bg-black/30 p-4 font-mono text-xs leading-6 text-slate-200">No generated structure guidance yet.</pre>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Latest Review Proposal</p>
+          <pre data-active-proposal class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl border border-line bg-black/30 p-4 font-mono text-xs leading-6 text-slate-200">No generated structure proposal yet.</pre>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">Latest Workshop Priority Note</p>
+          <pre data-active-priority-note class="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl border border-line bg-black/30 p-4 font-mono text-xs leading-6 text-slate-200">No generated Workshop priority note yet.</pre>
+        </article>
+
+        <article class="rounded-3xl border border-line bg-panel px-6 py-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-400">What This Proves</p>
+          <ul class="mt-5 space-y-3 text-sm leading-7 text-slate-300">
+            <li>The Peer exists as a persisted governed runtime record.</li>
+            <li>The DataQuad bootstrap is imported from the canon-locked Core.</li>
+            <li>Temporal memory can now be appended under Steward review.</li>
+            <li>Continuity is visible and auditable instead of implied by UI theater.</li>
+          </ul>
+        </article>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

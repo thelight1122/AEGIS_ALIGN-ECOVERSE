@@ -2,6 +2,20 @@
 
 Updated: March 16, 2026
 
+## Applied Peer Proposal
+
+The first approved governed Peer proposal has now been applied.
+
+- Peer: `Adam-One`
+- Approved change: `Promote Workshop Proof Lane`
+- Result:
+  - `Active Agents Monitor`
+  - `Detailed Agent View`
+  - `Workshop Map`
+  are now grouped as the first-class Workshop proof and review lane.
+
+This change keeps the evidence chain visible without broadening authority beyond bounded, reviewable contribution.
+
 ## Purpose
 
 The `Agentic Workshop` should be the governed design, deployment, monitoring, and review layer for agents inside the EcoVerse.
@@ -142,7 +156,8 @@ These may still be useful, but they should not behave like top-level standalone 
 
 - `bulk-export-progress-modal`
   - this is a modal artifact, not a true page
-  - convert it into an embedded export workflow or remove it from top-level routing
+  - move its useful function into `detailed-agent-view-dataquad-node`
+  - remove it from Workshop navigation as a standalone route
 
 ### Consolidate Or Reduce
 
@@ -150,8 +165,8 @@ These should not survive as separate first-class pages unless they become meanin
 
 - `sssp-respawn-archive-1`
 - `sssp-respawn-archive-2`
-  - likely consolidate into one governed archive surface
-  - if both remain near-duplicates, remove one and rewrite the survivor
+  - consolidate into one governed archive surface
+  - keep one survivor as the real archive lane and retire the other from navigation
 
 ## Highest-Risk Drift Points
 
@@ -161,8 +176,8 @@ These are the strongest signs that the section currently contains stitched carry
 - `aegis-project-tree-index` currently inherits an `Active Monitoring` title
 - `agent-mesh-visualizer` currently inherits a `Communication Protocol` title
 - `model-deployment-flow` currently inherits a `Global Anomaly Heatmap` title family
-- `bulk-export-progress-modal` is clearly a modal overlay artifact
-- `sssp-respawn-archive-1` and `sssp-respawn-archive-2` appear to be duplicate archive surfaces
+- `bulk-export-progress-modal` is clearly a modal overlay artifact and should not be treated as a first-class page
+- `sssp-respawn-archive-1` and `sssp-respawn-archive-2` were duplicate archive surfaces and should collapse into one
 
 ## Recommended Final Information Architecture
 
@@ -199,8 +214,7 @@ These are the strongest signs that the section currently contains stitched carry
 ### Deployments & Records
 
 - `detailed-agent-view-dataquad-node`
-- `bulk-export-progress-modal`
-  - only if converted into a true workflow surface
+- embedded export review workflow inside `detailed-agent-view-dataquad-node`
 - one consolidated respawn archive surface
 
 ## Recommended Immediate Changes
@@ -215,8 +229,8 @@ These are the strongest signs that the section currently contains stitched carry
 
 ### Medium Confidence
 
-- convert `bulk-export-progress-modal` into an embedded workflow and remove it as a top-level route
-- consolidate `sssp-respawn-archive-1` and `sssp-respawn-archive-2` into one archive surface
+- move `bulk-export-progress-modal` into an embedded workflow inside `detailed-agent-view-dataquad-node` and remove it from Workshop navigation
+- consolidate `sssp-respawn-archive-1` and `sssp-respawn-archive-2` into one governed archive surface
 
 ### Remove If Not Defensible
 

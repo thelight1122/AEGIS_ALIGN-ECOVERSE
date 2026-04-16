@@ -58,28 +58,28 @@
   {
     "domain": "agent-workshop",
     "slug": "active-agents-monitor-agentic-workshop",
-    "title": "AEGIS Agentic Workshop - Active Monitoring",
+    "title": "AEGIS Agentic Workshop - Active Agents Monitor",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/active_agents_monitor_agentic_workshop/code.html",
     "routePath": "/agent-workshop/active-agents-monitor-agentic-workshop/"
   },
   {
     "domain": "agent-workshop",
     "slug": "aegis-project-tree-index",
-    "title": "Aegis Project Tree Index",
+    "title": "Workshop Map",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/aegis_project_tree_index/code.html",
     "routePath": "/agent-workshop/aegis-project-tree-index/"
   },
   {
     "domain": "agent-workshop",
     "slug": "agent-communication-protocol",
-    "title": "AEGIS Agentic Workshop | Communication Protocol",
+    "title": "Agentic Workshop - Governed Communication Protocol",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agent_communication_protocol/code.html",
     "routePath": "/agent-workshop/agent-communication-protocol/"
   },
   {
     "domain": "agent-workshop",
     "slug": "agent-mesh-visualizer",
-    "title": "Agent Mesh Visualizer",
+    "title": "Agentic Workshop - Peer Mesh Topology",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agent_mesh_visualizer/code.html",
     "routePath": "/agent-workshop/agent-mesh-visualizer/"
   },
@@ -107,14 +107,14 @@
   {
     "domain": "agent-workshop",
     "slug": "anomaly-analysis-detail",
-    "title": "AEGIS Protocol | Anomaly Analysis",
+    "title": "AEGIS Agentic Workshop - Anomaly Review Detail",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/anomaly_analysis_detail/code.html",
     "routePath": "/agent-workshop/anomaly-analysis-detail/"
   },
   {
     "domain": "agent-workshop",
     "slug": "bulk-export-progress-modal",
-    "title": "Bulk Export Progress Modal",
+    "title": "AEGIS Agentic Workshop - Export Workflow Moved",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/bulk_export_progress_modal/code.html",
     "routePath": "/agent-workshop/bulk-export-progress-modal/"
   },
@@ -163,21 +163,21 @@
   {
     "domain": "agent-workshop",
     "slug": "detailed-agent-view-dataquad-node",
-    "title": "AEGIS Agentic Workshop - DataQuad Node View",
+    "title": "AEGIS Agentic Workshop - Detailed Agent View",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/detailed_agent_view_dataquad_node/code.html",
     "routePath": "/agent-workshop/detailed-agent-view-dataquad-node/"
   },
   {
     "domain": "agent-workshop",
     "slug": "global-anomaly-heatmap",
-    "title": "AEGIS AI - Global Anomaly Heatmap",
+    "title": "AEGIS Agentic Workshop - Workshop Topology Status",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/global_anomaly_heatmap/code.html",
     "routePath": "/agent-workshop/global-anomaly-heatmap/"
   },
   {
     "domain": "agent-workshop",
     "slug": "model-deployment-flow",
-    "title": "Model Deployment Flow",
+    "title": "Agentic Workshop - Core Deployment Review",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/model_deployment_flow/code.html",
     "routePath": "/agent-workshop/model-deployment-flow/"
   },
@@ -198,14 +198,14 @@
   {
     "domain": "agent-workshop",
     "slug": "sssp-respawn-archive-1",
-    "title": "SSSP Respawn Archive | AegisAlign",
+    "title": "AEGIS Agentic Workshop - Governed Respawn Archive",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/sssp_respawn_archive_1/code.html",
     "routePath": "/agent-workshop/sssp-respawn-archive-1/"
   },
   {
     "domain": "agent-workshop",
     "slug": "sssp-respawn-archive-2",
-    "title": "SSSP Respawn Archive | AegisAlign",
+    "title": "AEGIS Agentic Workshop - Archive Route Consolidated",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/sssp_respawn_archive_2/code.html",
     "routePath": "/agent-workshop/sssp-respawn-archive-2/"
   },
