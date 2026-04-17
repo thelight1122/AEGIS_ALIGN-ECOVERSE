@@ -888,16 +888,19 @@ export async function applyBetaPeerStructureProposal({
   }
 
   const proposal = buildStructureProposal(runtime);
-  const appliedSummary = `Applied approved proposal: ${proposal.title}. The Workshop proof lane is now a first-class EcoVerse review path for ${runtime.peer.displayName || BETA_PEER_DISPLAY_NAME}.`;
+  const appliedSummary = `Applied approved proposal: ${proposal.title}. ${runtime.peer.displayName || BETA_PEER_DISPLAY_NAME}'s bounded review path is now visible through the selected EcoVerse gateways.`;
   const appliedContent = [
     `Applied Change: ${proposal.title}`,
     `Peer: ${runtime.peer.displayName || BETA_PEER_DISPLAY_NAME}`,
     `Role: ${runtime.peer.role || "Structure Steward"}`,
     "",
-    "Approved proof lane grouping:",
-    "- Active Agents Monitor",
-    "- Detailed Agent View",
-    "- Workshop Map",
+    "Approved bounded change:",
+    "- Adam-One's review path is now surfaced through selected EcoVerse orientation gateways.",
+    "- The originating evidence chain remains:",
+    "  - Active Agents Monitor",
+    "  - Detailed Agent View",
+    "  - Workshop Map",
+    "- The visible cue remains informational and review-first.",
     "",
     "Applied governance posture:",
     "- bounded change only",
@@ -927,7 +930,7 @@ export async function applyBetaPeerStructureProposal({
       currentTask: {
         ...(peerData.currentTask || {}),
         status: "proposal-applied",
-        title: "Maintain Workshop proof lane as a reviewable Peer evidence chain",
+        title: proposal.title,
       },
     });
 
@@ -948,14 +951,18 @@ export async function applyBetaPeerStructureProposal({
       proposalAppliedAt: serverTimestamp(),
     }, { merge: true });
 
-    transaction.set(eventRef, buildTemporalMemoryEvent({
+      transaction.set(eventRef, buildTemporalMemoryEvent({
       source,
       summary: appliedSummary,
       eventType: "structure_proposal_applied",
       details: {
         proposalTitle: proposal.title,
         continuityMode: runtime.peer.temporalMemory?.continuityMode || "bootstrap-only",
-        lanePages: [
+        gatewayRoutes: [
+          "/home/",
+          "/agent-workshop/agentic-workshop-entrance/",
+        ],
+        evidenceChain: [
           "active-agents-monitor-agentic-workshop",
           "detailed-agent-view-dataquad-node",
           "aegis-project-tree-index",
@@ -967,7 +974,7 @@ export async function applyBetaPeerStructureProposal({
       artifactId: artifactRef.id,
       peerId: BETA_PEER_ID,
       type: "structure_change_applied",
-      title: "Workshop Proof Lane Activated",
+      title: proposal.title,
       content: appliedContent,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
