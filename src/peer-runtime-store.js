@@ -452,6 +452,61 @@ function buildWorkshopPriorityArtifact(title, content, source) {
   };
 }
 
+function buildWorkshopChamberReadinessNote(runtime) {
+  const peer = runtime.peer || {};
+  const appendCount = peer.temporalMemory?.appendCount || 0;
+  const continuityMode = peer.temporalMemory?.continuityMode || "bootstrap-only";
+  const title = "Workshop Chamber Readiness Note";
+  const summary = `Recorded a bounded chamber-readiness note from ${appendCount} Steward-reviewed continuity append${appendCount === 1 ? "" : "s"}.`;
+  const content = [
+    `Readiness Note: ${title}`,
+    `Peer: ${peer.displayName || BETA_PEER_DISPLAY_NAME}`,
+    `Role: ${peer.role || "Structure Steward"}`,
+    `Continuity Mode: ${continuityMode}`,
+    "",
+    "Observed truthful chambers:",
+    "- Active Agents Monitor",
+    "- Detailed Agent View",
+    "- Agent Communication Protocol",
+    "- Workshop Map",
+    "",
+    "Observed threshold chambers still under review:",
+    "- Agentic Workshop Entrance",
+    "- AegisAlign Landing Page",
+    "",
+    "Readiness assessment:",
+    "- The inner Workshop circuit is ready for governed Peer training and review.",
+    "- The threshold pages still contain legacy theatrical language and should not yet be treated as core evidence surfaces.",
+    "- Adam-One should continue learning and contributing from the truthful inner circuit while the outer gateways are being rewritten.",
+    "",
+    "Governance posture:",
+    "- note only",
+    "- no authority broadening granted",
+    "- threshold surfaces remain under review until human-approved rewrites land",
+  ].join("\n");
+
+  return {
+    title,
+    summary,
+    content,
+    continuityMode,
+    appendCount,
+  };
+}
+
+function buildWorkshopChamberReadinessArtifact(title, content, source) {
+  return {
+    type: "workshop_chamber_readiness_note",
+    title,
+    content,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+    reviewState: "recorded",
+    source,
+    linkedTaskId: `${BETA_PEER_ID}-task-001`,
+  };
+}
+
 export async function createOrUpdateBetaPeer({ draftAgent = {}, originSurface = "workshop_deployment_flow" } = {}) {
   const db = getAegisFirestore();
   const peerRef = doc(db, "peers", BETA_PEER_ID);
@@ -1058,6 +1113,84 @@ export async function generateBetaPeerWorkshopPriorityNote({
       artifactId: artifactRef.id,
       peerId: BETA_PEER_ID,
       ...buildWorkshopPriorityArtifact(note.title, note.content, source),
+    });
+
+    return {
+      peerId: BETA_PEER_ID,
+      title: note.title,
+      summary: note.summary,
+      content: note.content,
+    };
+  });
+}
+
+export async function generateBetaPeerWorkshopChamberReadinessNote({
+  source = "active_agents_monitor_agentic_workshop",
+} = {}) {
+  const runtime = await fetchBetaPeerRuntime();
+  if (!runtime?.peer) {
+    throw new Error("Beta Peer does not exist yet.");
+  }
+
+  const note = buildWorkshopChamberReadinessNote(runtime);
+  const db = getAegisFirestore();
+  const peerRef = doc(db, "peers", BETA_PEER_ID);
+  const stewardRef = doc(db, "peer_steward_state", BETA_PEER_ID);
+  const taskRef = doc(db, "peer_tasks", `${BETA_PEER_ID}-task-001`);
+  const eventRef = doc(collection(db, "peer_memory_events"));
+  const artifactRef = doc(collection(db, "peer_artifacts"));
+
+  return runTransaction(db, async (transaction) => {
+    const peerSnap = await transaction.get(peerRef);
+    if (!peerSnap.exists()) {
+      throw new Error("Beta Peer does not exist yet.");
+    }
+
+    const peerData = peerSnap.data();
+
+    transaction.update(peerRef, {
+      lastActionAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      lastTaskStatus: "chamber-readiness-generated",
+      currentTask: {
+        ...(peerData.currentTask || {}),
+        status: "chamber-readiness-generated",
+        title: "Assess active Workshop training circuit readiness",
+      },
+    });
+
+    transaction.set(stewardRef, {
+      peerId: BETA_PEER_ID,
+      reviewRequired: false,
+      holdState: "clear",
+      lastReviewSummary: note.summary,
+      lastUpdatedAt: serverTimestamp(),
+      openFlags: [],
+    }, { merge: true });
+
+    transaction.set(taskRef, {
+      peerId: BETA_PEER_ID,
+      updatedAt: serverTimestamp(),
+      reviewState: "recorded",
+      resultSummary: note.summary,
+      chamberReadinessGeneratedAt: serverTimestamp(),
+    }, { merge: true });
+
+    transaction.set(eventRef, buildTemporalMemoryEvent({
+      source,
+      summary: note.summary,
+      eventType: "workshop_chamber_readiness_generated",
+      details: {
+        appendCount: note.appendCount,
+        continuityMode: note.continuityMode,
+        title: note.title,
+      },
+    }));
+
+    transaction.set(artifactRef, {
+      artifactId: artifactRef.id,
+      peerId: BETA_PEER_ID,
+      ...buildWorkshopChamberReadinessArtifact(note.title, note.content, source),
     });
 
     return {
