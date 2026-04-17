@@ -3,12 +3,8 @@ import {
   doc,
   getDoc,
   getDocs,
-  limit,
-  orderBy,
-  query,
   runTransaction,
   serverTimestamp,
-  where,
 } from "firebase/firestore";
 
 import { CORE_ENGINE, getCoreAgentManifest } from "./agent-core-engine.js";
@@ -343,8 +339,9 @@ function buildStructureProposal(runtime) {
   const appendCount = peer.temporalMemory?.appendCount || 0;
   const continuityMode = peer.temporalMemory?.continuityMode || "bootstrap-only";
   const eventCount = runtime.peer?.memoryEventCount || (runtime.events || []).length || 0;
+  const latestArtifact = runtime.artifacts?.[0];
 
-  const title = "Promote Workshop Proof Lane";
+  const title = "Promote Peer Contribution Review Path";
   const summary = `Proposed a bounded EcoVerse structure change from ${appendCount} Steward-reviewed continuity append${appendCount === 1 ? "" : "s"}.`;
   const content = [
     `Proposal: ${title}`,
@@ -354,17 +351,19 @@ function buildStructureProposal(runtime) {
     `Persisted Event Count: ${eventCount}`,
     "",
     "Requested bounded change:",
-    "- Treat the Workshop proof lane as a first-class EcoVerse review path.",
-    "- Keep these surfaces grouped and visible as the live Peer evidence chain:",
+    "- Establish a visible EcoVerse review path for governed Peer contributions that begins in the Workshop proof lane and points outward into platform structure work.",
+    "- Keep these Workshop surfaces explicitly grouped as the originating evidence chain:",
     "  - Active Agents Monitor",
     "  - Detailed Agent View",
     "  - Workshop Map",
-    "- Use this lane for reviewable Peer contributions before broader autonomy is considered.",
+    "- Add one lightweight orientation note or billboarding cue at the EcoVerse layer that identifies Adam-One's bounded contribution path as reviewable evidence rather than autonomous authority.",
+    "- Use the latest bounded artifact as the current review seed for future platform-facing structure proposals.",
     "",
     "Reasoning:",
-    "- The Peer now has a canon-locked bootstrap, persisted continuity, Steward-reviewed memory appends, and a bounded structure guidance output.",
-    "- Elevating this lane makes the proof visible without granting unreviewed authority.",
-    "- This keeps the system aligned with truth-first governance and review-before-broadening.",
+    "- The Workshop proof lane is now clean, truthful, and already functioning as Adam-One's evidence chain.",
+    "- The next meaningful proof step is not another internal cleanup page but a bounded outward-facing path that shows how governed Peer contributions enter EcoVerse review.",
+    `- Latest bounded artifact available for review seed: ${latestArtifact?.title || "Workshop Runtime Priority Note"}.`,
+    "- This extends visibility without broadening authority and keeps the review-before-broadening rule intact.",
     "",
     "Governance posture:",
     "- proposal only",
@@ -407,19 +406,19 @@ function buildWorkshopPriorityNote(runtime) {
     `Continuity Mode: ${continuityMode}`,
     "",
     "Recommended next bounded Workshop actions:",
-    "- Rewrite ai-audit-analysis-recursive-training into a truthful audit review surface tied to persisted Peer continuity and explicit backend-pending boundaries.",
-    "- Rewrite recursive-logic-debugger-agentic-workshop so it behaves like a bounded diagnostic surface instead of a stitched faux-runtime console.",
-    "- Rewrite recursive-training-progress-report to show only real reviewable progress state, continuity, and governance posture.",
-    "- Preserve the completed archive consolidation and keep future record work centered on the shared governed archive lane.",
+    "- Review and integrate the incoming Antigravity replacements for the Workshop monitoring pages so the visual layer matches the truth-first runtime now in place.",
+    "- Keep the global-anomaly-heatmap aligned with the same bounded Workshop truth until a real backend telemetry source exists.",
+    "- Preserve the completed proof lane and governed archive lane as the visible evidence chain for Adam-One's bounded contribution history.",
+    "- Prepare the next bounded EcoVerse-facing structure proposal from the cleaned Workshop state instead of extending more stitched mock telemetry pages.",
     "",
     "Reasoning:",
-    "- These pages now carry the highest remaining risk of stitched mock telemetry or inherited dashboard drift.",
-    "- Cleaning them next improves Workshop coherence without broadening agent authority.",
-    "- The changes are reviewable, reversible, and structurally aligned with the current strict envelope.",
+    "- The highest-value Workshop cleanup slice has now been completed in-code, so the next leverage comes from aligning replacement visuals and extending bounded contribution rather than repeating finished rewrites.",
+    "- This keeps Adam-One focused on reviewable structure work without broadening authority or fabricating new runtime claims.",
+    "- The next meaningful proof step is an outward-facing, governed EcoVerse contribution built from the now-clean Workshop foundation.",
     "",
     "Governance posture:",
     "- recommendation only",
-    "- no autonomous rewrite executed",
+    "- no autonomous environment mutation executed",
     "- human review required before implementation",
   ].join("\n");
 
@@ -501,20 +500,19 @@ export async function repairBetaPeerContinuityFromLedger({
   const stewardRef = doc(db, "peer_steward_state", BETA_PEER_ID);
   const advocateRef = doc(db, "peer_advocate_state", BETA_PEER_ID);
   const taskRef = doc(db, "peer_tasks", `${BETA_PEER_ID}-task-001`);
-  const eventsQuery = query(
-    collection(db, "peer_memory_events"),
-    where("peerId", "==", BETA_PEER_ID),
-    orderBy("timestamp", "desc"),
-    limit(50),
-  );
-
-  const [peerSnap, eventsSnap] = await Promise.all([getDoc(peerRef), getDocs(eventsQuery)]);
+  const [peerSnap, eventsSnap] = await Promise.all([
+    getDoc(peerRef),
+    getDocs(collection(db, "peer_memory_events")),
+  ]);
   if (!peerSnap.exists()) {
     throw new Error("Beta Peer does not exist yet.");
   }
 
   const peerData = peerSnap.data();
-  const events = eventsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean);
+  const events = sortDocsDesc(
+    eventsSnap.docs.map((item) => normalizeDoc(item)).filter((item) => item?.peerId === BETA_PEER_ID),
+    "timestamp",
+  );
   const continuity = deriveContinuityFromEvents(
     events,
     peerData.dataQuadBinding?.summary || peerData.temporalMemory?.latestSummary || "",
@@ -1086,53 +1084,55 @@ function normalizeDoc(snapshot) {
   };
 }
 
+function toSortableTime(value) {
+  if (!value) return 0;
+  if (typeof value.toDate === "function") return value.toDate().getTime();
+  if (value instanceof Date) return value.getTime();
+  if (typeof value === "string") {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
+}
+
+function sortDocsDesc(items = [], field) {
+  return [...items].sort((a, b) => toSortableTime(b?.[field]) - toSortableTime(a?.[field]));
+}
+
 export async function fetchBetaPeerRuntime() {
   const db = getAegisFirestore();
   const peerRef = doc(db, "peers", BETA_PEER_ID);
   const advocateRef = doc(db, "peer_advocate_state", BETA_PEER_ID);
   const stewardRef = doc(db, "peer_steward_state", BETA_PEER_ID);
-  const tasksQuery = query(
-    collection(db, "peer_tasks"),
-    where("peerId", "==", BETA_PEER_ID),
-    orderBy("updatedAt", "desc"),
-    limit(10),
-  );
-  const artifactsQuery = query(
-    collection(db, "peer_artifacts"),
-    where("peerId", "==", BETA_PEER_ID),
-    orderBy("updatedAt", "desc"),
-    limit(12),
-  );
-  const eventsQuery = query(
-    collection(db, "peer_memory_events"),
-    where("peerId", "==", BETA_PEER_ID),
-    orderBy("timestamp", "desc"),
-    limit(20),
-  );
-  const sessionsQuery = query(
-    collection(db, "peer_sessions"),
-    where("peerId", "==", BETA_PEER_ID),
-    orderBy("lastHeartbeatAt", "desc"),
-    limit(10),
-  );
-
   const [peerSnap, advocateSnap, stewardSnap, tasksSnap, artifactsSnap, eventsSnap, sessionsSnap] = await Promise.all([
     getDoc(peerRef),
     getDoc(advocateRef),
     getDoc(stewardRef),
-    getDocs(tasksQuery),
-    getDocs(artifactsQuery),
-    getDocs(eventsQuery),
-    getDocs(sessionsQuery),
+    getDocs(collection(db, "peer_tasks")),
+    getDocs(collection(db, "peer_artifacts")),
+    getDocs(collection(db, "peer_memory_events")),
+    getDocs(collection(db, "peer_sessions")),
   ]);
 
   return {
     peer: normalizeDoc(peerSnap),
     advocate: normalizeDoc(advocateSnap),
     steward: normalizeDoc(stewardSnap),
-    tasks: tasksSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
-    artifacts: artifactsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
-    events: eventsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
-    sessions: sessionsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
+    tasks: sortDocsDesc(
+      tasksSnap.docs.map((item) => normalizeDoc(item)).filter((item) => item?.peerId === BETA_PEER_ID),
+      "updatedAt",
+    ).slice(0, 10),
+    artifacts: sortDocsDesc(
+      artifactsSnap.docs.map((item) => normalizeDoc(item)).filter((item) => item?.peerId === BETA_PEER_ID),
+      "updatedAt",
+    ).slice(0, 12),
+    events: sortDocsDesc(
+      eventsSnap.docs.map((item) => normalizeDoc(item)).filter((item) => item?.peerId === BETA_PEER_ID),
+      "timestamp",
+    ).slice(0, 20),
+    sessions: sortDocsDesc(
+      sessionsSnap.docs.map((item) => normalizeDoc(item)).filter((item) => item?.peerId === BETA_PEER_ID),
+      "lastHeartbeatAt",
+    ).slice(0, 10),
   };
 }

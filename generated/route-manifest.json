@@ -184,7 +184,7 @@
   {
     "domain": "agent-workshop",
     "slug": "recursive-logic-debugger-agentic-workshop",
-    "title": "Recursive Logic Debugger Agentic Workshop",
+    "title": "AEGIS Agentic Workshop - Recursive Logic Debugger",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/recursive_logic_debugger_agentic_workshop/code.html",
     "routePath": "/agent-workshop/recursive-logic-debugger-agentic-workshop/"
   },
