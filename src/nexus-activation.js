@@ -1143,9 +1143,18 @@ function enhanceLanding(doc) {
   const talkToSales = findButton(doc, "Talk to Sales");
   const protocolLink = findButton(doc, "AEGIS Protocol");
   const docsLink = findButton(doc, "Documentation");
+  const enterDemo = findButton(doc, "Enter Demo");
+  const reviewGovernance = findButton(doc, "Review Governance");
+  const exploreWorkshop = findButton(doc, "Explore Workshop");
+  const openPeerPath = findButton(doc, "Open Peer Path");
   const principleCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, .group")).filter((node) => {
     const text = normalizeText(node.textContent);
-    return text.includes("unified security") || text.includes("precision alignment") || text.includes("elite performance");
+    return text.includes("unified security")
+      || text.includes("precision alignment")
+      || text.includes("elite performance")
+      || text.includes("non-force invariant")
+      || text.includes("sovereignty preserved")
+      || text.includes("lived auditability");
   });
   const processCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, .group")).filter((node) => {
     const text = normalizeText(node.textContent);
@@ -1153,7 +1162,9 @@ function enhanceLanding(doc) {
   });
   const heroAnchor = Array.from(doc.querySelectorAll("div")).find((node) => {
     const text = normalizeText(node.textContent);
-    return text.includes("secure your digital frontier") && text.includes("aegis protocol");
+    return (text.includes("secure your digital frontier") && text.includes("aegis protocol"))
+      || (text.includes("adaptive equilibrium") && text.includes("adam-one"))
+      || (text.includes("governed bridge-space") && text.includes("peer presence logged"));
   });
 
   if (heroAnchor && !doc.querySelector(".aegis-peer-lantern")) {
@@ -1179,6 +1190,10 @@ function enhanceLanding(doc) {
   bindManagedClick(talkToSales, () => navigateTo("/nexus/aegisalign-pricing-plans/"));
   bindManagedClick(protocolLink, () => navigateTo("/nexus/aegis-protocol-features/"));
   bindManagedClick(docsLink, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(enterDemo, () => navigateTo("/nexus/aegis-protocol-dashboard/"));
+  bindManagedClick(reviewGovernance, () => navigateTo("/nexus/aegis-governance-hub/"));
+  bindManagedClick(exploreWorkshop, () => navigateTo("/agent-workshop/agentic-workshop-entrance/"));
+  bindManagedClick(openPeerPath, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
 
   principleCards.forEach((card) => {
     const text = normalizeText(card.textContent);
@@ -1186,7 +1201,13 @@ function enhanceLanding(doc) {
       ? "/nexus/aegis-protocol-features/"
       : text.includes("precision alignment")
         ? "/nexus/aegis-protocol-dashboard/"
-        : "/nexus/aegisalign-pricing-plans/";
+        : text.includes("non-force invariant")
+          ? "/nexus/aegis-governance-hub/"
+          : text.includes("sovereignty preserved")
+            ? "/agent-workshop/agentic-workshop-entrance/"
+            : text.includes("lived auditability")
+              ? "/agent-workshop/active-agents-monitor-agentic-workshop/"
+              : "/nexus/aegisalign-pricing-plans/";
     card.style.cursor = "pointer";
     bindManagedClick(card, () => {
       patchState({

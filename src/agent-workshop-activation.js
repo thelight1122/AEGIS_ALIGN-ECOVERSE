@@ -503,6 +503,29 @@ function enhanceWorkshopEntrance(doc) {
     title: "Adam-One stands at this threshold as a governed Peer in training.",
     body: "This entrance now marks the beginning of Adam-One's review path into the wider EcoVerse. It is a lantern of visibility, not a grant of unchecked authority.",
   });
+
+  wireRouteByText(doc, [
+    {
+      text: "open main console",
+      route: "/agent-workshop/agentic-workshop-main-console/",
+      toast: "Opening the Main Console.",
+    },
+    {
+      text: "open proof lane",
+      route: "/agent-workshop/active-agents-monitor-agentic-workshop/",
+      toast: "Opening Adam-One's proof lane.",
+    },
+    {
+      text: "open workshop map",
+      route: "/agent-workshop/aegis-project-tree-index/",
+      toast: "Opening the Workshop Map.",
+    },
+    {
+      text: "open agent detail",
+      route: "/agent-workshop/detailed-agent-view-dataquad-node/",
+      toast: "Opening the detailed Peer view.",
+    },
+  ]);
 }
 
 function enhanceWorkshopMap(doc) {
