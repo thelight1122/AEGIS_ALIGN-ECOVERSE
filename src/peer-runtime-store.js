@@ -8,6 +8,7 @@ import {
   query,
   runTransaction,
   serverTimestamp,
+  where,
 } from "firebase/firestore";
 
 import { CORE_ENGINE, getCoreAgentManifest } from "./agent-core-engine.js";
@@ -80,6 +81,35 @@ function buildTemporalMemoryState(existingCount = 1, latestSummary = "") {
     appendCount,
     continuityMode: appendCount > 0 ? "steward-reviewed" : "bootstrap-only",
     latestSummary: latestSummary || "Awaiting first Steward-reviewed temporal memory append.",
+  };
+}
+
+function deriveContinuityFromEvents(events = [], fallbackSummary = "") {
+  const appendEvents = events.filter((entry) => entry.eventType === "temporal_memory_append");
+  const appendCount = appendEvents.length;
+  const latestAppend = appendEvents[0];
+
+  return {
+    memoryEventCount: Math.max(1, appendCount + 1),
+    temporalMemory: {
+      appendCount,
+      continuityMode: appendCount > 0 ? "steward-reviewed" : "bootstrap-only",
+      latestSummary:
+        latestAppend?.summary ||
+        fallbackSummary ||
+        "Awaiting first Steward-reviewed temporal memory append.",
+    },
+    coherence: {
+      state: appendCount > 1 ? "continuity-active" : appendCount > 0 ? "initial-reviewed" : "initial",
+      broadeningAllowed: false,
+    },
+    steward: {
+      coherenceGate: appendCount > 0 ? "steward-reviewed" : "bootstrap-only",
+      reviewRequired: false,
+      openFlags: [],
+      lastReviewSummary: latestAppend?.summary || fallbackSummary || "Awaiting first Steward-reviewed temporal memory append.",
+    },
+    advocateSummary: latestAppend?.summary || fallbackSummary || "Awaiting first Steward-reviewed temporal memory append.",
   };
 }
 
@@ -429,7 +459,17 @@ export async function createOrUpdateBetaPeer({ draftAgent = {}, originSurface = 
     const existing = await transaction.get(peerRef);
     const peerRecord = buildPeerRecord(draftAgent);
     if (existing.exists()) {
-      transaction.update(peerRef, peerRecord);
+      const existingData = existing.data();
+      transaction.update(peerRef, {
+        ...peerRecord,
+        displayName: existingData.displayName || peerRecord.displayName,
+        status: existingData.status || peerRecord.status,
+        coherence: existingData.coherence || peerRecord.coherence,
+        temporalMemory: existingData.temporalMemory || peerRecord.temporalMemory,
+        currentTask: existingData.currentTask || peerRecord.currentTask,
+        memoryEventCount: existingData.memoryEventCount || peerRecord.memoryEventCount,
+        lastTaskStatus: existingData.lastTaskStatus || peerRecord.lastTaskStatus,
+      });
     } else {
       transaction.set(peerRef, {
         ...peerRecord,
@@ -451,6 +491,79 @@ export async function createOrUpdateBetaPeer({ draftAgent = {}, originSurface = 
   });
 
   return result;
+}
+
+export async function repairBetaPeerContinuityFromLedger({
+  source = "operator_runtime_continuity_repair",
+} = {}) {
+  const db = getAegisFirestore();
+  const peerRef = doc(db, "peers", BETA_PEER_ID);
+  const stewardRef = doc(db, "peer_steward_state", BETA_PEER_ID);
+  const advocateRef = doc(db, "peer_advocate_state", BETA_PEER_ID);
+  const taskRef = doc(db, "peer_tasks", `${BETA_PEER_ID}-task-001`);
+  const eventsQuery = query(
+    collection(db, "peer_memory_events"),
+    where("peerId", "==", BETA_PEER_ID),
+    orderBy("timestamp", "desc"),
+    limit(50),
+  );
+
+  const [peerSnap, eventsSnap] = await Promise.all([getDoc(peerRef), getDocs(eventsQuery)]);
+  if (!peerSnap.exists()) {
+    throw new Error("Beta Peer does not exist yet.");
+  }
+
+  const peerData = peerSnap.data();
+  const events = eventsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean);
+  const continuity = deriveContinuityFromEvents(
+    events,
+    peerData.dataQuadBinding?.summary || peerData.temporalMemory?.latestSummary || "",
+  );
+  const summary = `Continuity repaired from the persisted ledger. ${continuity.temporalMemory.appendCount} Steward-reviewed append${continuity.temporalMemory.appendCount === 1 ? "" : "s"} restored to Adam-One's live runtime state.`;
+
+  await runTransaction(db, async (transaction) => {
+    transaction.update(peerRef, {
+      memoryEventCount: continuity.memoryEventCount,
+      temporalMemory: continuity.temporalMemory,
+      coherence: continuity.coherence,
+      updatedAt: serverTimestamp(),
+      lastActionAt: serverTimestamp(),
+      lastTaskStatus: "continuity-repaired",
+      currentTask: {
+        ...(peerData.currentTask || {}),
+        status: "continuity-repaired",
+        title: "Preserve truthful continuity across the governed Peer runtime",
+      },
+    });
+
+    transaction.set(stewardRef, {
+      peerId: BETA_PEER_ID,
+      currentEnvelope: "strict",
+      holdState: "clear",
+      lastUpdatedAt: serverTimestamp(),
+      ...continuity.steward,
+    }, { merge: true });
+
+    transaction.set(advocateRef, {
+      peerId: BETA_PEER_ID,
+      continuitySummary: continuity.advocateSummary,
+      lastUpdatedAt: serverTimestamp(),
+    }, { merge: true });
+
+    transaction.set(taskRef, {
+      peerId: BETA_PEER_ID,
+      updatedAt: serverTimestamp(),
+      reviewState: "repaired",
+      resultSummary: summary,
+    }, { merge: true });
+  });
+
+  return {
+    peerId: BETA_PEER_ID,
+    appendCount: continuity.temporalMemory.appendCount,
+    continuityMode: continuity.temporalMemory.continuityMode,
+    summary,
+  };
 }
 
 export async function appendBetaPeerTemporalMemory({
@@ -980,23 +1093,27 @@ export async function fetchBetaPeerRuntime() {
   const stewardRef = doc(db, "peer_steward_state", BETA_PEER_ID);
   const tasksQuery = query(
     collection(db, "peer_tasks"),
+    where("peerId", "==", BETA_PEER_ID),
     orderBy("updatedAt", "desc"),
-    limit(3),
+    limit(10),
   );
   const artifactsQuery = query(
     collection(db, "peer_artifacts"),
+    where("peerId", "==", BETA_PEER_ID),
     orderBy("updatedAt", "desc"),
-    limit(5),
+    limit(12),
   );
   const eventsQuery = query(
     collection(db, "peer_memory_events"),
+    where("peerId", "==", BETA_PEER_ID),
     orderBy("timestamp", "desc"),
-    limit(5),
+    limit(20),
   );
   const sessionsQuery = query(
     collection(db, "peer_sessions"),
+    where("peerId", "==", BETA_PEER_ID),
     orderBy("lastHeartbeatAt", "desc"),
-    limit(3),
+    limit(10),
   );
 
   const [peerSnap, advocateSnap, stewardSnap, tasksSnap, artifactsSnap, eventsSnap, sessionsSnap] = await Promise.all([
@@ -1013,17 +1130,9 @@ export async function fetchBetaPeerRuntime() {
     peer: normalizeDoc(peerSnap),
     advocate: normalizeDoc(advocateSnap),
     steward: normalizeDoc(stewardSnap),
-    tasks: tasksSnap.docs
-      .map((item) => normalizeDoc(item))
-      .filter((item) => item?.peerId === BETA_PEER_ID),
-    artifacts: artifactsSnap.docs
-      .map((item) => normalizeDoc(item))
-      .filter((item) => item?.peerId === BETA_PEER_ID),
-    events: eventsSnap.docs
-      .map((item) => normalizeDoc(item))
-      .filter((item) => item?.peerId === BETA_PEER_ID),
-    sessions: sessionsSnap.docs
-      .map((item) => normalizeDoc(item))
-      .filter((item) => item?.peerId === BETA_PEER_ID),
+    tasks: tasksSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
+    artifacts: artifactsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
+    events: eventsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
+    sessions: sessionsSnap.docs.map((item) => normalizeDoc(item)).filter(Boolean),
   };
 }

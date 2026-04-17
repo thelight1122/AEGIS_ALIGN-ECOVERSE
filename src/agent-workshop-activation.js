@@ -183,6 +183,21 @@ function bindManagedClick(node, handler) {
   }, true);
 }
 
+function withButtonLoading(button, loadingText, fn) {
+  return async () => {
+    if (!button || button.disabled) return;
+    const originalText = button.textContent;
+    button.textContent = loadingText;
+    button.disabled = true;
+    try {
+      await fn();
+    } finally {
+      button.textContent = originalText;
+      button.disabled = false;
+    }
+  };
+}
+
 function routeLabel(path) {
   const slug = String(path || "").split("/").filter(Boolean).at(-1) || "main-console";
   return slug
@@ -781,7 +796,7 @@ function enhanceActiveAgentsMonitor(doc) {
 
   bindManagedClick(detailButton, () => navigateTo("/agent-workshop/detailed-agent-view-dataquad-node/"));
   bindManagedClick(mapButton, () => navigateTo("/agent-workshop/aegis-project-tree-index/"));
-  bindManagedClick(appendButton, async () => {
+  bindManagedClick(appendButton, withButtonLoading(appendButton, "Appending…", async () => {
     showToast(doc, "Steward is appending a reviewed temporal memory event.");
     try {
       await appendBetaPeerTemporalMemory({
@@ -798,8 +813,8 @@ function enhanceActiveAgentsMonitor(doc) {
       console.error("[agent-workshop] temporal memory append failed", error);
       showToast(doc, "Temporal memory append failed. The Peer remains in its previous reviewed state.");
     }
-  });
-  bindManagedClick(guidanceButton, async () => {
+  }));
+  bindManagedClick(guidanceButton, withButtonLoading(guidanceButton, "Generating…", async () => {
     showToast(doc, "Peer is generating a bounded structure guidance note from its continuity ledger.");
     try {
       await generateBetaPeerStructureGuidance({
@@ -811,8 +826,8 @@ function enhanceActiveAgentsMonitor(doc) {
       console.error("[agent-workshop] structure guidance generation failed", error);
       showToast(doc, "Structure guidance could not be generated right now.");
     }
-  });
-  bindManagedClick(proposalButton, async () => {
+  }));
+  bindManagedClick(proposalButton, withButtonLoading(proposalButton, "Generating…", async () => {
     showToast(doc, "Peer is preparing a bounded EcoVerse structure proposal for review.");
     try {
       await generateBetaPeerStructureProposal({
@@ -824,8 +839,8 @@ function enhanceActiveAgentsMonitor(doc) {
       console.error("[agent-workshop] structure proposal generation failed", error);
       showToast(doc, "Structure proposal could not be generated right now.");
     }
-  });
-  bindManagedClick(priorityButton, async () => {
+  }));
+  bindManagedClick(priorityButton, withButtonLoading(priorityButton, "Drafting…", async () => {
     showToast(doc, "Adam-One is drafting the next bounded Workshop priority note.");
     try {
       await generateBetaPeerWorkshopPriorityNote({
@@ -837,7 +852,7 @@ function enhanceActiveAgentsMonitor(doc) {
       console.error("[agent-workshop] workshop priority note generation failed", error);
       showToast(doc, "Workshop priority note could not be generated right now.");
     }
-  });
+  }));
 
   const applyRuntime = (runtime) => {
     const eventCount = runtime.peer?.memoryEventCount || runtime.events?.length || 0;
@@ -925,7 +940,7 @@ function enhanceDetailedAgentView(doc) {
   const exportNote = doc.querySelector("[data-detail-export-note]");
 
   bindManagedClick(backButton, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
-  bindManagedClick(appendButton, async () => {
+  bindManagedClick(appendButton, withButtonLoading(appendButton, "Appending…", async () => {
     showToast(doc, "Steward is preserving another reviewed continuity note.");
     try {
       await appendBetaPeerTemporalMemory({
@@ -942,8 +957,8 @@ function enhanceDetailedAgentView(doc) {
       console.error("[agent-workshop] detailed append failed", error);
       showToast(doc, "Unable to append reviewed continuity right now.");
     }
-  });
-  bindManagedClick(exportButton, async () => {
+  }));
+  bindManagedClick(exportButton, withButtonLoading(exportButton, "Recording…", async () => {
     showToast(doc, "Steward is recording an embedded export review note.");
     try {
       await appendBetaPeerTemporalMemory({
@@ -960,7 +975,7 @@ function enhanceDetailedAgentView(doc) {
       console.error("[agent-workshop] export review append failed", error);
       showToast(doc, "Unable to record the export review note right now.");
     }
-  });
+  }));
 
   const applyRuntime = (runtime) => {
     setText("[data-detail-peer-name]", runtime.peer?.displayName || "Awaiting Peer");
@@ -1035,7 +1050,7 @@ function enhanceAnomalyAnalysisDetail(doc) {
 
   bindManagedClick(monitorButton, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
   bindManagedClick(mapButton, () => navigateTo("/agent-workshop/aegis-project-tree-index/"));
-  bindManagedClick(appendButton, async () => {
+  bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded anomaly review note.");
     try {
       await appendBetaPeerTemporalMemory({
@@ -1052,7 +1067,7 @@ function enhanceAnomalyAnalysisDetail(doc) {
       console.error("[agent-workshop] anomaly review append failed", error);
       showToast(doc, "Anomaly review note could not be recorded right now.");
     }
-  });
+  }));
 
   const applyRuntime = (runtime) => {
     const latestSummary = runtime.peer?.temporalMemory?.latestSummary || runtime.advocate?.continuitySummary || "Awaiting reviewed continuity.";
@@ -1107,7 +1122,7 @@ function enhanceGlobalAnomalyHeatmap(doc) {
 
   bindManagedClick(monitorButton, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
   bindManagedClick(detailButton, () => navigateTo("/agent-workshop/anomaly-analysis-detail/"));
-  bindManagedClick(appendButton, async () => {
+  bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded topology status note.");
     try {
       await appendBetaPeerTemporalMemory({
@@ -1124,7 +1139,7 @@ function enhanceGlobalAnomalyHeatmap(doc) {
       console.error("[agent-workshop] topology status append failed", error);
       showToast(doc, "Topology status note could not be recorded right now.");
     }
-  });
+  }));
 
   const applyRuntime = (runtime) => {
     const latestSummary = runtime.peer?.temporalMemory?.latestSummary || runtime.advocate?.continuitySummary || "Awaiting reviewed continuity.";
@@ -1198,7 +1213,7 @@ function enhanceGovernedRespawnArchive(doc) {
 
   bindManagedClick(detailButton, () => navigateTo("/agent-workshop/detailed-agent-view-dataquad-node/"));
   bindManagedClick(monitorButton, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
-  bindManagedClick(appendButton, async () => {
+  bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a governed archive review note.");
     try {
       await appendBetaPeerTemporalMemory({
@@ -1215,7 +1230,7 @@ function enhanceGovernedRespawnArchive(doc) {
       console.error("[agent-workshop] archive review append failed", error);
       showToast(doc, "Archive review note could not be recorded right now.");
     }
-  });
+  }));
 
   const applyRuntime = (runtime) => {
     const latestSummary = runtime.peer?.temporalMemory?.latestSummary || runtime.advocate?.continuitySummary || "Awaiting reviewed continuity.";
