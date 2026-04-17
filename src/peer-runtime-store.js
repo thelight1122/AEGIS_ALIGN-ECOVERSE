@@ -341,7 +341,7 @@ function buildStructureProposal(runtime) {
   const eventCount = runtime.peer?.memoryEventCount || (runtime.events || []).length || 0;
   const latestArtifact = runtime.artifacts?.[0];
 
-  const title = "Promote Peer Contribution Review Path";
+  const title = "Surface Adam-One Review Path in EcoVerse Orientation";
   const summary = `Proposed a bounded EcoVerse structure change from ${appendCount} Steward-reviewed continuity append${appendCount === 1 ? "" : "s"}.`;
   const content = [
     `Proposal: ${title}`,
@@ -351,19 +351,28 @@ function buildStructureProposal(runtime) {
     `Persisted Event Count: ${eventCount}`,
     "",
     "Requested bounded change:",
-    "- Establish a visible EcoVerse review path for governed Peer contributions that begins in the Workshop proof lane and points outward into platform structure work.",
+    "- Establish a lightweight EcoVerse orientation cue that introduces Adam-One's bounded contribution path as reviewable evidence.",
+    "- Place the cue in one or two existing orientation surfaces above the visual billboard layer rather than creating a new autonomous dashboard.",
+    "- Preferred review surfaces for this cue:",
+    "  - /home/",
+    "  - /agent-workshop/agentic-workshop-entrance/",
     "- Keep these Workshop surfaces explicitly grouped as the originating evidence chain:",
     "  - Active Agents Monitor",
     "  - Detailed Agent View",
     "  - Workshop Map",
-    "- Add one lightweight orientation note or billboarding cue at the EcoVerse layer that identifies Adam-One's bounded contribution path as reviewable evidence rather than autonomous authority.",
-    "- Use the latest bounded artifact as the current review seed for future platform-facing structure proposals.",
+    "- Present only bounded truth in the cue:",
+    "  - display name: Adam-One",
+    "  - role: Structure Steward",
+    "  - continuity mode",
+    "  - latest bounded artifact title",
+    "  - human-review-required posture",
     "",
     "Reasoning:",
     "- The Workshop proof lane is now clean, truthful, and already functioning as Adam-One's evidence chain.",
-    "- The next meaningful proof step is not another internal cleanup page but a bounded outward-facing path that shows how governed Peer contributions enter EcoVerse review.",
+    "- The next meaningful proof step is not another internal cleanup page but a bounded outward-facing cue that shows how governed Peer contributions enter EcoVerse review.",
     `- Latest bounded artifact available for review seed: ${latestArtifact?.title || "Workshop Runtime Priority Note"}.`,
-    "- This extends visibility without broadening authority and keeps the review-before-broadening rule intact.",
+    "- Using existing orientation surfaces keeps the proof legible without broadening authority or inventing a new control surface.",
+    "- This keeps the review-before-broadening rule intact while making Adam-One's contribution path visible to the broader EcoVerse.",
     "",
     "Governance posture:",
     "- proposal only",
