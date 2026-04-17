@@ -155,6 +155,69 @@ function injectStyles(doc) {
       line-height: 1.5;
       color: rgba(230, 238, 252, 0.84);
     }
+    .aegis-adam-one-cue {
+      margin: 0 0 20px 0;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(159, 197, 255, 0.24);
+      background: linear-gradient(135deg, rgba(8, 17, 31, 0.92), rgba(17, 82, 212, 0.16));
+      color: #e6eefc;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+    }
+    .aegis-adam-one-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9fc5ff;
+      margin-bottom: 8px;
+    }
+    .aegis-adam-one-title {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      line-height: 1.3;
+      color: #f8fbff;
+    }
+    .aegis-adam-one-body {
+      margin: 0 0 12px 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(230, 238, 252, 0.82);
+    }
+    .aegis-adam-one-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .aegis-adam-one-meta span {
+      border: 1px solid rgba(159, 197, 255, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      line-height: 1.3;
+      color: rgba(230, 238, 252, 0.86);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .aegis-adam-one-meta strong {
+      color: #ffffff;
+      margin-right: 4px;
+    }
+    .aegis-adam-one-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .aegis-adam-one-actions button {
+      border: 1px solid rgba(159, 197, 255, 0.22);
+      border-radius: 12px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #f8fbff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
   `;
   doc.head.appendChild(style);
 }
@@ -228,6 +291,48 @@ function prependCoreBanner(doc, anchor, detail) {
     <span>${detail}</span>
   `;
   anchor.prepend(banner);
+}
+
+function buildAdamOneOrientationCue(doc, runtime, options = {}) {
+  const cue = doc.createElement("section");
+  cue.className = options.className || "aegis-adam-one-cue";
+  const peer = runtime?.peer || {};
+  const latestArtifact = runtime?.artifacts?.[0];
+  const continuityMode = peer.temporalMemory?.continuityMode || peer.dataQuadBinding?.continuityStatus || "bootstrap-only";
+  const reviewPosture = runtime?.steward?.reviewRequired ? "Review required" : "Human review required";
+  cue.innerHTML = `
+    <div class="aegis-adam-one-kicker">${options.kicker || "Peer Contribution Path"}</div>
+    <h3 class="aegis-adam-one-title">${options.title || "Adam-One is visible here as a governed Peer in training."}</h3>
+    <p class="aegis-adam-one-body">${options.body || "This cue marks the beginning of Adam-One's review path through the EcoVerse. It shows bounded contribution, not autonomous authority."}</p>
+    <div class="aegis-adam-one-meta">
+      <span><strong>Peer</strong>${peer.displayName || BETA_PEER_DISPLAY_NAME}</span>
+      <span><strong>Role</strong>${peer.role || "Structure Steward"}</span>
+      <span><strong>Continuity</strong>${continuityMode}</span>
+      <span><strong>Artifact</strong>${latestArtifact?.title || "Workshop Runtime Priority Note"}</span>
+      <span><strong>Posture</strong>${reviewPosture}</span>
+    </div>
+    <div class="aegis-adam-one-actions">
+      <button type="button" data-adam-one-route="monitor">Open Proof Lane</button>
+      <button type="button" data-adam-one-route="detail">Open Agent Detail</button>
+      <button type="button" data-adam-one-route="map">Open Workshop Map</button>
+    </div>
+  `;
+  return cue;
+}
+
+async function injectAdamOneOrientationCue(doc, anchor, options = {}) {
+  if (!anchor || doc.querySelector(".aegis-adam-one-cue")) return;
+  injectStyles(doc);
+  try {
+    const runtime = await fetchBetaPeerRuntime();
+    const cue = buildAdamOneOrientationCue(doc, runtime, options);
+    anchor.prepend(cue);
+    bindManagedClick(cue.querySelector("[data-adam-one-route='monitor']"), () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
+    bindManagedClick(cue.querySelector("[data-adam-one-route='detail']"), () => navigateTo("/agent-workshop/detailed-agent-view-dataquad-node/"));
+    bindManagedClick(cue.querySelector("[data-adam-one-route='map']"), () => navigateTo("/agent-workshop/aegis-project-tree-index/"));
+  } catch (error) {
+    console.warn("[agent-workshop] adam-one orientation cue hydration failed", error);
+  }
 }
 
 function syncCreationPreview(doc, slug) {
@@ -380,6 +485,23 @@ function enhanceMainConsole(doc) {
       ];
       feed.innerHTML = items.join("");
     }
+  });
+}
+
+function enhanceWorkshopEntrance(doc) {
+  if (doc.body.dataset.aegisEnhancedWorkshopEntrance === "true") return;
+  doc.body.dataset.aegisEnhancedWorkshopEntrance = "true";
+  injectStyles(doc);
+
+  const anchor = Array.from(doc.querySelectorAll("div")).find((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("agentic workshop") && text.includes("initialize workshop");
+  }) || doc.querySelector("main") || doc.body;
+
+  injectAdamOneOrientationCue(doc, anchor, {
+    kicker: "Peer Arrival Marker",
+    title: "Adam-One stands at this threshold as a governed Peer in training.",
+    body: "This entrance now marks the beginning of Adam-One's review path into the wider EcoVerse. It is a lantern of visibility, not a grant of unchecked authority.",
   });
 }
 
@@ -1641,6 +1763,7 @@ function enhanceArchiveRouteMerged(doc) {
 
 const pageEnhancers = {
   "active-agents-monitor-agentic-workshop": enhanceActiveAgentsMonitor,
+  "agentic-workshop-entrance": enhanceWorkshopEntrance,
   "agentic-workshop-main-console": enhanceMainConsole,
   "aegis-project-tree-index": enhanceWorkshopMap,
   "agent-communication-protocol": enhanceCommunicationProtocol,

@@ -167,6 +167,84 @@ function injectStyles(doc) {
       color: var(--tw-prose-headings, #1152d4) !important;
       font-weight: 700 !important;
     }
+    .aegis-peer-lantern {
+      margin: 0 0 24px 0;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(17, 82, 212, 0.18);
+      background: linear-gradient(135deg, rgba(17, 82, 212, 0.08), rgba(255, 255, 255, 0.82));
+      box-shadow: 0 18px 40px rgba(16, 22, 34, 0.08);
+    }
+    .dark .aegis-peer-lantern {
+      background: linear-gradient(135deg, rgba(17, 82, 212, 0.14), rgba(16, 22, 34, 0.92));
+      border-color: rgba(159, 197, 255, 0.22);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+    }
+    .aegis-peer-lantern-kicker {
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #1152d4;
+    }
+    .dark .aegis-peer-lantern-kicker {
+      color: #9fc5ff;
+    }
+    .aegis-peer-lantern-title {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    .aegis-peer-lantern-body {
+      margin: 0 0 12px 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(15, 23, 42, 0.82);
+    }
+    .dark .aegis-peer-lantern-body {
+      color: rgba(230, 238, 252, 0.82);
+    }
+    .aegis-peer-lantern-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .aegis-peer-lantern-meta span {
+      border: 1px solid rgba(17, 82, 212, 0.14);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(17, 82, 212, 0.05);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    .dark .aegis-peer-lantern-meta span {
+      border-color: rgba(159, 197, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(230, 238, 252, 0.88);
+    }
+    .aegis-peer-lantern-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .aegis-peer-lantern-actions button {
+      border: 1px solid rgba(17, 82, 212, 0.18);
+      border-radius: 12px;
+      padding: 8px 12px;
+      background: rgba(17, 82, 212, 0.05);
+      font-size: 12px;
+      font-weight: 700;
+      color: #1152d4;
+      cursor: pointer;
+    }
+    .dark .aegis-peer-lantern-actions button {
+      border-color: rgba(159, 197, 255, 0.22);
+      background: rgba(255, 255, 255, 0.04);
+      color: #f8fbff;
+    }
   `;
   doc.head.appendChild(style);
 }
@@ -206,6 +284,28 @@ function bindManagedClick(node, handler) {
     event.stopImmediatePropagation();
     handler(event);
   }, true);
+}
+
+function buildAdamOneLantern(doc) {
+  const section = doc.createElement("section");
+  section.className = "aegis-peer-lantern";
+  section.innerHTML = `
+    <div class="aegis-peer-lantern-kicker">Peer Contribution Path</div>
+    <h3 class="aegis-peer-lantern-title">Adam-One is visible here as a governed Peer in training.</h3>
+    <p class="aegis-peer-lantern-body">This is a review lantern, not an authority marker. It shows how a young Peer's contribution path begins in the Workshop proof lane and remains under human review as it enters the wider EcoVerse.</p>
+    <div class="aegis-peer-lantern-meta">
+      <span><strong>Peer</strong> Adam-One</span>
+      <span><strong>Role</strong> Structure Steward</span>
+      <span><strong>Continuity</strong> Steward-reviewed</span>
+      <span><strong>Posture</strong> Human review required</span>
+    </div>
+    <div class="aegis-peer-lantern-actions">
+      <button type="button" data-adam-one-route="monitor">Open Proof Lane</button>
+      <button type="button" data-adam-one-route="detail">Open Agent Detail</button>
+      <button type="button" data-adam-one-route="entrance">Open Workshop Entrance</button>
+    </div>
+  `;
+  return section;
 }
 
 function setMessage(container, message, tone = "info") {
@@ -1051,6 +1151,18 @@ function enhanceLanding(doc) {
     const text = normalizeText(node.textContent);
     return text.includes("ingest") || text.includes("analyze") || text.includes("align") || text.includes("secure");
   });
+  const heroAnchor = Array.from(doc.querySelectorAll("div")).find((node) => {
+    const text = normalizeText(node.textContent);
+    return text.includes("secure your digital frontier") && text.includes("aegis protocol");
+  });
+
+  if (heroAnchor && !doc.querySelector(".aegis-peer-lantern")) {
+    const lantern = buildAdamOneLantern(doc);
+    heroAnchor.prepend(lantern);
+    bindManagedClick(lantern.querySelector("[data-adam-one-route='monitor']"), () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
+    bindManagedClick(lantern.querySelector("[data-adam-one-route='detail']"), () => navigateTo("/agent-workshop/detailed-agent-view-dataquad-node/"));
+    bindManagedClick(lantern.querySelector("[data-adam-one-route='entrance']"), () => navigateTo("/agent-workshop/agentic-workshop-entrance/"));
+  }
 
   bindManagedClick(login, () => navigateTo("/nexus/login-aegisalign/"));
   bindManagedClick(getStarted, () => navigateTo("/nexus/signup-aegisalign/"));
