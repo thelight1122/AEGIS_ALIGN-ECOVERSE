@@ -1,13 +1,7 @@
 import { CORE_ENGINE, getCoreAgentManifest } from "./agent-core-engine.js";
 import {
-  applyBetaPeerStructureProposal,
-  appendBetaPeerTemporalMemory,
   BETA_PEER_DISPLAY_NAME,
-  createOrUpdateBetaPeer,
   fetchBetaPeerRuntime,
-  generateBetaPeerStructureGuidance,
-  generateBetaPeerStructureProposal,
-  generateBetaPeerWorkshopPriorityNote,
 } from "./peer-runtime-store.js";
 
 const STORAGE_KEY = "aegis.agentWorkshop.state";
@@ -268,6 +262,15 @@ function routeLabel(path) {
     .filter(Boolean)
     .map((part) => part[0].toUpperCase() + part.slice(1))
     .join(" ");
+}
+
+let workshopOperatorControlsPromise;
+
+async function loadWorkshopOperatorControls() {
+  if (!workshopOperatorControlsPromise) {
+    workshopOperatorControlsPromise = import("./agent-workshop-operator-controls.js");
+  }
+  return workshopOperatorControlsPromise;
 }
 
 async function hydrateLivePeerRuntime(doc, applyRuntime) {
@@ -861,6 +864,7 @@ function enhanceModelDeploymentFlow(doc) {
     });
     showToast(doc, "Persisting the first beta Peer to Firebase.");
     try {
+      const { createOrUpdateBetaPeer } = await loadWorkshopOperatorControls();
       const result = await createOrUpdateBetaPeer({
         draftAgent: readState().draftAgent,
         originSurface: "model_deployment_flow",
@@ -944,6 +948,7 @@ function enhanceActiveAgentsMonitor(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Appending…", async () => {
     showToast(doc, "Steward is appending a reviewed temporal memory event.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "active_agents_monitor_agentic_workshop",
         summary: "Steward recorded a reviewed EcoVerse structure observation and preserved it as temporal memory continuity.",
@@ -962,6 +967,7 @@ function enhanceActiveAgentsMonitor(doc) {
   bindManagedClick(guidanceButton, withButtonLoading(guidanceButton, "Generating…", async () => {
     showToast(doc, "Peer is generating a bounded structure guidance note from its continuity ledger.");
     try {
+      const { generateBetaPeerStructureGuidance } = await loadWorkshopOperatorControls();
       await generateBetaPeerStructureGuidance({
         source: "active_agents_monitor_agentic_workshop",
       });
@@ -975,6 +981,7 @@ function enhanceActiveAgentsMonitor(doc) {
   bindManagedClick(proposalButton, withButtonLoading(proposalButton, "Generating…", async () => {
     showToast(doc, "Peer is preparing a bounded EcoVerse structure proposal for review.");
     try {
+      const { generateBetaPeerStructureProposal } = await loadWorkshopOperatorControls();
       await generateBetaPeerStructureProposal({
         source: "active_agents_monitor_agentic_workshop",
       });
@@ -988,6 +995,7 @@ function enhanceActiveAgentsMonitor(doc) {
   bindManagedClick(priorityButton, withButtonLoading(priorityButton, "Drafting…", async () => {
     showToast(doc, "Adam-One is drafting the next bounded Workshop priority note.");
     try {
+      const { generateBetaPeerWorkshopPriorityNote } = await loadWorkshopOperatorControls();
       await generateBetaPeerWorkshopPriorityNote({
         source: "active_agents_monitor_agentic_workshop",
       });
@@ -1088,6 +1096,7 @@ function enhanceDetailedAgentView(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Appending…", async () => {
     showToast(doc, "Steward is preserving another reviewed continuity note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "detailed_agent_view_dataquad_node",
         summary: "Steward appended a reviewed DataQuad node note to preserve continuity across Workshop observation and action.",
@@ -1106,6 +1115,7 @@ function enhanceDetailedAgentView(doc) {
   bindManagedClick(exportButton, withButtonLoading(exportButton, "Recording…", async () => {
     showToast(doc, "Steward is recording an embedded export review note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "detailed_agent_view_export_review",
         summary: "Steward confirmed that export review remains embedded in the detailed agent surface until governed export services exist.",
@@ -1198,6 +1208,7 @@ function enhanceAnomalyAnalysisDetail(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded anomaly review note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "anomaly_analysis_detail",
         summary: "Steward reviewed the current Workshop anomaly lane and confirmed that only browser truth and persisted continuity are available at this stage.",
@@ -1275,6 +1286,7 @@ function enhanceAiAuditAnalysis(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded Workshop audit review note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "ai_audit_analysis_recursive_training",
         summary: "Steward reviewed the AI audit lane and confirmed that persisted continuity, current bounded tasks, and browser truth remain the only active audit basis while backend training computation stays pending.",
@@ -1378,6 +1390,7 @@ function enhanceRecursiveLogicDebugger(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded logic review note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "recursive_logic_debugger_agentic_workshop",
         summary: "Steward reviewed the Workshop logic lane and confirmed that persisted continuity and bounded task state remain the only active debugger basis while deeper recursive logic execution stays backend pending.",
@@ -1479,6 +1492,7 @@ function enhanceRecursiveTrainingProgress(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded progress review note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "recursive_training_progress_report",
         summary: "Steward reviewed the Workshop progress lane and confirmed that progress is currently expressed through persisted continuity, reviewed actions, and bounded artifacts while deeper training analytics remain backend pending.",
@@ -1575,6 +1589,7 @@ function enhanceGlobalAnomalyHeatmap(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a bounded topology status note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "global_anomaly_heatmap",
         summary: "Steward reviewed the topology status lane and confirmed that global anomaly telemetry is still backend pending while local Workshop truth remains available.",
@@ -1666,6 +1681,7 @@ function enhanceGovernedRespawnArchive(doc) {
   bindManagedClick(appendButton, withButtonLoading(appendButton, "Recording…", async () => {
     showToast(doc, "Steward is recording a governed archive review note.");
     try {
+      const { appendBetaPeerTemporalMemory } = await loadWorkshopOperatorControls();
       await appendBetaPeerTemporalMemory({
         source: "sssp_respawn_archive_1",
         summary: "Steward reviewed the governed respawn archive and confirmed that only persisted continuity records and archive notes are currently represented here.",

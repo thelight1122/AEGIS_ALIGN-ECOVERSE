@@ -10,12 +10,12 @@
   "currentStatus": "limited beta",
   "referenceDate": "2026-04-16",
   "canonVersion": "1.3.0",
-  "canonRecordCount": 47,
+  "canonRecordCount": 50,
   "canonCategories": {
-    "AXIOM": 14,
-    "GATE": 18,
+    "AXIOM": 15,
+    "GATE": 19,
     "STANDARD": 4,
-    "IMPERATIVE": 11
+    "IMPERATIVE": 12
   },
   "standardsVersion": "0.1",
   "posture": "Non-coercive, append-only, behavior-centered",

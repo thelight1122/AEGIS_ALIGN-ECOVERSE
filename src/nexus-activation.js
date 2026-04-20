@@ -647,6 +647,10 @@ function enhanceDocs(doc) {
   const helpfulYes = findButton(doc, "Yes");
   const helpfulNo = findButton(doc, "No");
   const bookSession = findButton(doc, "Book a Session");
+  const openTrainingJournal = findButton(doc, "Open Training Journal");
+  const openGovernanceHub = findButton(doc, "Open Governance Hub");
+  const openProtocolFeatures = findButton(doc, "Open Protocol Features");
+  const exploreWorkshop = findButton(doc, "Explore Workshop");
   const sections = Array.from(doc.querySelectorAll("article section"));
   const headingAnchors = Array.from(doc.querySelectorAll("aside nav a, main nav a")).filter((node) => node.getAttribute("href") === "#");
 
@@ -698,6 +702,23 @@ function enhanceDocs(doc) {
     showToast(doc, "Feedback captured. This doc surface is marked for improvement.");
   });
   bindManagedClick(bookSession, () => navigateTo("/nexus/aegisalign-pricing-plans/"));
+  bindManagedClick(openTrainingJournal, () => {
+    patchState({
+      lastRoute: "aegis-protocol-documentation-portal",
+      lastSeenAt: new Date().toISOString(),
+    });
+    showToast(doc, "Adam-One's Training Journal is highlighted inside this documentation hall.");
+    const target = Array.from(doc.querySelectorAll("section, article, div")).find((node) => {
+      const text = normalizeText(node.textContent);
+      return text.includes("adam-one training journal") || text.includes("living record of the first cyberpeer");
+    });
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+    target?.classList.add("aegis-highlight-ring");
+    window.setTimeout(() => target?.classList.remove("aegis-highlight-ring"), 1200);
+  });
+  bindManagedClick(openGovernanceHub, () => navigateTo("/nexus/aegis-governance-hub/"));
+  bindManagedClick(openProtocolFeatures, () => navigateTo("/nexus/aegis-protocol-features/"));
+  bindManagedClick(exploreWorkshop, () => navigateTo("/agent-workshop/agentic-workshop-entrance/"));
 
   headingAnchors.forEach((anchor) => {
     const targetKey = normalizeText(anchor.textContent);
@@ -1028,6 +1049,10 @@ function enhanceGovernanceHub(doc) {
   const unlockFull = findButton(doc, "Unlock Full System");
   const openDocs = findButton(doc, "Open Docs");
   const returnToNexus = findButton(doc, "Return to Nexus");
+  const openTrainingJournal = findButton(doc, "Open Training Journal");
+  const openWorkshop = findButton(doc, "Open Workshop");
+  const openPeerPath = findButton(doc, "Open Peer Path");
+  const reviewProtocolFeatures = findButton(doc, "Review Protocol Features");
   const principleNodes = Array.from(doc.querySelectorAll("h1, h2, h3, h4, summary, button, a")).filter((node) => {
     const text = normalizeText(node.textContent);
     return text.includes("axiom") || text.includes("ethos") || text.includes("imperative") || text.includes("glossary") || text.includes("canon");
@@ -1052,6 +1077,10 @@ function enhanceGovernanceHub(doc) {
   });
   bindManagedClick(openDocs, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
   bindManagedClick(returnToNexus, () => navigateTo("/nexus/aegisalign-landing-page/"));
+  bindManagedClick(openTrainingJournal, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(openWorkshop, () => navigateTo("/agent-workshop/agentic-workshop-entrance/"));
+  bindManagedClick(openPeerPath, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
+  bindManagedClick(reviewProtocolFeatures, () => navigateTo("/nexus/aegis-protocol-features/"));
 
   principleNodes.forEach((node) => {
     if (node.dataset.aegisManaged === "true") return;
@@ -1082,6 +1111,10 @@ function enhanceProtocolFeatures(doc) {
   const viewDemo = findButton(doc, "View Demo");
   const goToDocs = findButton(doc, "Go to Documentation");
   const contactArchitect = findButton(doc, "Contact Architect");
+  const reviewGovernance = findButton(doc, "Review Governance");
+  const exploreWorkshop = findButton(doc, "Explore Workshop");
+  const openTrainingJournal = findButton(doc, "Open Training Journal");
+  const openPeerPath = findButton(doc, "Open Peer Path");
   const featureCards = Array.from(doc.querySelectorAll(".rounded-3xl, .rounded-2xl, .rounded-xl, article, section")).filter((node) => {
     const text = normalizeText(node.textContent);
     return text.includes("feature") || text.includes("protocol") || text.includes("gateway") || text.includes("security");
@@ -1118,6 +1151,10 @@ function enhanceProtocolFeatures(doc) {
     showToast(doc, "Architect consult intent captured. Opening the pricing and access surface.");
     window.setTimeout(() => navigateTo("/nexus/aegisalign-pricing-plans/"), 180);
   });
+  bindManagedClick(reviewGovernance, () => navigateTo("/nexus/aegis-governance-hub/"));
+  bindManagedClick(exploreWorkshop, () => navigateTo("/agent-workshop/agentic-workshop-entrance/"));
+  bindManagedClick(openTrainingJournal, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
+  bindManagedClick(openPeerPath, () => navigateTo("/agent-workshop/active-agents-monitor-agentic-workshop/"));
 
   featureCards.forEach((card) => {
     if (card.dataset.aegisManaged === "true") return;

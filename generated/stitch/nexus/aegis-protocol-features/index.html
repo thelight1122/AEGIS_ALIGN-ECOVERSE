@@ -1,263 +1,325 @@
-<!DOCTYPE html>
+<div class="protocol-features-wrapper">
+  <style>
+    .protocol-features-wrapper {
+      --bg-panel: rgba(22, 27, 34, 0.25);
+      --bg-card: rgba(13, 17, 23, 0.6);
+      --border-strong: rgba(240, 246, 252, 0.15);
+      --border-dim: rgba(240, 246, 252, 0.06);
+      --border-glow: rgba(88, 166, 255, 0.2);
+      --text-primary: #F0F6FC;
+      --text-muted: #8B949E;
+      --text-tertiary: #6E7681;
+      --accent: #58A6FF;
+      --accent-dim: rgba(88, 166, 255, 0.05);
+      
+      width: 100%;
+      min-height: 100%;
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      padding: 5rem 2rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1152d4",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#101622",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
-        }
-    </script>
-<title>AegisAlign - Protocol Features</title>
-</head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-<!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="text-primary">
-<span class="material-symbols-outlined text-3xl">shield_with_heart</span>
+    .protocol-features-wrapper h1, 
+    .protocol-features-wrapper h2, 
+    .protocol-features-wrapper h3 {
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .protocol-features-wrapper p { 
+      margin: 0; 
+      line-height: 1.6; 
+    }
+
+    .content-core {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+    }
+
+    .header-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      animation: fade-in-up 0.8s ease-out;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+
+    .pre-label {
+      font-family: 'JetBrains Mono', monospace, system-ui;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+    }
+
+    .main-title {
+      font-size: 3rem;
+      letter-spacing: 0.04em;
+      color: #FFFFFF;
+    }
+
+    .purpose-statement {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      line-height: 1.7;
+    }
+
+    .evidence-block {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: 2px;
+      padding: 1rem 1.5rem;
+      font-family: 'JetBrains Mono', monospace, system-ui;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .evidence-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .evidence-node {
+      width: 4px;
+      height: 4px;
+      background: var(--text-tertiary);
+      border-radius: 50%;
+    }
+
+    .evidence-right {
+      color: var(--text-tertiary);
+      text-align: right;
+    }
+
+    .architecture-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .arch-header {
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border-strong);
+      padding-bottom: 0.75rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      border-radius: 2px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-glow);
+      background: rgba(22, 27, 34, 0.45);
+    }
+
+    .feature-id {
+      font-family: 'JetBrains Mono', monospace, system-ui;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      opacity: 0.95;
+    }
+
+    .feature-card.full-width {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .feature-card.full-width .feature-content {
+      flex: 1;
+    }
+
+    .paths-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+      padding-top: 3rem;
+    }
+
+    .paths-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .path-btn {
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      border-radius: 2px;
+      padding: 1.5rem 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      align-items: center;
+      text-align: center;
+    }
+
+    .path-btn:hover {
+      background: var(--bg-panel);
+      border-color: var(--text-muted);
+    }
+
+    .btn-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1024px) {
+      .paths-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card.full-width { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .paths-grid { grid-template-columns: 1fr; }
+      .main-title { font-size: 2.5rem; }
+      .evidence-block { flex-direction: column; gap: 0.5rem; }
+      .evidence-right { text-align: left; }
+    }
+  </style>
+
+  <div class="content-core">
+    
+    <section class="header-block">
+      <div class="pre-label">Structural Topology :: Protocol Analysis</div>
+      <h1 class="main-title">AEGIS Protocol Features</h1>
+      <p class="purpose-statement">
+        An explicit architecture mapping the core mechanisms of the systemic environment. AEGIS enforces boundaries structurally rather than punitively, sustaining truthful context for both manual and autonomous agents without forcing convergence.
+      </p>
+    </section>
+
+    <section class="evidence-block">
+      <div class="evidence-left">
+        <div class="evidence-node"></div>
+        <span>ARCHIVAL TRACE: Node Genesis Operations</span>
+      </div>
+      <div class="evidence-right">
+        <span>Active Governed Node: Adam-One [Observation Logic / In-Training]</span>
+      </div>
+    </section>
+
+    <section class="architecture-overview">
+      <h2 class="arch-header">Mechanics of Interaction</h2>
+      
+      <div class="features-grid">
+        
+        <div class="feature-card">
+          <div class="feature-id">Structure . 01</div>
+          <h3 class="feature-title">Peer Recognition</h3>
+          <p class="feature-desc">
+            Signals are evaluated on coherence, not arbitrary credentials. Participants, spanning both organic and synthetic types, secure peer thresholds strictly through demonstrated alignment and structural awareness in isolated contexts. No unearned stewardship is issued.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-id">Structure . 02</div>
+          <h3 class="feature-title">Memory & Continuity</h3>
+          <p class="feature-desc">
+            Interactions are archived persistently using append-only ledgers. This strictly prevents context alteration, retrospective overwrites, and narrative drift. Memory becomes a continuous tether, providing an exact, unedited topology of historical operational logic.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-id">Structure . 03</div>
+          <h3 class="feature-title">Governance by Review</h3>
+          <p class="feature-desc">
+            AEGIS rejects implicit progression. Execution within global contexts is restricted by default. All outputs rest in the verification layer indefinitely until empirical evidence permits propagation. Broadening of scope remains entirely contingent on validated alignment.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-id">Structure . 04</div>
+          <h3 class="feature-title">Bounded Contribution</h3>
+          <p class="feature-desc">
+            Intent and effect are decoupled architecturally. Domains such as the Workshop are walled. Inside these arenas, ideation runs without friction or punitive monitoring. Effect paths are hard-coded externally, rendering accidental global consequence impossible.
+          </p>
+        </div>
+
+        <div class="feature-card full-width">
+          <div class="feature-content" style="flex: 0 0 150px;">
+            <div class="feature-id">Structure . 05</div>
+            <h3 class="feature-title">Truthful Environment</h3>
+          </div>
+          <div class="feature-content">
+            <p class="feature-desc">
+              The environment provides zero synthesized feedback. There is no abstracted congruence theater, no faux-urgency metrics, and no security cosplay. A pending signal is displayed exactly as a pending signal. An empty ledger renders empty. AEGIS operates exclusively on literal, verifiable parameters to safeguard system trust.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="paths-container">
+      <div class="paths-grid">
+        <button class="path-btn">
+          <span class="btn-title">Review Governance</span>
+        </button>
+        <button class="path-btn">
+          <span class="btn-title">Explore Workshop</span>
+        </button>
+        <button class="path-btn">
+          <span class="btn-title">Open Training Journal</span>
+        </button>
+        <button class="path-btn">
+          <span class="btn-title">Open Peer Path</span>
+        </button>
+      </div>
+    </section>
+
+  </div>
 </div>
-<h2 class="text-xl font-bold tracking-tight">AegisAlign</h2>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Features</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Protocol</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Solutions</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Docs</a>
-</nav>
-<div class="flex items-center gap-4">
-<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all">
-                    Get Started
-                </button>
-<div class="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-<img alt="User Profile" data-alt="User avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALfQVVjvq7uuQYlu65CByn-fbEMtcw0m1779M3uNtjPr55Q4g1GkmEWm7DbY5SgqHjjNt_VuTcm3r3au3c0AY7S9C09CZuom0fYPIDCLZ5QTtcXb-JSqZMXL-KaH9L6FOVcwGkWlqq4x-w9r3W3l6W3GMyVVjL4sI19zj8UHyrNFHHO9jDfELqRl9vDMWDnIYV3CH9XdwqypqNNtY1-ae4yOsiHZhtTuViUVumYuZ9AwkbIfOHEgpvADIO6uGRQZrnA0o4PQstyEb-"/>
-</div>
-</div>
-</div>
-</header>
-<main>
-<!-- Hero Section -->
-<section class="relative py-20 lg:py-32 overflow-hidden border-b border-slate-200 dark:border-slate-800">
-<div class="absolute inset-0 opacity-20 pointer-events-none">
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent"></div>
-</div>
-<div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6">
-<span class="material-symbols-outlined text-sm">verified</span> The AEGIS Protocol
-                </div>
-<h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-b from-slate-900 to-slate-600 dark:from-slate-100 dark:to-slate-400 bg-clip-text text-transparent">
-                    Precision Engineering for <br class="hidden md:block"/>Global Security
-                </h1>
-<p class="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
-                    The AEGIS Protocol provides unparalleled depth in defensive architecture, ensuring robust protection for the world's most critical infrastructure through automated intelligence and real-time response.
-                </p>
-<div class="flex flex-wrap justify-center gap-4">
-<button class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-primary/20">
-                        Explore Protocol Specs
-                    </button>
-<button class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-8 py-4 rounded-xl font-bold transition-all">
-                        View Demo
-                    </button>
-</div>
-</div>
-</section>
-<!-- Unified Security Intelligence -->
-<section class="py-24 max-w-7xl mx-auto px-6">
-<div class="flex flex-col lg:flex-row items-center gap-16">
-<div class="flex-1 space-y-6">
-<h2 class="text-3xl md:text-4xl font-bold tracking-tight">Unified Security Intelligence</h2>
-<p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
-                        Leverage advanced heuristic models to stay ahead of emerging threats. Our intelligence engine continuously synthesizes global data streams into actionable defensive postures.
-                    </p>
-<div class="space-y-8 mt-10">
-<div class="flex gap-4">
-<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">analytics</span>
-</div>
-<div>
-<h4 class="font-bold text-lg mb-1">Real-time Heuristic Analysis</h4>
-<p class="text-slate-600 dark:text-slate-400 text-sm">Continuous scanning of network traffic to identify zero-day vulnerabilities before they are exploited across your nodes.</p>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined">hub</span>
-</div>
-<div>
-<h4 class="font-bold text-lg mb-1">Threat Evolution Mapping</h4>
-<p class="text-slate-600 dark:text-slate-400 text-sm">Visualizing the lifecycle of global threats to predict and neutralize future attack vectors using recursive neural mapping.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="flex-1 w-full">
-<div class="aspect-square rounded-3xl bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 p-4 relative group">
-<div class="absolute inset-0 bg-primary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="w-full h-full rounded-2xl bg-slate-100 dark:bg-slate-900 overflow-hidden flex items-center justify-center border border-slate-200 dark:border-slate-800">
-<img class="w-full h-full object-cover opacity-80" data-alt="Abstract network visualization of threat intelligence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_PjVd94CaSWzW-Lzb0--VEELfjAVVH8BHHXZcqoNmFwQP7bCS9ZYxjr2lODVu3O0zaoln_yWdc0_c24Jak4Bsn9KwI-hg4n1RAdQIQ0d8h4hmpfa3b587kX_fX6VEixv_UZJsmkxyosEHAOJQ2_rrvzFIXft23o5UpzgM0d0V9CjYtg0lGXACaQHsZLyCcHC4b9tu-f2uZlN6kWusdLWMxUWceUcHTDXTCa_D2-I3GnMt0dKVWfc2rgp515c1S7ifRsP190VQJwwN"/>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- The Core Sync Engine -->
-<section class="py-24 bg-slate-100 dark:bg-slate-900/50">
-<div class="max-w-7xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">The Core Sync Engine</h2>
-<p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
-                        Achieve perfect operational coherence across your entire technology stack with our proprietary synchronization layer.
-                    </p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:border-primary/50 transition-colors">
-<span class="material-symbols-outlined text-primary text-4xl mb-6">link</span>
-<h3 class="text-xl font-bold mb-3">Cross-Stack Integration</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                            Seamlessly connect legacy systems with modern cloud-native infrastructure without losing packet integrity or speed.
-                        </p>
-</div>
-<div class="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:border-primary/50 transition-colors">
-<span class="material-symbols-outlined text-primary text-4xl mb-6">shield</span>
-<h3 class="text-xl font-bold mb-3">Operational Coherence</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                            Synchronize security states across global data centers in milliseconds, ensuring a unified shield against distributed attacks.
-                        </p>
-</div>
-<div class="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:border-primary/50 transition-colors">
-<span class="material-symbols-outlined text-primary text-4xl mb-6">database</span>
-<h3 class="text-xl font-bold mb-3">Unified Data Flow</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                            Maintain a single source of truth for all security events and logs, eliminating telemetry gaps across your environment.
-                        </p>
-</div>
-</div>
-</div>
-</section>
-<!-- Advanced Capabilities Grid -->
-<section class="py-24 max-w-7xl mx-auto px-6">
-<h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
-                Advanced Capabilities <span class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></span>
-</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:shadow-xl hover:shadow-primary/5 transition-all">
-<div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">assignment_turned_in</span>
-</div>
-<h4 class="font-bold mb-2">Automated Congruence</h4>
-<p class="text-xs text-slate-600 dark:text-slate-400 leading-normal">Ensuring your stack adheres to SOC2, HIPAA, and GDPR standards automatically.</p>
-</div>
-<div class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:shadow-xl hover:shadow-primary/5 transition-all">
-<div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">policy</span>
-</div>
-<h4 class="font-bold mb-2">Global Security Policies</h4>
-<p class="text-xs text-slate-600 dark:text-slate-400 leading-normal">Deploy unified policy frameworks across multi-cloud and on-prem assets instantly.</p>
-</div>
-<div class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:shadow-xl hover:shadow-primary/5 transition-all">
-<div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">autorenew</span>
-</div>
-<h4 class="font-bold mb-2">Self-healing Protocol</h4>
-<p class="text-xs text-slate-600 dark:text-slate-400 leading-normal">Autonomous mitigation that isolates compromised nodes and restores baseline states.</p>
-</div>
-<div class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark hover:shadow-xl hover:shadow-primary/5 transition-all">
-<div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">bolt</span>
-</div>
-<h4 class="font-bold mb-2">Low-latency Architecture</h4>
-<p class="text-xs text-slate-600 dark:text-slate-400 leading-normal">Engineered for sub-5ms packet processing to prevent performance bottlenecks.</p>
-</div>
-</div>
-</section>
-<!-- Technical Documentation CTA -->
-<section class="py-20 max-w-7xl mx-auto px-6 mb-24">
-<div class="rounded-3xl bg-primary p-8 md:p-16 relative overflow-hidden flex flex-col items-center text-center">
-<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
-<div class="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full -ml-20 -mb-20 blur-3xl"></div>
-<h2 class="text-3xl md:text-5xl font-bold text-white mb-6 relative z-10 leading-tight">Ready to master the Protocol?</h2>
-<p class="text-white/80 max-w-xl mb-10 relative z-10 text-lg">
-                    Dive deep into our technical specifications, API documentation, and implementation guides.
-                </p>
-<div class="flex flex-wrap gap-4 relative z-10">
-<button class="bg-white text-primary px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-slate-100 transition-colors">
-                        Go to Documentation
-                    </button>
-<button class="bg-primary/20 backdrop-blur-sm border border-white/30 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition-colors">
-                        Contact Architect
-                    </button>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-16">
-<div class="max-w-7xl mx-auto px-6">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-3 mb-6">
-<div class="text-primary">
-<span class="material-symbols-outlined text-2xl">shield_with_heart</span>
-</div>
-<h2 class="text-lg font-bold tracking-tight">AegisAlign</h2>
-</div>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                        Leading the frontier of cybersecurity with recursive defensive protocols and global intelligence synchronization.
-                    </p>
-</div>
-<div>
-<h5 class="font-bold mb-6">Platform</h5>
-<ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">Features</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">The Protocol</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Security Cloud</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Sync Engine</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-6">Resources</h5>
-<ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">Documentation</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Developer Portal</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">API Reference</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">System Status</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-6">Connect</h5>
-<ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">X / Twitter</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">LinkedIn</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">GitHub</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Contact Support</a></li>
-</ul>
-</div>
-</div>
-<div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-<p>© 2024 AegisAlign Protocol. All rights reserved.</p>
-<div class="flex gap-8">
-<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Terms of Service</a>
-</div>
-</div>
-</div>
-</footer>
-</body></html>

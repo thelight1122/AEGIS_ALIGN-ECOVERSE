@@ -37,8 +37,16 @@ function processSection(sectionDir, cssFile) {
         content = content.replace(/style="width:\s*([^;]+);\s*background:\s*([^;]+);"/g, (match, width, bg) => {
             modified = true;
             const cleanWidth = width.replace('%', '').replace('.', '_').trim();
-            const cleanBg = bg.replace('var(--ops-', '').replace(')', '').trim();
-            const className = `meter-w${cleanWidth}-${cleanBg.replace('#', 'color-')}`;
+            const cleanBg = bg
+                .trim()
+                .replace('var(--ops-', '')
+                .replace(')', '')
+                .replace('#', 'color-')
+                .replace(/\./g, '_')
+                .replace(/[^a-zA-Z0-9_-]+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+            const className = `meter-w${cleanWidth}-${cleanBg}`;
             
             if (!meterStyles.has(className)) {
                 meterStyles.set(className, { width, bg });

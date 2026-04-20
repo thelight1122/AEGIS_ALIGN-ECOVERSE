@@ -1771,15 +1771,14 @@ if (fs.existsSync(nexusSourceDir)) {
   }
 }
 
-if (seenRoutes.has(governancePage.routePath)) {
-  throw new Error(`Duplicate route generated: ${governancePage.routePath}`);
+if (!seenRoutes.has(governancePage.routePath)) {
+  seenRoutes.add(governancePage.routePath);
+  pages.push(governancePage);
+  writeFile(
+    path.join(generatedRoot, "stitch", "nexus", governancePage.slug, "index.html"),
+    governanceStitchTemplate(canonicalContract),
+  );
 }
-seenRoutes.add(governancePage.routePath);
-pages.push(governancePage);
-writeFile(
-  path.join(generatedRoot, "stitch", "nexus", governancePage.slug, "index.html"),
-  governanceStitchTemplate(canonicalContract),
-);
 
 if (seenRoutes.has(profilePage.routePath)) {
   throw new Error(`Duplicate route generated: ${profilePage.routePath}`);

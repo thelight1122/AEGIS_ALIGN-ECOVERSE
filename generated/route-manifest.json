@@ -86,7 +86,7 @@
   {
     "domain": "agent-workshop",
     "slug": "agentic-workshop-entrance",
-    "title": "AEGIS Agentic Workshop - Secure Terminal",
+    "title": "Agentic Workshop Entrance",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Agent_Workshop/agentic_workshop_entrance/code.html",
     "routePath": "/agent-workshop/agentic-workshop-entrance/"
   },
@@ -443,8 +443,8 @@
   {
     "domain": "nexus",
     "slug": "aegis-governance-hub",
-    "title": "AEGIS Governance Hub",
-    "sourcePath": "AEGIS_Docs",
+    "title": "Aegis Governance Hub",
+    "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_governance_hub/code.html",
     "routePath": "/nexus/aegis-governance-hub/"
   },
   {
@@ -464,21 +464,21 @@
   {
     "domain": "nexus",
     "slug": "aegis-protocol-documentation-portal",
-    "title": "AegisAlign Documentation - AEGIS Protocol",
+    "title": "Aegis Protocol Documentation Portal",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_protocol_documentation_portal/code.html",
     "routePath": "/nexus/aegis-protocol-documentation-portal/"
   },
   {
     "domain": "nexus",
     "slug": "aegis-protocol-features",
-    "title": "AegisAlign - Protocol Features",
+    "title": "Aegis Protocol Features",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegis_protocol_features/code.html",
     "routePath": "/nexus/aegis-protocol-features/"
   },
   {
     "domain": "nexus",
     "slug": "aegisalign-landing-page",
-    "title": "AegisAlign | Secure Your Digital Frontier",
+    "title": "Aegisalign Landing Page",
     "sourcePath": "Stitch-UIs-for-AegisAlign/Landing_Pages/aegisalign_landing_page/code.html",
     "routePath": "/nexus/aegisalign-landing-page/"
   },
