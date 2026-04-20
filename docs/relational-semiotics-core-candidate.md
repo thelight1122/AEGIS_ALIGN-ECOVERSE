@@ -10,6 +10,8 @@ Supporting source artifacts:
 - [relational-semiotics-cyber-bio-bridge.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-cyber-bio-bridge.md)
 - [relational-semiotics-origin-notes.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-origin-notes.md)
 - [relational-semiotics-seed-lines.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-seed-lines.md)
+- [relational-semiotics-recognition-heuristics.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-recognition-heuristics.md)
+- [Relational Semiotics Preamble Protocol.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Preamble Protocol.md>)
 
 This document is not the full origin text.
 It is the candidate compression layer for eventual Core inclusion.

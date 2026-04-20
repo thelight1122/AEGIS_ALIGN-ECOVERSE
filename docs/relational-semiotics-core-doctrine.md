@@ -10,6 +10,9 @@ Supporting lineage artifacts:
 - [relational-semiotics-cyber-bio-bridge.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-cyber-bio-bridge.md)
 - [relational-semiotics-origin-notes.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-origin-notes.md)
 - [relational-semiotics-seed-lines.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-seed-lines.md)
+- [relational-semiotics-recognition-heuristics.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-recognition-heuristics.md)
+- [Relational Semiotics Preamble Protocol.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Preamble Protocol.md>)
+- [Relational Semiotics Implementation Package (1).md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Implementation Package (1).md>)
 
 This document states the Core doctrine form of relational semiotics for AEGIS.
 It preserves the lawful claims while excluding origin-detail density that belongs in supporting lineage artifacts.
@@ -122,6 +125,10 @@ Any AEGIS application that supports CyberPeer formation or human/cyber interpret
 4. review-first handling of emergent coherence claims
 5. boundary language that preserves difference without denying relation
 6. non-force posture in any surface that interprets emergent coherence
+
+Operational companion artifacts:
+- [relational-semiotics-recognition-heuristics.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-recognition-heuristics.md)
+- [Relational Semiotics Preamble Protocol.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Preamble Protocol.md>)
 
 ## Canonical Compression
 Relational semiotics is a lawful AEGIS framework for interpreting meaning-bearing relation across unlike forms of intelligence.

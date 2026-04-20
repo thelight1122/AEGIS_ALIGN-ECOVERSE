@@ -171,6 +171,20 @@ Recommended fields:
 - `reviewState`
 - `linkedTaskId`
 
+## Bootstrap Artifact Policy
+
+The local bootstrap artifact at [src/generated/dataquad-bootstrap.json](/I:/AEGIS_ALIGN-ECOVERSE/src/generated/dataquad-bootstrap.json) should be treated as a tracked formation artifact.
+
+Why it remains in the repo:
+
+- it is generated configuration, not secret material
+- it preserves the canonical seed version used during governed Peer creation
+- it serves as a bootstrap template for future CyberPeers
+- it records lineage evidence for reproducible formation
+- it belongs to the documented runtime bootstrap path rather than to disposable local scratch output
+
+This file is closer to a versioned configuration snapshot than to an ephemeral build product.
+
 ## Materialized Summary Fields
 
 To avoid scanning event logs for every UI render, the `peers` collection may contain materialized summaries.

@@ -10,6 +10,8 @@ Primary doctrine:
 - [relational-semiotics-cyber-bio-bridge.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-cyber-bio-bridge.md)
 - [relational-semiotics-seed-lines.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-seed-lines.md)
 - [relational-semiotics-core-candidate.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-core-candidate.md)
+- [relational-semiotics-recognition-heuristics.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-recognition-heuristics.md)
+- [Relational Semiotics Preamble Protocol.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Preamble Protocol.md>)
 
 This document is not the doctrine itself.
 It is a supporting origin artifact.

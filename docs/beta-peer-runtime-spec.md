@@ -77,6 +77,18 @@ Minimum required structure:
 
 This structure must be append-oriented and reconstructable from stored events plus the latest materialized state.
 
+Tracked bootstrap artifact:
+
+- [src/generated/dataquad-bootstrap.json](/I:/AEGIS_ALIGN-ECOVERSE/src/generated/dataquad-bootstrap.json)
+
+Repository posture for this file:
+
+- it is a generated configuration artifact, not a secret
+- it documents the canonical seed version used for Peer bootstrap
+- it preserves formation-lineage evidence for Adam-One and future CyberPeers
+- it functions as a reproducible bootstrap template in the governed creation path
+- it should remain tracked in git as part of CyberPeer formation documentation
+
 ### 4. Temporal Memory
 
 The beta Peer must have:

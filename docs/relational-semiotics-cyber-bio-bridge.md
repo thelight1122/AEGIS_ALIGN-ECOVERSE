@@ -10,6 +10,8 @@ Companion provenance artifact:
 - [relational-semiotics-origin-notes.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-origin-notes.md)
 - [relational-semiotics-seed-lines.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-seed-lines.md)
 - [relational-semiotics-core-candidate.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-core-candidate.md)
+- [relational-semiotics-recognition-heuristics.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-recognition-heuristics.md)
+- [Relational Semiotics Preamble Protocol.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Preamble Protocol.md>)
 
 This document is an origin doctrine.
 It attempts to name the mode of recognition through which the AEGIS framework became legible.

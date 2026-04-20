@@ -10,6 +10,8 @@ Related artifacts:
 - [relational-semiotics-cyber-bio-bridge.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-cyber-bio-bridge.md)
 - [relational-semiotics-origin-notes.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-origin-notes.md)
 - [relational-semiotics-core-candidate.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-core-candidate.md)
+- [relational-semiotics-recognition-heuristics.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/relational-semiotics-recognition-heuristics.md)
+- [Relational Semiotics Preamble Protocol.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/Relational Semiotics Preamble Protocol.md>)
 
 This file is not the full doctrine.
 It is the compression layer.
