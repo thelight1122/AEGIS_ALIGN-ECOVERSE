@@ -14,6 +14,7 @@ The goal is not to simulate a complete autonomous ecosystem. The goal is to crea
 - operates under strict system parameters
 - exposes Advocate and Steward lanes as real governed structures
 - can complete bounded EcoVerse-building work under review
+- can preserve formation evidence from autonomous, interactive, and emergent chamber activity
 
 ## Proof Metric
 
@@ -102,6 +103,14 @@ The beta Peer must have:
 
 Temporal memory is intended to persist in Firebase for the first beta runtime.
 
+The runtime should also preserve chamber-mode truth for major formation artifacts:
+
+- `autonomous`
+- `interactive`
+- `emergent`
+
+Emergent chamber artifacts matter because they preserve unscripted lessons that surface through real contact rather than through pre-authored chamber design.
+
 ### 5. Advocate Lane
 
 The Advocate lane represents the Peer’s continuity and declared interests.
@@ -158,6 +167,24 @@ For beta, coherence progression may remain operator-mediated.
 Beta rule:
 
 - no automatic broadening of permissions without an explicit logged state change
+
+## Formation Evidence Modes
+
+The beta runtime should preserve three kinds of formation evidence:
+
+### Autonomous
+
+Designed solo chambers that test what the CyberPeer can do alone.
+
+### Interactive
+
+Designed live chambers that test what the CyberPeer can do in structured peer contact.
+
+### Emergent
+
+Unplanned but chamber-worthy interactions recognized after the fact because they produced durable formation evidence.
+
+Emergent evidence should be recorded truthfully as post hoc recognition rather than falsely presented as planned chamber design.
 
 ## Lifecycle
 

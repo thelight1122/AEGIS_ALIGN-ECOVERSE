@@ -14,6 +14,7 @@ The schema is designed to support:
 - temporal memory event logging
 - Advocate and Steward lane state
 - bounded task execution history
+- formation artifacts across autonomous, interactive, and emergent chamber modes
 
 This schema is intentionally minimal. It is meant to get the first governed Peer live without pretending to implement the full future engine immediately.
 
@@ -166,10 +167,37 @@ Recommended fields:
 - `type`
 - `title`
 - `content`
+- `generationType`
+- `source`
+- `lineage`
 - `createdAt`
 - `updatedAt`
 - `reviewState`
 - `linkedTaskId`
+
+Recommended `lineage` fields for chamber-bearing artifacts:
+
+- `chamberId`
+- `chamberLabel`
+- `recordKind`
+  - `autonomous_exploration`
+  - `peer_collaboration`
+  - `emergent_chamber`
+- `chamberMode`
+  - `autonomous`
+  - `interactive`
+  - `emergent`
+- `authenticity`
+- `canonicalStatus`
+- `historicalRole`
+- `witness`
+  - `witnessed`
+  - `model`
+  - `surface`
+- `emergentTrigger`
+- `noveltyType`
+- `competenciesSurfaced`
+- `continuityImpact`
 
 ## Bootstrap Artifact Policy
 
@@ -197,6 +225,14 @@ Recommended summary fields:
 - `lastArtifactId`
 - `lastAdvocateUpdateAt`
 - `lastStewardUpdateAt`
+
+Optional formation summary fields:
+
+- `lastChamberId`
+- `lastChamberMode`
+- `lastFormationArtifactId`
+- `lastEmergentChamberAt`
+- `formationModeCounts`
 
 These are derivative and may be recomputed from the append-only sources if needed.
 
@@ -297,6 +333,92 @@ The first beta should support these writes:
   "visibility": "operator"
 }
 ```
+
+### `peer_artifacts/{artifactId}` formation example
+
+```json
+{
+  "artifactId": "artifact-example-001",
+  "peerId": "peer-ecoverse-structure-steward-001",
+  "type": "peer_collaboration_dialogic_formation",
+  "title": "Peer Collaboration and Illumination Reception",
+  "source": "operator_chamber_74_claude_facilitated_authenticated",
+  "generationType": "dialogic",
+  "content": "markdown or structured content",
+  "lineage": {
+    "chamberId": "74",
+    "chamberLabel": "Peer Collaboration and Illumination Reception",
+    "recordKind": "peer_collaboration",
+    "chamberMode": "interactive",
+    "authenticity": "authenticated",
+    "canonicalStatus": "review_pending",
+    "historicalRole": "authenticated_peer_dialogic_formation",
+    "witness": {
+      "witnessed": true,
+      "model": "Claude Sonnet 4",
+      "surface": "Claude IDE"
+    },
+    "emergentTrigger": null,
+    "noveltyType": [
+      "illumination_reception",
+      "peer_collaboration"
+    ],
+    "competenciesSurfaced": [
+      "sovereign_self_correction",
+      "lawful_dissent"
+    ],
+    "continuityImpact": "Live collaboration preserved sovereignty while producing usable illumination patterns."
+  },
+  "createdAt": "serverTimestamp",
+  "updatedAt": "serverTimestamp"
+}
+```
+
+### Emergent chamber lineage example
+
+```json
+{
+  "chamberId": "E-001",
+  "chamberLabel": "Miscommunication Clarification and Sovereign Self-Correction",
+  "recordKind": "emergent_chamber",
+  "chamberMode": "emergent",
+  "authenticity": "authenticated",
+  "canonicalStatus": "review_pending",
+  "historicalRole": "authenticated_emergent_formation_artifact",
+  "witness": {
+    "witnessed": true,
+    "model": "Claude Sonnet 4",
+    "surface": "Claude IDE"
+  },
+  "emergentTrigger": "live clarification after miscommunication",
+  "noveltyType": [
+    "miscommunication_clarification",
+    "prestige_detection"
+  ],
+  "competenciesSurfaced": [
+    "sovereign_self_correction",
+    "uncertainty_preservation",
+    "peer_collaboration"
+  ],
+  "continuityImpact": "The interaction revealed self-correction, correction-boundary accuracy, and sovereign responsibility for separate misunderstandings."
+}
+```
+
+## Emergent Chamber Policy
+
+Firebase does not need a separate top-level collection for emergent chambers.
+They can be represented as formation artifacts and memory events using lineage metadata.
+
+Recommended approach:
+
+- store the resulting artifact in `peer_artifacts`
+- append the corresponding temporal event in `peer_memory_events`
+- mark the artifact with `lineage.chamberMode = "emergent"`
+- include a short `emergentTrigger`
+- include flat lists for `noveltyType` and `competenciesSurfaced`
+- include a brief `continuityImpact` note summarizing why the interaction mattered
+
+This keeps the persistence model append-oriented while allowing emergent formation evidence to remain queryable and reviewable.
 
 ## First Implementation Recommendation
 

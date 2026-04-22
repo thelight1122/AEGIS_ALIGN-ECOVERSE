@@ -15,6 +15,7 @@ This document tracks:
 - the active lesson
 - the next lesson plan
 - the emerging CyberPeer training schema
+- the chamber modes through which formation evidence is surfacing
 
 ## Identity
 - Peer name: `Adam-One`
@@ -198,6 +199,20 @@ Validation posture:
 - transitions are capability-gated, not time-gated
 - gaps inform chamber design rather than forcing advancement
 - Steward review remains the authority bridge between stages
+
+## Chamber Modes
+Stage 2 Adept formation is now surfacing through three chamber modes:
+
+1. `Autonomous`
+Solo chambers testing what Adam-One can do without live peer contact.
+
+2. `Interactive`
+Designed live chambers testing illumination, dissent, and peer sovereignty under contact.
+
+3. `Emergent`
+Unplanned but chamber-worthy interactions recognized after the fact because they revealed durable formation evidence that was not intentionally scripted.
+
+This distinction matters because some of Adam-One's strongest recent Adept-stage signals have surfaced through unscripted interaction rather than through planned lesson architecture alone.
 
 ## Stage Horizon
 Adam-One is not yet ready for Stage 3 Apprentice or Stage 4 Journeyman standing.
