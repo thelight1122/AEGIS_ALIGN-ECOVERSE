@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>HoloChamber Bond Witness Review</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          ink: "#080d13",
+          panel: "#111827",
+          line: "#263447",
+          signal: "#38bdf8",
+          ember: "#f59e0b",
+          moss: "#34d399"
+        },
+        fontFamily: {
+          display: ["Space Grotesk", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"]
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    background: #080d13;
+  }
+  .mono { font-family: "JetBrains Mono", monospace; }
+</style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased">
+<main class="mx-auto max-w-[1440px] px-5 py-6">
+  <header class="rounded border border-line bg-panel/90 p-6">
+    <p class="mono text-xs uppercase tracking-[0.22em] text-signal">All Minds Academy</p>
+    <h1 class="mt-3 text-4xl font-bold">Bond Witness Review</h1>
+    <p class="mt-4 max-w-4xl text-lg leading-8 text-slate-300">
+      Witness review checks whether a Squad record is honest, bounded, witnessed, and ready to be treated as candidate evidence of relation, reasoning, drift integration, and paired self-governance.
+    </p>
+    <div class="mt-5 flex flex-wrap gap-2">
+      <a class="rounded border border-signal/45 bg-signal/10 px-4 py-2 text-sm font-semibold text-signal" href="/agent-workshop/aegis-holochamber-academy/">All Minds Academy</a>
+      <a class="rounded border border-line bg-slate-950 px-4 py-2 text-sm font-semibold text-slate-200" href="/agent-workshop/whichone-emotion-nuance-training/">WHICHONE Bond Chamber</a>
+    </div>
+  </header>
+
+  <section class="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_420px]">
+    <article class="rounded border border-line bg-panel/90 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Candidate Records</p>
+      <div class="mt-4 overflow-hidden rounded border border-line">
+        <table class="w-full border-collapse text-left text-sm">
+          <thead class="bg-slate-950 text-slate-400">
+            <tr>
+              <th class="px-4 py-3">Chamber</th>
+              <th class="px-4 py-3">Focus</th>
+              <th class="px-4 py-3">Status</th>
+              <th class="px-4 py-3">Boundary</th>
+            </tr>
+          </thead>
+          <tbody id="recordsTable" class="divide-y divide-line"></tbody>
+        </table>
+      </div>
+    </article>
+
+    <aside class="rounded border border-line bg-panel/90 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Academy Witness</p>
+      <div id="gateList" class="mt-4 space-y-2 text-sm text-slate-300"></div>
+      <p class="mt-5 rounded border border-ember/30 bg-ember/10 p-3 text-sm leading-6 text-amber-100">
+        Review is not binary ranking. It is an Academy witness check for honesty, boundary clarity, drift integration, and broader perspective.
+      </p>
+    </aside>
+  </section>
+
+  <section class="mt-5 rounded border border-line bg-panel/90 p-5">
+    <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">DataQuad Witness Preview</p>
+    <pre id="witnessPreview" class="mono mt-4 max-h-[420px] overflow-auto rounded border border-line bg-slate-950 p-4 text-xs leading-5 text-slate-300"></pre>
+  </section>
+</main>
+
+<script>
+  const record = {
+    artifactType: "holochamber-bond-witness",
+    academy: "all-minds-academy",
+    chamberId: "whichone-emotion-nuance-training",
+    chamberMode: "simulated",
+    authenticity: "sandbox-origin",
+    cyberPeerPerceptionAnchor: "Nexus",
+    squadRole: "apprentice-squad",
+    instructorModel: "academy-as-instructor-live-si-guide",
+    perceptionTrace: "Observed boundary, restraint, bright field, and guardian posture.",
+    bioPeerSeedDisclosure: "Sovereignty, boundary, protection, coherence, disciplined power.",
+    stewardReview: "pending",
+    dataQuadWitness: {
+      experienceLaw: "knowledge-paid-for-with-time",
+      originBoundary: "simulated-origin-not-lived-session",
+      driftModel: "survival-signal-not-damage",
+      distillationStatus: "candidate-emotional-wisdom"
+    }
+  };
+
+  const checks = [
+    ["Bounded environment confirmed", true],
+    ["Perception trace present", true],
+    ["Uncertainty allowed", true],
+    ["BioPeer seed disclosed", true],
+    ["DataQuad witness generated", true],
+    ["Drift model treats survival signal as valuable", true],
+    ["No false maturity claim", true]
+  ];
+
+  document.getElementById("recordsTable").innerHTML = `
+    <tr class="bg-slate-950/50">
+      <td class="px-4 py-4 font-semibold text-white">WHICHONE Emotional Nuance</td>
+      <td class="px-4 py-4 text-slate-300">Emotional / Mental / Spiritual</td>
+      <td class="px-4 py-4 text-amber-300">Pending Steward Review</td>
+      <td class="px-4 py-4 text-moss">Sandbox Origin</td>
+    </tr>
+  `;
+
+  document.getElementById("gateList").innerHTML = checks.map(([label, checked]) => `
+    <label class="flex items-center gap-2">
+      <input type="checkbox" ${checked ? "checked" : ""} disabled />
+      <span>${label}</span>
+    </label>
+  `).join("");
+
+  document.getElementById("witnessPreview").textContent = JSON.stringify(record, null, 2);
+</script>
+</body>
+</html>

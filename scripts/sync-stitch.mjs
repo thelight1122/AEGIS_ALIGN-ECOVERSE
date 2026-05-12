@@ -23,7 +23,7 @@ const domains = [
   { source: "Developer_Depot", slug: "developer-depot", label: "Developer Depot" },
   { source: "Custodian_UI", slug: "custodian-ui", label: "Custodian Ops Center" },
   { source: "AEGIS_Application_Lab", slug: "aegis-application-lab", label: "AEGIS Application Lab" },
-  { source: "Agent_Workshop", slug: "agent-workshop", label: "Agentic Workshop" },
+  { source: "Agent_Workshop", slug: "agent-workshop", label: "All Minds Academy" },
 ];
 
 const excludedSourceSlugsByDomain = {
@@ -877,7 +877,7 @@ function voiceByDomain(domainSlug) {
       bridge: "Learn how builders shape trusted tools, then move directly into API references, submissions, and implementation paths.",
     },
     "agent-workshop": {
-      bridge: "Understand how agents collaborate in practice while observing orchestration states, mesh topology, and recursive workflows.",
+      bridge: "Enter the Academy where BioPeers, CyberPeers, and Build Masters form Squads, experience LIFE, and steward the living EcoVerse together.",
     },
   };
 
@@ -964,6 +964,8 @@ function renderSidebarNav(domain, domainPages, currentPage, navigationHierarchy)
 function routeTemplate({ page, domain, domainPages }) {
   const domainConfig = (typeof navigationHierarchy !== "undefined" ? navigationHierarchy : []).find((d) => d.domain === domain.slug);
   const section = domainConfig?.sections.find(s => s.pages.some(p => p.slug === page.slug));
+  const pageConfig = section?.pages.find((item) => item.slug === page.slug);
+  const displayTitle = pageConfig?.navLabel || page.title;
   const buttonMappings = section?.buttonMappings?.[page.slug] || [];
   const autoTransition = section?.autoTransitions?.[page.slug] || null;
   const nexusCommandDeck = domain.slug === "nexus"
@@ -1040,11 +1042,11 @@ function routeTemplate({ page, domain, domainPages }) {
       if (isEntrancePage) {
         sections.push(
           renderThreadCard({
-            kicker: "Workshop Access",
-            heading: "Workshop Entrance",
+            kicker: "Academy Access",
+            heading: "All Minds Academy Entrance",
             badge: "Login Surface",
             frameRole: "entrance",
-            title: workshopEntrance.title,
+            title: "All Minds Academy Entrance",
             stitchPath: workshopEntrance.stitchPath,
             current: true,
           }),
@@ -1057,15 +1059,15 @@ function routeTemplate({ page, domain, domainPages }) {
         sections.push(
           renderThreadCard({
             kicker: "Pinned Thread",
-            heading: "Workshop Main Console",
+            heading: "Academy Main Console",
             badge: "Primary Surface",
             frameRole: "primary",
             title: workshopConsole.title,
             stitchPath: workshopConsole.stitchPath,
             current: true,
             returnMarkup: renderThreadReturn({
-              kicker: "Workshop Access",
-              heading: "Workshop Entrance",
+              kicker: "Academy Access",
+              heading: "All Minds Academy Entrance",
               badge: "Login Surface",
               href: workshopEntrance.routePath,
               icon: "↩",
@@ -1078,15 +1080,15 @@ function routeTemplate({ page, domain, domainPages }) {
         sections.push(
           renderThreadCard({
             kicker: "Active Thread",
-            heading: page.title,
+            heading: displayTitle,
             badge: "Expanded Pane",
             frameRole: "active",
-            title: page.title,
+            title: displayTitle,
             stitchPath: page.stitchPath,
             current: true,
             returnMarkup: renderThreadReturn({
               kicker: "Pinned Thread",
-              heading: "Workshop Main Console",
+              heading: "Academy Main Console",
               badge: "Console Layer",
               href: workshopConsole.routePath,
               icon: "↩",
@@ -1100,7 +1102,7 @@ function routeTemplate({ page, domain, domainPages }) {
           </section>`;
     })()
     : `<div class="iframe-wrap">
-            <iframe class="stitch-frame" data-frame-role="active" title="${escapeHtml(page.title)}" src="${page.stitchPath}" loading="lazy"></iframe>
+            <iframe class="stitch-frame" data-frame-role="active" title="${escapeHtml(displayTitle)}" src="${page.stitchPath}" loading="lazy"></iframe>
           </div>`;
 
   return `<!doctype html>
@@ -1108,7 +1110,7 @@ function routeTemplate({ page, domain, domainPages }) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(page.title)} | AegisAlign EcoVerse</title>
+    <title>${escapeHtml(displayTitle)} | AegisAlign EcoVerse</title>
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
   <body class="${domainBodyClass(domain.slug)}">
@@ -1138,7 +1140,7 @@ function routeTemplate({ page, domain, domainPages }) {
         <main class="panel content-wrap">
           <div class="content-head">
             <div>
-              <h1>${escapeHtml(page.title)}</h1>
+              <h1>${escapeHtml(displayTitle)}</h1>
               <div class="breadcrumb">${escapeHtml(domain.label)} / ${escapeHtml(page.slug)}</div>
             </div>
           </div>
@@ -1719,7 +1721,11 @@ for (const domain of domains) {
 
     const sourceHtml = fs.readFileSync(codeFile, "utf8");
     const html = applyToneToHtmlContent(sourceHtml);
-    const title = extractTitle(html, titleFromSlug(slug));
+    const pageConfigForTitle = navigationHierarchy
+      .find((item) => item.domain === domain.slug)
+      ?.sections.flatMap((section) => section.pages)
+      .find((item) => item.slug === slug);
+    const title = pageConfigForTitle?.navLabel || extractTitle(html, titleFromSlug(slug));
 
     const stitchOutDir = path.join(generatedRoot, "stitch", domain.slug, slug);
     writeFile(path.join(stitchOutDir, "index.html"), html);
@@ -1821,17 +1827,17 @@ for (const domain of domains) {
   } else if (domain.slug === "agent-workshop") {
     const landingPage = domainPages.find((page) => page.slug === primaryLandingSlug(domain.slug));
     if (!landingPage) {
-      throw new Error("Agentic Workshop landing page is missing agentic-workshop-entrance.");
+      throw new Error("All Minds Academy landing page is missing agentic-workshop-entrance.");
     }
     writeFile(
       path.join(generatedRoot, domain.slug, "index.html"),
       redirectTemplate({
         title: domain.label,
         destination: landingPage.routePath,
-        label: landingPage.title,
+        label: "All Minds Academy Entrance",
         bodyClass: domainBodyClass(domain.slug),
         breadcrumb: "Opening the primary workshop surface",
-        bridge: "Routing directly into the Workshop Entrance so the login surface is always the first step before console work begins.",
+        bridge: "Routing directly into the Academy Entrance so the threshold surface is always the first step before console work begins.",
       }),
     );
   } else {

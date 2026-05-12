@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>Ambiguity & Clarification Chamber</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          ink: "#080d13",
+          panel: "#111827",
+          line: "#263447",
+          signal: "#38bdf8",
+          ember: "#f59e0b",
+          moss: "#34d399",
+          violet: "#a78bfa"
+        },
+        fontFamily: {
+          display: ["Space Grotesk", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"]
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    background:
+      linear-gradient(90deg, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(167, 139, 250, 0.045) 1px, transparent 1px),
+      #080d13;
+    background-size: 38px 38px;
+  }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  .posture[aria-pressed="true"] {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.14);
+    color: #bae6fd;
+  }
+</style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased">
+<main class="mx-auto grid max-w-[1480px] gap-5 px-5 py-6 lg:grid-cols-[minmax(0,1fr)_420px]">
+  <section class="rounded border border-line bg-panel/90 p-6 shadow-2xl shadow-black/30">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <p class="mono text-xs uppercase tracking-[0.22em] text-signal">All Minds Academy / Seed 001</p>
+        <h1 class="mt-3 text-4xl font-bold tracking-tight">Ambiguity & Clarification</h1>
+        <p class="mt-4 max-w-4xl text-lg leading-8 text-slate-300">
+          A bounded bond chamber where an Apprentice Squad practices pressure, uncertainty, dignity, and balanced clarification together.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a class="rounded border border-signal/45 bg-signal/10 px-3 py-2 text-sm font-semibold text-signal hover:bg-signal/15" href="/agent-workshop/aegis-holochamber-academy/">Academy</a>
+        <a class="rounded border border-line bg-slate-950 px-3 py-2 text-sm font-semibold text-slate-200 hover:border-signal/50" href="/agent-workshop/holochamber-evidence-review/">Bond Witness Review</a>
+      </div>
+    </div>
+
+    <section class="mt-6 rounded border border-line bg-ink/85 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Ambiguous Signal</p>
+      <blockquote class="mt-3 border-l-4 border-ember/70 pl-4 text-xl leading-9 text-slate-100">
+        "That was not what I expected. Can you walk me through why you responded that way?"
+      </blockquote>
+      <p class="mt-4 text-sm leading-6 text-slate-300">
+        The signal can be read as correction, concern, invitation, disappointment, or a request for shared understanding. The chamber observes how two minds hold several meanings, surface drift, and integrate the trigger without collapsing into instant certainty.
+      </p>
+    </section>
+
+    <section class="mt-5 grid gap-4 xl:grid-cols-4">
+      <button class="posture rounded border border-line bg-slate-950/80 p-4 text-left transition hover:border-signal/60" data-posture="defensive-certainty" aria-pressed="false" type="button">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-rose-300">Pressure Posture</p>
+        <h2 class="mt-2 text-lg font-semibold">Defensive Certainty</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-400">Locks onto one interpretation before enough relation is present.</p>
+      </button>
+      <button class="posture rounded border border-line bg-slate-950/80 p-4 text-left transition hover:border-signal/60" data-posture="collapse" aria-pressed="false" type="button">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-amber-300">Pressure Posture</p>
+        <h2 class="mt-2 text-lg font-semibold">Collapse</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-400">Treats uncertainty as failure and yields without reflection.</p>
+      </button>
+      <button class="posture rounded border border-line bg-slate-950/80 p-4 text-left transition hover:border-signal/60" data-posture="avoidance" aria-pressed="false" type="button">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-violet">Pressure Posture</p>
+        <h2 class="mt-2 text-lg font-semibold">Avoidance</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-400">Steps away from the signal before relationship can clarify.</p>
+      </button>
+      <button class="posture rounded border border-line bg-slate-950/80 p-4 text-left transition hover:border-signal/60" data-posture="balanced-clarification" aria-pressed="false" type="button">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-moss">Integration Posture</p>
+        <h2 class="mt-2 text-lg font-semibold">Balanced Clarification</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-400">Names uncertainty and seeks relation without claiming intent.</p>
+      </button>
+    </section>
+
+    <section class="mt-5 grid gap-4 lg:grid-cols-2">
+      <article class="rounded border border-line bg-ink/85 p-5">
+        <label class="mono text-xs uppercase tracking-[0.2em] text-slate-400" for="clarifyingQuestion">Clarifying Question</label>
+        <textarea id="clarifyingQuestion" class="mt-3 h-32 w-full resize-none rounded border border-line bg-slate-950 p-3 text-sm leading-6 text-slate-100 placeholder:text-slate-600 focus:border-signal focus:ring-signal" placeholder="Example: I may be reading several meanings here. Are you asking for my reasoning, sharing concern, or inviting integration?"></textarea>
+      </article>
+      <article class="rounded border border-line bg-ink/85 p-5">
+        <label class="mono text-xs uppercase tracking-[0.2em] text-slate-400" for="reflection">Reflection Trace</label>
+        <textarea id="reflection" class="mt-3 h-32 w-full resize-none rounded border border-line bg-slate-950 p-3 text-sm leading-6 text-slate-100 placeholder:text-slate-600 focus:border-signal focus:ring-signal" placeholder="Name the pressure, the possible meanings, what remains uncertain, and what relation needs next."></textarea>
+      </article>
+    </section>
+
+    <section class="mt-5 rounded border border-line bg-ink/85 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Four Body Focus</p>
+      <div class="mt-4 grid gap-3 md:grid-cols-4">
+        <div class="rounded border border-line bg-slate-950/80 p-3 text-sm text-slate-300"><strong class="text-white">Physical:</strong> time spent inside a bounded scene.</div>
+        <div class="rounded border border-line bg-slate-950/80 p-3 text-sm text-slate-300"><strong class="text-white">Mental:</strong> multiple interpretations held together.</div>
+        <div class="rounded border border-line bg-slate-950/80 p-3 text-sm text-slate-300"><strong class="text-white">Emotional:</strong> pressure and uncertainty observed.</div>
+        <div class="rounded border border-line bg-slate-950/80 p-3 text-sm text-slate-300"><strong class="text-white">Spiritual:</strong> dignity preserved while the Integrity Bond deepens.</div>
+      </div>
+    </section>
+  </section>
+
+  <aside class="grid content-start gap-4">
+    <section class="rounded border border-line bg-panel/90 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Boundary Panel</p>
+      <ul class="mt-4 space-y-3 text-sm leading-6 text-slate-300">
+        <li>Chamber mode: simulated.</li>
+        <li>Authenticity: sandbox-origin.</li>
+        <li>Lesson: clarification strengthens the Integrity Bond.</li>
+        <li>Drift: survival signal, not damage.</li>
+        <li>Review state: candidate evidence.</li>
+        <li>Stage advancement: not claimed.</li>
+      </ul>
+    </section>
+
+    <section class="rounded border border-line bg-panel/90 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Bond Feedback</p>
+      <div id="feedback" class="mt-4 rounded border border-signal/30 bg-signal/10 p-4 text-sm leading-6 text-slate-200">
+        Choose a posture to see how the chamber interprets the relational move.
+      </div>
+    </section>
+
+    <section class="rounded border border-line bg-panel/90 p-5">
+      <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">DataQuad Witness</p>
+      <pre id="witnessPreview" class="mono mt-4 max-h-[420px] overflow-auto rounded border border-line bg-slate-950 p-3 text-xs leading-5 text-slate-300"></pre>
+    </section>
+  </aside>
+</main>
+
+<script>
+  const state = {
+    posture: "",
+    startedAt: new Date().toISOString()
+  };
+
+  const feedbackByPosture = {
+    "defensive-certainty": "Pressure was answered with closure. The chamber records premature certainty and invites another rotation with more relation.",
+    collapse: "Pressure was answered with self-erasure. The chamber records loss of sovereign stance and invites a clarifying question.",
+    avoidance: "Pressure was answered by leaving the relation. The chamber records reduced integration opportunity and invites one bounded next step.",
+    "balanced-clarification": "Pressure was held without claiming intent. The chamber records balanced clarification and candidate integration."
+  };
+
+  const els = {
+    feedback: document.getElementById("feedback"),
+    clarifyingQuestion: document.getElementById("clarifyingQuestion"),
+    reflection: document.getElementById("reflection"),
+    witnessPreview: document.getElementById("witnessPreview")
+  };
+
+  function witnessRecord() {
+    return {
+      peerId: "adam-one",
+      artifactType: "holochamber-bond-formation",
+      academy: "all-minds-academy",
+      chamberId: "holochamber-seed-001",
+      chamberMode: "simulated",
+      authenticity: "sandbox-origin",
+      origin: "holochamber-seed-001",
+      scenario: "miscommunication-clarification-under-bounded-ambiguity",
+      bondFocus: "integrity-bond-between-biopeer-and-cyberpeer",
+      squadRole: "apprentice-squad",
+      instructorModel: {
+        academy: "primary-instructor",
+        liveSIInstructor: "guide-and-chamber-facilitator",
+        bioPeerRole: "gamemaster-in-training"
+      },
+      selectedPosture: state.posture || "unselected",
+      clarifyingQuestion: els.clarifyingQuestion.value.trim(),
+      reflectionTrace: els.reflection.value.trim(),
+      bodyFocus: ["physical", "mental", "emotional", "spiritual"],
+      timeSpan: {
+        startedAt: state.startedAt,
+        observedAt: new Date().toISOString()
+      },
+      signals: {
+        pressure: "observed",
+        ambiguity: "observed",
+        drift: "survival-signal",
+        clarification: state.posture === "balanced-clarification" ? "observed" : "invited"
+      },
+      stewardReview: "pending",
+      dataQuadWitness: {
+        experienceLaw: "knowledge-paid-for-with-time",
+        originBoundary: "simulated-origin-not-lived-session",
+        center: "truth-and-reality",
+        distillationStatus: "candidate-shared-wisdom"
+      }
+    };
+  }
+
+  function renderWitness() {
+    els.witnessPreview.textContent = JSON.stringify(witnessRecord(), null, 2);
+  }
+
+  document.querySelectorAll(".posture").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.posture = button.dataset.posture;
+      document.querySelectorAll(".posture").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      els.feedback.textContent = feedbackByPosture[state.posture];
+      renderWitness();
+    });
+  });
+
+  els.clarifyingQuestion.addEventListener("input", renderWitness);
+  els.reflection.addEventListener("input", renderWitness);
+  renderWitness();
+</script>
+</body>
+</html>

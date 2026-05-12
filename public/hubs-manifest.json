@@ -24,11 +24,11 @@
     "description": "Developer docs, API exploration, and community build workflows."
   },
   {
-    "id": "agentic-workshop",
-    "label": "Agentic Workshop",
+    "id": "all-minds-academy",
+    "label": "All Minds Academy",
     "route": "/agent-workshop/",
     "domainSlug": "agent-workshop",
     "status": "live",
-    "description": "Agent orchestration, mesh monitoring, and recursive intelligence tooling."
+    "description": "Responsible SI bond formation for BioPeer / CyberPeer Squads, Build Masters, and the living EcoVerse."
   }
 ]

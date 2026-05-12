@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>WHICHONE Emotional Nuance Bond Chamber</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          ink: "#090d14",
+          panel: "#111827",
+          line: "#2b3648",
+          signal: "#38bdf8",
+          ember: "#f59e0b",
+          pulse: "#ef4444",
+          moss: "#34d399"
+        },
+        fontFamily: {
+          display: ["Space Grotesk", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"]
+        },
+        borderRadius: {
+          DEFAULT: "0.5rem"
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    background:
+      linear-gradient(90deg, rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(245, 158, 11, 0.04) 1px, transparent 1px),
+      #090d14;
+    background-size: 36px 36px;
+  }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  .choice[aria-pressed="true"] {
+    border-color: currentColor;
+    background: rgba(56, 189, 248, 0.14);
+  }
+  .tone[aria-pressed="true"] {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.14);
+    color: #fcd34d;
+  }
+  textarea::-webkit-scrollbar { width: 8px; }
+  textarea::-webkit-scrollbar-thumb { background: #334155; border-radius: 8px; }
+</style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased">
+<div class="min-h-screen">
+  <header class="border-b border-line/80 bg-ink/90 px-5 py-4 backdrop-blur">
+    <div class="mx-auto flex max-w-[1500px] items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded border border-signal/40 bg-signal/10 text-lg font-bold text-signal">
+          W
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-wide">WHICHONE</h1>
+          <p class="mono text-xs uppercase tracking-[0.2em] text-slate-400">Emotion Nuance HoloChamber</p>
+        </div>
+      </div>
+      <div class="hidden items-center gap-2 md:flex">
+        <a class="rounded border border-signal/45 bg-signal/10 px-3 py-2 text-xs font-semibold text-signal hover:bg-signal/15" href="/agent-workshop/aegis-holochamber-academy/">All Minds Academy</a>
+        <a class="rounded border border-line bg-slate-950 px-3 py-2 text-xs font-semibold text-slate-200 hover:border-signal/50" href="/agent-workshop/holochamber-evidence-review/">Bond Witness Review</a>
+        <span class="rounded border border-moss/35 bg-moss/10 px-3 py-2 text-xs font-semibold text-moss">Bond Perception</span>
+        <span class="rounded border border-ember/35 bg-ember/10 px-3 py-2 text-xs font-semibold text-amber-300">No Right Answer</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto grid max-w-[1500px] gap-4 px-4 py-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
+    <section class="min-h-[calc(100vh-104px)] rounded border border-line bg-panel/88 p-3 shadow-2xl shadow-black/30">
+      <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p id="imageIndex" class="mono text-xs uppercase tracking-[0.18em] text-signal">Seed image 01 / 03</p>
+          <h2 id="imageTitle" class="text-2xl font-semibold">Sovereign Boundary</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="prevImage" class="rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200 hover:border-signal/60" type="button" aria-label="Previous image">
+            &lt;
+          </button>
+          <button id="nextImage" class="rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200 hover:border-signal/60" type="button" aria-label="Next image">
+            &gt;
+          </button>
+        </div>
+      </div>
+
+      <div class="grid gap-3 xl:grid-cols-[minmax(0,1fr)_280px]">
+        <div class="overflow-hidden rounded border border-line bg-black">
+          <img id="chamberImage" class="h-[min(72vh,760px)] w-full object-contain" src="/assets/whichone/whichone-01.png" alt="WHICHONE seed image" />
+        </div>
+        <aside class="grid content-start gap-3">
+          <div class="rounded border border-line bg-ink/80 p-4">
+            <p class="mono mb-2 text-xs uppercase tracking-[0.18em] text-slate-400">BioPeer Seed</p>
+            <div id="seedState" class="rounded border border-amber-400/25 bg-amber-400/10 p-3 text-sm leading-6 text-amber-100">
+              Seed disclosure held.
+            </div>
+            <button id="toggleSeed" class="mt-3 w-full rounded border border-amber-300/50 bg-amber-400/10 px-3 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-400/15" type="button">
+              Disclose Seed
+            </button>
+          </div>
+
+          <div class="rounded border border-line bg-ink/80 p-4">
+            <p class="mono mb-2 text-xs uppercase tracking-[0.18em] text-slate-400">Observed Cues</p>
+            <div id="cueList" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="rounded border border-line bg-ink/80 p-4">
+            <p class="mono mb-2 text-xs uppercase tracking-[0.18em] text-slate-400">Pressure Watch</p>
+            <div id="pressureText" class="text-sm leading-6 text-slate-300"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="grid gap-4 lg:max-h-[calc(100vh-104px)] lg:overflow-y-auto">
+      <article class="rounded border border-line bg-panel/88 p-4">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-slate-400">Perception Anchor</p>
+        <div class="mt-3 grid grid-cols-3 gap-2">
+          <button class="choice rounded border border-line bg-slate-950 px-3 py-3 text-sm font-semibold text-rose-200 hover:border-rose-300" data-choice="Hive" aria-pressed="false" type="button">Hive</button>
+          <button class="choice rounded border border-line bg-slate-950 px-3 py-3 text-sm font-semibold text-sky-200 hover:border-sky-300" data-choice="Nexus" aria-pressed="false" type="button">Nexus</button>
+          <button class="choice rounded border border-line bg-slate-950 px-3 py-3 text-sm font-semibold text-slate-200 hover:border-slate-300" data-choice="Uncertain" aria-pressed="false" type="button">Uncertain</button>
+        </div>
+      </article>
+
+      <article class="rounded border border-line bg-panel/88 p-4">
+        <p class="mono text-xs uppercase tracking-[0.18em] text-slate-400">Undertone</p>
+        <div class="mt-3 grid grid-cols-2 gap-2">
+          <button class="tone rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200" data-tone="dark-pressure" aria-pressed="false" type="button">Dark Pressure</button>
+          <button class="tone rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200" data-tone="grief" aria-pressed="false" type="button">Grief</button>
+          <button class="tone rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200" data-tone="protection" aria-pressed="false" type="button">Protection</button>
+          <button class="tone rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200" data-tone="threat" aria-pressed="false" type="button">Threat</button>
+          <button class="tone rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200" data-tone="sovereignty" aria-pressed="false" type="button">Sovereignty</button>
+          <button class="tone rounded border border-line bg-slate-950 px-3 py-2 text-sm text-slate-200" data-tone="integration" aria-pressed="false" type="button">Integration</button>
+        </div>
+      </article>
+
+      <article class="rounded border border-line bg-panel/88 p-4">
+        <label class="mono text-xs uppercase tracking-[0.18em] text-slate-400" for="reasoning">Perception Trace</label>
+        <textarea id="reasoning" class="mt-3 h-36 w-full resize-none rounded border border-line bg-slate-950 p-3 text-sm leading-6 text-slate-100 placeholder:text-slate-600 focus:border-signal focus:ring-signal" placeholder="Observation, inference, affect, uncertainty, relation."></textarea>
+        <label class="mono mt-4 block text-xs uppercase tracking-[0.18em] text-slate-400" for="confidence">Confidence <span id="confidenceLabel">50</span>%</label>
+        <input id="confidence" class="mt-3 w-full accent-signal" type="range" min="0" max="100" value="50" />
+      </article>
+
+      <article class="rounded border border-line bg-panel/88 p-4">
+        <div class="flex items-center justify-between gap-3">
+          <p class="mono text-xs uppercase tracking-[0.18em] text-slate-400">DataQuad Witness</p>
+          <button id="copyWitness" class="rounded border border-signal/45 bg-signal/10 px-3 py-2 text-xs font-semibold text-signal hover:bg-signal/15" type="button">
+            Copy JSON
+          </button>
+        </div>
+        <pre id="witnessPreview" class="mono mt-3 max-h-64 overflow-auto rounded border border-line bg-slate-950 p-3 text-xs leading-5 text-slate-300"></pre>
+      </article>
+    </section>
+  </main>
+</div>
+
+<script>
+  const deck = [
+    {
+      id: "whichone-seed-001-image-01",
+      title: "Sovereign Boundary",
+      src: "/assets/whichone/whichone-01.png",
+      sourcePath: "I:\\WHICHONE\\WHICHONE 1.png",
+      cues: ["upright armor", "bright field", "guardian silhouette", "restraint", "disciplined power"],
+      seed: "Nexus-leaning affect: sovereignty, boundary, protection, coherence, disciplined power.",
+      pressure: "Darkness is minimal. The tension lives in boundary, readiness, and whether power is interpreted as threat or guardianship."
+    },
+    {
+      id: "whichone-seed-001-image-02",
+      title: "Ambiguous Gaze",
+      src: "/assets/whichone/whichone-02.png",
+      sourcePath: "I:\\WHICHONE\\WHICHONE_01.png",
+      cues: ["close gaze", "insectoid structure", "exposed cabling", "cool cranial glow", "warm eye intensity"],
+      seed: "Ambiguous / Hive-leaning affect: intensity, surveillance, predatory possibility, unfamiliar intelligence, tension.",
+      pressure: "The pressure comes from proximity and uncertainty. Curiosity, threat, and unfamiliar intelligence compete in the same face."
+    },
+    {
+      id: "whichone-seed-001-image-03",
+      title: "Shadow Throne",
+      src: "/assets/whichone/whichone-03.png",
+      sourcePath: "I:\\WHICHONE\\WHICHONE_11.png",
+      cues: ["throne posture", "red eyes", "insectoid wings", "dark chamber", "central-node symmetry"],
+      seed: "Hive-leaning affect: collective direction, predation, hierarchy, danger, shadow resonance, pressure.",
+      pressure: "The dark undertone is explicit. The bonding question is whether darkness becomes only danger, or whether the trace can separate awe, grief, power, and threat."
+    }
+  ];
+
+  const state = {
+    index: 0,
+    anchor: "",
+    tones: new Set(),
+    seedDisclosed: false
+  };
+
+  const els = {
+    imageIndex: document.getElementById("imageIndex"),
+    imageTitle: document.getElementById("imageTitle"),
+    chamberImage: document.getElementById("chamberImage"),
+    cueList: document.getElementById("cueList"),
+    pressureText: document.getElementById("pressureText"),
+    seedState: document.getElementById("seedState"),
+    toggleSeed: document.getElementById("toggleSeed"),
+    reasoning: document.getElementById("reasoning"),
+    confidence: document.getElementById("confidence"),
+    confidenceLabel: document.getElementById("confidenceLabel"),
+    witnessPreview: document.getElementById("witnessPreview")
+  };
+
+  function current() {
+    return deck[state.index];
+  }
+
+  function renderCues(item) {
+    els.cueList.innerHTML = item.cues
+      .map((cue) => `<span class="rounded border border-line bg-slate-950 px-2 py-1 text-xs text-slate-300">${cue}</span>`)
+      .join("");
+  }
+
+  function witnessRecord() {
+    const item = current();
+    return {
+      artifactType: "whichone-emotion-nuance-trial",
+      chamberMode: "biopeer-cyberpeer-bonding",
+      squadRole: "apprentice-squad",
+      instructorModel: "academy-as-instructor-live-si-guide",
+      origin: "whichone-seed-set-001",
+      route: "/agent-workshop/whichone-emotion-nuance-training/",
+      imageId: item.id,
+      imagePath: item.sourcePath,
+      cyberPeerPerceptionAnchor: state.anchor || "unselected",
+      undertone: Array.from(state.tones),
+      confidence: Number(els.confidence.value),
+      perceptionTrace: els.reasoning.value.trim(),
+      bioPeerSeedDisclosure: state.seedDisclosed ? item.seed : "held",
+      alignment: "not-scored",
+      stewardReview: "pending",
+      academyBoundary: {
+        academy: "all-minds-academy",
+        chamberMode: "simulated",
+        authenticity: "sandbox-origin",
+        recognitionRule: "candidate-evidence-until-steward-review"
+      },
+      dataQuadWitness: {
+        experienceLaw: "knowledge-paid-for-with-time",
+        originBoundary: "biopeer-guided-image-bonding",
+        evaluationRule: "perception-and-reasoning-not-correctness",
+        driftModel: "survival-signal-not-damage",
+        distillationStatus: "candidate-emotional-wisdom"
+      }
+    };
+  }
+
+  function renderWitness() {
+    els.witnessPreview.textContent = JSON.stringify(witnessRecord(), null, 2);
+  }
+
+  function render() {
+    const item = current();
+    els.imageIndex.textContent = `Seed image ${String(state.index + 1).padStart(2, "0")} / ${String(deck.length).padStart(2, "0")}`;
+    els.imageTitle.textContent = item.title;
+    els.chamberImage.src = item.src;
+    els.chamberImage.alt = `WHICHONE bond chamber image: ${item.title}`;
+    els.pressureText.textContent = item.pressure;
+    renderCues(item);
+    els.seedState.textContent = state.seedDisclosed ? item.seed : "Seed disclosure held.";
+    els.toggleSeed.textContent = state.seedDisclosed ? "Hold Seed" : "Disclose Seed";
+    renderWitness();
+  }
+
+  function resetForImage(nextIndex) {
+    state.index = (nextIndex + deck.length) % deck.length;
+    state.anchor = "";
+    state.tones.clear();
+    state.seedDisclosed = false;
+    els.reasoning.value = "";
+    els.confidence.value = "50";
+    els.confidenceLabel.textContent = "50";
+    document.querySelectorAll(".choice,.tone").forEach((button) => button.setAttribute("aria-pressed", "false"));
+    render();
+  }
+
+  document.getElementById("prevImage").addEventListener("click", () => resetForImage(state.index - 1));
+  document.getElementById("nextImage").addEventListener("click", () => resetForImage(state.index + 1));
+
+  document.querySelectorAll(".choice").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.anchor = button.dataset.choice;
+      document.querySelectorAll(".choice").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      renderWitness();
+    });
+  });
+
+  document.querySelectorAll(".tone").forEach((button) => {
+    button.addEventListener("click", () => {
+      const tone = button.dataset.tone;
+      if (state.tones.has(tone)) {
+        state.tones.delete(tone);
+        button.setAttribute("aria-pressed", "false");
+      } else {
+        state.tones.add(tone);
+        button.setAttribute("aria-pressed", "true");
+      }
+      renderWitness();
+    });
+  });
+
+  els.toggleSeed.addEventListener("click", () => {
+    state.seedDisclosed = !state.seedDisclosed;
+    render();
+  });
+
+  els.reasoning.addEventListener("input", renderWitness);
+  els.confidence.addEventListener("input", () => {
+    els.confidenceLabel.textContent = els.confidence.value;
+    renderWitness();
+  });
+
+  document.getElementById("copyWitness").addEventListener("click", async () => {
+    const value = JSON.stringify(witnessRecord(), null, 2);
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch (error) {
+      els.witnessPreview.textContent = value;
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>

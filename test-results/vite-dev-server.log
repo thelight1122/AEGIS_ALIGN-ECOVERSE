@@ -1,0 +1,40 @@
+
+> aegis-align-ecoverse@1.0.0 dev
+> node scripts/dev.mjs --host 127.0.0.1 --port 5173
+
+Generated 79 routes.
+ - developer-depot: 15
+ - custodian-ui: 18
+ - aegis-application-lab: 8
+ - agent-workshop: 26
+Hubs staged: 4
+Redirects generated: 177
+Generated shell for: home
+Generated shell for: apps-overview
+Generated shell for: live-demo
+Generated shell for: feature-comparison
+Generated shell for: starter-download
+Generated shell for: full-system-upgrade
+Generated shell for: app-detail
+Generated shell for: collaboration-showcase
+Updated root index redirect to /home/
+Generated shell for: custodian-profile-role-surface
+Generated shell for: governance-proposal-review
+Generated shell for: home
+Generated shell for: incident-review-queue
+Generated shell for: regional-operations-drilldown
+Generated shell for: secure-access-gateway
+Generated shell for: security-incident-detail
+Generated profile shell for: developer-connect
+Generated profile shell for: home
+Generated profile shell for: identity-trust
+Generated profile shell for: perks-benefits
+Generated profile shell for: saved-systems
+Generated profile shell for: settings
+Generated profile shell for: subscription-access
+
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m2175[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m

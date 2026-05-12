@@ -6319,3 +6319,175 @@ E0318 04:38:15.800873   49240 watch.go:116] watchAllDir unable to walk dir `i:\A
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0318 04:38:25.800935   49240 watch.go:40] Failed to load config from \"i:\\\\AEGIS_ALIGN-ECOVERSE\\\\dataconnect\": could not find dataconnect.yaml in `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`\n"}}
 [info] [Firebase Plugin] Stopping Data Connect toolkit
 [warn] !  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2026-04-22T05:50:08.017Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-04-22T05:50:11.611Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-04-22T05:50:11.616Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-22T05:50:11.616Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-04-22T05:50:11.618Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-04-22T05:50:11.618Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-04-22T05:50:11.619Z] > refreshing access token with scopes: []
+[debug] [2026-04-22T05:50:11.620Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-04-22T05:50:11.620Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.5) on port 50002
+[debug] [2026-04-22T05:50:11.963Z] 'fdc build' failed with error: Unable to build your SQL Connect schema and connectors (exit code 1): E0421 22:50:11.957273   44244 cmd.go:43] Error loading data connect config: could not find dataconnect.yaml in `i:\AEGIS_ALIGN-ECOVERSE\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"'fdc build' failed with error: Unable to build your SQL Connect schema and connectors (exit code 1): E0421 22:50:11.957273   44244 cmd.go:43] Error loading data connect config: could not find dataconnect.yaml in `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`\n"}}
+[debug] [2026-04-22T05:50:11.963Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-04-22T05:50:11.963Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-04-22T05:50:11.964Z] Starting SQL Connect Emulator with command {"binary":"C:\\Users\\theli\\.cache\\firebase\\emulators\\dataconnect-emulator-3.4.5.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50002","--config_dir=i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting SQL Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\theli\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-3.4.5.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50002\",\"--config_dir=i:\\\\AEGIS_ALIGN-ECOVERSE\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: SQL Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"SQL Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2026-04-22T05:50:12.231Z] E0421 22:50:12.008972   21732 dev.go:83] Failed to load initial config from "i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect": could not find dataconnect.yaml in `i:\AEGIS_ALIGN-ECOVERSE\dataconnect`
+E0421 22:50:12.008972   21732 watch.go:116] watchAllDir unable to walk dir `i:\AEGIS_ALIGN-ECOVERSE\dataconnect`: GetFileAttributesEx i:\AEGIS_ALIGN-ECOVERSE\dataconnect: The system cannot find the file specified.
+I0421 22:50:12.025804   21732 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50002
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0421 22:50:12.008972   21732 dev.go:83] Failed to load initial config from \"i:\\\\AEGIS_ALIGN-ECOVERSE\\\\dataconnect\": could not find dataconnect.yaml in `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`\nE0421 22:50:12.008972   21732 watch.go:116] watchAllDir unable to walk dir `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`: GetFileAttributesEx i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect: The system cannot find the file specified.\nI0421 22:50:12.025804   21732 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50002\n"}}
+[debug] [2026-04-22T05:50:12.491Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-04-22T05:50:12.491Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] requireAuth error: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] error:  {}
+[debug] [2026-04-22T05:50:22.012Z] E0421 22:50:22.011734   21732 watch.go:40] Failed to load config from "i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect": could not find dataconnect.yaml in `i:\AEGIS_ALIGN-ECOVERSE\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0421 22:50:22.011734   21732 watch.go:40] Failed to load config from \"i:\\\\AEGIS_ALIGN-ECOVERSE\\\\dataconnect\": could not find dataconnect.yaml in `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`\n"}}
+[debug] [2026-04-22T05:50:32.009Z] E0421 22:50:32.009651   21732 watch.go:40] Failed to load config from "i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect": could not find dataconnect.yaml in `i:\AEGIS_ALIGN-ECOVERSE\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0421 22:50:32.009651   21732 watch.go:40] Failed to load config from \"i:\\\\AEGIS_ALIGN-ECOVERSE\\\\dataconnect\": could not find dataconnect.yaml in `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`\n"}}
+[debug] [2026-04-22T05:50:42.009Z] E0421 22:50:42.009040   21732 watch.go:40] Failed to load config from "i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect": could not find dataconnect.yaml in `i:\AEGIS_ALIGN-ECOVERSE\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0421 22:50:42.009040   21732 watch.go:40] Failed to load config from \"i:\\\\AEGIS_ALIGN-ECOVERSE\\\\dataconnect\": could not find dataconnect.yaml in `i:\\AEGIS_ALIGN-ECOVERSE\\dataconnect`\n"}}
+[info] [Firebase Plugin] Stopping SQL Connect toolkit
+[warn] !  SQL Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2026-05-12T06:46:37.845Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-05-12T06:46:57.731Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-05-12T06:46:57.732Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-12T06:46:57.733Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-05-12T06:46:57.735Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T06:46:57.735Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T06:46:57.735Z] > refreshing access token with scopes: []
+[debug] [2026-05-12T06:46:57.737Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-05-12T06:46:57.737Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.6) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.4.6.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.4.6.exe..."}}
+[debug] [2026-05-12T06:47:17.211Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 
+[debug] [2026-05-12T06:47:32.844Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 200
+[debug] [2026-05-12T06:47:32.845Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 [stream]
+[debug] [2026-05-12T06:47:41.681Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-05-12T06:47:41.682Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] requireAuth error: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[info] [Firebase Plugin] Stopping SQL Connect toolkit
+[debug] [2026-05-12T10:35:15.038Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-05-12T10:35:26.675Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-05-12T10:35:26.676Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-12T10:35:26.676Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-05-12T10:35:26.679Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T10:35:26.679Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T10:35:26.679Z] > refreshing access token with scopes: []
+[debug] [2026-05-12T10:35:26.680Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-05-12T10:35:26.680Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.6) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.4.6.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.4.6.exe..."}}
+[debug] [2026-05-12T10:35:31.649Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 
+[debug] [2026-05-12T10:35:32.114Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-05-12T10:35:32.114Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] requireAuth error: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-05-12T10:35:33.255Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 200
+[debug] [2026-05-12T10:35:33.255Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 [stream]
+[info] [Firebase Plugin] Stopping SQL Connect toolkit
+[debug] [2026-05-12T14:15:39.441Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-05-12T14:16:04.892Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-05-12T14:16:04.901Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-12T14:16:04.902Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-05-12T14:16:04.906Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T14:16:04.906Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T14:16:04.907Z] > refreshing access token with scopes: []
+[debug] [2026-05-12T14:16:04.909Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-05-12T14:16:04.910Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.6) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.4.6.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.4.6.exe..."}}
+[debug] [2026-05-12T14:16:19.391Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 
+[debug] [2026-05-12T14:16:36.441Z] *** [apiv2] error from fetch(https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6, {"headers":{},"method":"GET"}): FetchError: request to https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 failed, reason: socket hang up
+[debug] [2026-05-12T14:16:36.442Z] 'fdc build' failed with error: Failed to make request to https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 {"metadata":{"emulator":{"name":"dataconnect"},"message":"'fdc build' failed with error: Failed to make request to https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6"}}
+[warn] !  Setup required, please run: firebase setup:emulators:dataconnect 
+[debug] [2026-05-12T14:16:37.856Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-05-12T14:16:37.857Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] requireAuth error: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-05-12T20:22:04.623Z] [Firebase Plugin] Activating Firebase extension.
+[info] [Firebase Plugin] Checked firebase-tools, is up to date!
+[debug] [2026-05-12T20:22:10.226Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-05-12T20:22:10.269Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-12T20:22:10.269Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-05-12T20:22:10.271Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T20:22:10.272Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T20:22:10.272Z] > refreshing access token with scopes: []
+[debug] [2026-05-12T20:22:10.273Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-05-12T20:22:10.273Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-05-12T20:22:10.281Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.6) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.4.6.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.4.6.exe..."}}
+[debug] [2026-05-12T20:22:12.407Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 
+[debug] [2026-05-12T20:22:12.645Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-05-12T20:22:12.645Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] requireAuth error: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-05-12T20:22:12.802Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 200
+[debug] [2026-05-12T20:22:12.802Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 [stream]
+[info] [Firebase Plugin] Stopping SQL Connect toolkit
+[debug] [2026-05-12T20:23:59.108Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-05-12T20:24:47.596Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-05-12T20:24:47.616Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-12T20:24:47.617Z] > authorizing via signed-in user (traceyp@5dssg.com)
+[debug] [2026-05-12T20:24:47.619Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T20:24:47.619Z] Checked if tokens are valid: false, expires at: 1776444657245
+[debug] [2026-05-12T20:24:47.620Z] > refreshing access token with scopes: []
+[debug] [2026-05-12T20:24:47.621Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-05-12T20:24:47.621Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-05-12T20:24:47.631Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.6) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.4.6.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.4.6.exe..."}}
+[debug] [2026-05-12T20:24:49.318Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 
+[debug] [2026-05-12T20:24:51.918Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 200
+[debug] [2026-05-12T20:24:51.918Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.4.6 [stream]
+[debug] [2026-05-12T20:24:57.224Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-05-12T20:24:57.225Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] [Firebase Plugin] requireAuth error: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci

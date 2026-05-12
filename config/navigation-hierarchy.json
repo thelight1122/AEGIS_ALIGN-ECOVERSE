@@ -123,28 +123,37 @@
       {
         "label": "Access",
         "pages": [
-          { "slug": "agentic-workshop-entrance", "isParent": true },
-          { "slug": "agentic-workshop-main-console", "isParent": true }
+          { "slug": "agentic-workshop-entrance", "isParent": true, "navLabel": "All Minds Academy Entrance" },
+          { "slug": "agentic-workshop-main-console", "isParent": true, "navLabel": "Academy Main Console" }
         ]
       },
       {
-        "label": "Proof & Review Lane",
+        "label": "Squad Bonding Chambers",
         "pages": [
-          { "slug": "active-agents-monitor-agentic-workshop", "isParent": true, "navLabel": "Active Agents Monitor" },
-          { "slug": "detailed-agent-view-dataquad-node", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Detailed Agent View" },
-          { "slug": "aegis-project-tree-index", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Workshop Map" }
+          { "slug": "aegis-holochamber-academy", "isParent": true, "navLabel": "All Minds Academy" },
+          { "slug": "whichone-emotion-nuance-training", "parent": "aegis-holochamber-academy", "navLabel": "WHICHONE Bond Chamber" },
+          { "slug": "holochamber-seed-001", "parent": "aegis-holochamber-academy", "navLabel": "Ambiguity & Clarification" },
+          { "slug": "holochamber-evidence-review", "parent": "aegis-holochamber-academy", "navLabel": "Bond Witness Review" }
         ]
       },
       {
-        "label": "Agent Creation",
+        "label": "Witness & Review Lane",
         "pages": [
-          { "slug": "create-new-agent-flow", "isParent": true },
-          { "slug": "create-new-agent-identity-configuration", "parent": "create-new-agent-flow" },
-          { "slug": "create-new-agent-logic-intelligence", "parent": "create-new-agent-flow" },
-          { "slug": "create-new-agent-memory-rag", "parent": "create-new-agent-flow" },
-          { "slug": "create-new-agent-dataquad-memory-configuration", "parent": "create-new-agent-flow" },
-          { "slug": "dataquad-agent-deployment", "parent": "create-new-agent-flow" },
-          { "slug": "model-deployment-flow", "parent": "create-new-agent-flow" }
+          { "slug": "active-agents-monitor-agentic-workshop", "isParent": true, "navLabel": "Active CyberPeers Monitor" },
+          { "slug": "detailed-agent-view-dataquad-node", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Detailed CyberPeer View" },
+          { "slug": "aegis-project-tree-index", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Academy Map" }
+        ]
+      },
+      {
+        "label": "Squad Formation",
+        "pages": [
+          { "slug": "create-new-agent-flow", "isParent": true, "navLabel": "Form New Squad" },
+          { "slug": "create-new-agent-identity-configuration", "parent": "create-new-agent-flow", "navLabel": "Identity Configuration" },
+          { "slug": "create-new-agent-logic-intelligence", "parent": "create-new-agent-flow", "navLabel": "Logic & Intelligence" },
+          { "slug": "create-new-agent-memory-rag", "parent": "create-new-agent-flow", "navLabel": "Memory & RAG" },
+          { "slug": "create-new-agent-dataquad-memory-configuration", "parent": "create-new-agent-flow", "navLabel": "DataQuad Memory" },
+          { "slug": "dataquad-agent-deployment", "parent": "create-new-agent-flow", "navLabel": "DataQuad Deployment" },
+          { "slug": "model-deployment-flow", "parent": "create-new-agent-flow", "navLabel": "Substrate Deployment" }
         ],
         "buttonMappings": {
           "create-new-agent-flow": [
@@ -165,18 +174,18 @@
       {
         "label": "Orientation & Protocols",
         "pages": [
-          { "slug": "agent-communication-protocol", "isParent": true },
-          { "slug": "agent-mesh-visualizer", "parent": "agent-communication-protocol" }
+          { "slug": "agent-communication-protocol", "isParent": true, "navLabel": "CyberPeer Communication Protocol" },
+          { "slug": "agent-mesh-visualizer", "parent": "agent-communication-protocol", "navLabel": "CyberPeer Mesh Visualizer" }
         ]
       },
       {
         "label": "Monitoring & Analysis",
         "pages": [
-          { "slug": "ai-audit-analysis-recursive-training", "parent": "active-agents-monitor-agentic-workshop" },
-          { "slug": "anomaly-analysis-detail", "parent": "active-agents-monitor-agentic-workshop" },
-          { "slug": "global-anomaly-heatmap", "parent": "active-agents-monitor-agentic-workshop" },
-          { "slug": "recursive-logic-debugger-agentic-workshop", "parent": "active-agents-monitor-agentic-workshop" },
-          { "slug": "recursive-training-progress-report", "parent": "active-agents-monitor-agentic-workshop" }
+          { "slug": "ai-audit-analysis-recursive-training", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "SI Audit Analysis" },
+          { "slug": "anomaly-analysis-detail", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Anomaly Analysis Detail" },
+          { "slug": "global-anomaly-heatmap", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Global Anomaly Heatmap" },
+          { "slug": "recursive-logic-debugger-agentic-workshop", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Recursive Logic Debugger" },
+          { "slug": "recursive-training-progress-report", "parent": "active-agents-monitor-agentic-workshop", "navLabel": "Recursive Progress Report" }
         ]
       },
       {
