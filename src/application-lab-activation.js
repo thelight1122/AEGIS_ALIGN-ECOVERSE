@@ -1,7 +1,7 @@
 const STORAGE_KEY = "aegis.applicationLab.state";
 
 const DEFAULT_STATE = {
-  selectedApp: "AEGIS Interceptor",
+  selectedApp: "",
   search: "",
   focus: "",
   widgetSnippetCopied: false,
