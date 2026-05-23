@@ -7,14 +7,23 @@
   "id": "aegis-core-engine",
   "name": "AEGIS Core Engine",
   "packageVersion": null,
-  "currentStatus": "unknown",
-  "referenceDate": null,
-  "canonVersion": "1.0",
-  "canonRecordCount": 0,
-  "canonCategories": {},
+  "currentStatus": "limited beta",
+  "referenceDate": "2026-04-16",
+  "canonVersion": "1.3.0",
+  "canonRecordCount": 50,
+  "canonCategories": {
+    "AXIOM": 15,
+    "GATE": 19,
+    "STANDARD": 4,
+    "IMPERATIVE": 12
+  },
   "standardsVersion": "0.1",
   "posture": "Non-coercive, append-only, behavior-centered",
-  "governanceInvariants": [],
+  "governanceInvariants": [
+    "sovereignty_preserving",
+    "append_only",
+    "peer_aware"
+  ],
   "creationDefaults": {
     "identity": {
       "role": "Peer Agent",
