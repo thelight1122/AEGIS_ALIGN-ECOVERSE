@@ -2,5 +2,6 @@ node_modules
 .dist
 dist
 .firebaserc
+.firebase
 .tmp
 docs/adam-one-training-analysis-haven-observation.md

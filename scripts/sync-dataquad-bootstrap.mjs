@@ -11,6 +11,19 @@ const require = createRequire(import.meta.url);
 const corePackagePath = "I:\\AEGIS-CORE-ENGINE\\packages\\aegis-dataquad-core\\dist\\index.js";
 const outputPath = path.join(repoRoot, "src", "generated", "dataquad-bootstrap.json");
 
+// Gracefully skip if the I: drive / DataQuad core package is unavailable.
+// The existing dataquad-bootstrap.json is kept as-is so builds succeed without the I: drive.
+if (!fs.existsSync(corePackagePath)) {
+  if (fs.existsSync(outputPath)) {
+    console.log(`[sync-dataquad-bootstrap] Core package not found at ${corePackagePath}`);
+    console.log(`[sync-dataquad-bootstrap] Keeping existing ${outputPath} — skipping regeneration.`);
+  } else {
+    console.error(`[sync-dataquad-bootstrap] Core package not found and no existing bootstrap file. Cannot continue.`);
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
 const core = require(corePackagePath);
 
 const sessionId = "ecoverse-structure-steward-bootstrap";

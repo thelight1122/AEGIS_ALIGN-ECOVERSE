@@ -14,7 +14,9 @@
     "preview": "vite preview",
     "preview:cf": "npx wrangler pages dev ./dist --compatibility-date=2026-03-12",
     "deploy:firebase": "node scripts/deploy.mjs",
-    "deploy:firebase:staging": "node scripts/deploy.mjs --staging"
+    "deploy:firebase:staging": "node scripts/deploy.mjs --staging",
+    "deploy:cf": "npm run build && wrangler pages deploy ./dist --project-name=aegis-align-ecoverse",
+    "deploy:cf:no-build": "wrangler pages deploy ./dist --project-name=aegis-align-ecoverse"
   },
   "devDependencies": {
     "three": "^0.180.0",
