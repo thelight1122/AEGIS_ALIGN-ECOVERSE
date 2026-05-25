@@ -293,7 +293,7 @@ function updateRedirectsFile(redirectFilePath, redirects) {
   function topLinksTemplate() {
     return [
       '<a href="/">Nexus</a>',
-      '<a class="top-link-drift" href="/?mode=drift" data-drift-return="true">Re-enter Drift</a>',
+      '<a class="top-link-drift" href="/nexus/orientation/?mode=drift" data-drift-return="true">Re-enter Drift</a>',
       '<a class="top-link-governance" href="/nexus/aegis-governance-hub/">AEGIS Principles</a>',
       '<a class="top-link-profile" href="/nexus/aegis-peer-profile/">Profile</a>',
       ...domains.map((domain) => `<a href="/${domain.slug}/">${escapeHtml(domain.label)}</a>`),
@@ -1498,7 +1498,7 @@ function nexusTemplate(hubs, pages) {
     <title>Nexus | AegisAlign EcoVerse</title>
     <link rel="stylesheet" href="/src/shell.css" />
   </head>
-  <body class="nexus-surface with-ambient-signals">
+  <body class="immersive-root nexus-surface with-ambient-signals">
     ${etherCanvasTemplate()}
     ${nexusVideoTemplate()}
     <div class="layout">
@@ -1534,7 +1534,7 @@ function nexusTemplate(hubs, pages) {
         </section>
       </main>
     </div>
-    ${shellScriptsTemplate({ domainSlug: "nexus" })}
+    ${shellScriptsTemplate({ domainSlug: "nexus", immersive: true })}
   </body>
 </html>
 `;
@@ -2045,9 +2045,9 @@ function rootIndexTemplate(_hubs, _pages) {
         setTimeout(function () { flare.classList.add('active'); }, 120);
         setTimeout(function () {
           if (typeof window.aegisTransit === 'function') {
-            window.aegisTransit('/nexus/', { centerX: cx, centerY: cy });
+            window.aegisTransit('/nexus/orientation/?mode=drift', { centerX: cx, centerY: cy });
           } else {
-            window.location.href = '/nexus/';
+            window.location.href = '/nexus/orientation/?mode=drift';
           }
         }, 420);
       });

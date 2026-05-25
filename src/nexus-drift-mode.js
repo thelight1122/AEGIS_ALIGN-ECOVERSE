@@ -39,8 +39,12 @@ if (!body || !body.classList.contains("immersive-root")) {
 
   let initialMode = "direct";
   try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("mode") === "drift") {
+      initialMode = "drift";
+    }
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "drift" || stored === "direct") {
+    if (initialMode !== "drift" && (stored === "drift" || stored === "direct")) {
       initialMode = stored;
     }
   } catch {

@@ -502,9 +502,9 @@
         setTimeout(function () { flare.classList.add('active'); }, 120);
         setTimeout(function () {
           if (typeof window.aegisTransit === 'function') {
-            window.aegisTransit('/nexus/', { centerX: cx, centerY: cy });
+            window.aegisTransit('/nexus/orientation/?mode=drift', { centerX: cx, centerY: cy });
           } else {
-            window.location.href = '/nexus/';
+            window.location.href = '/nexus/orientation/?mode=drift';
           }
         }, 420);
       });

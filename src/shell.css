@@ -931,6 +931,7 @@ body.nexus-drift-mode .nexus-main {
 }
 
 body.nexus-drift-mode .nexus-intro,
+body.nexus-drift-mode .nexus-wrap,
 body.nexus-drift-mode .portal-grid {
   opacity: 0;
   pointer-events: none;
