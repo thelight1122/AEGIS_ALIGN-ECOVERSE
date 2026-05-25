@@ -1540,93 +1540,518 @@ function nexusTemplate(hubs, pages) {
 `;
 }
 
-function rootIndexTemplate(hubs, pages) {
-  const liveHubLinks = hubs
-    .filter((hub) => hub.status === "live")
-    .map((hub) => `<a class="phase-link" href="${hub.route}">Visit ${escapeHtml(hub.label)}</a>`)
-    .join("\n");
-
-  const cards = hubs
-    .map((hub) => {
-      const isLive = hub.status === "live";
-      const count = pages.filter((page) => page.domain === hub.domainSlug).length;
-      const cardTagOpen = isLive ? `<a class="portal-card live" href="${hub.route}">` : '<div class="portal-card pending">';
-      const cardTagClose = isLive ? "</a>" : "</div>";
-
-      return `${cardTagOpen}
-        <div class="portal-status ${isLive ? "live" : "pending"}">${isLive ? "Accessible" : "On the Horizon"}</div>
-        <h3>${escapeHtml(hub.label)}</h3>
-        <p>${escapeHtml(hub.description)}</p>
-        <div class="voice-block">
-          <p>${escapeHtml(voiceByDomain(hub.domainSlug).bridge)}</p>
-        </div>
-        <div class="portal-meta">${count} mapped pages</div>
-      ${cardTagClose}`;
-    })
-    .join("\n");
-
+function rootIndexTemplate(_hubs, _pages) {
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AegisAlign EcoVerse Nexus</title>
+    <title>AEGIS EcoVerse — Enter the Field</title>
     <link rel="stylesheet" href="/src/shell.css" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      body.ecoverse-landing {
+        background:
+          radial-gradient(ellipse 88% 72% at 50% 47%, rgba(4,16,38,0.90) 0%, rgba(2,6,14,0.97) 58%, rgba(1,1,5,1) 100%),
+          repeating-linear-gradient(162deg, transparent 0px, transparent 8px, rgba(5,20,36,0.055) 8px, rgba(5,20,36,0.055) 9px),
+          repeating-linear-gradient(78deg, transparent 0px, transparent 14px, rgba(3,13,24,0.038) 14px, rgba(3,13,24,0.038) 15px),
+          #010205;
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: var(--star-o); }
+        50%       { opacity: calc(var(--star-o) * 2.5); }
+      }
+      @keyframes ring-drift {
+        from { transform: translate(-50%,-50%) rotate(0deg); }
+        to   { transform: translate(-50%,-50%) rotate(360deg); }
+      }
+      @keyframes ring-drift-rev {
+        from { transform: translate(-50%,-50%) rotate(0deg); }
+        to   { transform: translate(-50%,-50%) rotate(-360deg); }
+      }
+      @keyframes content-float {
+        0%, 100% { transform: translateY(0px); }
+        50%      { transform: translateY(-7px); }
+      }
+      @keyframes btn-breathe {
+        0%, 100% { box-shadow: 0 0 18px 3px rgba(79,163,255,0.18), inset 0 0 12px rgba(79,163,255,0.06); }
+        50%      { box-shadow: 0 0 34px 8px rgba(79,163,255,0.32), inset 0 0 20px rgba(110,241,208,0.10); }
+      }
+      @keyframes badge-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(110,241,208,0); }
+        50%      { box-shadow: 0 0 14px 2px rgba(110,241,208,0.18); }
+      }
+      @keyframes portal-flare {
+        0%   { transform: translate(-50%,-50%) scale(0);    opacity: 0; }
+        10%  { transform: translate(-50%,-50%) scale(0.25); opacity: 1; }
+        100% { transform: translate(-50%,-50%) scale(600);  opacity: 1; }
+      }
+
+      .void-ring {
+        position: fixed;
+        top: 50%; left: 50%;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .section-constellations {
+        position: fixed;
+        inset: 0;
+        z-index: 12;
+        pointer-events: none;
+      }
+      .section-signpost {
+        --sign-tilt: 0deg;
+        --arrow-angle: 0deg;
+        position: absolute;
+        width: min(250px, 24vw);
+        min-height: 104px;
+        pointer-events: auto;
+        color: rgba(234,248,255,0.9);
+        text-align: left;
+        border: 1px solid rgba(126,255,214,0.24);
+        border-radius: 3px;
+        padding: 14px 16px 16px;
+        background:
+          linear-gradient(145deg, rgba(6,15,30,0.72), rgba(7,18,28,0.5)),
+          radial-gradient(circle at 12% 18%, var(--sign-glow), transparent 58%);
+        box-shadow:
+          0 0 26px rgba(79,163,255,0.12),
+          inset 0 0 0 1px rgba(255,255,255,0.035);
+        transform: rotate(var(--sign-tilt));
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+        transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+      }
+      .section-signpost:hover {
+        border-color: rgba(126,255,214,0.58);
+        color: #ffffff;
+      }
+      .section-signpost::before {
+        content: "";
+        position: absolute;
+        inset: -30px -38px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 20% 24%, rgba(255,255,255,0.72) 0 1.2px, transparent 1.5px),
+          radial-gradient(circle at 58% 18%, rgba(126,255,214,0.55) 0 1.1px, transparent 1.4px),
+          radial-gradient(circle at 72% 62%, rgba(79,163,255,0.58) 0 1.3px, transparent 1.6px),
+          radial-gradient(circle at 38% 76%, rgba(255,255,255,0.46) 0 1px, transparent 1.3px);
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .section-signpost::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 84px;
+        height: 1px;
+        transform: rotate(var(--arrow-angle));
+        transform-origin: 0 50%;
+        background: linear-gradient(90deg, rgba(126,255,214,0.88), rgba(79,163,255,0.08));
+        box-shadow: 0 0 14px rgba(126,255,214,0.34);
+        pointer-events: none;
+      }
+      .signpost-arrow {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: rgba(126,255,214,0.78);
+        font-size: 19px;
+        line-height: 1;
+        transform: rotate(var(--arrow-angle)) translateX(76px) translate(-50%, -50%);
+        text-shadow: 0 0 14px rgba(126,255,214,0.45);
+      }
+      .section-signpost strong,
+      .section-signpost span,
+      .section-signpost small {
+        position: relative;
+        z-index: 1;
+        display: block;
+      }
+      .section-signpost strong {
+        margin-bottom: 8px;
+        font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+        line-height: 1.18;
+        letter-spacing: 0.04em;
+      }
+      .section-signpost span {
+        color: rgba(183,213,238,0.8);
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+      .section-signpost small {
+        margin-top: 10px;
+        color: rgba(126,255,214,0.58);
+        font-size: 0.61rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .sign-custodian {
+        left: clamp(18px, 6vw, 82px);
+        top: clamp(82px, 14vh, 138px);
+        --sign-tilt: -2.5deg;
+        --arrow-angle: 18deg;
+        --sign-glow: rgba(110,241,208,0.18);
+      }
+      .sign-lab {
+        right: clamp(18px, 7vw, 96px);
+        top: clamp(112px, 20vh, 196px);
+        --sign-tilt: 2deg;
+        --arrow-angle: 156deg;
+        --sign-glow: rgba(127,102,255,0.2);
+      }
+      .sign-depot {
+        left: clamp(20px, 9vw, 132px);
+        bottom: clamp(46px, 13vh, 132px);
+        --sign-tilt: 1.8deg;
+        --arrow-angle: -22deg;
+        --sign-glow: rgba(255,181,107,0.2);
+      }
+      .sign-academy {
+        right: clamp(22px, 8vw, 124px);
+        bottom: clamp(54px, 10vh, 112px);
+        --sign-tilt: -1.8deg;
+        --arrow-angle: 202deg;
+        --sign-glow: rgba(89,176,255,0.2);
+      }
+
+      #landing-content {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+        transition: opacity 0.6s ease, transform 0.85s cubic-bezier(0.4,0,0.2,1), filter 0.6s ease;
+      }
+      #landing-content.is-entering {
+        opacity: 0;
+        transform: scale(0.88) translateY(18px);
+        filter: blur(6px);
+        pointer-events: none;
+      }
+
+      .landing-inner {
+        max-width: 660px;
+        animation: content-float 7.5s ease-in-out infinite;
+      }
+
+      .ecoverse-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 16px;
+        border-radius: 100px;
+        border: 1px solid rgba(110,241,208,0.24);
+        background: rgba(110,241,208,0.045);
+        margin-bottom: 2.8rem;
+        animation: badge-pulse 4.5s ease-in-out infinite;
+      }
+      .badge-dot {
+        width: 5px; height: 5px;
+        border-radius: 50%;
+        background: var(--accent-2, #6ef1d0);
+        box-shadow: 0 0 9px 2px rgba(110,241,208,0.68);
+        flex-shrink: 0;
+      }
+      .badge-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--accent-2, #6ef1d0);
+      }
+
+      .landing-headline {
+        margin: 0 0 1.8rem;
+        font-size: clamp(2.8rem, 7.5vw, 5.4rem);
+        font-weight: 900;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+        color: #ffffff;
+      }
+      .headline-gradient {
+        background: linear-gradient(128deg, var(--accent-2, #6ef1d0) 0%, var(--accent, #4fa3ff) 50%, #c8dbff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .landing-divider {
+        width: 48px; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(110,241,208,0.5), transparent);
+        margin: 0 auto 2rem;
+        border: none;
+      }
+
+      .landing-body {
+        margin: 0 auto 1.2rem;
+        max-width: 520px;
+        font-size: 1.08rem;
+        line-height: 1.78;
+        color: rgba(230,237,248,0.52);
+        font-weight: 400;
+      }
+
+      .landing-invitation {
+        margin: 0 auto 3.8rem;
+        max-width: 440px;
+        font-size: 0.93rem;
+        line-height: 1.72;
+        color: rgba(110,241,208,0.56);
+        font-style: italic;
+        letter-spacing: 0.016em;
+      }
+
+      #enter-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 17px 46px;
+        border-radius: 3px;
+        border: 1px solid rgba(79,163,255,0.38);
+        background: rgba(79,163,255,0.055);
+        color: var(--accent, #4fa3ff);
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        animation: btn-breathe 4s ease-in-out infinite;
+        transition: background 0.25s, border-color 0.25s, transform 0.15s, color 0.2s;
+        outline: none;
+      }
+      #enter-btn:hover:not(:disabled) {
+        background: rgba(79,163,255,0.12);
+        border-color: rgba(110,241,208,0.6);
+        color: var(--accent-2, #6ef1d0);
+        transform: translateY(-2px);
+      }
+      #enter-btn:disabled { cursor: default; }
+      #enter-btn:hover:not(:disabled) .btn-arrow { transform: translateX(4px); }
+      .btn-arrow { transition: transform 0.2s ease; }
+
+      .landing-footer-meta {
+        margin-top: 4.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2.4rem;
+        flex-wrap: wrap;
+      }
+      .meta-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.14);
+      }
+
+      #portal-flare {
+        position: fixed;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffffff 0%, #c8f7f2 6%, var(--accent-2,#6ef1d0) 18%, var(--accent,#4fa3ff) 36%, #061428 60%, #010205 76%);
+        width: 10px; height: 10px;
+        pointer-events: none;
+        z-index: 200;
+        display: none;
+        transform: translate(-50%,-50%) scale(0);
+      }
+      #portal-flare.active {
+        display: block;
+        animation: portal-flare 1.08s cubic-bezier(0.22,1,0.3,1) forwards;
+      }
+      @media (max-width: 920px) {
+        #landing-content {
+          padding: 9.5rem 1.1rem 1.4rem;
+        }
+        .section-signpost {
+          width: min(210px, 43vw);
+          min-height: 84px;
+          padding: 10px 11px 12px;
+        }
+        .section-signpost::after,
+        .signpost-arrow {
+          display: none;
+        }
+        .section-signpost strong {
+          margin-bottom: 5px;
+          font-size: 0.76rem;
+        }
+        .section-signpost span {
+          display: none;
+        }
+        .section-signpost small {
+          margin-top: 7px;
+          font-size: 0.54rem;
+        }
+        .sign-custodian { left: 12px; top: 62px; }
+        .sign-lab { right: 12px; top: 86px; }
+        .sign-depot { left: 12px; bottom: 20px; }
+        .sign-academy { right: 12px; bottom: 20px; }
+      }
+    </style>
   </head>
-  <body class="immersive-root nexus-surface with-ambient-signals">
-    ${nexusVideoTemplate()}
-    ${etherCanvasTemplate()}
-    <div class="layout immersive-layer">
-      <header class="topbar">
-        <div class="topbar-inner">
-          <a class="brand" href="/">
-            <span class="brand-pill"></span>
-            <span>AegisAlign MultiDimensional Nexus</span>
-          </a>
-          <nav class="top-links">
-            <a class="active" href="/nexus/">Nexus</a>
-            ${topLinksTemplate()}
-          </nav>
-        </div>
-      </header>
-      ${ethosStripTemplate(canonicalContract)}
+  <body class="ecoverse-landing immersive-root">
 
-      <main class="nexus-main">
-        <section class="nexus-intro panel">
-          <h1>Float Through the AEGIS EcoVerse</h1>
-          <p>
-            A surreal navigation layer designed for deep orientation and dimensional travel.
-            Drift between living hubs and step into distinct EcoVerse atmospheres.
-          </p>
-          <p>
-            This frontier will take strange turns; we stay coherent by choosing cooperation, curiosity, and care.
-          </p>
-          <div class="nexus-mode-switch" aria-label="Navigation mode">
-            <button class="nexus-mode-btn is-active" type="button" data-drift-direct>Direct Access</button>
-            <button class="nexus-mode-btn" type="button" data-drift-enter>Enter Drift Mode</button>
-          </div>
-          <p class="nexus-mode-copy">
-            Choose direct access for speed, or enter Drift Mode to move through the Ether and approach floating module portals.
-          </p>
-          <div class="phase-links">
-            <a class="phase-link" href="/nexus/">Visit Nexus</a>
-            ${liveHubLinks}
-          </div>
-        </section>
+    <svg aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1;">
+      <defs>
+        <radialGradient id="star-void-fade" cx="50%" cy="47%" r="32%">
+          <stop offset="0%"   stop-color="#010205" stop-opacity="0.72" />
+          <stop offset="100%" stop-color="#010205" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <g id="stars"></g>
+      <ellipse cx="50%" cy="47%" rx="20%" ry="26%" fill="url(#star-void-fade)" />
+    </svg>
 
-        <section class="portal-grid">
-          ${cards}
-        </section>
-        <div class="drift-quickbar" data-drift-quickbar hidden>
-          <div class="drift-quickbar-copy">
-            <strong>Drift Mode</strong>
-            <span>Use mouse, wheel, or WASD to roam the Ether and click when a portal resonates.</span>
-          </div>
-          <button class="nexus-mode-btn" type="button" data-drift-exit>Return To Direct Access</button>
+    <div class="void-ring" style="width:74vmax;height:74vmax;border:1px solid rgba(79,163,255,0.038);animation:ring-drift 64s linear infinite;"></div>
+    <div class="void-ring" style="width:96vmax;height:96vmax;border:1px solid rgba(110,241,208,0.025);animation:ring-drift-rev 92s linear infinite;"></div>
+    <div class="void-ring" style="width:56vmax;height:56vmax;border:0.5px solid rgba(79,163,255,0.02);animation:ring-drift 42s linear infinite reverse;"></div>
+
+    <div aria-hidden="true" style="position:fixed;top:50%;left:50%;width:640px;height:380px;transform:translate(-50%,-55%);background:radial-gradient(ellipse,rgba(79,163,255,0.028) 0%,transparent 66%);pointer-events:none;z-index:1;"></div>
+
+    <nav class="section-constellations" aria-label="EcoVerse sections">
+      <a class="section-signpost sign-custodian" href="/custodian-ui/">
+        <span class="signpost-arrow" aria-hidden="true">➜</span>
+        <strong>Custodian Ops Center</strong>
+        <span>Operational guidance, mission governance, health monitoring, and recovery workflows.</span>
+        <small>18 mapped pages</small>
+      </a>
+      <a class="section-signpost sign-lab" href="/aegis-application-lab/">
+        <span class="signpost-arrow" aria-hidden="true">➜</span>
+        <strong>AEGIS Application Lab</strong>
+        <span>Interactive demos and productized AEGIS application experiences.</span>
+        <small>8 mapped pages</small>
+      </a>
+      <a class="section-signpost sign-depot" href="/developer-depot/">
+        <span class="signpost-arrow" aria-hidden="true">➜</span>
+        <strong>Developers Depot</strong>
+        <span>Developer docs, API exploration, and community build workflows.</span>
+        <small>15 mapped pages</small>
+      </a>
+      <a class="section-signpost sign-academy" href="/agent-workshop/">
+        <span class="signpost-arrow" aria-hidden="true">➜</span>
+        <strong>All Minds Academy</strong>
+        <span>Responsible SI bond formation for BioPeer / CyberPeer Squads, Build Masters, and the living EcoVerse.</span>
+        <small>26 mapped pages</small>
+      </a>
+    </nav>
+
+    <div id="landing-content">
+      <div class="landing-inner">
+
+        <div class="ecoverse-badge">
+          <div class="badge-dot"></div>
+          <span class="badge-label">AEGIS EcoVerse</span>
         </div>
-      </main>
+
+        <h1 class="landing-headline">
+          The Field<br />
+          <span class="headline-gradient">is Open.</span>
+        </h1>
+
+        <hr class="landing-divider" />
+
+        <p class="landing-body">
+          The EcoVerse is not a platform to navigate.
+          It is a living environment built to immerse every Peer
+          — human and AI alike — in a field of collaborative awareness.
+          Designed to be inhabited. Not used.
+        </p>
+
+        <p class="landing-invitation">
+          You are standing at the threshold.<br />
+          The field is clear. What follows was designed to be felt.
+        </p>
+
+        <button id="enter-btn" type="button">
+          Enter the EcoVerse
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="landing-footer-meta">
+          <span class="meta-label">Field state preserved</span>
+          <span class="meta-label">Identity intact</span>
+          <span class="meta-label">Continuity open</span>
+        </div>
+
+      </div>
     </div>
-    ${shellScriptsTemplate({ immersive: true })}
+
+    <div id="portal-flare" aria-hidden="true"></div>
+
+    <script type="module" src="/src/portal-transit.js"></script>
+    <script type="module">
+      const g = document.getElementById('stars');
+      for (let i = 0; i < 130; i++) {
+        const x = (i * 137.508) % 100;
+        const y = (i * 83.17) % 100;
+        const r = 0.4 + (i % 4) * 0.35;
+        const o = 0.1 + (i % 8) * 0.07;
+        const dur = 2.4 + (i % 5) * 0.88;
+        const del = (i % 7) * 0.4;
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', x + '%');
+        c.setAttribute('cy', y + '%');
+        c.setAttribute('r', String(r));
+        c.setAttribute('fill', 'white');
+        c.style.cssText = '--star-o:' + o + ';opacity:' + o + ';animation:twinkle ' + dur + 's ' + del + 's ease-in-out infinite';
+        g.appendChild(c);
+      }
+
+      let entering = false;
+      const btn = document.getElementById('enter-btn');
+      const content = document.getElementById('landing-content');
+      const flare = document.getElementById('portal-flare');
+
+      document.querySelectorAll('.section-signpost').forEach(function (signpost) {
+        signpost.addEventListener('click', function (event) {
+          if (typeof window.aegisTransit !== 'function') return;
+          event.preventDefault();
+          const rect = signpost.getBoundingClientRect();
+          window.aegisTransit(signpost.href, {
+            centerX: rect.left + rect.width / 2,
+            centerY: rect.top + rect.height / 2,
+          });
+        });
+      });
+
+      btn.addEventListener('click', function () {
+        if (entering) return;
+        entering = true;
+        btn.disabled = true;
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        flare.style.left = cx + 'px';
+        flare.style.top  = cy + 'px';
+        content.classList.add('is-entering');
+        setTimeout(function () { flare.classList.add('active'); }, 120);
+        setTimeout(function () {
+          if (typeof window.aegisTransit === 'function') {
+            window.aegisTransit('/nexus/', { centerX: cx, centerY: cy });
+          } else {
+            window.location.href = '/nexus/';
+          }
+        }, 420);
+      });
+    </script>
   </body>
 </html>
 `;
