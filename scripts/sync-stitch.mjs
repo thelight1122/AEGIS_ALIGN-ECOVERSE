@@ -1556,11 +1556,15 @@ function rootIndexTemplate(_hubs, _pages) {
       }
 
       body.ecoverse-landing {
+        min-height: 100vh;
+        color: #eaf8ff;
         background:
-          radial-gradient(ellipse 88% 72% at 50% 47%, rgba(4,16,38,0.90) 0%, rgba(2,6,14,0.97) 58%, rgba(1,1,5,1) 100%),
-          repeating-linear-gradient(162deg, transparent 0px, transparent 8px, rgba(5,20,36,0.055) 8px, rgba(5,20,36,0.055) 9px),
-          repeating-linear-gradient(78deg, transparent 0px, transparent 14px, rgba(3,13,24,0.038) 14px, rgba(3,13,24,0.038) 15px),
-          #010205;
+          radial-gradient(ellipse 42% 34% at 50% 46%, rgba(29,91,122,0.34) 0%, rgba(5,16,32,0.88) 58%, rgba(1,4,12,0.98) 100%),
+          radial-gradient(ellipse 84% 72% at 50% 47%, rgba(4,16,38,0.96) 0%, rgba(2,6,14,0.98) 60%, rgba(1,1,5,1) 100%),
+          repeating-linear-gradient(162deg, transparent 0px, transparent 8px, rgba(126,255,214,0.04) 8px, rgba(126,255,214,0.04) 9px),
+          repeating-linear-gradient(78deg, transparent 0px, transparent 14px, rgba(79,163,255,0.03) 14px, rgba(79,163,255,0.03) 15px),
+          #010309;
+        isolation: isolate;
       }
 
       @keyframes twinkle {
@@ -1613,17 +1617,18 @@ function rootIndexTemplate(_hubs, _pages) {
         width: min(250px, 24vw);
         min-height: 104px;
         pointer-events: auto;
-        color: rgba(234,248,255,0.9);
+        color: rgba(242,250,255,0.94);
         text-align: left;
         border: 1px solid rgba(126,255,214,0.24);
         border-radius: 3px;
         padding: 14px 16px 16px;
         background:
-          linear-gradient(145deg, rgba(6,15,30,0.72), rgba(7,18,28,0.5)),
+          linear-gradient(145deg, rgba(5,12,25,0.92), rgba(7,18,28,0.82)),
           radial-gradient(circle at 12% 18%, var(--sign-glow), transparent 58%);
         box-shadow:
-          0 0 26px rgba(79,163,255,0.12),
-          inset 0 0 0 1px rgba(255,255,255,0.035);
+          0 18px 42px rgba(0,0,0,0.38),
+          0 0 26px rgba(79,163,255,0.16),
+          inset 0 0 0 1px rgba(255,255,255,0.055);
         transform: rotate(var(--sign-tilt));
         backdrop-filter: blur(7px);
         -webkit-backdrop-filter: blur(7px);
@@ -1683,13 +1688,13 @@ function rootIndexTemplate(_hubs, _pages) {
         letter-spacing: 0.04em;
       }
       .section-signpost span {
-        color: rgba(183,213,238,0.8);
+        color: rgba(203,226,244,0.86);
         font-size: 0.78rem;
         line-height: 1.35;
       }
       .section-signpost small {
         margin-top: 10px;
-        color: rgba(126,255,214,0.58);
+        color: rgba(126,255,214,0.72);
         font-size: 0.61rem;
         font-weight: 700;
         letter-spacing: 0.18em;
@@ -1744,8 +1749,23 @@ function rootIndexTemplate(_hubs, _pages) {
       }
 
       .landing-inner {
+        position: relative;
         max-width: 660px;
+        padding: clamp(1.8rem, 4vw, 3.2rem) clamp(1.2rem, 4vw, 3.4rem);
         animation: content-float 7.5s ease-in-out infinite;
+      }
+      .landing-inner::before {
+        content: "";
+        position: absolute;
+        inset: clamp(-1.2rem, -2vw, -0.75rem) clamp(-1rem, -3vw, -0.5rem);
+        z-index: -1;
+        border-radius: 999px;
+        background:
+          radial-gradient(ellipse at center, rgba(1,8,18,0.94) 0%, rgba(2,9,22,0.82) 42%, rgba(2,10,22,0.28) 68%, transparent 78%);
+        box-shadow:
+          0 0 90px rgba(0,0,0,0.56),
+          0 0 46px rgba(79,163,255,0.16);
+        pointer-events: none;
       }
 
       .ecoverse-badge {
@@ -1754,9 +1774,9 @@ function rootIndexTemplate(_hubs, _pages) {
         gap: 8px;
         padding: 5px 16px;
         border-radius: 100px;
-        border: 1px solid rgba(110,241,208,0.24);
-        background: rgba(110,241,208,0.045);
-        margin-bottom: 2.8rem;
+        border: 1px solid rgba(110,241,208,0.42);
+        background: rgba(3,18,28,0.72);
+        margin-bottom: 2.2rem;
         animation: badge-pulse 4.5s ease-in-out infinite;
       }
       .badge-dot {
@@ -1771,7 +1791,7 @@ function rootIndexTemplate(_hubs, _pages) {
         font-weight: 700;
         letter-spacing: 0.26em;
         text-transform: uppercase;
-        color: var(--accent-2, #6ef1d0);
+        color: #83ffe2;
       }
 
       .landing-headline {
@@ -1779,11 +1799,14 @@ function rootIndexTemplate(_hubs, _pages) {
         font-size: clamp(2.8rem, 7.5vw, 5.4rem);
         font-weight: 900;
         line-height: 1.04;
-        letter-spacing: -0.025em;
+        letter-spacing: 0;
         color: #ffffff;
+        text-shadow:
+          0 2px 18px rgba(0,0,0,0.78),
+          0 0 34px rgba(79,163,255,0.16);
       }
       .headline-gradient {
-        background: linear-gradient(128deg, var(--accent-2, #6ef1d0) 0%, var(--accent, #4fa3ff) 50%, #c8dbff 100%);
+        background: linear-gradient(128deg, #68f4df 0%, #4fa3ff 50%, #d8e6ff 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -1801,8 +1824,9 @@ function rootIndexTemplate(_hubs, _pages) {
         max-width: 520px;
         font-size: 1.08rem;
         line-height: 1.78;
-        color: rgba(230,237,248,0.52);
+        color: rgba(231,241,250,0.84);
         font-weight: 400;
+        text-shadow: 0 2px 16px rgba(0,0,0,0.68);
       }
 
       .landing-invitation {
@@ -1810,9 +1834,10 @@ function rootIndexTemplate(_hubs, _pages) {
         max-width: 440px;
         font-size: 0.93rem;
         line-height: 1.72;
-        color: rgba(110,241,208,0.56);
+        color: rgba(126,255,214,0.86);
         font-style: italic;
         letter-spacing: 0.016em;
+        text-shadow: 0 2px 16px rgba(0,0,0,0.62);
       }
 
       #enter-btn {
@@ -1821,9 +1846,9 @@ function rootIndexTemplate(_hubs, _pages) {
         gap: 14px;
         padding: 17px 46px;
         border-radius: 3px;
-        border: 1px solid rgba(79,163,255,0.38);
-        background: rgba(79,163,255,0.055);
-        color: var(--accent, #4fa3ff);
+        border: 1px solid rgba(126,255,214,0.46);
+        background: rgba(4,20,36,0.86);
+        color: #78c2ff;
         font-family: inherit;
         font-size: 0.88rem;
         font-weight: 700;
@@ -1877,6 +1902,41 @@ function rootIndexTemplate(_hubs, _pages) {
       @media (max-width: 920px) {
         #landing-content {
           padding: 9.5rem 1.1rem 1.4rem;
+          justify-content: flex-start;
+        }
+        .landing-inner {
+          width: min(100%, 360px);
+          margin-top: clamp(6.4rem, 19vh, 8.8rem);
+          padding: 1rem 0.9rem 1.2rem;
+          animation: none;
+        }
+        .landing-inner::before {
+          inset: -0.7rem -0.6rem;
+          border-radius: 42px;
+        }
+        .ecoverse-badge {
+          margin-bottom: 1.2rem;
+        }
+        .landing-headline {
+          margin-bottom: 1.1rem;
+          font-size: clamp(2.35rem, 13vw, 3.4rem);
+        }
+        .landing-divider {
+          margin-bottom: 1.15rem;
+        }
+        .landing-body {
+          font-size: 0.95rem;
+          line-height: 1.58;
+        }
+        .landing-invitation {
+          margin-bottom: 1.8rem;
+          font-size: 0.86rem;
+          line-height: 1.55;
+        }
+        #enter-btn {
+          width: min(100%, 316px);
+          justify-content: center;
+          padding: 15px 20px;
         }
         .section-signpost {
           width: min(210px, 43vw);
@@ -1902,6 +1962,21 @@ function rootIndexTemplate(_hubs, _pages) {
         .sign-lab { right: 12px; top: 86px; }
         .sign-depot { left: 12px; bottom: 20px; }
         .sign-academy { right: 12px; bottom: 20px; }
+        .landing-footer-meta {
+          display: none;
+        }
+      }
+      @media (max-width: 620px) {
+        .section-constellations {
+          display: none;
+        }
+        #landing-content {
+          padding: 1rem;
+          justify-content: center;
+        }
+        .landing-inner {
+          margin-top: 0;
+        }
       }
     </style>
   </head>
