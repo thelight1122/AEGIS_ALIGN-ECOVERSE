@@ -80,7 +80,7 @@ This structure must be append-oriented and reconstructable from stored events pl
 
 Tracked bootstrap artifact:
 
-- [src/generated/dataquad-bootstrap.json](/I:/AEGIS_ALIGN-ECOVERSE/src/generated/dataquad-bootstrap.json)
+- [dataquad-bootstrap.json](../src/generated/dataquad-bootstrap.json)
 
 Repository posture for this file:
 

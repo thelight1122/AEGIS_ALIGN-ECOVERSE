@@ -37,6 +37,25 @@ service cloud.firestore {
         && isAllowedPeerId(request.resource.data.peerId);
     }
 
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function ownsUserDocument(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function validUserProfile(uid) {
+      return ownsUserDocument(uid)
+        && request.resource.data.uid == uid
+        && request.resource.data.email is string
+        && request.resource.data.displayName is string
+        && request.resource.data.role in ["peer", "developer", "subscriber", "custodian", "admin"]
+        && request.resource.data.accountStatus in ["active", "held", "disabled"]
+        && request.resource.data.subscriptionTier in ["explorer", "subscriber", "enterprise", "custodian"]
+        && request.resource.data.settings is map;
+    }
+
     match /peers/{peerId} {
       allow read: if isAllowedPeerId(peerId);
       allow create, update: if validPeerDocument(peerId);
@@ -72,6 +91,16 @@ service cloud.firestore {
       allow create: if validPeerLinkedDocument()
         && request.resource.data.eventType is string
         && request.resource.data.summary is string;
+    }
+
+    match /users/{uid} {
+      allow read: if ownsUserDocument(uid);
+      allow create, update: if validUserProfile(uid);
+      allow delete: if false;
+    }
+
+    match /users/{uid}/{document=**} {
+      allow read, write: if ownsUserDocument(uid);
     }
 
     match /{document=**} {

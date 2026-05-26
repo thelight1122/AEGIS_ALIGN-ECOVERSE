@@ -1,3 +1,11 @@
+import {
+  observeAuthSession,
+  requestPasswordReset,
+  signInWithEmail,
+  signUpWithEmail,
+  updateAccountProfile,
+} from "./auth-session.js";
+
 const STORAGE_KEY = "aegis.nexus.state";
 
 const DEFAULT_STATE = {
@@ -23,10 +31,7 @@ const DEFAULT_STATE = {
       protocolAnalytics: false,
       emailSummary: true,
     },
-    apiKeys: [
-      { id: "prod-main-server", name: "Production-Main-Server", created: "Oct 12, 2023", status: "Active" },
-      { id: "staging-test-env", name: "Staging-Test-Env", created: "Nov 05, 2023", status: "Active" },
-    ],
+    apiKeys: [],
   },
   dashboard: {
     query: "",
@@ -85,6 +90,34 @@ function patchState(patch) {
   const next = mergeState(current, patch);
   writeState(next);
   return next;
+}
+
+function applySessionState(session, patch = {}) {
+  const next = mergeState(readState(), {
+    ...(session?.nexusState || {}),
+    ...patch,
+    lastSeenAt: new Date().toISOString(),
+  });
+  writeState(next);
+  window.aegisNexusRender?.();
+  return next;
+}
+
+function authErrorMessage(error) {
+  const code = String(error?.code || "");
+  if (code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) {
+    return "Those credentials did not match a live EcoVerse account.";
+  }
+  if (code.includes("email-already-in-use")) {
+    return "That email already has an EcoVerse account. Use login or reset the password.";
+  }
+  if (code.includes("weak-password")) {
+    return "Firebase rejected the password as too weak. Use a longer, stronger password.";
+  }
+  if (code.includes("network")) {
+    return "The live auth service could not be reached. Check the connection and try again.";
+  }
+  return error?.message || "The live account service could not complete this request.";
 }
 
 function navigateTo(path) {
@@ -345,7 +378,7 @@ function enhanceLogin(doc) {
     if (icon) icon.textContent = show ? "visibility_off" : "visibility";
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const emailValue = (email?.value || "").trim();
     const passwordValue = password?.value || "";
     const rememberValue = Boolean(remember?.checked);
@@ -359,21 +392,22 @@ function enhanceLogin(doc) {
       password?.focus();
       return;
     }
-    const localName = emailValue.split("@")[0].replace(/[._-]+/g, " ").trim();
-    const peerLabel = localName
-      ? localName.split(" ").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ")
-      : "Authenticated Peer";
-    patchState({
-      peerLabel,
-      signedIn: true,
-      onboardingStage: "active",
-      profile: {
+    try {
+      submit?.setAttribute("disabled", "disabled");
+      setMessage(form, "Checking the live EcoVerse account service...", "success");
+      const session = await signInWithEmail({
         email: emailValue,
+        password: passwordValue,
         rememberDevice: rememberValue,
-      },
-    });
-    setMessage(form, "Credentials accepted. Routing through the secure session handoff.", "success");
-    window.setTimeout(() => navigateTo("/nexus/login-success-transition/"), 180);
+      });
+      applySessionState(session, { onboardingStage: "active" });
+      setMessage(form, "Live account confirmed. Routing through the secure session handoff.", "success");
+      window.setTimeout(() => navigateTo("/nexus/login-success-transition/"), 180);
+    } catch (error) {
+      setMessage(form, authErrorMessage(error), "error");
+    } finally {
+      submit?.removeAttribute("disabled");
+    }
   };
 
   form?.addEventListener("submit", (event) => {
@@ -410,7 +444,7 @@ function enhanceSignup(doc) {
     });
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const fullNameValue = (fullName?.value || "").trim();
     const emailValue = (email?.value || "").trim();
     const companyValue = (company?.value || "").trim();
@@ -435,18 +469,24 @@ function enhanceSignup(doc) {
       password?.focus();
       return;
     }
-    patchState({
-      peerLabel: fullNameValue,
-      signedIn: false,
-      onboardingStage: "mfa",
-      profile: {
+    try {
+      submit?.setAttribute("disabled", "disabled");
+      setMessage(form, "Creating the live EcoVerse account...", "success");
+      const session = await signUpWithEmail({
         fullName: fullNameValue,
         email: emailValue,
         company: companyValue,
-      },
-    });
-    setMessage(form, "Account profile staged. Routing into multi-factor verification.", "success");
-    window.setTimeout(() => navigateTo("/nexus/multi-factor-authentication/"), 180);
+        password: passwordValue,
+        rememberDevice: true,
+      });
+      applySessionState(session, { onboardingStage: "active" });
+      setMessage(form, "Account created and profile saved. Routing through the secure session handoff.", "success");
+      window.setTimeout(() => navigateTo("/nexus/login-success-transition/"), 180);
+    } catch (error) {
+      setMessage(form, authErrorMessage(error), "error");
+    } finally {
+      submit?.removeAttribute("disabled");
+    }
   };
 
   form?.addEventListener("submit", (event) => {
@@ -493,23 +533,11 @@ function enhanceMfa(doc) {
   });
 
   const completeVerification = (method) => {
-    const code = digits.map((input) => input.value).join("");
-    if (method === "authenticator" && code.length < 6) {
-      setMessage(card, "Enter the full 6-digit verification code to authorize this session.", "error");
-      digits.find((input) => !input.value)?.focus();
-      return;
-    }
-    patchState({
-      signedIn: true,
-      onboardingStage: "active",
-      profile: {
-        security2fa: true,
-      },
-      lastRoute: "multi-factor-authentication",
-      lastSeenAt: new Date().toISOString(),
-    });
-    setMessage(card, `Identity verified through ${method}. Routing into the secure session handoff.`, "success");
-    window.setTimeout(() => navigateTo("/nexus/login-success-transition/"), 180);
+    setMessage(
+      card,
+      `The ${method} surface is not enabled yet. Account access now uses Firebase Auth; true MFA will be activated as a later protected-auth slice.`,
+      "error",
+    );
   };
 
   bindManagedClick(verify, () => completeVerification("authenticator"));
@@ -761,8 +789,8 @@ function enhanceSettings(doc) {
     api: doc.getElementById("api"),
   };
 
-  if (fullName) fullName.value = state.profile.fullName || fullName.value;
-  if (email) email.value = state.profile.email || email.value;
+  if (fullName) fullName.value = state.profile.fullName || "";
+  if (email) email.value = state.profile.email || "";
   if (twoFactor) twoFactor.checked = state.profile.security2fa;
   if (securityAlerts) securityAlerts.checked = state.settings.notifications.securityAlerts;
   if (protocolAnalytics) protocolAnalytics.checked = state.settings.notifications.protocolAnalytics;
@@ -772,6 +800,22 @@ function enhanceSettings(doc) {
   const renderApiKeys = () => {
     if (!apiTableBody) return;
     const current = readState();
+    if (!current.signedIn) {
+      apiTableBody.innerHTML = `
+        <tr>
+          <td colspan="4" class="px-6 py-5 text-sm text-slate-500">Sign in to load account-owned API key metadata.</td>
+        </tr>
+      `;
+      return;
+    }
+    if (!current.settings.apiKeys.length) {
+      apiTableBody.innerHTML = `
+        <tr>
+          <td colspan="4" class="px-6 py-5 text-sm text-slate-500">No live API keys have been created for this account.</td>
+        </tr>
+      `;
+      return;
+    }
     apiTableBody.innerHTML = current.settings.apiKeys.map((key) => `
       <tr data-api-key-id="${key.id}">
         <td class="px-6 py-4 text-sm font-medium">${key.name}</td>
@@ -790,7 +834,7 @@ function enhanceSettings(doc) {
         const currentState = readState();
         const key = currentState.settings.apiKeys.find((entry) => entry.id === button.dataset.apiId);
         if (key) {
-          showToast(doc, `${key.name}: simulated key preview opened in the secure viewer.`);
+          showToast(doc, `${key.name}: live key metadata is present; secret values are never exposed in this browser surface.`);
         }
       });
     });
@@ -804,7 +848,7 @@ function enhanceSettings(doc) {
           },
         });
         renderApiKeys();
-        showToast(doc, "API key removed from this local Nexus workspace state.");
+        showToast(doc, "API key removed from this account view. Server-side key revocation will be added with the backend key service.");
       });
     });
   };
@@ -833,40 +877,37 @@ function enhanceSettings(doc) {
   });
 
   bindManagedClick(help, () => navigateTo("/nexus/aegis-protocol-documentation-portal/"));
-  bindManagedClick(updateProfile, () => {
-    patchState({
-      peerLabel: fullName?.value || readState().peerLabel,
-      profile: {
-        ...readState().profile,
+  bindManagedClick(updateProfile, async () => {
+    if (!readState().signedIn) {
+      showToast(doc, "Sign in before saving account profile changes.");
+      navigateTo("/nexus/login-aegisalign/");
+      return;
+    }
+    try {
+      const current = readState();
+      const session = await updateAccountProfile({
         fullName: fullName?.value || "",
         email: email?.value || "",
-      },
-    });
-    showToast(doc, "Profile details updated for this Nexus workspace.");
+        company: current.profile.company || "",
+        settings: current.settings,
+      });
+      applySessionState(session);
+      showToast(doc, "Profile details saved to the live EcoVerse account.");
+    } catch (error) {
+      showToast(doc, authErrorMessage(error));
+    }
   });
-  bindManagedClick(changePassword, () => {
-    showToast(doc, "Password rotation flow staged. Connect this to a live auth backend in a later slice.");
+  bindManagedClick(changePassword, async () => {
+    const emailValue = email?.value || readState().profile.email || "";
+    try {
+      await requestPasswordReset(emailValue);
+      showToast(doc, "Password reset email sent by the live account service.");
+    } catch (error) {
+      showToast(doc, authErrorMessage(error));
+    }
   });
   bindManagedClick(newKey, () => {
-    const current = readState();
-    const id = `generated-${Date.now()}`;
-    const created = new Date().toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
-    patchState({
-      settings: {
-        ...current.settings,
-        apiKeys: [
-          {
-            id,
-            name: `Generated-Key-${current.settings.apiKeys.length + 1}`,
-            created,
-            status: "Active",
-          },
-          ...current.settings.apiKeys,
-        ],
-      },
-    });
-    renderApiKeys();
-    showToast(doc, "New API key stub generated and added to local Nexus state.");
+    showToast(doc, "API key creation is blocked until the backend key service is live. No mock key was generated.");
   });
   bindManagedClick(discard, () => {
     const fresh = readState();
@@ -879,25 +920,32 @@ function enhanceSettings(doc) {
     renderApiKeys();
     showToast(doc, "Unsaved local changes discarded.");
   });
-  bindManagedClick(saveAll, () => {
-    patchState({
-      peerLabel: fullName?.value || readState().peerLabel,
-      profile: {
-        ...readState().profile,
+  bindManagedClick(saveAll, async () => {
+    if (!readState().signedIn) {
+      showToast(doc, "Sign in before saving account settings.");
+      navigateTo("/nexus/login-aegisalign/");
+      return;
+    }
+    try {
+      const current = readState();
+      const session = await updateAccountProfile({
         fullName: fullName?.value || "",
         email: email?.value || "",
-        security2fa: Boolean(twoFactor?.checked),
-      },
-      settings: {
-        ...readState().settings,
-        notifications: {
-          securityAlerts: Boolean(securityAlerts?.checked),
-          protocolAnalytics: Boolean(protocolAnalytics?.checked),
-          emailSummary: Boolean(emailSummary?.checked),
+        company: current.profile.company || "",
+        settings: {
+          ...current.settings,
+          notifications: {
+            securityAlerts: Boolean(securityAlerts?.checked),
+            protocolAnalytics: Boolean(protocolAnalytics?.checked),
+            emailSummary: Boolean(emailSummary?.checked),
+          },
         },
-      },
-    });
-    showToast(doc, "Settings saved into the Nexus local workspace state.");
+      });
+      applySessionState(session);
+      showToast(doc, "Settings saved to the live EcoVerse account.");
+    } catch (error) {
+      showToast(doc, authErrorMessage(error));
+    }
   });
 }
 
@@ -1288,10 +1336,25 @@ function enhanceLoginSuccess(doc) {
   const headline = Array.from(doc.querySelectorAll("h1")).find((node) => normalizeText(node.textContent).includes("secure session initializing"));
   const subline = Array.from(doc.querySelectorAll("p")).find((node) => normalizeText(node.textContent).includes("biometric signature verified"));
 
+  const currentState = readState();
+  if (!currentState.signedIn) {
+    patchState({
+      signedIn: false,
+      onboardingStage: "login-required",
+      peerLabel: "Guest Peer",
+      lastRoute: "login-success-transition",
+      lastSeenAt: new Date().toISOString(),
+    });
+    if (headline) headline.textContent = "Sign In Required";
+    if (subline) subline.textContent = "No live EcoVerse account session was found. Return to login to continue.";
+    showToast(doc, "No authenticated session is active. Opening the login gateway.");
+    window.setTimeout(() => navigateTo("/nexus/login-aegisalign/"), 900);
+    return;
+  }
+
   patchState({
-    signedIn: true,
     onboardingStage: "active",
-    peerLabel: readState().peerLabel === "Guest Peer" ? "Authenticated Peer" : readState().peerLabel,
+    peerLabel: currentState.peerLabel,
     lastRoute: "login-success-transition",
     lastSeenAt: new Date().toISOString(),
   });
@@ -1378,3 +1441,27 @@ window.aegisNexusActivation = {
 };
 
 initNexusActivation();
+
+observeAuthSession((session) => {
+  if (session?.user) {
+    applySessionState(session);
+  } else {
+    patchState({
+      signedIn: false,
+      peerLabel: "Guest Peer",
+      subscription: "Explorer",
+      onboardingStage: "public",
+      profile: {
+        fullName: "",
+        email: "",
+        company: "",
+        rememberDevice: false,
+        security2fa: false,
+      },
+      settings: {
+        notifications: DEFAULT_STATE.settings.notifications,
+        apiKeys: [],
+      },
+    });
+  }
+});

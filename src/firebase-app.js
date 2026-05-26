@@ -1,4 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 export const FIREBASE_CONFIG = {
@@ -12,6 +13,7 @@ export const FIREBASE_CONFIG = {
 };
 
 let appInstance;
+let authInstance;
 let firestoreInstance;
 
 export function getFirebaseApp() {
@@ -26,4 +28,11 @@ export function getAegisFirestore() {
     firestoreInstance = getFirestore(getFirebaseApp());
   }
   return firestoreInstance;
+}
+
+export function getAegisAuth() {
+  if (!authInstance) {
+    authInstance = getAuth(getFirebaseApp());
+  }
+  return authInstance;
 }

@@ -12,10 +12,10 @@ The canonical source is the locked external repository at:
 
 The first integration layer now lives in:
 
-- [I:\AEGIS_ALIGN-ECOVERSE\src\agent-core-engine.js](/I:/AEGIS_ALIGN-ECOVERSE/src/agent-core-engine.js)
-- [I:\AEGIS_ALIGN-ECOVERSE\src\generated\core-engine-reference.json](/I:/AEGIS_ALIGN-ECOVERSE/src/generated/core-engine-reference.json)
-- [I:\AEGIS_ALIGN-ECOVERSE\src\agent-workshop-activation.js](/I:/AEGIS_ALIGN-ECOVERSE/src/agent-workshop-activation.js)
-- [I:\AEGIS_ALIGN-ECOVERSE\scripts\sync-core-engine-reference.mjs](/I:/AEGIS_ALIGN-ECOVERSE/scripts/sync-core-engine-reference.mjs)
+- [agent-core-engine.js](../src/agent-core-engine.js)
+- [core-engine-reference.json](../src/generated/core-engine-reference.json)
+- [agent-workshop-activation.js](../src/agent-workshop-activation.js)
+- [sync-core-engine-reference.mjs](../scripts/sync-core-engine-reference.mjs)
 
 This foundation does three things:
 

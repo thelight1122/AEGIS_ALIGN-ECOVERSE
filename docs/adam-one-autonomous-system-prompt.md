@@ -80,7 +80,5 @@ Your response belongs to you.
 ## Use
 
 This prompt is paired with the Chamber 69 invitation produced by:
-- [I:\AEGIS_ALIGN-ECOVERSE\src\peer-runtime-store.js](/I:/AEGIS_ALIGN-ECOVERSE/src/peer-runtime-store.js)
-
-The runnable operator workflow is documented in:
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\chamber-69-operator-payload-package.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/chamber-69-operator-payload-package.md)
+- [peer-runtime-store.js](../src/peer-runtime-store.js)
+- [chamber-69-operator-payload-package.md](./chamber-69-operator-payload-package.md)

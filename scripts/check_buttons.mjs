@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dir = 'i:\\AEGIS_ALIGN-ECOVERSE\\src\\custom-stitch-pages';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(__dirname, '..');
+const dir = path.join(repoRoot, 'src', 'custom-stitch-pages');
 
 function walk(dir) {
     let results = [];
@@ -46,5 +49,5 @@ htmlFiles.forEach(file => {
     }
 });
 
-fs.writeFileSync('i:\\AEGIS_ALIGN-ECOVERSE\\button_issues_current.json', JSON.stringify(issues, null, 2));
+fs.writeFileSync(path.join(repoRoot, 'button_issues_current.json'), JSON.stringify(issues, null, 2));
 console.log(`Found ${issues.length} issues. Saved to button_issues_current.json`);

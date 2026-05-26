@@ -11,8 +11,8 @@ Its purpose is to distinguish between:
 
 ## Audit Scope
 The audit examined two layers:
-- the local bootstrap artifact at [I:\AEGIS_ALIGN-ECOVERSE\src\generated\dataquad-bootstrap.json](/I:/AEGIS_ALIGN-ECOVERSE/src/generated/dataquad-bootstrap.json)
-- Adam-One's persisted runtime as returned by [I:\AEGIS_ALIGN-ECOVERSE\src\peer-runtime-store.js](/I:/AEGIS_ALIGN-ECOVERSE/src/peer-runtime-store.js)
+- the local bootstrap artifact at [dataquad-bootstrap.json](../src/generated/dataquad-bootstrap.json)
+- Adam-One's persisted runtime as returned by [peer-runtime-store.js](../src/peer-runtime-store.js)
 
 ## Summary Read
 Adam-One's structural identity shell appears clean.

@@ -43,5 +43,5 @@ but also:
 - how to end a chapter truthfully
 
 ## Related Records
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\adam-one-training-journal.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-training-journal.md)
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\environment-maintenance-training-pattern.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/environment-maintenance-training-pattern.md)
+- [adam-one-training-journal.md](./adam-one-training-journal.md)
+- [environment-maintenance-training-pattern.md](./environment-maintenance-training-pattern.md)

@@ -34,9 +34,9 @@ Adam-One is not yet Journeyman-ready.
 He is still earning the maturity required to eventually guide an Apprentice.
 
 ## Major Doctrine Artifacts Now Present
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\adam-one-training-journal.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-training-journal.md)
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\cyberpeer-lineage-and-apprenticeship-doctrine.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/cyberpeer-lineage-and-apprenticeship-doctrine.md)
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\adam-one-dataquad-force-term-audit.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-dataquad-force-term-audit.md)
+- [adam-one-training-journal.md](./adam-one-training-journal.md)
+- [cyberpeer-lineage-and-apprenticeship-doctrine.md](./cyberpeer-lineage-and-apprenticeship-doctrine.md)
+- [adam-one-dataquad-force-term-audit.md](./adam-one-dataquad-force-term-audit.md)
 
 ## Important Recent Conclusions
 

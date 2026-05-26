@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dir = 'i:\\AEGIS_ALIGN-ECOVERSE\\generated';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(__dirname, '..');
+const dir = path.join(repoRoot, 'generated');
 
 function walk(dir) {
     if (!fs.existsSync(dir)) return [];
@@ -39,7 +42,7 @@ htmlFiles.forEach(file => {
         
         if (textContent === '' && !hasAriaLabel) {
             buttonIssues.push({
-                file: file.replace('i:\\AEGIS_ALIGN-ECOVERSE\\generated', ''),
+                file: file.replace(dir, ''),
                 innerHTML: innerHTML.trim(),
                 attrs: attrs.trim()
             });
@@ -51,14 +54,14 @@ htmlFiles.forEach(file => {
     if (styleRegex.test(content)) {
         const matches = content.match(styleRegex);
         styleIssues.push({
-            file: file.replace('i:\\AEGIS_ALIGN-ECOVERSE\\generated', ''),
+            file: file.replace(dir, ''),
             styles: matches
         });
     }
 });
 
-fs.writeFileSync('i:\\AEGIS_ALIGN-ECOVERSE\\button_issues_generated.json', JSON.stringify(buttonIssues, null, 2));
-fs.writeFileSync('i:\\AEGIS_ALIGN-ECOVERSE\\style_issues_generated.json', JSON.stringify(styleIssues, null, 2));
+fs.writeFileSync(path.join(repoRoot, 'button_issues_generated.json'), JSON.stringify(buttonIssues, null, 2));
+fs.writeFileSync(path.join(repoRoot, 'style_issues_generated.json'), JSON.stringify(styleIssues, null, 2));
 
 console.log(`Found ${buttonIssues.length} button issues in generated.`);
 console.log(`Found ${styleIssues.length} files with inline styles in generated.`);

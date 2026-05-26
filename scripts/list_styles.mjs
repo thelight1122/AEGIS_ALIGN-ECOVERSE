@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = 'i:\\AEGIS_ALIGN-ECOVERSE\\src\\custom-stitch-pages';
+const rootDir = path.resolve(__dirname, '..', 'src', 'custom-stitch-pages');
 
 function walk(dir) {
     let results = [];

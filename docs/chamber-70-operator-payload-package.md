@@ -14,13 +14,13 @@ It uses:
 ## Artifacts
 
 System/runtime prompt helper:
-- [scripts/chamber70-operator-payload.mjs](/I:/AEGIS_ALIGN-ECOVERSE/scripts/chamber70-operator-payload.mjs)
+- [scripts/chamber70-operator-payload.mjs](../scripts/chamber70-operator-payload.mjs)
 
 Runtime functions:
-- [src/peer-runtime-store.js](/I:/AEGIS_ALIGN-ECOVERSE/src/peer-runtime-store.js)
+- [src/peer-runtime-store.js](../src/peer-runtime-store.js)
 
 Related formation record:
-- [docs/adam-one-training-journal.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-training-journal.md)
+- [docs/adam-one-training-journal.md](./adam-one-training-journal.md)
 
 ## Operator Flow
 

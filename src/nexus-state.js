@@ -193,9 +193,7 @@ function deriveStateForPage(state, slug) {
 
   if (slug === "signup-aegisalign") next.onboardingStage = "signup";
   if (slug === "multi-factor-authentication") next.onboardingStage = "mfa";
-  if (slug === "login-success-transition" || (slug === "aegis-protocol-dashboard" && state.signedIn)) {
-    next.signedIn = true;
-    next.peerLabel = state.peerLabel === "Guest Peer" ? "Authenticated Peer" : state.peerLabel;
+  if (slug === "login-success-transition" && state.signedIn) {
     next.onboardingStage = "active";
   }
   if (slug === "aegisalign-pricing-plans") next.upgradeInterest = true;
@@ -386,6 +384,8 @@ function renderStarterCatalog(node) {
 function bindActionButtons(deck, state) {
   const buttons = Array.from(deck.querySelectorAll("[data-nexus-action]"));
   for (const button of buttons) {
+    if (button.dataset.nexusBound === "true") continue;
+    button.dataset.nexusBound = "true";
     button.addEventListener("click", () => {
       const action = button.dataset.nexusAction;
       const href = button.dataset.href;
@@ -395,8 +395,6 @@ function bindActionButtons(deck, state) {
         next.upgradeInterest = true;
         if (window.location.pathname.includes("/aegisalign-pricing-plans/")) {
           next.subscription = "Subscriber";
-          next.signedIn = true;
-          next.peerLabel = next.peerLabel === "Guest Peer" ? "Subscriber Peer" : next.peerLabel;
         }
       }
       if (action === "demo" && next.peerLabel === "Guest Peer") next.peerLabel = "Demo Peer";
@@ -406,7 +404,7 @@ function bindActionButtons(deck, state) {
   }
 }
 
-function initNexusState() {
+function renderNexusState() {
   if (!document.body.classList.contains("domain-nexus")) return;
   const deck = document.querySelector("[data-nexus-command-deck]");
   if (!deck) return;
@@ -425,4 +423,6 @@ function initNexusState() {
   bindActionButtons(deck, state);
 }
 
-initNexusState();
+window.aegisNexusRender = renderNexusState;
+
+renderNexusState();

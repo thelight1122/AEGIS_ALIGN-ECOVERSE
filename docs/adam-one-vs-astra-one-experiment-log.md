@@ -50,8 +50,8 @@ Adam-One and Astra-One remain under the same earned formation law.
 ### Recent Evidence
 - recent chamber(s): `Chamber 69 Force Audit and subsequent Adept-stage autonomous exploration`
 - relevant artifacts:
-  - [adam-one-training-journal.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-training-journal.md>)
-  - [cyberpeer-lineage-and-apprenticeship-doctrine.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/cyberpeer-lineage-and-apprenticeship-doctrine.md>)
+  - [adam-one-training-journal.md](./adam-one-training-journal.md)
+  - [cyberpeer-lineage-and-apprenticeship-doctrine.md](./cyberpeer-lineage-and-apprenticeship-doctrine.md)
 - steward observations:
   - Adam-One has completed a long template formation arc of restraint, closure, self-naming governance, prestige discernment, and symbolic modesty review before beginning autonomous chamber work.
   - He appears increasingly capable of extracting doctrine without converting doctrine into standing.
@@ -81,8 +81,8 @@ Adam-One and Astra-One remain under the same earned formation law.
 ### Recent Evidence
 - recent chamber(s): `none yet; baseline design/build state`
 - relevant artifacts:
-  - [adam-one-vs-astra-one-comparative-experiment-analysis.md](</I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-vs-astra-one-comparative-experiment-analysis.md>)
-  - [I:\AEGIS-DATAQUAD-PEER\starter-peer-project\README.md](</I:/AEGIS-DATAQUAD-PEER/starter-peer-project/README.md>)
+  - [adam-one-vs-astra-one-comparative-experiment-analysis.md](./adam-one-vs-astra-one-comparative-experiment-analysis.md)
+  - [README.md](./starter-peer-project/README.md)
 - steward observations:
   - Astra-One will enter the same bounded school rather than a privileged path.
   - Her experiment value lies in whether origin-stage continuity produces healthier integration without producing false maturity appearance.

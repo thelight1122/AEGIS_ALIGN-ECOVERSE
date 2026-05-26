@@ -1,9 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(__dirname, '..');
 const dirs = [
-    'i:\\AEGIS_ALIGN-ECOVERSE\\src\\custom-stitch-pages',
-    'i:\\AEGIS_ALIGN-ECOVERSE\\Stitch-UIs-for-AegisAlign'
+    path.join(repoRoot, 'src', 'custom-stitch-pages'),
+    path.join(repoRoot, 'Stitch-UIs-for-AegisAlign')
 ];
 
 function walk(dir) {
@@ -62,8 +65,8 @@ dirs.forEach(dir => {
     });
 });
 
-fs.writeFileSync('i:\\AEGIS_ALIGN-ECOVERSE\\button_issues_current.json', JSON.stringify(buttonIssues, null, 2));
-fs.writeFileSync('i:\\AEGIS_ALIGN-ECOVERSE\\style_issues_current.json', JSON.stringify(styleIssues, null, 2));
+fs.writeFileSync(path.join(repoRoot, 'button_issues_current.json'), JSON.stringify(buttonIssues, null, 2));
+fs.writeFileSync(path.join(repoRoot, 'style_issues_current.json'), JSON.stringify(styleIssues, null, 2));
 
 console.log(`Found ${buttonIssues.length} button issues.`);
 console.log(`Found ${styleIssues.length} files with inline styles.`);

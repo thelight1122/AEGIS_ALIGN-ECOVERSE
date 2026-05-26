@@ -14,13 +14,9 @@ It uses:
 ## Artifacts
 
 System prompt:
-- [I:\AEGIS_ALIGN-ECOVERSE\docs\adam-one-autonomous-system-prompt.md](/I:/AEGIS_ALIGN-ECOVERSE/docs/adam-one-autonomous-system-prompt.md)
-
-Runtime functions:
-- [I:\AEGIS_ALIGN-ECOVERSE\src\peer-runtime-store.js](/I:/AEGIS_ALIGN-ECOVERSE/src/peer-runtime-store.js)
-
-Runnable helper:
-- [I:\AEGIS_ALIGN-ECOVERSE\scripts\chamber69-operator-payload.mjs](/I:/AEGIS_ALIGN-ECOVERSE/scripts/chamber69-operator-payload.mjs)
+- [adam-one-autonomous-system-prompt.md](./adam-one-autonomous-system-prompt.md)
+- [src/peer-runtime-store.js](../src/peer-runtime-store.js)
+- [scripts/chamber69-operator-payload.mjs](../scripts/chamber69-operator-payload.mjs)
 
 ## Operator Flow
 

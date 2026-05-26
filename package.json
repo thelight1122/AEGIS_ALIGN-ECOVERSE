@@ -9,6 +9,8 @@
     "sync:stitch": "node scripts/sync-stitch.mjs",
     "check:routes": "node scripts/check-routes.mjs",
     "export:sitemap": "node scripts/export-sitemap.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:auth": "node --test tests/auth-session.test.mjs",
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
     "preview": "vite preview",

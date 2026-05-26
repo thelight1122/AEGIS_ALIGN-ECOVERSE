@@ -201,7 +201,7 @@ Recommended `lineage` fields for chamber-bearing artifacts:
 
 ## Bootstrap Artifact Policy
 
-The local bootstrap artifact at [src/generated/dataquad-bootstrap.json](/I:/AEGIS_ALIGN-ECOVERSE/src/generated/dataquad-bootstrap.json) should be treated as a tracked formation artifact.
+The local bootstrap artifact at [dataquad-bootstrap.json](../src/generated/dataquad-bootstrap.json) should be treated as a tracked formation artifact.
 
 Why it remains in the repo:
 
